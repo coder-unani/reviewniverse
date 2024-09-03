@@ -1,5 +1,175 @@
+// variables
+// '*'를 사용하면 네임스페이스 없이 변수 사용 가능
+@use '@/styles/variables' as *;
+
+// normalize.css
 @import '~normalize.css';
 
+// common
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+}
+
+// TODO: 스크롤바 커스텀
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html {
+  font-size: 16px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'SUIT Variable', 'Apple SD Gothic NEO', 'Helvetica Neue',
+    Helvetica, 나눔고딕, NanumGothic, 'Malgun Gothic', '맑은 고딕', 굴림, gulim,
+    새굴림, 'noto sans', 돋움, Dotum, sans-serif;
+  background-color: $color-background;
+  margin: 0;
+  padding: 0;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  border-radius: 0;
+  background: 0 0;
+  background-color: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+summary {
+  list-style-type: none;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span {
+  letter-spacing: -0.2px;
+  margin: 0;
+}
+
+em {
+  font-style: normal;
+}
+
+.lazy-load-image-background {
+  width: 100%;
+  height: 100%;
+}
+
+.home-button {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-01;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 8px;
+  background-color: $color-white-08;
+  padding: 0 15px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.back-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+
+  svg {
+    width: 40px;
+    height: 40px;
+
+    path {
+      fill: $color-white;
+    }
+  }
+}
+
+.clear-button {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 100%;
+
+  svg {
+    object-fit: contain;
+
+    path {
+      fill: rgba($color-white, 0.5);
+      stroke: transparent;
+    }
+  }
+}
+
+.modal-close-button {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: flex;
+  padding: 6px;
+  cursor: pointer;
+
+  svg {
+    path {
+      fill: $color-white-04;
+    }
+  }
 }

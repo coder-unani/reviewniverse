@@ -1,13 +1,13 @@
 # Next App 설치
 
 yarn create next-app .
-✔ Would you like to use TypeScript? … No / Yes
-✔ Would you like to use ESLint? … No / Yes
-✔ Would you like to use Tailwind CSS? … No / Yes
-✔ Would you like to use `src/` directory? … No / Yes
-✔ Would you like to use App Router? (recommended) … No / Yes
-✔ Would you like to customize the default import alias (@/_)? … No / Yes
-✔ What import alias would you like configured? … @/_
+✔ Would you like to use TypeScript? … No / Yes (No)
+✔ Would you like to use ESLint? … No / Yes (Yes)
+✔ Would you like to use Tailwind CSS? … No / Yes (No)
+✔ Would you like to use `src/` directory? … No / Yes (Yes)
+✔ Would you like to use App Router? (recommended) … No / Yes (Yes)
+✔ Would you like to customize the default import alias (@/_)? … No / Yes (Yes)
+✔ What import alias would you like configured? … @/_ (~/\*)
 
 # ESLint, Prettier 설정
 
@@ -17,10 +17,12 @@ yarn add --dev eslint prettier eslint-config-airbnb eslint-plugin-import eslint-
 
 yarn add axios
 yarn add normalize.css
+yarn upgrade eslint ajv uri-js
 
 # 개발 의존성 라이브러리 설치
 
 yarn add --dev sass
+yarn add --dev @svgr/webpack
 
 # 프로젝트 기본 구조
 
@@ -48,12 +50,15 @@ yarn add --dev sass
 │ │ └── api.js # API 요청 처리 함수들
 │ │ └── auth.js # 인증 관련 유틸리티
 │ │
+│ ├── resources/ # 이미지들
+│ │ └── logo.svg
+│ │
 │ ├── services/ # 비즈니스 로직 및 외부 서비스와의 통신을 처리하는 파일들
 │ │ └── userService.js # 사용자 관련 서비스 로직
 │ │
 │ ├── styles/ # 스타일 시트 및 스타일 관련 파일들
-│ │ └── globals.css
-│ │ └── Home.module.css
+│ │ └── globals.scss
+│ │ └── Home.module.scss
 │ │
 │ ├── utils/ # 유틸리티 함수들
 │ └── formatDate.js # 날짜 포맷팅 유틸리티 함수
