@@ -5,6 +5,14 @@
 // normalize.css
 @import '~normalize.css';
 
+// font
+@font-face {
+  font-family: 'SUIT Variable';
+  font-weight: 100 900;
+  src: url('#{$cdn-base-url}/assets/fonts/SUIT-Variable.woff2')
+    format('woff2-variations');
+}
+
 // common
 *,
 *::before,
@@ -104,9 +112,21 @@ em {
   font-style: normal;
 }
 
-.lazy-load-image-background {
+// .lazy-load-image-background {
+//   width: 100%;
+//   height: 100%;
+// }
+
+.wrapper {
   width: 100%;
   height: 100%;
+  min-height: calc(var(--vh, 1vh) * 100);
+  margin: 0 auto;
+}
+
+main {
+  min-height: calc(100vh - $footer-height);
+  padding-top: $header-height;
 }
 
 .home-button {
