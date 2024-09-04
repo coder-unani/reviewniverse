@@ -15,28 +15,6 @@ export const DEFAULT_IMAGES = {
   error: '/assets/images/error.png',
 };
 
-export const DEFAULT_ICONS = {
-  outlineFolder: '/assets/button/outline-folder.svg',
-  outlineHeart: '/assets/button/outline-heart.svg',
-  outlinePen: '/assets/button/outline-pen.svg',
-  outlineTrash: '/assets/button/outline-trash.svg',
-  outlineUpdate: '/assets/button/outline-update.svg',
-  outlineThumb1: '/assets/button/outline-thumb-1.svg',
-  outlineThumb2: '/assets/button/outline-thumb-2.svg',
-  fillFolder: '/assets/button/fill-folder.svg',
-  fillHeart: '/assets/button/fill-heart.svg',
-  fillPen: '/assets/button/fill-pen.svg',
-  fillTrash: '/assets/button/fill-trash.svg',
-  fillUpdate: '/assets/button/fill-update.svg',
-  fillThumb1: '/assets/button/fill-thumb-1.svg',
-  fillThumb2: '/assets/button/fill-thumb-2.svg',
-  arrowLeft: '/assets/button/arrow-left.svg',
-  arrowRight: '/assets/button/arrow-right.svg',
-  search: '/assets/button/outline-search.svg',
-  menu: '/assets/button/menu3.svg',
-  close: '/assets/button/outline-close.svg',
-};
-
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, 인기, 추천, 검색, 통합검색, OTT, 평점';
 
