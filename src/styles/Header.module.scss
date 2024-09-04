@@ -1,0 +1,225 @@
+@use '@/styles/variables' as *;
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $color-background;
+  transition: all 0.2s ease-in-out;
+  z-index: 100;
+
+  isolation: isolate;
+
+  &.transparent {
+    background: transparent;
+    background: -webkit-linear-gradient(
+      to bottom,
+      rgba($color-background, 0.6),
+      rgba($color-background, 0)
+    );
+    background: linear-gradient(
+      to bottom,
+      rgba($color-background, 0.6),
+      rgba($color-background, 0)
+    );
+    transition: all 0.2s ease-in-out;
+
+    .search__form {
+      border: 1px solid transparent;
+      background-color: rgba($color-background, 0.5);
+    }
+
+    .search__input {
+      color: $color-white-01;
+
+      &::placeholder {
+        color: rgba($color-white-02, 0.5);
+      }
+    }
+  }
+}
+
+.header__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1440px;
+  padding: 10px 60px;
+  margin: 0 auto;
+}
+
+.header__logo {
+  display: flex;
+  cursor: pointer;
+}
+
+.header__logo__link {
+  display: flex;
+}
+
+.search__container {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 930px);
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.toolbar__container {
+  flex: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.toolbar__user {
+  position: relative;
+  padding: 3px;
+  margin-left: 4px;
+
+  &:hover {
+    &::before {
+      display: block;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: $color-magenta;
+    background: -webkit-linear-gradient(
+      to bottom,
+      rgba($color-cyan, 1),
+      rgba($color-magenta, 1)
+    );
+    background: linear-gradient(
+      to bottom,
+      rgba($color-cyan, 1),
+      rgba($color-magenta, 1)
+    );
+  }
+}
+
+.toolbar__login {
+  font-size: 12px;
+  font-weight: 600;
+  color: $color-white-01;
+  line-height: 30px;
+  letter-spacing: -0.2px;
+  border-radius: 8px;
+  background: $color-magenta;
+  background: -webkit-linear-gradient(
+    to right,
+    rgba($color-cyan, 0.75),
+    rgba($color-magenta, 0.75)
+  );
+  background: linear-gradient(
+    to right,
+    rgba($color-cyan, 0.75),
+    rgba($color-magenta, 0.75)
+  );
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0 15px;
+  margin-left: 12px;
+
+  &:hover {
+    background: -webkit-linear-gradient(
+      to right,
+      rgba($color-cyan, 1),
+      rgba($color-magenta, 1)
+    );
+    background: linear-gradient(
+      to right,
+      rgba($color-cyan, 1),
+      rgba($color-magenta, 1)
+    );
+  }
+}
+
+.search__button,
+.menu__button {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  cursor: pointer;
+
+  path {
+    stroke: $color-white-01;
+  }
+}
+
+.header__mobile__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 30px;
+  margin: 0 auto;
+
+  .toolbar__container {
+    gap: 12px;
+    margin-right: -4px;
+  }
+}
+
+.header__search__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 10px 30px;
+
+  // .search__form {
+  //   flex: 1;
+  //   border: none;
+  //   background-color: rgba($color-white-08, 0.5);
+  //   margin-right: 4px;
+  // }
+
+  // .search__input {
+  //   // caret-color: rgba($color-primary, 0.7);
+  //   // caret-color: rgba($color-white-02, 0.5);
+
+  //   &::placeholder {
+  //     color: rgba($color-white-01, 0.5);
+  //   }
+  // }
+
+  .menu__button {
+    margin-right: -4px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header__wrapper {
+    padding: 10px 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .header__wrapper {
+    padding: 10px 15px;
+  }
+
+  .header__mobile__wrapper {
+    padding: 10px 15px;
+  }
+
+  .header__search__wrapper {
+    position: relative;
+    padding: 10px 15px;
+  }
+}
