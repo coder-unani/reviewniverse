@@ -1,0 +1,77 @@
+@use '@/styles/variables' as *;
+
+.footer {
+  border-top: 1px solid $border-color-01;
+  background-color: $color-background;
+}
+
+.footer__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 1440px;
+  padding: 20px 60px 60px;
+  margin: 0 auto;
+}
+
+.footer__service__list {
+  display: flex;
+  gap: 8px;
+
+  li {
+    font-size: 13px;
+    color: $color-white-04;
+    cursor: pointer;
+  }
+
+  li + li::before {
+    content: '|';
+    color: $color-white-04;
+    margin-right: 8px;
+    cursor: auto;
+  }
+}
+
+.footer__contact__list {
+  display: flex;
+  gap: 8px;
+
+  & + & {
+    margin-top: 4px;
+  }
+
+  li {
+    font-size: 13px;
+    color: $color-white-04;
+  }
+
+  li + li::before {
+    content: '|';
+    color: $color-white-04;
+    margin-right: 8px;
+  }
+}
+
+.footer__copyright__list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.footer__copyright__item {
+  font-size: 13px;
+  color: $color-white-05;
+}
+
+@media (max-width: 1024px) {
+  .footer__wrapper {
+    padding: 20px 30px 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer__wrapper {
+    padding: 20px 15px 60px;
+  }
+}
