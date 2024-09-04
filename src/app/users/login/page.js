@@ -21,7 +21,7 @@ export default function page() {
         <button
           type="button"
           className={`${styles.login__button} ${styles.kakao}`}
-          onClick=""
+          // onClick=""
         >
           <Image
             className={styles.login__button__image}
@@ -36,7 +36,7 @@ export default function page() {
         <button
           type="button"
           className={`${styles.login__button} ${styles.naver}`}
-          onClick=""
+          // onClick=""
         >
           <Image
             className={styles.login__button__image}
@@ -50,7 +50,7 @@ export default function page() {
         <button
           type="button"
           className={`${styles.login__button} ${styles.google}`}
-          onClick=""
+          // onClick=""
         >
           <Image
             className={styles.login__button__image}
