@@ -1,14 +1,7 @@
-import { Inter } from 'next/font/google';
-// import localFont from 'next/font/local';
-// import { SETTINGS } from '@/config/settings';
+import DefaultLayout from '@/components/layout/default';
 import '@/styles/globals.scss';
 
-const inter = Inter({ subsets: ['latin'] });
-// const font = localFont({
-//   src: '/fonts/SUIT-Variable.woff2',
-// });
-
-// metatags 설정
+// 메타태그 설정
 export const metadata = {
   title: '리뷰니버스',
   description:
@@ -16,9 +9,5 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  return (
-    <html lang="ko">
-      <body className={inter.className}>{children}</body>
-    </html>
-  );
+  return <DefaultLayout>{children}</DefaultLayout>;
 }
