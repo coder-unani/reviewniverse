@@ -25,6 +25,9 @@ const nextConfig = {
     });
     return config;
   },
+
+  // 프로덕션 환경에서 소스 맵 비활성화
+  productionBrowserSourceMaps: false,
 };
 
 export default nextConfig;

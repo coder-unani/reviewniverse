@@ -9,11 +9,24 @@
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ."
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "@tanstack/react-query": "^5.54.1",
+    "@tanstack/react-query-devtools": "^5.54.1",
     "axios": "^1.7.7",
+    "firebase": "^10.13.1",
+    "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
     "next": "14.2.7",
     "normalize.css": "^8.0.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-hook-form": "^7.53.0",
+    "react-loading-skeleton": "^3.4.0",
+    "react-modal": "^3.16.1",
+    "react-toastify": "^10.0.5",
+    "react-tooltip": "^5.28.0",
+    "swiper": "^11.1.12",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",

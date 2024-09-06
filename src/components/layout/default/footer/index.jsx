@@ -1,23 +1,19 @@
-import styles from '@/styles/Footer.module.scss';
+'use client';
+
+import { useModalContext } from '@/contexts/ModalContext';
+import styles from '@/styles/components/Footer.module.scss';
 
 const Footer = () => {
   const year = new Date().getFullYear();
+  const { toggleTermsModal, togglePrivacyModal } = useModalContext();
 
   return (
     <footer className={styles.footer}>
       <section className={styles.footer__wrapper}>
         <div>
           <ul className={styles.footer__service__list}>
-            <li
-            // onClick={toggleTermsModal}
-            >
-              서비스 이용약관
-            </li>
-            <li
-            // onClick={togglePrivacyModal}
-            >
-              개인정보 처리방침
-            </li>
+            <li onClick={toggleTermsModal}>서비스 이용약관</li>
+            <li onClick={togglePrivacyModal}>개인정보 처리방침</li>
           </ul>
         </div>
         <div>

@@ -1,18 +1,20 @@
+import { SETTINGS } from '@/config/settings';
+
 export const DEFAULT_IMAGES = {
-  logo: '/assets/images/logo.svg',
-  logoWhite: '/assets/images/logo-white.svg',
-  kakao: '/assets/images/kakao.png',
-  naver: '/assets/images/naver.png',
-  google: '/assets/images/google.png',
-  noActor: '/assets/images/no-actor.png',
-  noImage: '/assets/images/no-image.png',
-  popup: '/assets/images/popup.png',
-  userLogin: '/assets/images/user-login.png',
-  userDelete: '/assets/images/user-delete.png',
-  loading: '/assets/images/loading.png',
-  searchNotFound: '/assets/images/search-not-found.png',
-  pageNotFound: '/assets/images/page-not-found.png',
-  error: '/assets/images/error.png',
+  logo: `${SETTINGS.CDN_BASE_URL}/assets/images/logo.svg`,
+  logoWhite: `${SETTINGS.CDN_BASE_URL}/assets/images/logo-white.svg`,
+  kakao: `${SETTINGS.CDN_BASE_URL}/assets/images/kakao.png`,
+  naver: `${SETTINGS.CDN_BASE_URL}/assets/images/naver.png`,
+  google: `${SETTINGS.CDN_BASE_URL}/assets/images/google.png`,
+  noActor: `${SETTINGS.CDN_BASE_URL}/assets/images/no-actor.png`,
+  noImage: `${SETTINGS.CDN_BASE_URL}/assets/images/no-image.png`,
+  popup: `${SETTINGS.CDN_BASE_URL}/assets/images/popup.png`,
+  userLogin: `${SETTINGS.CDN_BASE_URL}/assets/images/user-login.png`,
+  userDelete: `${SETTINGS.CDN_BASE_URL}/assets/images/user-delete.png`,
+  loading: `${SETTINGS.CDN_BASE_URL}/assets/images/loading.png`,
+  searchNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/search-not-found.png`,
+  pageNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/page-not-found.png`,
+  error: `${SETTINGS.CDN_BASE_URL}/assets/images/error.png`,
 };
 
 export const SITE_KEYWORDS =

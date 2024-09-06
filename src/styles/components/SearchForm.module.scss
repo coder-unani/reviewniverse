@@ -1,5 +1,35 @@
 @use '@/styles/variables' as *;
 
+:global(header.transparent) {
+  .search__form {
+    border: 1px solid transparent;
+    background-color: rgba($color-background, 0.5);
+  }
+
+  .search__input {
+    color: $color-white-01;
+
+    &::placeholder {
+      color: rgba($color-white-02, 0.5);
+    }
+  }
+}
+
+:global(.header__search__wrapper) {
+  .search__form {
+    flex: 1;
+    border: none;
+    background-color: rgba($color-white-08, 0.5);
+    margin-right: 4px;
+  }
+
+  .search__input {
+    &::placeholder {
+      color: rgba($color-white-01, 0.5);
+    }
+  }
+}
+
 .search__form {
   display: flex;
   align-items: center;
@@ -14,13 +44,6 @@
   &:focus-within {
     border-color: $border-color-05;
   }
-
-  :global(.header__search__wrapper) & {
-    flex: 1;
-    border: none;
-    background-color: rgba($color-white-08, 0.5);
-    margin-right: 4px;
-  }
 }
 
 .search__form__button {
@@ -33,9 +56,6 @@
 }
 
 .search__icon {
-  width: 18px;
-  object-fit: contain;
-
   path {
     stroke: $color-white-01;
   }
@@ -47,26 +67,20 @@
   height: 100%;
   font-size: 14px;
   font-weight: 500;
-  // caret-color: rgba($color-primary, 0.7);
   caret-color: rgba($color-white-02, 0.5);
   color: $color-white-01;
   line-height: 1;
   letter-spacing: -0.2px;
   background-color: transparent;
-  // margin-right: 16px;
 
   &::placeholder {
     font-size: 14px;
     font-weight: 500;
     color: rgba($color-white-02, 0.25);
-
-    :global(.header__search__wrapper) & {
-      color: rgba($color-white-01, 0.5);
-    }
   }
 }
 
-.search-dropdown {
+.search__dropdown {
   position: absolute;
   top: 44px;
   width: 100%;
@@ -75,7 +89,7 @@
   z-index: 100;
 }
 
-.search-empty {
+.search__empty {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,24 +99,24 @@
   color: $color-white-04;
 }
 
-.search-header {
+.search__header {
   display: flex;
   justify-content: space-between;
   padding: 14px 14px 7px;
 }
 
-.search-title,
-.search-clear {
+.search__title,
+.search__clear {
   font-size: 12px;
   font-weight: 600;
   color: $color-white-04;
 }
 
-.search-list {
+.search__list {
   padding: 5px 0;
 }
 
-.search-item {
+.search__item {
   position: relative;
   height: 36px;
   padding: 0 45px 0 13px;
@@ -112,16 +126,14 @@
   }
 }
 
-.search-link {
+.search__link {
   position: relative;
   display: flex;
   align-items: center;
   height: 100%;
 
-  svg {
+  .search__icon {
     flex: none;
-    width: 24px;
-    height: 24px;
     padding: 4px;
 
     path {
@@ -130,7 +142,7 @@
   }
 }
 
-.search-keyword {
+.search__keyword {
   font-size: 14px;
   font-weight: 600;
   color: $color-white-01;
@@ -140,7 +152,7 @@
   overflow: hidden;
 }
 
-.search-remove {
+.search__remove {
   position: absolute;
   top: 0;
   right: 5px;
@@ -150,24 +162,22 @@
   z-index: 10;
 
   &:hover {
-    svg {
+    .close__icon {
       border-radius: 8px;
       background-color: rgba($color-white-01, 0.1);
     }
   }
+}
 
-  svg {
-    width: 24px;
-    height: 24px;
-    padding: 4px;
+.close__icon {
+  padding: 4px;
 
-    path {
-      fill: $color-white-04;
-    }
+  path {
+    fill: $color-white-04;
   }
 }
 
-.search-footer {
+.search__footer {
   display: flex;
   justify-content: space-between;
   height: 35px;
@@ -175,15 +185,15 @@
   padding: 9px 17px 10px 15px;
 }
 
-.search-save,
-.search-close {
+.search__save,
+.search__close {
   font-size: 12px;
   font-weight: 600;
   color: $color-white-04;
 }
 
 @media (max-width: 768px) {
-  .search-dropdown {
+  .search__dropdown {
     top: $header-height;
     left: 0;
     display: flex;
@@ -193,34 +203,34 @@
     border-radius: unset;
   }
 
-  .search-empty {
+  .search__empty {
     flex: 1 1;
   }
 
-  .search-list {
+  .search__list {
     flex: 1 1;
   }
 
-  .search-item {
+  .search__item {
     height: 42px;
   }
 
-  .search-title,
-  .search-clear {
+  .search__title,
+  .search__clear {
     font-size: 13px;
   }
 
-  .search-keyword {
+  .search__keyword {
     font-size: 16px;
   }
 
-  .search-footer {
+  .search__footer {
     height: 50px;
     padding: 0;
   }
 
-  .search-save,
-  .search-close {
+  .search__save,
+  .search__close {
     height: 100%;
     font-size: 13px;
     padding: 0 15px;

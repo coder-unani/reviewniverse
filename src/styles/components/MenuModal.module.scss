@@ -1,0 +1,85 @@
+@use '@/styles/variables' as *;
+
+.menu__modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.56);
+  z-index: 999;
+}
+
+.menu__modal {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+  background-color: $color-background;
+}
+
+.menu__header {
+  width: 100%;
+  border-bottom-right-radius: 40px;
+  background-color: rgba($color-white-01, 0.1);
+  padding: 36px 15px 13px;
+}
+
+.menu__header__user {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .profile {
+    .profile-nickname {
+      font-weight: 600;
+      color: $color-white-01;
+    }
+  }
+}
+
+.menu__header__login {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: $color-white-01;
+  padding: 8px 0;
+}
+
+.menu__profile__image {
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.menu__body {
+  padding: 24px 15px;
+}
+
+.menu__body__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-04;
+  margin-bottom: 8px;
+}
+
+.menu__body__list {
+  border-bottom: 1px solid $border-color-01;
+  padding-bottom: 16px;
+}
+
+.menu__body__item {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.menu__body__link {
+  display: block;
+  color: $color-white-02;
+  padding: 8px 4px;
+}

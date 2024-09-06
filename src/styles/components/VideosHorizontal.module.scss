@@ -1,0 +1,129 @@
+@use '@/styles/variables' as *;
+
+.horizontal__videos__section {
+  padding: 20px 60px;
+  margin-bottom: 16px;
+}
+
+.horizontal__title__wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.horizontal__title {
+  font-size: 20px;
+  font-weight: 800;
+  color: $color-white-01;
+  letter-spacing: -0.2px;
+
+  &.genre {
+    display: flex;
+    align-items: center;
+
+    svg {
+      margin-right: 4px;
+    }
+  }
+}
+
+.horizontal__videos__wrapper {
+  position: relative;
+  width: 100%;
+
+  &.rank {
+    .horizontal__prev__button,
+    .horizontal__next__button {
+      top: calc((100% - 65px) * 0.5);
+    }
+  }
+}
+
+.horizontal__video__item {
+  cursor: pointer;
+}
+
+.horizontal__prev__button,
+.horizontal__next__button {
+  position: absolute;
+  top: calc((100% - 57px) * 0.5);
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid $border-color-01;
+  background-color: $color-background;
+  box-shadow: 0 0 2px 0 rgba($color-white, 0.05);
+  padding: 5px;
+  z-index: 10;
+
+  &:disabled {
+    display: none;
+  }
+
+  &:hover {
+    border: 1px solid $border-color-03;
+    background-color: $color-white-09;
+  }
+
+  &.genre {
+    top: 50%;
+  }
+
+  svg {
+    // width: 28px;
+    // height: 28px;
+
+    path {
+      fill: $color-white-02;
+    }
+  }
+}
+
+.horizontal__prev__button {
+  left: -20px;
+}
+
+.horizontal__next__button {
+  right: -20px;
+}
+
+@media (max-width: 1024px) {
+  .horizontal__videos__section {
+    padding: 20px 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .horizontal__videos__section {
+    padding: 12px 0;
+    margin-bottom: 12px;
+  }
+
+  .horizontal__title__wrapper {
+    padding: 0 15px;
+    margin-bottom: 12px;
+  }
+
+  .horizontal__title {
+    font-size: 17px;
+
+    &.genre {
+      svg {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+  .horizontal__videos {
+    padding: 0 15px;
+  }
+
+  .horizontal__prev__button,
+  .horizontal__next__button {
+    display: none;
+  }
+}

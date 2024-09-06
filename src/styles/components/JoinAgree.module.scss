@@ -1,0 +1,112 @@
+@use '@/styles/variables' as *;
+
+.join__agree__title {
+  font-size: 17px;
+  color: $color-white-01;
+  margin-bottom: 20px;
+}
+
+.join__agree__form {
+  & > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+}
+
+.join__agree__all {
+  border-bottom: 1px solid $border-color-01;
+  padding-bottom: 12px;
+}
+
+.join__agree__terms,
+.join__agree__privacy {
+  display: flex;
+  justify-content: space-between;
+}
+
+.join__agree__input {
+  -webkit-appearance: none;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  background: $color-white-08;
+  background-image: url('/assets/button/outline-check.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  opacity: 0.3;
+
+  &:checked {
+    background: $color-magenta;
+    background: -webkit-linear-gradient(
+      to right,
+      rgba($color-cyan, 0.75),
+      rgba($color-magenta, 0.75)
+    );
+    background: linear-gradient(
+      to right,
+      rgba($color-cyan, 0.75),
+      rgba($color-magenta, 0.75)
+    );
+    opacity: 1;
+
+    &::before {
+      display: block;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-image: url('/assets/button/outline-check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+}
+
+.join__agree__label {
+  font-size: 15px;
+  color: $color-white-02;
+  line-height: 21px;
+  margin-left: 6px;
+  cursor: pointer;
+}
+
+.join__terms__button,
+.join__privacy__button {
+  font-size: 12px;
+  color: $color-white-04;
+}
+
+.join__agree__button {
+  width: 100%;
+  height: 48px;
+  font-size: 15px;
+  font-weight: 500;
+  color: $color-white-01;
+  border-radius: 12px;
+  background-color: $color-white-08;
+  margin-top: 12px;
+  transition: background-color 0.3s;
+
+  &:disabled {
+    background-color: $color-white-09;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .join__agree__label {
+    font-size: 14px;
+  }
+}

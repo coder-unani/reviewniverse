@@ -1,0 +1,161 @@
+@use '@/styles/variables' as *;
+
+.review__modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.56);
+  z-index: 999;
+}
+
+.review__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 640px;
+  max-width: 90%;
+  height: 540px;
+  max-height: 90%;
+  transform: translate(-50%, -50%);
+  background-color: $color-background;
+  border-radius: 16px;
+}
+
+.review__section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-white-09, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.review__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-white-02;
+  margin-bottom: 20px;
+}
+
+.review__form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.review__textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 360px;
+  max-height: 700px;
+  font-family: 'SUIT Variable', sans-serif;
+  font-size: 15px;
+  color: $color-white-01;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background-color: rgba($color-white-09, 0.6);
+  padding: 15px;
+  resize: none;
+  outline: none;
+
+  &:focus {
+    border-color: $border-color-01;
+    background-color: $color-background;
+  }
+
+  &:hover {
+    // border-color: $border-color-03;
+    // background-color: rgba($color-white-09, 0.6);
+  }
+
+  &::placeholder {
+    color: $color-white-06;
+  }
+}
+
+.review__more__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.review__check__wrapper {
+  display: flex;
+  gap: 8px;
+}
+
+.review__spoiler__button,
+.review__private__button {
+  display: flex;
+  align-items: center;
+
+  svg {
+    pointer-events: none;
+  }
+
+  label {
+    font-size: 14px;
+    color: $color-white-04;
+    margin-left: 8px;
+  }
+}
+
+.review__spoiler__tooltip,
+.review__private__tooltip {
+  font-size: 14px !important;
+  border-radius: 6px !important;
+  background-color: $color-white-08 !important;
+}
+
+.review__button__wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.review__text__count {
+  font-size: 13px;
+  color: $color-white-04;
+}
+
+.review__save__button {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 34px;
+  color: $color-background;
+  background-color: $color-white-02;
+  border-radius: 8px;
+  padding: 0 15px;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .review__modal {
+    width: 100%;
+    max-width: unset;
+    height: 100%;
+    max-height: unset;
+    border-radius: unset;
+  }
+
+  .review__section {
+    border-radius: unset;
+  }
+}
+
+@media (max-width: 576px) {
+  .review__section {
+    padding: 20px 15px;
+  }
+}

@@ -1,0 +1,48 @@
+@use '@/styles/variables' as *;
+
+.notfound__main {
+  padding-top: $header-height;
+}
+
+.notfound__section {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  min-height: calc(100vh - $footer-height - $header-height);
+  padding: 60px 0;
+  margin: 0 auto;
+}
+
+.notfound__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 0 15px;
+}
+
+.notfound__image {
+  object-fit: contain;
+}
+
+.notfound__title {
+  font-size: 17px;
+  font-weight: 700;
+  color: $color-white-01;
+  line-height: 20px;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  margin-top: 20px;
+}
+
+.notfound__subtitle {
+  font-size: 15px;
+  color: $color-white-04;
+  line-height: 22px;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  margin-top: 6px;
+}

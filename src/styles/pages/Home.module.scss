@@ -1,0 +1,31 @@
+@use '@/styles/variables' as *;
+
+.home__main {
+  min-height: 100vh;
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+
+.home__preview__section {
+  position: relative;
+  width: 100vw;
+  height: 700px;
+}
+
+.home__main__section {
+  width: 100%;
+  max-width: 1440px;
+  padding-top: 36px;
+  margin: calc(175px / 2) auto 0;
+}
+
+@media (max-width: 768px) {
+  .home__preview__section {
+    height: 500px;
+  }
+
+  .home__main__section {
+    margin-top: calc(100px / 2);
+    padding-top: 24px;
+  }
+}

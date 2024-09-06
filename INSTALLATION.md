@@ -13,11 +13,26 @@ yarn create next-app .
 
 yarn add --dev eslint prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-prettier eslint-plugin-prettier
 
+yarn upgrade eslint ajv uri-js
+
 # 라이브러리 설치
 
 yarn add axios
 yarn add normalize.css
-yarn upgrade eslint ajv uri-js
+yarn add @tanstack/react-query
+yarn add @tanstack/react-query-devtools
+yarn add firebase
+yarn add js-cookie
+yarn add lodash
+yarn add react-hook-form
+yarn add @hookform/resolvers
+yarn add yup
+yarn add swiper
+yarn add react-loading-skeleton
+yarn add react-modal
+yarn add react-toastify
+yarn add react-tooltip
+yarn upgrade react-toastify
 
 # 개발 의존성 라이브러리 설치
 
