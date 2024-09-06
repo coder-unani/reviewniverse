@@ -1,0 +1,48 @@
+@use '@/styles/variables' as *;
+
+.people__main {
+  max-width: 1440px;
+  min-height: calc(100vh - $footer-height);
+  // padding: 24px 60px;
+  padding: 84px 0 60px;
+  margin: 0 auto;
+  // margin-top: 60px;
+}
+
+.people__section {
+  width: 100%;
+  padding: 0 60px;
+  margin-bottom: 8px;
+}
+
+.people__info__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid $border-color-01;
+  padding-bottom: 20px;
+}
+
+.people__name {
+  font-size: 30px;
+  font-weight: 700;
+  color: $color-white-01;
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+  .people__section {
+    padding: 0 30px;
+  }
+}
+
+@media (max-width: 576px) {
+  .people__section {
+    padding: 0 15px;
+  }
+
+  .people__name {
+    font-size: 20px;
+  }
+}

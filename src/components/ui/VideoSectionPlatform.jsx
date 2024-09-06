@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { fPlatformFilter } from '@/utils/formatContent';
+import { SETTINGS } from '@/config/settings';
 import { isEmpty } from 'lodash';
 
 const VideoSectionPlatform = React.memo(() => {
@@ -21,8 +22,10 @@ const VideoSectionPlatform = React.memo(() => {
           >
             <Image
               className="platform-image"
-              src={`/assets/platform/${platform.code}.png`}
+              src={`${SETTINGS.CDN_BASE_URL}/assets/images/platform/${platform.code}.png`}
               alt="플랫폼"
+              width={60}
+              height={60}
             />
           </button>
         ))}

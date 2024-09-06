@@ -1,0 +1,50 @@
+@use '@/styles/variables' as *;
+
+.setting__button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+
+  svg {
+    path {
+      fill: $color-white;
+    }
+  }
+}
+
+.setting__menu {
+  position: absolute;
+  top: 39px;
+  right: 10px;
+  min-width: 150px;
+  border-radius: 12px;
+  background-color: $color-white-09;
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.25),
+    0 0 1px rgba(0, 0, 0, 0.5);
+
+  padding: 5px 0;
+  z-index: 10;
+
+  ul {
+    li {
+      font-size: 14px;
+      font-weight: 500;
+      color: $color-white-01;
+      padding: 8px 16px;
+      cursor: pointer;
+
+      & + li {
+        border-top: 1px solid $border-color-01;
+      }
+    }
+  }
+}
+
+.setting__user__delete {
+  color: $color-red;
+}

@@ -8,7 +8,7 @@ import { fMakeThumbnailUrl } from '@/utils/formatContent';
 import { isEmpty } from 'lodash';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
-import styles from '@/styles/components/Genres.module.scss';
+import styles from '@/styles/components/GenresVertical.module.scss';
 import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
 
 /**
@@ -16,7 +16,7 @@ import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
  * - 정적 이미지 생성
  */
 
-const Genres = ({ children, content }) => {
+const GenresVertical = ({ children, content }) => {
   const [genres, setGenres] = useState([]);
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -133,4 +133,4 @@ const Genres = ({ children, content }) => {
   );
 };
 
-export default Genres;
+export default GenresVertical;

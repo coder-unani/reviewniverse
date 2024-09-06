@@ -12,8 +12,9 @@ const PeopleImage = ({ image, size }) => {
         className={styles.people__image}
         src={peopleImage}
         alt="프로필 이미지"
+        sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
         fill
-        placeholder="blur"
+        priority
       />
     </div>
   );

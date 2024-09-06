@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import HomeButton from '@/components/ui/Button/Home';
 import { DEFAULT_IMAGES } from '@/config/constants';
@@ -5,7 +7,7 @@ import styles from '@/styles/pages/Error.module.scss';
 
 // TODO: 에러 코드별 메세지 표시
 
-const Error = () => {
+export default function Error({ error, reset }) {
   return (
     <main className={styles.error__main}>
       <section className={styles.error__section}>
@@ -29,6 +31,4 @@ const Error = () => {
       </section>
     </main>
   );
-};
-
-export default Error;
+}

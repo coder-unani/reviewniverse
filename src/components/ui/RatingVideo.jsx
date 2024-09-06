@@ -10,13 +10,16 @@ import { Tooltip } from 'react-tooltip';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { fRating, fRatingColor } from '@/utils/formatContent';
 import { VIDEO_RATING_TEXT } from '@/config/constants';
+import { SETTINGS } from '@/config/settings';
 
 const RatingVideo = () => {
   const { user } = useAuthContext();
   const { toggleEnjoyModal } = useModalContext();
   const { videoId, myInfo } = useVideoDetailContext();
   const { mutate: videoRating, isPending: isRatingPending } = useVideoRating();
-  const [imgSrc, setImgSrc] = useState('/assets/rating/0.png');
+  const [imgSrc, setImgSrc] = useState(
+    `${SETTINGS.CDN_BASE_URL}/assets/images/rating/0.png`
+  );
   const ratingRef = useRef(null);
   const ratingImgRef = useRef(null);
   const ratingTextRef = useRef(null);
@@ -50,7 +53,7 @@ const RatingVideo = () => {
       ratingRef.current.dataset.rating = rating;
       ratingTextRef.current.innerText = VIDEO_RATING_TEXT[rating];
     }
-    setImgSrc(`/assets/rating/${rating}.png`);
+    setImgSrc(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/${rating}.png`);
   };
 
   // 비디오 평가하기 마우스 올렸을 때 이벤트
@@ -133,6 +136,8 @@ const RatingVideo = () => {
           className="video-rating-image"
           src={imgSrc}
           alt="평가 이미지"
+          sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
+          fill
           ref={ratingImgRef}
         />
       </div>

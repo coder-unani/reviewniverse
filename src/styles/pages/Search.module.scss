@@ -1,0 +1,78 @@
+@use '@/styles/variables' as *;
+
+.search__main {
+  padding-top: $header-height;
+}
+
+.search__section {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  min-height: calc(100vh - $footer-height - $header-height);
+  padding: 12px 0;
+  margin: 0 auto;
+}
+
+.search__title {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-white-04;
+  line-height: 20px;
+  padding: 15px 60px 0;
+
+  em {
+    font-weight: 800;
+    color: $color-white-01;
+  }
+}
+
+.no__search__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  padding: 0 15px;
+}
+
+.no__search__image {
+  object-fit: contain;
+}
+
+.no__search__title {
+  font-size: 17px;
+  color: $color-white-04;
+  line-height: 20px;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  margin-top: 20px;
+
+  em {
+    font-weight: 700;
+    color: $color-white-01;
+  }
+}
+
+.no__search__subtitle {
+  font-size: 15px;
+  color: $color-white-04;
+  line-height: 22px;
+  word-break: keep-all;
+  white-space: pre-wrap;
+  margin-top: 6px;
+}
+
+@media (max-width: 1024px) {
+  .search__title {
+    padding: 15px 30px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .search__title {
+    display: none;
+  }
+}

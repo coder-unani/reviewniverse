@@ -19,9 +19,34 @@ import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
 import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
+/**
+ * 
+ * 정적 페이지 증가(ISR, Incremental Static Regeneration)를 위한 getStaticProps 함수
+export async function getStaticProps() {
+  // 빌드 시 데이터 가져오기
+  const res = await fetch('https://api.example.com/data');
+  const data = await res.json();
+
+  return {
+    props: { data },
+    revalidate: 10, // 10초마다 페이지를 재생성
+  };
+}
+
+const Page = ({ data }) => (
+  <div>
+    <h1>{data.title}</h1>
+  </div>
+);
+
+export default Page;
+*/
+
 // 코드 스플리팅을 위한 동적 임포트
 const VideosPreview = React.lazy(() => import('@/components/ui/VideosPreview'));
-const Genres = React.lazy(() => import('@/components/ui/Genres'));
+const GenresVertical = React.lazy(
+  () => import('@/components/ui/GenresVertical')
+);
 const VideosHorizontal = React.lazy(
   () => import('@/components/ui/VideosHorizontal')
 );
@@ -235,14 +260,14 @@ export default function page() {
     }
     const title = '장르';
     return (
-      <Genres content={rankingGenres.data}>
+      <GenresVertical content={rankingGenres.data}>
         <div className={vhStyles.horizontal__title__wrapper}>
           <h2 className={`${vhStyles.horizontal__title} ${vhStyles.genre}`}>
             <LayoutIcon width={24} height={25} />
             {title}
           </h2>
         </div>
-      </Genres>
+      </GenresVertical>
     );
   };
 

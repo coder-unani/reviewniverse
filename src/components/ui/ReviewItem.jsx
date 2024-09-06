@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,6 +10,7 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDiffDate } from '@/utils/format';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
 import MoreIcon from '@/resources/icons/more.svg';
+import styles from '@/styles/components/ReviewItem.module.scss';
 
 /**
  * TODO:
@@ -35,60 +38,66 @@ const ReviewItem = ({ user, review }) => {
   };
 
   return (
-    <div className="user-review-item">
-      <div className="user-review-profile-wrapper">
+    <div className={styles.review__item}>
+      <div className={styles.review__profile__wrapper}>
         <ProfileImage image={profileImage} size={36} />
-        <div className="user-review-profile-info-wrapper">
-          <div className="user-review-nickname-wrapper">
-            <span className="user-review-nickname">{user.nickname}</span>
+        <div className={styles.review__profile__info__wrapper}>
+          <div className={styles.review__nickname__wrapper}>
+            <span className={styles.review__nickname}>{user.nickname}</span>
             {data.rating && <RatingReview rating={data.rating} />}
           </div>
-          <span className="user-review-date">{fDiffDate(data.created_at)}</span>
+          <span className={styles.review__date}>
+            {fDiffDate(data.created_at)}
+          </span>
         </div>
-        {/* <button className="review-more-button">
+        {/* <button className={styles.review__more__button}>
           <MoreIcon />
         </button> */}
       </div>
-      <div className="user-review-video-wrapper">
-        <Link href={path} className="user-review-video-link">
-          <picture className="user-review-thumbnail-wrapper">
+      <div className={styles.review__video__wrapper}>
+        <Link href={path} className={styles.review__video__link}>
+          <picture className={styles.review__thumbnail__wrapper}>
             <Image
-              className="user-review-thumbnail"
+              className={styles.review__thumbnail}
               src={fThumbnail(data.video.thumbnail)}
               alt={data.video.title}
+              sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
+              fill
+              placeholder="blur"
+              blurDataURL={fThumbnail(data.video.thumbnail)}
             />
           </picture>
         </Link>
-        <div className="user-review-wrapper">
-          <div className="user-review-content-wrapper">
-            <div className="user-review-video-info-wrapper">
-              <span className="user-review-video-title">
+        <div className={styles.review__wrapper}>
+          <div className={styles.review__content__wrapper}>
+            <div className={styles.review__video__info__wrapper}>
+              <span className={styles.review__video__title}>
                 {data.video.title}
               </span>
-              <span className="user-review-video-release">
+              <span className={styles.review__video__release}>
                 <span>{fVideoCode(data.video.code)}</span>
                 <span>|</span>
                 <span>{fYear(data.video.release)}</span>
               </span>
             </div>
             <div
-              className="user-review-comment-wrapper"
+              className={styles.review__comment__wrapper}
               data-spoiler={data.is_spoiler}
             >
               {data.is_spoiler ? (
                 <p
-                  className="user-review-comment"
+                  className={styles.review__comment}
                   data-active={active}
                   onClick={handleSpoiler}
                 >
                   {data.title}
                 </p>
               ) : (
-                <p className="user-review-comment">{data.title}</p>
+                <p className={styles.review__comment}>{data.title}</p>
               )}
             </div>
           </div>
-          <div className="user-review-more-wrapper">
+          <div className={styles.review__more__wrapper}>
             <ReviewLikeButton
               videoId={data.video.id}
               review={data}

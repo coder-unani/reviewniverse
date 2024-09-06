@@ -4,10 +4,11 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
-import { MESSAGES } from '@/config/messages';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
+import { MESSAGES } from '@/config/messages';
 import { ENDPOINTS } from '@/config/endpoints';
 import SettingIcon from '@/resources/icons/setting.svg';
+import styles from '@/styles/components/SettingButton.module.scss';
 
 const SettingButton = () => {
   const router = useRouter();
@@ -64,15 +65,22 @@ const SettingButton = () => {
 
   return (
     <>
-      <button type="button" className="settings" onClick={toggleMenuModal}>
+      <button
+        type="button"
+        className={styles.setting__button}
+        onClick={toggleMenuModal}
+      >
         <SettingIcon />
       </button>
       {isMenuModal && (
-        <div className="user-menu" ref={menuRef}>
+        <div className={styles.setting__menu} ref={menuRef}>
           <ul>
             <li onClick={handleEditClick}>회원정보 수정</li>
             <li onClick={handleLogoutClick}>로그아웃</li>
-            <li className="delete" onClick={handleDeleteClick}>
+            <li
+              className={styles.setting__user__delete}
+              onClick={handleDeleteClick}
+            >
               회원탈퇴
             </li>
           </ul>

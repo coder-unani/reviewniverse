@@ -7,8 +7,6 @@ class HttpClient {
 
   constructor(token = null) {
     this.client = axios.create();
-    // base url 설정
-    this.client.defaults.baseURL = SETTINGS.SITE_BASE_URL;
     this.client.defaults.headers.common['Content-Type'] = 'application/json';
     this.client.defaults.headers.common['Accept'] = 'application/json';
     if (!token && getStorageAccessToken()) {

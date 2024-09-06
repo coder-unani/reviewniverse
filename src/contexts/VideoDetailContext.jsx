@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, notFound } from 'next/navigation';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useVideoDetail } from '@/hooks/useVideoDetail';
 import { useVideoMyInfo } from '@/hooks/useVideoMyInfo';
@@ -10,33 +10,31 @@ import { ENDPOINTS } from '@/config/endpoints';
 
 const VideoDetailContext = createContext();
 
-export const VideoDetailProvider = ({ children }) => {
+export const VideoDetailProvider = ({ children, id }) => {
   const router = useRouter();
-  // for test
-  const { id: videoId } = router.query;
   const { user } = useAuthContext();
-  const videoId2Int = fParseInt(videoId);
+  const videoId = fParseInt(id);
   const {
     data: content,
     error: contentError,
     isLoading: contentIsLoading,
-  } = useVideoDetail({ videoId: videoId2Int, enabled: videoId2Int });
+  } = useVideoDetail({ videoId: videoId, enabled: videoId });
   const {
     data: myInfo,
     error: myInfoError,
     isLoading: myInfoIsLoading,
   } = useVideoMyInfo({
-    videoId: videoId2Int,
+    videoId: videoId,
     userId: user ? user.id : null,
-    enabled: user && videoId2Int,
+    enabled: user && videoId,
   });
 
   // 비디오 ID가 숫자형이 아닐 경우 404 페이지로 이동
   useEffect(() => {
-    if (videoId2Int === 0) {
+    if (videoId === 0) {
       return router.push(ENDPOINTS.NOT_FOUND);
     }
-  }, [videoId2Int]);
+  }, [videoId]);
 
   // 비디오 에러 발생 시 404 or 에러 페이지로 이동
   useEffect(() => {
@@ -46,7 +44,7 @@ export const VideoDetailProvider = ({ children }) => {
     if (contentError) {
       // VIDEO_NOT_FOUND일 시 404 페이지로 이동
       if (contentError.message === 'C003') {
-        return router.push(ENDPOINTS.NOT_FOUND);
+        notFound();
       } else {
         return router.push(ENDPOINTS.ERROR);
       }
@@ -62,7 +60,7 @@ export const VideoDetailProvider = ({ children }) => {
 
   const values = useMemo(
     () => ({
-      videoId: videoId2Int,
+      videoId: videoId,
       content,
       contentIsLoading,
       contentError,
@@ -71,7 +69,7 @@ export const VideoDetailProvider = ({ children }) => {
       myInfoError,
     }),
     [
-      videoId2Int,
+      videoId,
       content,
       contentIsLoading,
       contentError,

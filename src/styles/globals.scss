@@ -211,6 +211,22 @@ header {
   }
 }
 
+.review__like__button {
+  display: flex;
+  align-items: center;
+}
+
+.review__like__count {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-06;
+  margin-left: 6px;
+
+  &[data-like='true'] {
+    color: $color-magenta;
+  }
+}
+
 @media (max-width: 576px) {
   .header__search__wrapper {
     position: relative;

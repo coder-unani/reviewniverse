@@ -47,12 +47,12 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
   return (
     <button
       type="button"
-      className="review-like-button"
+      className="review__like__button"
       onClick={handleReviewLike}
       disabled={isLikePending}
     >
       {isLike ? <FillThumbIcon /> : <OutlineThumbIcon />}
-      <span className="review-like-count" data-like={isLike}>
+      <span className="review__like__count" data-like={isLike}>
         {fNumberWithCommas(review.like_count)}
       </span>
     </button>
