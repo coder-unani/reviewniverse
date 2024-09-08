@@ -1,18 +1,25 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import SearchForm from '@/components/ui/SearchForm';
 import MenuModal from '@/components/ui/Modal/Menu';
-import ProfileImage from '@/components/ui/Button/Profile/Image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { isEmpty } from 'lodash';
 import LogoIcon from '@/resources/icons/logo-white.svg';
 import SearchIcon from '@/resources/icons/search.svg';
 import MenuIcon from '@/resources/icons/menu.svg';
 import styles from '@/styles/components/Header.module.scss';
+
+// 동적 로딩으로 ProfileImage 컴포넌트를 클라이언트에서만 렌더링
+const ProfileImage = dynamic(
+  () => import('@/components/ui/Button/Profile/Image'),
+  { ssr: false }
+);
 
 const Header = () => {
   const router = useRouter();
@@ -20,7 +27,12 @@ const Header = () => {
   const { user } = useAuthContext();
   const { isMobile } = useThemeContext();
   const [isMenuModal, setIsMenuModal] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const isSearch = pathname === ENDPOINTS.SEARCH;
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // 모바일 메뉴 토글
   const toggleMobileMenu = () => {
@@ -109,8 +121,8 @@ const Header = () => {
         <section className={styles.search__container}>
           <SearchForm />
         </section>
-        <section className={styles.toolbar__container}>
-          {user ? renderProfile() : renderLogin()}
+        <section className={styles.toolbar__container} suppressHydrationWarning>
+          {isMounted && isEmpty(user) ? renderLogin() : renderProfile()}
         </section>
       </section>
     );

@@ -14,6 +14,7 @@ const ProfileImage = ({ image, size }) => {
         alt="프로필 이미지"
         fill
         placeholder="blur"
+        blurDataURL={profileImage}
       />
     </div>
   );

@@ -37,7 +37,7 @@ export const setStorageUser = (user) => {
 // 유저 정보 조회
 export const getStorageUser = () => {
   const getUser = getCookie(STORAGE_KEYS.USER);
-  return getUser ? JSON.parse(getUser) : null;
+  return getUser ? JSON.parse(getUser) : {};
 };
 
 // 유저 정보 삭제
