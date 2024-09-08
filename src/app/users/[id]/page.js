@@ -50,10 +50,12 @@ export default function page({ params }) {
 
         // 유저 정보 수정 후 유저 정보 갱신
         // TODO: 고도화 필요
+        /*
         if (isUserUpdate) {
           handleSetUser({ user: res.data });
-          // router.push(location.pathname, { replace: true, state: {} });
+          router.push(location.pathname, { replace: true, state: {} });
         }
+        */
       } else {
         if (user && user.id === userId) {
           handleRemoveUser();

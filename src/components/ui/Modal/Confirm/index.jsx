@@ -9,8 +9,11 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
 
   // 클라이언트 사이드에서만 Modal.setAppElement 설정
   useEffect(() => {
-    // Next.js에서는 #__next가 최상위 요소
-    Modal.setAppElement('#__next');
+    // window 객체가 존재할 때만 실행
+    if (typeof window !== 'undefined') {
+      // Next.js에서는 #__next가 최상위 요소
+      Modal.setAppElement(document.getElementById('__next'));
+    }
   }, []);
 
   // 모달창 닫기
@@ -34,6 +37,7 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
     <Modal
       isOpen={true}
       onRequestClose={onClose}
+      ariaHideApp={false}
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.56)',

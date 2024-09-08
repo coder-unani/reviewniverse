@@ -19,7 +19,7 @@ const SettingButton = () => {
 
   // 메뉴 바깥 영역 클릭시 메뉴 닫기
   useEffect(() => {
-    const button = document.querySelector('.settings');
+    const button = document.querySelector(`.${styles.setting__button}`);
 
     window.addEventListener('click', (e) => {
       if (!menuRef.current) return;
@@ -77,10 +77,7 @@ const SettingButton = () => {
           <ul>
             <li onClick={handleEditClick}>회원정보 수정</li>
             <li onClick={handleLogoutClick}>로그아웃</li>
-            <li
-              className={styles.setting__user__delete}
-              onClick={handleDeleteClick}
-            >
+            <li className={styles.delete} onClick={handleDeleteClick}>
               회원탈퇴
             </li>
           </ul>

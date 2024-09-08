@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import HomeButton from '@/components/ui/Button/Home';
 import { DEFAULT_IMAGES } from '@/config/constants';

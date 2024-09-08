@@ -28,6 +28,6 @@ export const ENDPOINTS = {
   USER_DELETE: '/users/delete',
   ERROR: '/500',
   // ERROR: '/error',
-  NOT_FOUND: '/404-not-found',
+  NOT_FOUND: '/_not-found',
   DENIED_ALL: '/*',
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 import { useRouter, usePathname } from 'next/navigation';
@@ -15,7 +15,7 @@ import SearchIcon from '@/resources/icons/search.svg';
 import MenuIcon from '@/resources/icons/menu.svg';
 import styles from '@/styles/components/Header.module.scss';
 
-// 동적 로딩으로 ProfileImage 컴포넌트를 클라이언트에서만 렌더링
+// dynamic import
 const ProfileImage = dynamic(
   () => import('@/components/ui/Button/Profile/Image'),
   { ssr: false }
@@ -79,7 +79,9 @@ const Header = () => {
     // 검색 모바일 헤더 렌더링
     const renderSearch = () => (
       <section className="header__search__wrapper">
-        <SearchForm />
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchForm />
+        </Suspense>
         <MenuIcon
           className={styles.menu__button}
           width={32}
@@ -119,7 +121,9 @@ const Header = () => {
       <section className={styles.header__wrapper}>
         <Logo />
         <section className={styles.search__container}>
-          <SearchForm />
+          <Suspense fallback={<div>Loading...</div>}>
+            <SearchForm />
+          </Suspense>
         </section>
         <section className={styles.toolbar__container} suppressHydrationWarning>
           {isMounted && isEmpty(user) ? renderLogin() : renderProfile()}

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import ClearButton from '@/components/ui/Button/Clear';
@@ -34,8 +34,7 @@ const SearchForm = () => {
   const [recentKeywords, setRecentKeywords] = useState([]);
   const [isSaveKeyword, setIsSaveKeyword] = useState(getStorageSaveKeyword());
   const searchParams = useSearchParams();
-  const params = new URLSearchParams(searchParams.toString());
-  const query = params.get('query');
+  const query = searchParams.get('query');
   const searchInputRef = useRef(null);
   const searchDropdownRef = useRef(null);
   const [inputValue, setInputValue] = useState('');

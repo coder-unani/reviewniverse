@@ -32,7 +32,7 @@ export const VideoDetailProvider = ({ children, id }) => {
   // 비디오 ID가 숫자형이 아닐 경우 404 페이지로 이동
   useEffect(() => {
     if (videoId === 0) {
-      return router.push(ENDPOINTS.NOT_FOUND);
+      notFound();
     }
   }, [videoId]);
 
