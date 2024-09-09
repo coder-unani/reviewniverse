@@ -1,16 +1,13 @@
-'use client';
-
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import PhotoModal from '@/components/ui/Modal/Photo';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { fMakeThumbnailUrl, fMakeImageUrl } from '@/utils/formatContent';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
+import styles from '@/styles/pages/Contents.module.scss';
 
-const SwiperGallery = () => {
-  const { content } = useVideoDetailContext();
+const GalleryVertical = ({ content }) => {
   const items = content.data.thumbnail;
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -53,22 +50,19 @@ const SwiperGallery = () => {
 
   return (
     <>
-      <article className="detail-gallery-wrapper">
-        <Swiper className="detail-gallery" {...gallerySwiperConfig}>
+      <article className={styles.detail__gallery__wrapper}>
+        <Swiper className={styles.detail__gallery} {...gallerySwiperConfig}>
           {items.map((image, index) => (
-            <SwiperSlide
-              className="detail-gallery-item"
-              key={index}
-              onClick={() => togglePhotoModal(image)}
-            >
-              <picture className="detail-photo-wrapper">
+            <SwiperSlide className={styles.detail__gallery__item} key={index} onClick={() => togglePhotoModal(image)}>
+              <picture className={styles.detail__photo__wrapper}>
                 <Image
-                  className="detail-photo"
+                  className={styles.detail__photo}
                   src={fMakeThumbnailUrl(image)}
                   alt="갤러리 이미지"
+                  sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
                   fill
                   placeholder="blur"
-                  // effect="blur"
+                  blurDataURL={fMakeThumbnailUrl(image)}
                 />
               </picture>
             </SwiperSlide>
@@ -76,30 +70,25 @@ const SwiperGallery = () => {
         </Swiper>
         <button
           type="button"
-          className="gallery-prev-button"
+          className={styles.gallery__prev__button}
           onClick={() => swiperRef.current.slidePrev()}
           disabled={isBeginning}
         >
-          <ArrowLeftIcon />
+          <ArrowLeftIcon width={28} height={28} />
         </button>
         <button
           type="button"
-          className="gallery-next-button"
+          className={styles.gallery__next__button}
           onClick={() => swiperRef.current.slideNext()}
           disabled={isEnd}
         >
-          <ArrowRightIcon />
+          <ArrowRightIcon width={28} height={28} />
         </button>
       </article>
 
-      {photoModal.isOpen && (
-        <PhotoModal
-          url={fMakeImageUrl(photoModal.url)}
-          onClose={togglePhotoModal}
-        />
-      )}
+      {photoModal.isOpen && <PhotoModal url={fMakeImageUrl(photoModal.url)} onClose={togglePhotoModal} />}
     </>
   );
 };
 
-export default SwiperGallery;
+export default GalleryVertical;

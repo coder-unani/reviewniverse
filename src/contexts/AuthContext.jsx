@@ -21,6 +21,7 @@ import {
 } from '@/utils/formatStorage';
 import { validateUser } from '@/utils/validation';
 import { cLog, cError } from '@/utils/test';
+import { isEmpty } from 'lodash';
 
 const AuthContext = createContext(null);
 
@@ -176,7 +177,7 @@ export const AuthContextProvider = ({ children }) => {
       if (accessToken) {
         setStorageAccessToken(accessToken);
       }
-      if (user) {
+      if (!isEmpty(user)) {
         setStorageUser(user);
         setUser(user);
       }

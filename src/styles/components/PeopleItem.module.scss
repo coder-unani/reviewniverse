@@ -1,0 +1,30 @@
+@use '@/styles/variables' as *;
+
+.detail__people__link {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  margin-right: 12px;
+}
+
+.detail__people__info__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail__people__name {
+  font-size: 15px;
+  font-weight: 500;
+  color: $color-white-02;
+  margin-bottom: 4px;
+}
+
+.detail__people__role {
+  font-size: 14px;
+  color: $color-white-04;
+  overflow: hidden;
+
+  & + & {
+    margin-left: 8px;
+  }
+}

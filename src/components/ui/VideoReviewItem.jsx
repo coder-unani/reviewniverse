@@ -7,6 +7,7 @@ import { fDiffDate } from '@/utils/format';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { isEmpty } from 'lodash';
+import styles from '@/styles/components/VideoReviewItem.module.scss';
 
 /**
  * TODO:
@@ -37,42 +38,45 @@ const VideoReviewItem = ({ videoId, review }) => {
   };
 
   return (
-    <article className="detail-review-item">
-      <div className="detail-review-profile-wrapper">
+    <article className={styles.detail__review__item}>
+      <div className={styles.detail__review__profile__wrapper}>
         <Link
           href={profilePath}
-          className="detail-review-profile-link"
+          className={styles.detail__review__profile__link}
           data-active={!isEmpty(review.user)}
         >
           <ProfileImage image={profileImage} size={36} />
         </Link>
       </div>
-      <div className="detail-review-content-wrapper">
-        <div className="detail-review-header">
+      <div className={styles.detail__review__content__wrapper}>
+        <div className={styles.detail__review__header}>
           <Link
             href={profilePath}
-            className="detail-review-nickname-link"
+            className={styles.detail__review__nickname__link}
             data-active={!isEmpty(review.user)}
           >
-            <p className="detail-review-nickname">{profileNickname}</p>
+            <p className={styles.detail__review__nickname}>{profileNickname}</p>
           </Link>
           {review.rating && <RatingReview rating={review.rating} />}
         </div>
-        <div className="detail-review-body" data-spoiler={review.is_spoiler}>
+        <div
+          className={styles.detail__review__body}
+          data-spoiler={review.is_spoiler}
+        >
           {review.is_spoiler ? (
             <p
-              className="detail-review-content"
+              className={styles.detail__review__content}
               data-active={active}
               onClick={handleSpoiler}
             >
               {review.title}
             </p>
           ) : (
-            <p className="detail-review-content">{review.title}</p>
+            <p className={styles.detail__review__content}>{review.title}</p>
           )}
         </div>
-        <div className="detail-review-footer">
-          <span className="detail-review-date">
+        <div className={styles.detail__review__footer}>
+          <span className={styles.detail__review__date}>
             {fDiffDate(review.created_at)}
           </span>
           <ReviewLikeButton videoId={videoId} review={review} />

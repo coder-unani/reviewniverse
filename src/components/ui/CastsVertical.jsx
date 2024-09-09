@@ -6,8 +6,9 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Grid } from 'swiper/modules';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
+import styles from '@/styles/pages/Contents.module.scss';
 
-const SwiperCast = ({ items, target, formatCode }) => {
+const CastsVertical = ({ items, target, formatCode }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef(null);
@@ -51,8 +52,11 @@ const SwiperCast = ({ items, target, formatCode }) => {
   };
 
   return (
-    <article className="detail-cast-wrapper" data-length={items.length}>
-      <Swiper className="detail-cast" {...castSwiperConfig}>
+    <article
+      className={styles.detail__cast__wrapper}
+      data-length={items.length}
+    >
+      <Swiper className={styles.detail__cast} {...castSwiperConfig}>
         {items.map((item, index) => (
           <SwiperSlide key={index}>
             <PeopleItem crew={item} target={target} formatCode={formatCode} />
@@ -61,22 +65,22 @@ const SwiperCast = ({ items, target, formatCode }) => {
       </Swiper>
       <button
         type="button"
-        className="cast-prev-button"
+        className={styles.cast__prev__button}
         onClick={() => swiperRef.current.slidePrev()}
         disabled={isBeginning}
       >
-        <ArrowLeftIcon />
+        <ArrowLeftIcon width={28} height={28} />
       </button>
       <button
         type="button"
-        className="cast-next-button"
+        className={styles.cast__next__button}
         onClick={() => swiperRef.current.slideNext()}
         disabled={isEnd}
       >
-        <ArrowRightIcon />
+        <ArrowRightIcon width={28} height={28} />
       </button>
     </article>
   );
 };
 
-export default SwiperCast;
+export default CastsVertical;

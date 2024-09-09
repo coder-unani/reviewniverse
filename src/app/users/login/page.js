@@ -9,6 +9,7 @@ import BackButton from '@/components/ui/Button/Back';
 import LoginService from '@/services/LoginService';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
+import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Login.module.scss';
 
 export default function page() {
@@ -17,7 +18,7 @@ export default function page() {
   const { isMobile } = useThemeContext();
 
   useEffect(() => {
-    if (user) {
+    if (!isEmpty(user)) {
       router.push(ENDPOINTS.HOME);
     }
   }, [user]);

@@ -3,18 +3,18 @@
 import React from 'react';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { useVideoLike } from '@/hooks/useVideoLike';
 import { showSuccessToast } from '@/components/ui/Toast';
+import { isEmpty } from 'lodash';
+import styles from '@/styles/components/ControlButton.module.scss';
 
-const VideoLikeButton = () => {
+const VideoLikeButton = ({ videoId, myInfo }) => {
   const { user } = useAuthContext();
   const { toggleEnjoyModal } = useModalContext();
-  const { videoId, myInfo } = useVideoDetailContext();
   const { mutate: videoLike, isPending: isLikePending } = useVideoLike();
 
   const handleLikeButton = async () => {
-    if (!user) {
+    if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
@@ -41,13 +41,11 @@ const VideoLikeButton = () => {
   return (
     <button
       type="button"
-      className="detail-control like"
+      className={`${styles.detail__control} ${styles.like}`}
       onClick={handleLikeButton}
       disabled={isLikePending}
     >
-      <span
-        className={`detail-control-icon ${myInfo && myInfo.is_like ? 'active' : ''}`}
-      ></span>
+      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.is_like ? styles.active : ''}`}></span>
     </button>
   );
 };

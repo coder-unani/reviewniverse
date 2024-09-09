@@ -1,8 +1,11 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 import styles from '@/styles/components/SkeletonHome.module.scss';
 import homeStyles from '@/styles/pages/Home.module.scss';
 import vpStyles from '@/styles/components/VideosPreview.module.scss';
+import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
 /**
  * TODO:
@@ -70,22 +73,20 @@ const SkeletonHome = () => {
           </section>
         </section>
         <section className={homeStyles.home__main__section}>
-          <section className="vertical-videos-section">
-            <div className="skeleton-vertical-title-wrapper">
-              <Skeleton className="skeleton-vertical-title" />
+          <section className={vvStyles.vertical__videos__section}>
+            <div className={styles.vertical__title__wrapper}>
+              <Skeleton className={styles.vertical__title} />
             </div>
-            <div className="vertical-videos-wrapper">
+            <div className={vvStyles.vertical__videos__wrapper}>
               {new Array(videoCount).fill(0).map((_, index) => (
-                <article key={index} className="default-video-item">
-                  <div className="skeleton-thumbnail-container">
-                    <Skeleton className="skeleton-default-thumbnail" />
+                <article key={index} className={styles.default__video__item}>
+                  <div className={styles.default__thumbnail__container}>
+                    <Skeleton className={styles.default__thumbnail} />
                   </div>
-                  <div className="skeleton-info-container">
-                    <div className="skeleton-title-wrapper">
-                      <Skeleton className="skeleton-title" />
-                    </div>
-                    <div className="skeleton-subtitle-wrapper">
-                      <Skeleton className="skeleton-subtitle" />
+                  <div className={styles.default__info__container}>
+                    <Skeleton className={styles.default__title} />
+                    <div className={styles.default__subtitle__wrapper}>
+                      <Skeleton className={styles.default__subtitle} />
                     </div>
                   </div>
                 </article>

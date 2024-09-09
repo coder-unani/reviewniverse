@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import PeopleImage from '@/components/ui/Button/People/Image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import styles from '@/styles/components/PeopleItem.module.scss';
 
 const PeopleItem = ({ crew, target, formatCode }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.PEOPLE, {
@@ -12,18 +13,20 @@ const PeopleItem = ({ crew, target, formatCode }) => {
     <Link
       href={path}
       state={{ people: crew, target }}
-      className="detail-people-link"
+      className={styles.detail__people__link}
       key={crew.id}
     >
       <PeopleImage image={crew.picture} size={60} />
-      <div className="detail-people-info-wrapper">
-        <p className="detail-people-name">{crew.name}</p>
-        <div className="detail-people-role-wrapper">
-          <span className="detail-people-role">{formatCode(crew.code)}</span>
+      <div className={styles.detail__people__info__wrapper}>
+        <p className={styles.detail__people__name}>{crew.name}</p>
+        <div className={styles.detail__people__role__wrapper}>
+          <span className={styles.detail__people__role}>
+            {formatCode(crew.code)}
+          </span>
           {crew.role && (
             <>
-              <span className="detail-people-role">|</span>
-              <span className="detail-people-role">{crew.role}</span>
+              <span className={styles.detail__people__role}>|</span>
+              <span className={styles.detail__people__role}>{crew.role}</span>
             </>
           )}
         </div>

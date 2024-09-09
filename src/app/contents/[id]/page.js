@@ -2,12 +2,17 @@
 
 import React, { Suspense, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import SkeletonVideoDetail from '@/components/ui/Skeleton/VideoDetail';
+import SkeletonContents from '@/components/ui/Skeleton/Contents';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import CollectionButton from '@/components/ui/Button/Collection';
 import ReviewButton from '@/components/ui/Button/Review';
-import ReviewModal from '@/components/ui/Modal/Review';
+import VideoSectionSynopsis from '@/components/ui/VideoSectionSynopsis';
+import VideoSectionPoster from '@/components/ui/VideoSectionPoster';
+import VideoSectionPlatform from '@/components/ui/VideoSectionPlatform';
+import VideoSectionCast from '@/components/ui/VideoSectionCast';
+import VideoSectionGallery from '@/components/ui/VideoSectionGallery';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { SETTINGS } from '@/config/settings';
@@ -25,6 +30,11 @@ import {
 } from '@/utils/formatContent';
 import { isEmpty } from 'lodash';
 import MoreIcon from '@/resources/icons/more.svg';
+import styles from '@/styles/pages/Contents.module.scss';
+
+const VideoSectionMyRating = dynamic(() => import('@/components/ui/VideoSectionMyRating'), { ssr: false });
+const VideoSectionReview = dynamic(() => import('@/components/ui/VideoSectionReview'), { ssr: false });
+const ReviewModal = dynamic(() => import('@/components/ui/Modal/Review'), { ssr: false });
 
 /**
  * TODO:
@@ -35,31 +45,6 @@ import MoreIcon from '@/resources/icons/more.svg';
  * - react tooltip 라이브러리 사용하기 (ex.평점 취소하기)
  * - 줄거리 더보기 기능
  */
-
-const PosterSection = React.lazy(
-  () => import('@/components/ui/VideoSectionPoster')
-);
-const SynopsisSection = React.lazy(
-  () => import('@/components/ui/VideoSectionSynopsis')
-);
-const MyRatingSection = React.lazy(
-  () => import('@/components/ui/VideoSectionMyRating')
-);
-const PlatformSection = React.lazy(
-  () => import('@/components/ui/VideoSectionPlatform')
-);
-const ActorSection = React.lazy(
-  () => import('@/components/ui/VideoSectionActor')
-);
-const StaffSection = React.lazy(
-  () => import('@/components/ui/VideoSectionStaff')
-);
-const GallerySection = React.lazy(
-  () => import('@/components/ui/VideoSectionGallery')
-);
-const ReviewSection = React.lazy(
-  () => import('@/components/ui/VideoSectionReview')
-);
 
 /*
 // 메타 태그 설정
@@ -102,15 +87,8 @@ export const metadata = ({ params }) => {
 
 export default function page({ params }) {
   const { isReviewModal } = useModalContext();
-  const {
-    videoId,
-    content,
-    contentIsLoading,
-    contentError,
-    myInfo,
-    myInfoIsLoading,
-    myInfoError,
-  } = useVideoDetailContext();
+  const { videoId, content, contentIsLoading, contentError, myInfo, myInfoIsLoading, myInfoError } =
+    useVideoDetailContext();
   const subInfoSwiperConfig = {
     spaceBetween: 10,
     slidesPerView: 'auto',
@@ -130,10 +108,7 @@ export default function page({ params }) {
     const handleScroll = () => {
       if (window.scrollY > 100 && header.classList.contains('transparent')) {
         header.classList.remove('transparent');
-      } else if (
-        window.scrollY <= 100 &&
-        !header.classList.contains('transparent')
-      ) {
+      } else if (window.scrollY <= 100 && !header.classList.contains('transparent')) {
         header.classList.add('transparent');
       }
     };
@@ -147,35 +122,33 @@ export default function page({ params }) {
 
   // 스켈레톤 UI 로딩
   if (contentIsLoading || myInfoIsLoading) {
-    return <SkeletonVideoDetail />;
+    return <SkeletonContents />;
   }
 
   if (!content || !content.data) return;
 
   return (
     <>
-      <Suspense fallback={<SkeletonVideoDetail />}>
-        <main className="detail-main-container">
-          <section className="detail-main-section">
-            <picture className="detail-background-wrapper">
+      <Suspense fallback={<SkeletonContents />}>
+        <main className={styles.detail__main}>
+          <section className={styles.detail__main__section}>
+            <picture className={styles.detail__background__wrapper}>
               <div
-                className="detail-background"
+                className={styles.detail__background}
                 style={{
                   backgroundImage: `url(${fBackgroundImage(content.data.thumbnail)})`,
                 }}
               />
             </picture>
 
-            <div className="detail-main-info-container">
-              <div className="detail-main-info-wrapper">
-                <article className="detail-title-container">
-                  <article className="detail-title-wrapper">
-                    <p className="detail-title-og">
-                      {content.data.title_og || content.data.title}
-                    </p>
-                    <h2 className="detail-title-kr">{content.data.title}</h2>
+            <div className={styles.detail__main__info__container}>
+              <div className={styles.detail__main__info__wrapper}>
+                <article className={styles.detail__title__container}>
+                  <article className={styles.detail__title__wrapper}>
+                    <p className={styles.detail__title__og}>{content.data.title_og || content.data.title}</p>
+                    <h2 className={styles.detail__title__kr}>{content.data.title}</h2>
                   </article>
-                  <ul className="detail-genre-wrapper">
+                  <ul className={styles.detail__genre__wrapper}>
                     {content.data.genre.map((genre, index) => (
                       <li key={index}>
                         <Link
@@ -183,7 +156,7 @@ export default function page({ params }) {
                             genreId: genre.id,
                           })}
                           state={{ name: genre.name }}
-                          className="detail-genre-link"
+                          className={styles.detail__genre__link}
                         >
                           {genre.name}
                         </Link>
@@ -192,9 +165,9 @@ export default function page({ params }) {
                   </ul>
                 </article>
 
-                <article className="detail-control-container">
-                  <article className="detail-control-wrapper">
-                    <VideoLikeButton />
+                <article className={styles.detail__control__container}>
+                  <article className={styles.detail__control__wrapper}>
+                    <VideoLikeButton videoId={videoId} myInfo={myInfo} />
                     {/* <CollectionButton /> */}
                     <ReviewButton />
                   </article>
@@ -202,42 +175,31 @@ export default function page({ params }) {
               </div>
             </div>
 
-            <div className="detail-sub-info-container">
-              <Swiper
-                className="detail-sub-info-wrapper"
-                {...subInfoSwiperConfig}
-              >
+            <div className={styles.detail__sub__info__container}>
+              <Swiper className={styles.detail__sub__info__wrapper} {...subInfoSwiperConfig}>
                 <SwiperSlide
-                  className="detail-sub-info-item rating"
+                  className={`${styles.detail__sub__info__item} ${styles.rating}`}
                   data-color={fRatingColor(content.data.rating)}
                 >
-                  <p className="detail-sub-title">평점</p>
-                  <div className="detail-sub-content-wrapper">
-                    <p className="detail-sub-content">
-                      {fRatingText(content.data.rating)}
-                    </p>
+                  <p className={styles.detail__sub__title}>평점</p>
+                  <div className={styles.detail__sub__content__wrapper}>
+                    <p className={styles.detail__sub__content}>{fRatingText(content.data.rating)}</p>
                   </div>
                 </SwiperSlide>
 
-                <SwiperSlide className="detail-sub-info-item notice-age">
-                  <p className="detail-sub-title">관람등급</p>
-                  <div className="detail-sub-content-wrapper">
-                    <p className="detail-sub-content">
-                      {fUpperCase(content.data.notice_age)}
-                    </p>
+                <SwiperSlide className={`${styles.detail__sub__info__item} ${styles.notice__age}`}>
+                  <p className={styles.detail__sub__title}>관람등급</p>
+                  <div className={styles.detail__sub__content__wrapper}>
+                    <p className={styles.detail__sub__content}>{fUpperCase(content.data.notice_age)}</p>
                   </div>
                 </SwiperSlide>
 
-                <SwiperSlide className="detail-sub-info-item release">
-                  <p className="detail-sub-title">
-                    {fReleaseText(content.data.code)}
-                  </p>
-                  <div className="detail-sub-content-wrapper">
-                    <p className="detail-sub-content year">
-                      {fYear(content.data.release)}
-                    </p>
+                <SwiperSlide className={`${styles.detail__sub__info__item} ${styles.release}`}>
+                  <p className={styles.detail__sub__title}>{fReleaseText(content.data.code)}</p>
+                  <div className={styles.detail__sub__content__wrapper}>
+                    <p className={`${styles.detail__sub__content} ${styles.year}`}>{fYear(content.data.release)}</p>
                     {fReleaseDate(content.data.release) && (
-                      <p className="detail-sub-content date">
+                      <p className={`${styles.detail__sub__content} ${styles.date}`}>
                         {fReleaseDate(content.data.release)}
                       </p>
                     )}
@@ -245,96 +207,80 @@ export default function page({ params }) {
                 </SwiperSlide>
 
                 <SwiperSlide
-                  className="detail-sub-info-item country"
-                  data-index={
-                    content.data.country ? content.data.country.length : 0
-                  }
+                  className={`${styles.detail__sub__info__item} ${styles.country}`}
+                  data-index={content.data.country ? content.data.country.length : 0}
                 >
-                  <p className="detail-sub-title">제작국가</p>
-                  <div className="detail-sub-content-wrapper">
+                  <p className={styles.detail__sub__title}>제작국가</p>
+                  <div className={styles.detail__sub__content__wrapper}>
                     {content.data.country ? (
                       content.data.country.map((country, index) => (
-                        <p
-                          className="detail-sub-content"
-                          key={index}
-                          data-indx={index + 1}
-                        >
+                        <p className={styles.detail__sub__content} key={index} data-indx={index + 1}>
                           {country.name_ko}
                         </p>
                       ))
                     ) : (
-                      <p className="detail-sub-content">-</p>
+                      <p className={styles.detail__sub__content}>-</p>
                     )}
                   </div>
                   {content.data.country && content.data.country.length > 1 && (
-                    <MoreIcon className="detail-sub-button" />
+                    <MoreIcon className={styles.detail__sub__button} />
                   )}
                 </SwiperSlide>
 
                 <SwiperSlide
-                  className="detail-sub-info-item production"
-                  data-index={
-                    content.data.production ? content.data.production.length : 0
-                  }
+                  className={`${styles.detail__sub__info__item} ${styles.production}`}
+                  data-index={content.data.production ? content.data.production.length : 0}
                 >
-                  <p className="detail-sub-title">제작사</p>
-                  <div className="detail-sub-content-wrapper">
+                  <p className={styles.detail__sub__title}>제작사</p>
+                  <div className={styles.detail__sub__content__wrapper}>
                     {content.data.production ? (
                       content.data.production.map((prodn, index) => (
                         <Link
-                          href={EndpointManager.generateUrl(
-                            ENDPOINTS.PRODUCTION,
-                            { productionId: prodn.id }
-                          )}
+                          href={EndpointManager.generateUrl(ENDPOINTS.PRODUCTION, { productionId: prodn.id })}
                           state={{ name: prodn.name }}
-                          className="detail-sub-content"
+                          className={styles.detail__sub__content}
                           key={index}
                         >
                           {prodn.name}
                         </Link>
                       ))
                     ) : (
-                      <p className="detail-sub-content">-</p>
+                      <p className={styles.detail__sub__content}>-</p>
                     )}
                   </div>
-                  {content.data.production &&
-                    content.data.production.length > 1 && (
-                      <MoreIcon className="detail-sub-button" />
-                    )}
+                  {content.data.production && content.data.production.length > 1 && (
+                    <MoreIcon className={styles.detail__sub__button} />
+                  )}
                 </SwiperSlide>
 
-                <SwiperSlide className="detail-sub-info-item runtime">
-                  <p className="detail-sub-title">
-                    {fRuntimeText(content.data.code)}
-                  </p>
-                  <div className="detail-sub-content-wrapper">
-                    <p className="detail-sub-content">{content.data.runtime}</p>
+                <SwiperSlide className={`${styles.detail__sub__info__item} ${styles.runtime}`}>
+                  <p className={styles.detail__sub__title}>{fRuntimeText(content.data.code)}</p>
+                  <div className={styles.detail__sub__content__wrapper}>
+                    <p className={styles.detail__sub__content}>{content.data.runtime}</p>
                   </div>
                 </SwiperSlide>
               </Swiper>
             </div>
           </section>
 
-          <div className="detail-main-wrapper">
-            <section className="detail-sub-section">
-              <SynopsisSection />
-              <PosterSection />
-              <div className="detail-more-wrapper">
-                <MyRatingSection />
-                <PlatformSection />
+          <div className={styles.detail__sub__wrapper}>
+            <section className={styles.detail__sub__section}>
+              <VideoSectionSynopsis content={content} />
+              <VideoSectionPoster content={content} />
+              <div className={styles.detail__more__wrapper}>
+                <VideoSectionMyRating videoId={videoId} myInfo={myInfo} />
+                <VideoSectionPlatform content={content} />
               </div>
             </section>
-            <ActorSection />
-            <StaffSection />
-            <GallerySection />
-            <ReviewSection />
+            <VideoSectionCast content={content} target="actor" />
+            <VideoSectionCast content={content} target="staff" />
+            <VideoSectionGallery content={content} />
+            <VideoSectionReview videoId={videoId} myInfo={myInfo} />
           </div>
         </main>
       </Suspense>
 
-      {isReviewModal && (
-        <ReviewModal content={content.data} myReview={myInfo.review} />
-      )}
+      {isReviewModal && <ReviewModal content={content.data} myReview={myInfo.review} />}
     </>
   );
 }

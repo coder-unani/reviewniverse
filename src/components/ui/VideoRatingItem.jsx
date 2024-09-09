@@ -4,6 +4,7 @@ import Image from 'next/image';
 import RatingReview from '@/components/ui/RatingReview';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
+import defStyles from '@/styles/components/VideoItem.module.scss';
 
 const VideoRatingItem = ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
@@ -11,30 +12,26 @@ const VideoRatingItem = ({ video }) => {
   });
 
   return (
-    <Link
-      href={path}
-      className="default-video-item"
-      aria-label={video.video.title}
-    >
-      <div className="default-thumbnail-container">
-        <picture className="default-thumbnail-wrapper">
+    <Link href={path} className={defStyles.default__video__item} aria-label={video.video.title}>
+      <div className={defStyles.default__thumbnail__container}>
+        <picture className={defStyles.default__thumbnail__wrapper}>
           <Image
-            className="default-thumbnail"
+            className={defStyles.default__thumbnail}
             src={fThumbnail(video.video.thumbnail)}
             alt="썸네일"
             fill
             placeholder="blur"
-            // effect="blur"
+            blurDataURL={fThumbnail(video.video.thumbnail)}
           />
         </picture>
-        <div className="default-code-wrapper">
-          <div className="default-code">{fVideoCode(video.code)}</div>
+        <div className={defStyles.default__code__wrapper}>
+          <div className={defStyles.default__code}>{fVideoCode(video.code)}</div>
         </div>
       </div>
-      <div className="default-info-container">
-        <p className="default-title">{video.video.title}</p>
-        <div className="default-subtitle-wrapper">
-          <div className="default-subtitle">
+      <div className={defStyles.default__info__container}>
+        <p className={defStyles.default__title}>{video.video.title}</p>
+        <div className={defStyles.default__subtitle__wrapper}>
+          <div className={defStyles.default__subtitle}>
             <RatingReview rating={video.rating} />
           </div>
         </div>

@@ -6,11 +6,13 @@ import { isEmpty } from 'lodash';
 import styles from '@/styles/components/ProfileButton.module.scss';
 
 const ProfileButton = ({ user, size, onClose }) => {
-  const profilePath = user
-    ? EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id })
-    : '';
-  const profileImage = user ? user.profile_image : DEFAULT_IMAGES.noActor;
-  const profileNickname = user ? user.nickname : '탈퇴한 회원 입니다.';
+  const profilePath = isEmpty(user)
+    ? ''
+    : EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
+  const profileImage = isEmpty(user)
+    ? DEFAULT_IMAGES.noActor
+    : user.profile_image;
+  const profileNickname = isEmpty(user) ? '탈퇴한 회원 입니다.' : user.nickname;
 
   const handleMobileMenuClose = () => {
     onClose?.();

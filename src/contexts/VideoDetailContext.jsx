@@ -7,6 +7,7 @@ import { useVideoDetail } from '@/hooks/useVideoDetail';
 import { useVideoMyInfo } from '@/hooks/useVideoMyInfo';
 import { fParseInt } from '@/utils/format';
 import { ENDPOINTS } from '@/config/endpoints';
+import { isEmpty } from 'lodash';
 
 const VideoDetailContext = createContext();
 
@@ -25,8 +26,8 @@ export const VideoDetailProvider = ({ children, id }) => {
     isLoading: myInfoIsLoading,
   } = useVideoMyInfo({
     videoId: videoId,
-    userId: user ? user.id : null,
-    enabled: user && videoId,
+    userId: isEmpty(user) ? null : user.id,
+    enabled: !isEmpty(user) && videoId,
   });
 
   // 비디오 ID가 숫자형이 아닐 경우 404 페이지로 이동

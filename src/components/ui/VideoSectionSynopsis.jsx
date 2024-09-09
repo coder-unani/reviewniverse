@@ -1,26 +1,20 @@
-'use client';
-
-import React, { useMemo, useEffect, useState, useRef } from 'react';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
+import React, { useEffect, useState, useRef } from 'react';
 import { isEmpty } from 'lodash';
+import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionSynopsis = React.memo(() => {
-  const { content } = useVideoDetailContext();
-  const synopsis = useMemo(
-    () => content.data.synopsis,
-    [content.data.synopsis]
-  );
+const VideoSectionSynopsis = React.memo(({ content }) => {
+  const synopsis = content.data.synopsis || '';
+  if (isEmpty(synopsis)) {
+    return null;
+  }
+
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const synopsisRef = useRef(null);
 
+  // 작품 소개가 5줄 이상일 경우 더보기 버튼 표시
   useEffect(() => {
-    if (!synopsis) {
-      return;
-    }
-    const lineHeight = parseFloat(
-      getComputedStyle(synopsisRef.current).lineHeight
-    );
+    const lineHeight = parseFloat(getComputedStyle(synopsisRef.current).lineHeight);
     const height = synopsisRef.current.scrollHeight;
     const maxLines = 5;
     const maxHeight = lineHeight * maxLines;
@@ -30,29 +24,25 @@ const VideoSectionSynopsis = React.memo(() => {
     }
   }, []);
 
+  // 더보기 버튼 클릭 시 펼치기/접기
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
 
-  const renderSynopsis = () => (
-    <section className="detail-synopsis-section">
-      <h4 className="detail-main-title">작품 소개</h4>
-      <summary
-        className={`detail-synopsis ${isExpanded ? 'expanded' : ''}`}
-        ref={synopsisRef}
-      >
+  return (
+    <section className={styles.detail__synopsis__section}>
+      <h4 className={styles.detail__main__title}>작품 소개</h4>
+      <summary className={`${styles.detail__synopsis} ${isExpanded ? styles.expanded : ''}`} ref={synopsisRef}>
         {synopsis}
       </summary>
       {isOverflowing && !isExpanded && (
-        <button onClick={toggleExpand} className="synopsis-more-button">
+        <button onClick={toggleExpand} className={styles.synopsis__more__button}>
           {/* {isExpanded ? "접기" : "더보기"} */}
           더보기
         </button>
       )}
     </section>
   );
-
-  return isEmpty(synopsis) ? null : renderSynopsis();
 });
 
 export default VideoSectionSynopsis;

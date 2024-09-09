@@ -5,6 +5,7 @@ import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useReviewLike } from '@/hooks/useReviewLike';
 import { fNumberWithCommas } from '@/utils/format';
+import { isEmpty } from 'lodash';
 import FillThumbIcon from '@/resources/icons/fill-thumb.svg';
 import OutlineThumbIcon from '@/resources/icons/outline-thumb.svg';
 
@@ -14,10 +15,11 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
   const { toggleEnjoyModal } = useModalContext();
   const { user } = useAuthContext();
   const { mutate: reviewLike, isPending: isLikePending } = useReviewLike();
-  const isLike = user && review.my_info ? review.my_info.is_like : false;
+  const isLike =
+    !isEmpty(user) && review.my_info ? review.my_info.is_like : false;
 
   const handleReviewLike = async () => {
-    if (!user) {
+    if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }

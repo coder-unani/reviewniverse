@@ -20,7 +20,6 @@ import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
 import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
 /**
- * 
  * 정적 페이지 증가(ISR, Incremental Static Regeneration)를 위한 getStaticProps 함수
 export async function getStaticProps() {
   // 빌드 시 데이터 가져오기
@@ -307,7 +306,7 @@ export default function page() {
     ) {
       return null;
     }
-    const title = '👀 이달의 콘텐츠';
+    const title = '🌰 따끈~따끈한 신작';
     return (
       <VideosHorizontal content={monthlyVideos.data.data} template="monthly">
         <div className={vhStyles.horizontal__title__wrapper}>

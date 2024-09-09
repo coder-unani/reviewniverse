@@ -1,27 +1,28 @@
+'use client';
+
 import React from 'react';
 import RatingVideo from '@/components/ui/RatingVideo';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { fRatingColor, fRatingText } from '@/utils/formatContent';
+import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionMyRating = React.memo(() => {
-  const { myInfo } = useVideoDetailContext();
+const VideoSectionMyRating = ({ videoId, myInfo }) => {
   const rating = myInfo && myInfo.rating ? myInfo.rating : 0;
   const ratingText = fRatingText(rating);
   const ratingColor = fRatingColor(rating);
 
   return (
-    <section className="detail-my-rating-section">
-      <h4 className="detail-main-title">평가하기</h4>
-      <div className="detail-my-rating">
-        <span className="my-rating-text number" data-color={ratingColor}>
+    <section className={styles.detail__my__rating__section}>
+      <h4 className={styles.detail__main__title}>평가하기</h4>
+      <div className={styles.detail__my__rating}>
+        <span className={`${styles.my__rating__text} ${styles.number}`} data-color={ratingColor}>
           {ratingText}
         </span>
-        <span className="my-rating-text">/</span>
-        <span className="my-rating-text">5</span>
+        <span className={styles.my__rating__text}>/</span>
+        <span className={styles.my__rating__text}>5</span>
       </div>
-      <RatingVideo />
+      <RatingVideo videoId={videoId} myInfo={myInfo} />
     </section>
   );
-});
+};
 
 export default VideoSectionMyRating;

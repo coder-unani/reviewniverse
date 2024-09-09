@@ -1,20 +1,20 @@
 import React from 'react';
-import SwiperGallery from '@/components/ui/SwiperGallery';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
+import GalleryVertical from '@/components/ui/GalleryVertical';
 import { isEmpty } from 'lodash';
+import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionGallery = React.memo(() => {
-  const { content } = useVideoDetailContext();
-  const gallery = content.data.thumbnail;
+const VideoSectionGallery = React.memo(({ content }) => {
+  const gallery = content.data.thumbnail || [];
+  if (isEmpty(gallery)) {
+    return null;
+  }
 
-  const renderGallery = () => (
-    <section className="detail-gallery-section">
-      <h4 className="detail-main-title">갤러리</h4>
-      <SwiperGallery />
+  return (
+    <section className={styles.detail__gallery__section}>
+      <h4 className={styles.detail__main__title}>갤러리</h4>
+      <GalleryVertical content={content} />
     </section>
   );
-
-  return isEmpty(gallery) ? null : renderGallery();
 });
 
 export default VideoSectionGallery;

@@ -252,7 +252,7 @@ export default function page() {
   }, [watchIntroduction, setValue]);
 
   // 로그인한 유저가 없다면 로그인 페이지로 이동
-  if (!user) {
+  if (isEmpty(user)) {
     return router.push(ENDPOINTS.USER_LOGIN);
   }
 

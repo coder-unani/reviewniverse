@@ -9,6 +9,7 @@ import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { Tooltip } from 'react-tooltip';
+import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/UsersDelete.module.scss';
 
 export default function page() {
@@ -17,7 +18,7 @@ export default function page() {
   const { mutate: userDelete, isPending: isDeletePending } = useUserDelete();
 
   useEffect(() => {
-    if (!user) {
+    if (isEmpty(user)) {
       router.push(ENDPOINTS.HOME);
     }
   }, []);

@@ -3,13 +3,15 @@
 import React from 'react';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
+import { isEmpty } from 'lodash';
+import styles from '@/styles/components/ControlButton.module.scss';
 
 const ReviewButton = () => {
   const { user } = useAuthContext();
   const { toggleEnjoyModal, toggleReviewModal } = useModalContext();
 
   const handleReviewCreate = () => {
-    if (!user) {
+    if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
@@ -19,10 +21,10 @@ const ReviewButton = () => {
   return (
     <button
       type="button"
-      className="detail-control review"
+      className={`${styles.detail__control} ${styles.review}`}
       onClick={handleReviewCreate}
     >
-      <span className="detail-control-icon"></span>
+      <span className={styles.detail__control__icon}></span>
     </button>
   );
 };

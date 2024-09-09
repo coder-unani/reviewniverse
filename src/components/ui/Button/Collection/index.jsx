@@ -1,9 +1,14 @@
 'use client';
 
+import styles from '@/styles/components/ControlButton.module.scss';
+
 const CollectionButton = () => {
   return (
-    <button type="button" className="detail-control collection">
-      <span className="detail-control-icon"></span>
+    <button
+      type="button"
+      className={`${styles.detail__control} ${styles.collection}`}
+    >
+      <span className={styles.detail__control__icon}></span>
     </button>
   );
 };

@@ -1,28 +1,26 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { fThumbnail } from '@/utils/formatContent';
+import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionPoster = React.memo(() => {
-  const { content } = useVideoDetailContext();
-  const poster = useMemo(
-    () => fThumbnail(content.data.thumbnail, false),
-    [content.data.thumbnail]
-  );
+const VideoSectionPoster = ({ content }) => {
+  const poster = fThumbnail(content.data.thumbnail, false);
 
   return (
-    <section className="detail-poster-section">
-      <picture className="detail-poster-wrapper">
+    <section className={styles.detail__poster__section}>
+      <picture className={styles.detail__poster__wrapper}>
         <Image
-          className="detail-poster"
+          className={styles.detail__poster}
           src={poster}
           alt="포스터"
-          fill
+          width={280}
+          height={0}
+          sizes="(max-width: 280px) 100vw, 280px"
           priority
         />
       </picture>
     </section>
   );
-});
+};
 
 export default VideoSectionPoster;

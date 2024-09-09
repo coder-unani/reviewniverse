@@ -1,6 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import VideoLikeItem from '@/components/ui/VideoLikeItem';
 import { isEmpty } from 'lodash';
+import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
 const VideosLike = ({ children, videos, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
@@ -35,9 +36,9 @@ const VideosLike = ({ children, videos, handlePage }) => {
   }
 
   return (
-    <section className="vertical-videos-section">
+    <section className={vvStyles.vertical__videos__section}>
       {children}
-      <div className="vertical-videos-wrapper">
+      <div className={vvStyles.vertical__videos__wrapper}>
         {videos.data.map((video, index) => (
           <VideoLikeItem key={index} video={video} />
         ))}

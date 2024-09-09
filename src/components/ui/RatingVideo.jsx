@@ -4,22 +4,20 @@ import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { useVideoRating } from '@/hooks/useVideoRating';
-import { Tooltip } from 'react-tooltip';
 import { showSuccessToast } from '@/components/ui/Toast';
+import { Tooltip } from 'react-tooltip';
 import { fRating, fRatingColor } from '@/utils/formatContent';
 import { VIDEO_RATING_TEXT } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
+import { isEmpty } from 'lodash';
+import styles from '@/styles/components/RatingVideo.module.scss';
 
-const RatingVideo = () => {
+const RatingVideo = ({ videoId, myInfo }) => {
   const { user } = useAuthContext();
   const { toggleEnjoyModal } = useModalContext();
-  const { videoId, myInfo } = useVideoDetailContext();
   const { mutate: videoRating, isPending: isRatingPending } = useVideoRating();
-  const [imgSrc, setImgSrc] = useState(
-    `${SETTINGS.CDN_BASE_URL}/assets/images/rating/0.png`
-  );
+  const [imgSrc, setImgSrc] = useState(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/0.png`);
   const ratingRef = useRef(null);
   const ratingImgRef = useRef(null);
   const ratingTextRef = useRef(null);
@@ -32,7 +30,7 @@ const RatingVideo = () => {
     }
 
     // 로그인이 되어 있고, myInfo가 있을 경우 평가하기 이미지 및 텍스트 설정
-    if (user && myInfo) {
+    if (!isEmpty(user) && myInfo) {
       handleRatingSet(myInfo.rating || 0);
     }
 
@@ -86,7 +84,7 @@ const RatingVideo = () => {
   // 비디오 평가하기 클릭 이벤트
   const handleRatingClick = async (e) => {
     // 로그인 안했을 경우 Enjoy 모달 띄우기
-    if (!user) {
+    if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
@@ -130,10 +128,10 @@ const RatingVideo = () => {
   };
 
   return (
-    <article className="video-rating-container">
-      <div className="video-rating-image-wrapper">
+    <article className={styles.rating__container}>
+      <div className={styles.rating__image__wrapper}>
         <Image
-          className="video-rating-image"
+          className={styles.rating__image}
           src={imgSrc}
           alt="평가 이미지"
           sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
@@ -141,15 +139,15 @@ const RatingVideo = () => {
           ref={ratingImgRef}
         />
       </div>
-      <div className="video-rating-range-wrapper">
-        <span id="ratingText" className="video-rating-text" ref={ratingTextRef}>
+      <div className={styles.rating__range__wrapper}>
+        <span id="ratingText" className={styles.rating__text} ref={ratingTextRef}>
           {VIDEO_RATING_TEXT[0]}
         </span>
-        <div className="video-rating-range" ref={ratingRef}>
+        <div className={styles.rating__range} ref={ratingRef}>
           {Array.from({ length: 10 }, (_, i) => (
             <div
               id={`videoRating${i + 1}`}
-              className="video-rating-fill"
+              className={styles.rating__fill}
               data-rating={i + 1}
               data-color={fRatingColor(i + 1)}
               key={i}
@@ -158,7 +156,7 @@ const RatingVideo = () => {
         </div>
         {Array.from({ length: 10 }, (_, i) => (
           <Tooltip
-            className="video-rating-tooltip"
+            className={styles.rating__tooltip}
             anchorSelect={`#videoRating${i + 1}`}
             content={handleTooltipContent(i + 1)}
             place="bottom"

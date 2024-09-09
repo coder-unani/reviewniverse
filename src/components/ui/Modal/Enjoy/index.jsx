@@ -25,30 +25,16 @@ const EnjoyModal = React.memo(({ onClose }) => {
 
   return (
     <Modal>
-      <div
-        className={styles.enjoy__modal__wrapper}
-        ref={modalRef}
-        onClick={handleModalClose}
-      >
+      <div className={styles.enjoy__modal__wrapper} ref={modalRef} onClick={handleModalClose}>
         <main className={styles.enjoy__modal}>
           <section className={styles.enjoy__section}>
             <CloseButton onClose={onClose} />
             <div className={styles.enjoy__image__wrapper}>
-              <Image
-                className={styles.enjoy__image}
-                src={DEFAULT_IMAGES.userLogin}
-                alt="회원 환영 이미지"
-                fill
-              />
-              <p className={styles.enjoy__content}>
-                로그인 후 이용할 수 있어요!
-              </p>
+              <img className={styles.enjoy__image} src={DEFAULT_IMAGES.userLogin} alt="회원 환영 이미지" />
+              <p className={styles.enjoy__content}>로그인 후 이용할 수 있어요!</p>
             </div>
             <div className={styles.enjoy__button__wrapper}>
-              <button
-                className={styles.login__button}
-                onClick={handleLoginButton}
-              >
+              <button className={styles.login__button} onClick={handleLoginButton}>
                 로그인
               </button>
             </div>

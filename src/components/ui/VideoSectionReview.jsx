@@ -6,36 +6,33 @@ import ProfileImage from '@/components/ui/Button/Profile/Image';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
-import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
 import { useReviewDelete } from '@/hooks/useReviewDelete';
 import { Tooltip } from 'react-tooltip';
 import { isEmpty } from 'lodash';
 import FillUpdateIcon from '@/resources/icons/fill-update.svg';
 import FillTrashIcon from '@/resources/icons/fill-trash.svg';
+import styles from '@/styles/pages/Contents.module.scss';
 
 /**
  * TODO:
  * - 클라이언트 사이드 렌더링
  */
 
-const VideoSectionReview = () => {
+const VideoSectionReview = ({ videoId, myInfo }) => {
   const { user } = useAuthContext();
-  const { videoId, myInfo } = useVideoDetailContext();
   const {
     data: reviews,
     error: reviewsError,
     isLoading: reviewsIsLoading,
   } = useVideoReviews({ videoId, page: 1, pageSize: 8, enabled: videoId });
-  const { toggleEnjoyModal, toggleReviewModal, toggleConfirmModal } =
-    useModalContext();
-  const { mutate: reviewDelete, isPending: isDeletePending } =
-    useReviewDelete();
+  const { toggleEnjoyModal, toggleReviewModal, toggleConfirmModal } = useModalContext();
+  const { mutate: reviewDelete, isPending: isDeletePending } = useReviewDelete();
   const deleteButtonRef = useRef(null);
 
   // 리뷰 작성
   const handleReviewCreate = () => {
-    if (!user) {
+    if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
@@ -72,6 +69,12 @@ const VideoSectionReview = () => {
     }
   };
 
+  const ReviewTotal = () => {
+    if (reviews.total <= 0) return null;
+    const total = reviews.total > 999 ? '999+' : reviews.total;
+    return <span className={styles.detail__review__total}>{total}</span>;
+  };
+
   const MyReviewWrapper = () => {
     const getMessage = () => {
       if (!myInfo) {
@@ -90,62 +93,58 @@ const VideoSectionReview = () => {
     };
 
     const renderNoReivew = (message) => (
-      <article className="detail-no-review-wrapper">
-        <p className="no-review-text">{message}</p>
-        <button
-          type="button"
-          className="no-review-button"
-          onClick={handleReviewCreate}
-        >
+      <article className={styles.detail__no__review__wrapper}>
+        <p className={styles.no__review__text}>{message}</p>
+        <button type="button" className={styles.no__review__button} onClick={handleReviewCreate}>
           리뷰 쓰기
         </button>
       </article>
     );
 
     const renderMyReview = () => (
-      <article className="detail-my-review-wrapper">
-        <div className="my-review-title-wrapper">
+      <article className={styles.detail__my__review__wrapper}>
+        <div className={styles.my__review__title__wrapper}>
           <ProfileImage image={user.profile_image} size={36} />
-          <p className="my-review-title" onClick={handleReviewCreate}>
+          <p className={styles.my__review__title} onClick={handleReviewCreate}>
             {myInfo.review.title}
           </p>
-          {/* <div className="my-review-content-wrapper">
-            <p className="my-review-title" onClick={handleReviewCreate}>
+          {/* <div className={styles.my__review__content__wrapper}>
+            <p className={styles.my__review__title} onClick={handleReviewCreate}>
               {myInfo.review.title}
             </p>
             <p>{myInfo.review.created_at}</p>
           </div> */}
         </div>
-        <div className="my-review-button-wrapper">
+        <div className={styles.my__review__button__wrapper}>
           <button
             type="button"
             data-tooltip-id="myReviewDeleteTooltip"
             data-tooltip-content="삭제"
-            className="my-review-delete-button"
+            className={styles.my__review__delete__button}
             onClick={handleReviewDelete}
             disabled={isDeletePending}
             ref={deleteButtonRef}
           >
-            <FillTrashIcon className="my-review-button-icon" />
+            <FillTrashIcon className={styles.my__review__button__icon} width={18} height={18} />
           </button>
           <Tooltip
             id="myReviewDeleteTooltip"
-            className="my-reivew-delete-tooltip"
+            className={styles.my__review__delete__tooltip}
             place="bottom"
             effect="solid"
           />
           <button
             type="button"
-            className="my-review-update-button"
+            className={styles.my__review__update__button}
             data-tooltip-id="myReviewUpdateTooltip"
             data-tooltip-content="수정"
             onClick={handleReviewUpdate}
           >
-            <FillUpdateIcon className="my-review-button-icon" />
+            <FillUpdateIcon className={styles.my__review__button__icon} width={18} height={18} />
           </button>
           <Tooltip
             id="myReviewUpdateTooltip"
-            className="my-reivew-update-tooltip"
+            className={styles.my__review__update__tooltip}
             place="bottom"
             effect="solid"
           />
@@ -157,16 +156,10 @@ const VideoSectionReview = () => {
     return message ? renderNoReivew(message) : renderMyReview();
   };
 
-  const ReviewTotal = () => {
-    if (reviews.total <= 0) return null;
-    const total = reviews.total > 999 ? '999+' : reviews.total;
-    return <span className="detail-review-total">{total}</span>;
-  };
-
   const ReviewsWrapper = () => {
     if (isEmpty(reviews.data)) return null;
     return (
-      <article className="detail-review-wrapper">
+      <article className={styles.detail__review__wrapper}>
         {reviews.data.map((review) => (
           <VideoReviewItem key={review.id} videoId={videoId} review={review} />
         ))}
@@ -178,8 +171,8 @@ const VideoSectionReview = () => {
   if (reviewsError) return null;
 
   return (
-    <section className="detail-review-section">
-      <h4 className="detail-main-title">
+    <section className={styles.detail__review__section}>
+      <h4 className={styles.detail__main__title}>
         리뷰
         <ReviewTotal />
       </h4>

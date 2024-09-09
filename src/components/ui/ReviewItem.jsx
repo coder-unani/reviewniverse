@@ -21,7 +21,6 @@ import styles from '@/styles/components/ReviewItem.module.scss';
 const ReviewItem = ({ user, review }) => {
   const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
-  const profileImage = user ? user.profile_image : DEFAULT_IMAGES.noActor;
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
     videoId: review.video.id,
@@ -40,7 +39,7 @@ const ReviewItem = ({ user, review }) => {
   return (
     <div className={styles.review__item}>
       <div className={styles.review__profile__wrapper}>
-        <ProfileImage image={profileImage} size={36} />
+        <ProfileImage image={user.profile_image} size={36} />
         <div className={styles.review__profile__info__wrapper}>
           <div className={styles.review__nickname__wrapper}>
             <span className={styles.review__nickname}>{user.nickname}</span>

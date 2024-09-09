@@ -6,8 +6,6 @@ import dynamic from 'next/dynamic';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
-import SearchForm from '@/components/ui/SearchForm';
-import MenuModal from '@/components/ui/Modal/Menu';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { isEmpty } from 'lodash';
 import LogoIcon from '@/resources/icons/logo-white.svg';
@@ -16,10 +14,16 @@ import MenuIcon from '@/resources/icons/menu.svg';
 import styles from '@/styles/components/Header.module.scss';
 
 // dynamic import
+const SearchForm = dynamic(() => import('@/components/ui/SearchForm'), {
+  ssr: false,
+});
 const ProfileImage = dynamic(
   () => import('@/components/ui/Button/Profile/Image'),
   { ssr: false }
 );
+const MenuModal = dynamic(() => import('@/components/ui/Modal/Menu'), {
+  ssr: false,
+});
 
 const Header = () => {
   const router = useRouter();
@@ -102,8 +106,13 @@ const Header = () => {
       const path = EndpointManager.generateUrl(ENDPOINTS.USER, {
         userId: user.id,
       });
+      // TODO: suppressHydrationWarning 안쓰는 방법 찾기
       return (
-        <Link href={path} className={styles.toolbar__user}>
+        <Link
+          href={path}
+          className={styles.toolbar__user}
+          suppressHydrationWarning
+        >
           <ProfileImage image={user.profile_image} size={34} />
         </Link>
       );
@@ -125,7 +134,7 @@ const Header = () => {
             <SearchForm />
           </Suspense>
         </section>
-        <section className={styles.toolbar__container} suppressHydrationWarning>
+        <section className={styles.toolbar__container}>
           {isMounted && isEmpty(user) ? renderLogin() : renderProfile()}
         </section>
       </section>

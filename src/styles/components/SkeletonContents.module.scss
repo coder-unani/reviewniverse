@@ -1,0 +1,207 @@
+.detail__title__og {
+  min-width: 150px;
+  width: 20%;
+  height: 20px;
+  margin-bottom: 2px;
+}
+
+.detail__title__kr {
+  min-width: 200px;
+  width: 25%;
+  height: 52px;
+}
+
+.detail__genre__link {
+  width: 52px;
+  height: 26px;
+  border-radius: 6px;
+}
+
+.detail__sub__info__item {
+  position: relative;
+  min-width: 210px;
+  width: auto;
+  height: 120px;
+  border-radius: 24px;
+}
+
+.detail__poster__wrapper {
+  position: relative;
+  width: 280px;
+  aspect-ratio: 2 / 3;
+  background-color: transparent;
+}
+
+.detail__poster {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 14px;
+}
+
+.detail__main__title {
+  width: 100px;
+  height: 17px;
+  margin-bottom: 15px;
+}
+
+.detail__synopsis {
+  height: 20px;
+  margin-bottom: 2px;
+}
+
+.rating__video {
+  height: 44px;
+  border-radius: 12px;
+}
+
+.detail__platform {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+}
+
+.detail__cast__section {
+  width: 100%;
+  max-width: 1440px;
+  padding: 20px 60px;
+  margin: 0 auto;
+
+  :global(.people__image__wrapper) {
+    margin-right: 12px;
+  }
+
+  :global(.people__image) {
+    border-radius: 50%;
+  }
+}
+
+.detail__cast {
+  display: flex;
+}
+
+.detail__people__link {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  margin-right: 12px;
+}
+
+.people__image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  margin-right: 12px;
+}
+
+.detail__people__info__wrapper {
+  flex: 1;
+}
+
+.detail__people__name {
+  width: 60%;
+  height: 17px;
+  margin-bottom: 4px;
+}
+
+.detail__people__role {
+  width: 60%;
+  height: 17px;
+}
+
+.detail__gallery__section {
+  width: 100%;
+  max-width: 1440px;
+  padding: 20px 60px;
+  margin: 0 auto;
+}
+
+.detail__gallery__wrapper {
+  display: flex;
+  gap: 12px;
+}
+
+.detail__gallery__item {
+  flex: 1;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+.detail__photo {
+  width: 100%;
+  height: 100%;
+  border-radius: 14px;
+}
+
+@media (max-width: 1024px) {
+  .detail__cast__section {
+    padding: 20px 30px;
+  }
+
+  .detail__gallery__section {
+    padding: 20px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  .detail__title__og {
+    height: 20px;
+  }
+
+  .detail__title__kr {
+    height: 46px;
+  }
+
+  .detail__sub__info__item {
+    min-width: 160px;
+    height: 100px;
+    border-radius: 21px;
+  }
+
+  .detail__gallery__wrapper {
+    gap: 10px;
+  }
+
+  .detail__platform {
+    width: 60px;
+    height: 60px;
+  }
+
+  .detail__photo {
+    border-radius: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .detail__title__og {
+    height: 16px;
+  }
+
+  .detail__title__kr {
+    height: 40px;
+  }
+
+  .detail__genre__link {
+    height: 27px;
+  }
+
+  .detail__sub__info__item {
+    min-width: 120px;
+    height: 74px;
+    border-radius: 18px;
+  }
+
+  .detail__cast__section {
+    padding: 20px 15px;
+  }
+
+  .detail__cast {
+    flex-direction: column;
+  }
+
+  .detail__gallery__section {
+    padding: 20px 15px;
+  }
+}

@@ -1,0 +1,40 @@
+@use '@/styles/variables' as *;
+
+.detail__control {
+  width: 45px;
+  height: 45px;
+  padding: 7px;
+
+  &.like {
+    .detail__control__icon {
+      background-image: url('#{$cdn-base-url}/assets/images/outline-heart.svg');
+      &.active {
+        background-image: url('#{$cdn-base-url}/assets/images/fill-heart.svg');
+      }
+    }
+  }
+
+  &.collection {
+    .detail__control__icon {
+      background-image: url('#{$cdn-base-url}/assets/images/outline-folder.svg');
+      &.active {
+        background-image: url('#{$cdn-base-url}/assets/images/fill-folder.svg');
+      }
+    }
+  }
+
+  &.review {
+    .detail__control__icon {
+      background-image: url('#{$cdn-base-url}/assets/images/outline-pen.svg');
+    }
+  }
+}
+
+.detail__control__icon {
+  display: block;
+  width: 100%;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}

@@ -1,0 +1,101 @@
+@use '@/styles/variables' as *;
+
+.detail__review__item {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  border-bottom: 1px solid $border-color-01;
+  padding: 12px 15px;
+}
+
+.detail__review__profile__link {
+  display: flex;
+}
+
+.detail__review__nickname {
+  flex: auto;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-02;
+  margin-left: 0;
+
+  // 1줄 이상일 경우 생략 부분 처리
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.detail__review__content__wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1px;
+}
+
+.detail__review__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail__review__nickname__link {
+  display: flex;
+}
+
+.detail__review__body {
+  padding: 10px 0;
+  cursor: pointer;
+
+  &[data-spoiler='true'] {
+    .detail__review__content {
+      position: relative;
+
+      &[data-active='true'] {
+        &:hover {
+          &::before {
+            background-color: $color-white-08;
+          }
+        }
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          border-radius: 6px;
+          background-color: $color-white-09;
+          z-index: 999;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.detail__review__content {
+  font-size: 15px;
+  color: $color-white-02;
+  line-height: 20px;
+  white-space: pre-wrap;
+  z-index: 0;
+
+  // 5줄 이상일때 생략
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.detail__review__footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.detail__review__date {
+  font-size: 14px;
+  color: $color-white-06;
+}
