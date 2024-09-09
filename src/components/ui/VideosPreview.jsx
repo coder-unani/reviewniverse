@@ -7,12 +7,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Thumbs, Autoplay, Parallax, EffectFade } from 'swiper/modules';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
-import {
-  fThumbnail,
-  fPreviewThumbnail,
-  fBackgroundImage,
-  fReleaseText,
-} from '@/utils/formatContent';
+import { fThumbnail, fPreviewThumbnail, fBackgroundImage, fReleaseText } from '@/utils/formatContent';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/components/VideosPreview.module.scss';
 
@@ -129,9 +124,7 @@ const VideosPreview = React.memo(({ videos }) => {
                 className={styles.preview__background__image}
                 style={{
                   backgroundImage: `url(${
-                    isMobile
-                      ? fThumbnail(video.thumbnail, false)
-                      : fPreviewThumbnail(video.thumbnail)
+                    isMobile ? fThumbnail(video.thumbnail, false) : fPreviewThumbnail(video.thumbnail)
                   })`,
                 }}
               />
@@ -141,25 +134,16 @@ const VideosPreview = React.memo(({ videos }) => {
               <div className={styles.preview__info__wrapper}>
                 <div className={styles.preview__title__wrapper}>
                   <div>
-                    <p
-                      className={styles.preview__title__og}
-                      data-swiper-parallax="-150"
-                    >
+                    <p className={styles.preview__title__og} data-swiper-parallax="-150">
                       {video.title_og || video.title}
                     </p>
-                    <h2
-                      className={styles.preview__title__kr}
-                      data-swiper-parallax="-250"
-                    >
+                    <h2 className={styles.preview__title__kr} data-swiper-parallax="-250">
                       {video.title}
                     </h2>
                   </div>
                 </div>
                 <div className={styles.preview__release__wrapper}>
-                  <div
-                    className={styles.preview__release}
-                    data-swiper-parallax="-200"
-                  >
+                  <div className={styles.preview__release} data-swiper-parallax="-200">
                     <span>{fReleaseText(video.code)}</span>
                     <span>|</span>
                     <span>{fDate(video.release)}</span>
@@ -175,10 +159,7 @@ const VideosPreview = React.memo(({ videos }) => {
         <div className={styles.preview__thumbnails__wrapper}>
           <Swiper className={styles.preview__thumbnails} {...thumbSwiperConfig}>
             {previewVideo.map((video, index) => (
-              <SwiperSlide
-                className={styles.preview__thumbnail__item}
-                key={video.id}
-              >
+              <SwiperSlide className={styles.preview__thumbnail__item} key={video.id}>
                 <Link
                   href={EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
                     videoId: video.id,

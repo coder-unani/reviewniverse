@@ -22,17 +22,15 @@ export const fVideoCode = (code) => {
 };
 
 // 스크린 데이터 포맷
-export const fScreenCode = (screens, code) => {
+export const fExportScreenDataByCode = (screens, code) => {
   // SCREEN_MAIN_ID에 code가 포함되어 있는지 확인
-  if (!SCREEN_MAIN_ID.includes(code)) return null;
+  if (!SCREEN_MAIN_ID.includes(code)) return {};
   return screens.find((screen) => screen.code === code);
 };
 
 // provider 포맷
 export const fProviderCode = (provider) => {
-  const providerCode = Object.keys(USER_CODE).find(
-    (key) => USER_CODE[key] === provider
-  );
+  const providerCode = Object.keys(USER_CODE).find((key) => USER_CODE[key] === provider);
   return providerCode || '';
 };
 
@@ -77,17 +75,11 @@ export const fPreviewThumbnail = (images, isThumb = false) => {
   if (isEmpty(images)) return result;
   if (Array.isArray(images)) {
     if (images[2]) {
-      result = isThumb
-        ? fMakeThumbnailUrl(images[2])
-        : fMakeImageUrl(images[2]);
+      result = isThumb ? fMakeThumbnailUrl(images[2]) : fMakeImageUrl(images[2]);
     } else if (images[1]) {
-      result = isThumb
-        ? fMakeThumbnailUrl(images[1])
-        : fMakeImageUrl(images[1]);
+      result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1]);
     } else {
-      result = isThumb
-        ? fMakeThumbnailUrl(images[0])
-        : fMakeImageUrl(images[0]);
+      result = isThumb ? fMakeThumbnailUrl(images[0]) : fMakeImageUrl(images[0]);
     }
   } else {
     result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images);
