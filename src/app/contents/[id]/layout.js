@@ -1,5 +1,3 @@
-'use client';
-
 import { VideoDetailProvider } from '@/contexts/VideoDetailContext';
 
 export default function ContentLayout({ children, params }) {
