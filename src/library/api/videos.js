@@ -1,4 +1,4 @@
-import HttpClient from '@/utils/HttpClient';
+import { AxiosClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
 import { cLog, cError } from '@/utils/test';
 
@@ -35,7 +35,7 @@ export const fetchVideos = async ({
   terms = null,
 }) => {
   try {
-    const client = new HttpClient();
+    const client = new AxiosClient();
     const res = await client.get(endpoints.videos, {
       ...(query && { q: query }),
       ...(page && { p: page }),
@@ -54,30 +54,21 @@ export const fetchVideos = async ({
 
 export const fetchVideoDetail = async ({ videoId }) => {
   try {
-    const client = new HttpClient();
-    const res = await client.get(
-      endpoints.videoDetail.replace(':videoId', videoId)
-    );
+    const client = new AxiosClient();
+    const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId));
     return res;
   } catch (error) {
     cError(error);
   }
 };
 
-export const fetchVideoReviews = async ({
-  videoId,
-  page = null,
-  pageSize = null,
-}) => {
+export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null }) => {
   try {
-    const client = new HttpClient();
-    const res = await client.get(
-      endpoints.videoReviews.replace(':videoId', videoId),
-      {
-        ...(page && { p: page }),
-        ...(pageSize && { ps: pageSize }),
-      }
-    );
+    const client = new AxiosClient();
+    const res = await client.get(endpoints.videoReviews.replace(':videoId', videoId), {
+      ...(page && { p: page }),
+      ...(pageSize && { ps: pageSize }),
+    });
     return res;
   } catch (error) {
     cError(error);
@@ -86,10 +77,8 @@ export const fetchVideoReviews = async ({
 
 export const fetchVideoMyInfo = async ({ videoId }) => {
   try {
-    const client = new HttpClient();
-    const res = await client.post(
-      endpoints.videoMyInfo.replace(':videoId', videoId)
-    );
+    const client = new AxiosClient();
+    const res = await client.post(endpoints.videoMyInfo.replace(':videoId', videoId));
     return res;
   } catch (error) {
     cError(error);
@@ -98,10 +87,8 @@ export const fetchVideoMyInfo = async ({ videoId }) => {
 
 export const fetchVideoLike = async ({ videoId }) => {
   try {
-    const client = new HttpClient();
-    const res = await client.post(
-      endpoints.videoLike.replace(':videoId', videoId)
-    );
+    const client = new AxiosClient();
+    const res = await client.post(endpoints.videoLike.replace(':videoId', videoId));
     return res;
   } catch (error) {
     cError(error);
@@ -110,12 +97,8 @@ export const fetchVideoLike = async ({ videoId }) => {
 
 export const fetchVideoRating = async ({ videoId, rating }) => {
   try {
-    const client = new HttpClient();
-    const res = await client.post(
-      endpoints.videoRating.replace(':videoId', videoId),
-      {},
-      { rating }
-    );
+    const client = new AxiosClient();
+    const res = await client.post(endpoints.videoRating.replace(':videoId', videoId), {}, { rating });
     return res;
   } catch (error) {
     cError(error);

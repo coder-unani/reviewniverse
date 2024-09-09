@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-// import HttpClient from "@/utils/HttpClient";
+// import { AxiosClient } from "@/utils/HttpClient";
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
@@ -49,7 +49,7 @@ const NaverCallback = () => {
         const state = searchParams.get("state");
 
         if (code) {
-          const client = new HttpClient();
+          const client = new AxiosClient();
           client.setHeader({
             "X-Naver-Client-Id": SETTINGS.NAVER_CLIENT_ID,
             "X-Naver-Client-Secret": SETTINGS.NAVER_CLIENT_SECRET,

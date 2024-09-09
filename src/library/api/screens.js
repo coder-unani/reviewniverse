@@ -1,4 +1,4 @@
-import HttpClient from '@/utils/HttpClient';
+import { FetchClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
 import { cLog, cError } from '@/utils/test';
 
@@ -9,7 +9,7 @@ const endpoints = {
 
 export const fetchScreenVideos = async ({ code, display = null }) => {
   try {
-    const client = new HttpClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.screens, {
       code,
       ...(display && { dp: display }),

@@ -18,10 +18,10 @@ import styles from '@/styles/pages/Search.module.scss';
  * - videos skeleton ui 추가
  */
 
-const SearchResults = () => {
+const SearchResults = ({ query }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const query = searchParams.get('query');
+  // const searchParams = useSearchParams();
+  // const query = searchParams.get('query');
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -102,9 +102,7 @@ const SearchResults = () => {
           <p className={styles.no__search__title}>
             "<em>{query}</em>"에 대한 검색 결과가 없어요.
           </p>
-          <p className={styles.no__search__subtitle}>
-            입력한 검색어를 다시 한번 확인해주세요.
-          </p>
+          <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
         </div>
       ) : (
         <>

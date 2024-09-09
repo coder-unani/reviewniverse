@@ -9,8 +9,7 @@
 @font-face {
   font-family: 'SUIT Variable';
   font-weight: 100 900;
-  src: url('#{$cdn-base-url}/assets/fonts/SUIT-Variable.woff2')
-    format('woff2-variations');
+  src: url('#{$cdn-base-url}/assets/fonts/SUIT-Variable.woff2') format('woff2-variations');
 }
 
 // common
@@ -36,9 +35,8 @@ html {
 }
 
 body {
-  font-family: 'SUIT Variable', 'Apple SD Gothic NEO', 'Helvetica Neue',
-    Helvetica, 나눔고딕, NanumGothic, 'Malgun Gothic', '맑은 고딕', 굴림, gulim,
-    새굴림, 'noto sans', 돋움, Dotum, sans-serif;
+  font-family: 'SUIT Variable', 'Apple SD Gothic NEO', 'Helvetica Neue', Helvetica, 나눔고딕, NanumGothic,
+    'Malgun Gothic', '맑은 고딕', 굴림, gulim, 새굴림, 'noto sans', 돋움, Dotum, sans-serif;
   background-color: $color-background;
   margin: 0;
   padding: 0;
@@ -123,16 +121,8 @@ em {
 header {
   &.transparent {
     background: transparent;
-    background: -webkit-linear-gradient(
-      to bottom,
-      rgba($color-background, 0.6),
-      rgba($color-background, 0)
-    );
-    background: linear-gradient(
-      to bottom,
-      rgba($color-background, 0.6),
-      rgba($color-background, 0)
-    );
+    background: -webkit-linear-gradient(to bottom, rgba($color-background, 0.6), rgba($color-background, 0));
+    background: linear-gradient(to bottom, rgba($color-background, 0.6), rgba($color-background, 0));
     transition: all 0.2s ease-in-out;
   }
 }
@@ -150,6 +140,10 @@ header {
 //   min-height: calc(100vh - $footer-height);
 //   padding-top: $header-height;
 // }
+
+.preview-margin-right {
+  margin-right: 24px;
+}
 
 .home__button {
   display: inline-block;
@@ -241,9 +235,25 @@ header {
   }
 }
 
+@media (max-width: 1280px) {
+  .preview-margin-right {
+    margin-right: 18px;
+  }
+}
+
+@media (max-width: 769) {
+  .preview-margin-right {
+    margin-right: 12px;
+  }
+}
+
 @media (max-width: 576px) {
   .header__search__wrapper {
     position: relative;
     padding: 10px 15px;
+  }
+
+  .preview-margin-right {
+    margin-right: 10px;
   }
 }

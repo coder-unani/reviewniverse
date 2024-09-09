@@ -1,4 +1,4 @@
-import HttpClient from '@/utils/HttpClient';
+import { FetchClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
 import { cLog, cError } from '@/utils/test';
 
@@ -10,7 +10,7 @@ const endpoints = {
 
 export const fetchRankingVideos = async ({ code, count }) => {
   try {
-    const client = new HttpClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.rankingVideos, { code, count });
     return res;
   } catch (error) {
@@ -20,7 +20,7 @@ export const fetchRankingVideos = async ({ code, count }) => {
 
 export const fetchRankingGenres = async ({ count }) => {
   try {
-    const client = new HttpClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.rankingGenres, { count });
     return res;
   } catch (error) {

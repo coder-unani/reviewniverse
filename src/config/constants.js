@@ -20,20 +20,26 @@ export const DEFAULT_IMAGES = {
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, 인기, 추천, 검색, 통합검색, OTT, 평점';
 
-export const VIDEO_ORDER_OPTIONS = [
-  'release_asc',
-  'release_desc',
-  'view_asc',
-  'view_desc',
-  'rating_asc',
-  'rating_desc',
-  'like_asc',
-  'like_desc',
-  'review_asc',
-  'review_desc',
-];
+export const HOME_REVALIDATE_SEC = 300;
 
-export const VIDEO_TERMS_OPTIONS = ['already', 'coming_soon', 'current'];
+export const VIDEO_ORDER_OPTIONS = {
+  RELEASE_ASC: 'release_asc',
+  RELEASE_DESC: 'release_desc',
+  VIEW_ASC: 'view_asc',
+  VIEW_DESC: 'view_desc',
+  RATING_ASC: 'rating_asc',
+  RATING_DESC: 'rating_desc',
+  LIKE_ASC: 'like_asc',
+  LIKE_DESC: 'like_desc',
+  REVIEW_ASC: 'review_asc',
+  REVIEW_DESC: 'review_desc',
+};
+
+export const VIDEO_TERMS_OPTIONS = {
+  ALREADY: 'already',
+  COMING_SOON: 'coming_soon',
+  CURRENT: 'current',
+};
 
 // TODO: 문구 정리 필요
 export const VIDEO_RATING_TEXT = [
@@ -52,11 +58,6 @@ export const VIDEO_RATING_TEXT = [
 
 export const PROFILE_IMAGE_FILE_SIZE = 30;
 
-export const PROFILE_IMAGE_FILE_TYPE = [
-  'image/jpeg',
-  'image/png',
-  'image/gif',
-  'image/webp',
-];
+export const PROFILE_IMAGE_FILE_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
 export const PROFILE_TEXT_MAX_LENGTH = 200;

@@ -78,8 +78,8 @@ export default function page() {
     isLoading: comingSoonVideosIsLoading,
   } = useVideos({
     page: 1,
-    orderBy: VIDEO_ORDER_OPTIONS[0],
-    terms: VIDEO_TERMS_OPTIONS[1],
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
+    terms: VIDEO_TERMS_OPTIONS.COMING_SOON,
   });
   // 이달의 비디오 데이터 호출
   const {
@@ -88,8 +88,8 @@ export default function page() {
     isLoading: monthlyVideosIsLoading,
   } = useVideos({
     page: 1,
-    orderBy: VIDEO_ORDER_OPTIONS[1],
-    terms: VIDEO_TERMS_OPTIONS[2],
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
+    terms: VIDEO_TERMS_OPTIONS.CURRENT,
   });
   // 비디오 리스트 데이터 호출
   const {
@@ -98,8 +98,8 @@ export default function page() {
     isLoading: videosIsLoading,
   } = useVideos({
     page,
-    orderBy: VIDEO_ORDER_OPTIONS[1],
-    terms: VIDEO_TERMS_OPTIONS[0],
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
+    terms: VIDEO_TERMS_OPTIONS.ALREADY,
     enabled: hasMore,
   });
 

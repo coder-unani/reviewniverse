@@ -1,4 +1,4 @@
-import HttpClient from '@/utils/HttpClient';
+import { AxiosClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
 import { cLog, cError } from '@/utils/test';
 
@@ -9,7 +9,7 @@ const endpoints = {
 
 export const fetchToken = async () => {
   try {
-    const client = new HttpClient();
+    const client = new AxiosClient();
     const res = await client.get(endpoints.token);
     return res;
   } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import HttpClient from '@/utils/HttpClient';
+import { AxiosClient } from '@/utils/HttpClient';
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
@@ -43,7 +43,7 @@ export default function page() {
     try {
       const code = searchParams.get('code');
       if (code) {
-        const client = new HttpClient();
+        const client = new AxiosClient();
         const tokenRes = await client.post(`https://kauth.kakao.com/oauth/token`, null, {
           grant_type: 'authorization_code',
           client_id: SETTINGS.KAKAO_API_KEY,

@@ -130,7 +130,7 @@ const SearchForm = () => {
     if (!inputValue || !inputValue.trim()) return;
     handleSearchClose();
     saveRecentKeywords(inputValue);
-    const path = `${ENDPOINTS.SEARCH}?query=${inputValue}`;
+    const path = `${ENDPOINTS.SEARCH}/${inputValue}`;
     router.push(path);
   };
 
@@ -172,41 +172,19 @@ const SearchForm = () => {
       <>
         <div className={styles.search__header}>
           <p className={styles.search__title}>최근 검색어</p>
-          <button
-            type="button"
-            className={styles.search__clear}
-            onClick={handleRecentClear}
-          >
+          <button type="button" className={styles.search__clear} onClick={handleRecentClear}>
             전체 삭제
           </button>
         </div>
         <ul className={styles.search__list}>
           {recentKeywords.map((keyword, index) => (
             <li className={styles.search__item} key={index}>
-              <Link
-                href={{
-                  pathname: ENDPOINTS.SEARCH,
-                  query: { query: keyword },
-                }}
-                className={styles.search__link}
-              >
-                <SearchIcon
-                  className={styles.search__icon}
-                  width={24}
-                  height={24}
-                />
+              <Link href={`${ENDPOINTS.SEARCH}/${keyword}`} className={styles.search__link}>
+                <SearchIcon className={styles.search__icon} width={24} height={24} />
                 <p className={styles.search__keyword}>{keyword}</p>
               </Link>
-              <button
-                type="button"
-                className={styles.search__remove}
-                onClick={() => handleRecentRemove(keyword)}
-              >
-                <CloseIcon
-                  className={styles.close__icon}
-                  width={24}
-                  height={24}
-                />
+              <button type="button" className={styles.search__remove} onClick={() => handleRecentRemove(keyword)}>
+                <CloseIcon className={styles.close__icon} width={24} height={24} />
               </button>
             </li>
           ))}
@@ -237,25 +215,13 @@ const SearchForm = () => {
     }
 
     return (
-      <div
-        className={styles.search__dropdown}
-        tabIndex="0"
-        ref={searchDropdownRef}
-      >
+      <div className={styles.search__dropdown} tabIndex="0" ref={searchDropdownRef}>
         {content}
         <div className={styles.search__footer}>
-          <button
-            type="button"
-            className={styles.search__save}
-            onClick={handleSearchSave}
-          >
+          <button type="button" className={styles.search__save} onClick={handleSearchSave}>
             {isSaveKeyword ? '자동저장 끄기' : '자동저장 켜기'}
           </button>
-          <button
-            type="button"
-            className={styles.search__close}
-            onClick={handleSearchClose}
-          >
+          <button type="button" className={styles.search__close} onClick={handleSearchClose}>
             닫기
           </button>
         </div>
