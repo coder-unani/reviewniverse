@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { fDate } from '@/utils/format';
 import { fPreviewThumbnail, fBackgroundImage, fReleaseText } from '@/utils/formatContent';
 import { isEmpty } from 'lodash';
@@ -72,10 +73,13 @@ const VideosPreview = async ({ videos }) => {
                     data-index={index}
                   >
                     <picture className={vpStyles.preview__thumbnail__wrapper}>
-                      <img
+                      <Image
                         className={vpStyles.preview__thumbnail}
                         src={fBackgroundImage(video.thumbnail, true)}
                         alt={video.title}
+                        width={254}
+                        height={382}
+                        quality={100}
                       />
                     </picture>
                   </a>

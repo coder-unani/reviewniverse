@@ -26,8 +26,8 @@ export const ENDPOINTS = {
   USER_LIKES: '/users/:userId/contents/likes',
   USER_PROFILE: '/users/profile',
   USER_DELETE: '/users/delete',
-  ERROR: '/500',
-  // ERROR: '/error',
+  // ERROR: '/500',
+  ERROR: '/error',
   NOT_FOUND: '/_not-found',
   DENIED_ALL: '/*',
 };

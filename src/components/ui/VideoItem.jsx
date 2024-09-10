@@ -1,31 +1,34 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
+// import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
 import styles from '@/styles/components/VideoItem.module.scss';
 
-/**
- * TODO:
- * - 이미지 레이지 로딩 어떻게 할건지
- * - 레이지 로딩은 클라이언트 컴포넌트에서만 사용 가능
- */
-
-const VideoItem = ({ video }) => {
+const VideoItem = async ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
     videoId: video.id,
   });
+
+  // blurDataURL을 생성하는 함수
+  const thumbnail = fThumbnail(video.thumbnail);
+  // const base64 = await getImagePlaceholder(thumbnail);
 
   return (
     <Link href={path} className={styles.default__video__item} aria-label={video.title}>
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
-          <img
+          <Image
             className={styles.default__thumbnail}
-            src={fThumbnail(video.thumbnail)}
-            srcSet={fThumbnail(video.thumbnail)}
-            alt="썸네일"
-            loading="lazy"
+            src={thumbnail}
+            alt={video.title}
+            width={254}
+            height={382}
+            quality={100}
+            // placeholder="blur"
+            // blurDataURL={base64}
           />
         </picture>
         <div className={styles.default__code__wrapper}>

@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
+import Image from 'next/image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fMakeThumbnailUrl } from '@/utils/formatContent';
 import { nanoid } from 'nanoid';
@@ -37,13 +38,16 @@ const GenresVertical = ({ children, genres }) => {
                     aria-label={genre.name}
                   >
                     <picture className={styles.genre__thumbnail__wrapper}>
-                      <img
+                      <Image
                         className={styles.genre__thumbnail__image}
                         src={fMakeThumbnailUrl(genre.image)}
                         alt={genre.name}
+                        width={254}
+                        height={382}
+                        quality={100}
                       />
                     </picture>
-                    <h5 className={styles.genre__video__title}>#{genre.name}</h5>
+                    <p className={styles.genre__video__title}>#{genre.name}</p>
                   </Link>
                 </div>
               ))}

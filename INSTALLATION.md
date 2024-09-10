@@ -35,6 +35,8 @@ yarn add react-tooltip
 yarn upgrade react-toastify
 yarn add nanoid
 yarn add react-lazy-load-image-component
+yarn add sharp plaiceholder
+yarn add @plaiceholder/next
 
 # 개발 의존성 라이브러리 설치
 

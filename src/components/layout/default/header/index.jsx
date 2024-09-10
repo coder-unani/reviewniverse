@@ -59,7 +59,7 @@ const Header = () => {
   // 헤더 로고
   const Logo = () => (
     <h1 className={styles.header__logo}>
-      <Link href={ENDPOINTS.HOME} className={styles.header__logo__link}>
+      <Link href={ENDPOINTS.HOME} className={styles.header__logo__link} aria-label="홈">
         <LogoIcon width={145} height={40} />
       </Link>
     </h1>
