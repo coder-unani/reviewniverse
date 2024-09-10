@@ -1,4 +1,4 @@
-import { AxiosClient } from '@/utils/HttpClient';
+import { FetchClient, AxiosClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
 import { cLog, cError } from '@/utils/test';
 
@@ -35,7 +35,7 @@ export const fetchVideos = async ({
   terms = null,
 }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.videos, {
       ...(query && { q: query }),
       ...(page && { p: page }),
@@ -54,7 +54,7 @@ export const fetchVideos = async ({
 
 export const fetchVideoDetail = async ({ videoId }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId));
     return res;
   } catch (error) {

@@ -32,7 +32,7 @@ class FetchClient {
     }
   }
 
-  async get(url, params = null, revalidate = null) {
+  async get(url, params = null) {
     try {
       this.setDeviceIdentifierHeader(url);
 
@@ -42,11 +42,6 @@ class FetchClient {
         method: 'GET',
         headers: this.headers,
       };
-
-      // ISR 적용을 위해 revalidate 옵션을 next에 추가
-      if (revalidate !== null) {
-        options.next = { revalidate };
-      }
 
       const response = await fetch(`${url}${queryString}`, options);
       return this.responseHandler(response);
