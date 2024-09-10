@@ -2,7 +2,6 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import Modal from '@/components/ui/Modal';
 import ProfileButton from '@/components/ui/Button/Profile';
 import CloseButton from '@/components/ui/Button/Close';
@@ -36,13 +35,7 @@ const MenuModal = ({ onClose }) => {
   // 로그인 버튼 렌더링
   const LoginButton = () => (
     <Link href={ENDPOINTS.USER_LOGIN} className={styles.menu__header__login} onClick={onClose}>
-      <Image
-        className={styles.menu__profile__image}
-        src={DEFAULT_IMAGES.noActor}
-        alt="프로필 이미지"
-        width={28}
-        height={28}
-      />
+      <img className={styles.menu__profile__image} src={DEFAULT_IMAGES.noActor} alt="프로필 이미지" />
       로그인 해주세요
       <ArrowRightIcon width={24} height={24} />
     </Link>

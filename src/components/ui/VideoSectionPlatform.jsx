@@ -1,5 +1,4 @@
 import React from 'react';
-import Image from 'next/image';
 import { fPlatformFilter } from '@/utils/formatContent';
 import { SETTINGS } from '@/config/settings';
 import { isEmpty } from 'lodash';
@@ -22,13 +21,10 @@ const VideoSectionPlatform = ({ content }) => {
             onClick={() => window.open(platform.url)}
             key={index}
           >
-            <Image
+            <img
               className={styles.platform__image}
               src={`${SETTINGS.CDN_BASE_URL}/assets/images/platform/${platform.code}.png`}
               alt="플랫폼"
-              width={60}
-              height={60}
-              sizes="(max-width: 60px) 100vw, 60px"
             />
           </button>
         ))}

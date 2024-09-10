@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import Modal from '@/components/ui/Modal';
 import CloseButton from '@/components/ui/Button/Close';
 import { setStorageHidePopupBanner } from '@/utils/formatStorage';
@@ -37,19 +36,11 @@ const PopupBanner = React.memo(({ onClose }) => {
           <section className={styles.popup__section}>
             <CloseButton onClose={onClose} />
             <div className={styles.popup__image__wrapper}>
-              <Image
-                className={styles.popup__image}
-                src={DEFAULT_IMAGES.popup}
-                alt="팝업 이미지"
-              />
+              <img className={styles.popup__image} src={DEFAULT_IMAGES.popup} alt="팝업 이미지" />
               <p className={styles.popup__content}>🤪 팝업 광고 입니다 🤪</p>
             </div>
             <section className={styles.popup__footer}>
-              <input
-                type="checkbox"
-                id="popupHideCheck"
-                onChange={(e) => handleHidePopupBanner(e)}
-              />
+              <input type="checkbox" id="popupHideCheck" onChange={(e) => handleHidePopupBanner(e)} />
               <label htmlFor="popupHideCheck">오늘 하루 그만 보기</label>
             </section>
           </section>
