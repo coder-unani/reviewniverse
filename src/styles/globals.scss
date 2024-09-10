@@ -110,6 +110,11 @@ em {
   font-style: normal;
 }
 
+.lazy-load-image-background {
+  width: 100%;
+  height: 100%;
+}
+
 .wrapper {
   width: 100%;
   height: 100%;
@@ -143,6 +148,16 @@ header {
 
 .preview-margin-right {
   margin-right: 24px;
+}
+
+.horizontal-margin-right {
+  width: calc((100% - 48px) / 5);
+  margin-right: 12px;
+}
+
+.genre-margin-right {
+  width: calc((100% - 72px) / 7);
+  margin-right: 12px;
 }
 
 .home__button {
@@ -239,11 +254,38 @@ header {
   .preview-margin-right {
     margin-right: 18px;
   }
+
+  .genre-margin-right {
+    width: calc((100% - 60px) / 6);
+    margin-right: 12px;
+  }
 }
 
-@media (max-width: 769) {
+@media (max-width: 1024px) {
+  .horizontal-margin-right {
+    width: calc((100% - 30px) / 4);
+    margin-right: 10px;
+  }
+
+  .genre-margin-right {
+    width: calc((100% - 40px) / 5);
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: 768px) {
   .preview-margin-right {
     margin-right: 12px;
+  }
+
+  .horizontal-margin-right {
+    width: calc((100% - 16px) / 3);
+    margin-right: 8px;
+  }
+
+  .genre-margin-right {
+    width: calc((100% - 21px) / 4);
+    margin-right: 8px;
   }
 }
 
@@ -255,5 +297,10 @@ header {
 
   .preview-margin-right {
     margin-right: 10px;
+  }
+
+  .genre-margin-right {
+    width: calc((100% - 21px) / 3.5);
+    margin-right: 8px;
   }
 }

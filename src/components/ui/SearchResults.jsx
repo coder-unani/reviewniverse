@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { useVideos } from '@/hooks/useVideos';
 import VideosVertical from '@/components/ui/VideosVertical';
@@ -20,8 +20,6 @@ import styles from '@/styles/pages/Search.module.scss';
 
 const SearchResults = ({ query }) => {
   const router = useRouter();
-  // const searchParams = useSearchParams();
-  // const query = searchParams.get('query');
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -91,14 +89,7 @@ const SearchResults = ({ query }) => {
     <section className={styles.search__section}>
       {isEmpty(videos) || isEmpty(videos.data) ? (
         <div className={styles.no__search__content}>
-          <Image
-            className={styles.no__search__image}
-            src={DEFAULT_IMAGES.searchNotFound}
-            alt="검색 결과 없음"
-            width={320}
-            height={320}
-            priority
-          />
+          <img className={styles.no__search__image} src={DEFAULT_IMAGES.searchNotFound} alt="검색 결과 없음" />
           <p className={styles.no__search__title}>
             "<em>{query}</em>"에 대한 검색 결과가 없어요.
           </p>

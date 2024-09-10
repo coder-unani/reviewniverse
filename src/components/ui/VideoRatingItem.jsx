@@ -1,6 +1,8 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import RatingReview from '@/components/ui/RatingReview';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
@@ -15,13 +17,12 @@ const VideoRatingItem = ({ video }) => {
     <Link href={path} className={defStyles.default__video__item} aria-label={video.video.title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
-          <Image
+          <LazyLoadImage
             className={defStyles.default__thumbnail}
             src={fThumbnail(video.video.thumbnail)}
-            alt="썸네일"
-            fill
-            placeholder="blur"
-            blurDataURL={fThumbnail(video.video.thumbnail)}
+            srcSet={fThumbnail(video.video.thumbnail)}
+            alt={video.video.title}
+            effect="blur"
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>

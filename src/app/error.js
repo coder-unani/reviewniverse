@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import HomeButton from '@/components/ui/Button/Home';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import styles from '@/styles/pages/Error.module.scss';
@@ -12,13 +11,11 @@ export default function Error({ error, reset }) {
     <main className={styles.error__main}>
       <section className={styles.error__section}>
         <div className={styles.error__content}>
-          <Image
+          <img
             className={styles.error__image}
             src={DEFAULT_IMAGES.error}
+            srcSet={DEFAULT_IMAGES.error}
             alt="페이지를 찾을 수 없음"
-            width={320}
-            height={320}
-            priority
           />
           <p className={styles.error__title}>서비스에 접속할 수 없습니다.</p>
           <p className={styles.error__subtitle}>

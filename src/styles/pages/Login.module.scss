@@ -16,6 +16,11 @@
   padding: 32px 0 20px;
 }
 
+.login__header__logo {
+  width: 200px;
+  object-fit: contain;
+}
+
 .login__header__title {
   font-size: 17px;
   color: $color-white-01;
@@ -54,6 +59,8 @@
   top: 50%;
   left: 4px;
   transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
   object-fit: contain;
   padding: 10px;
 }

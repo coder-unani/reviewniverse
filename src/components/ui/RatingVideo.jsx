@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoRating } from '@/hooks/useVideoRating';
@@ -130,14 +129,7 @@ const RatingVideo = ({ videoId, myInfo }) => {
   return (
     <article className={styles.rating__container}>
       <div className={styles.rating__image__wrapper}>
-        <Image
-          className={styles.rating__image}
-          src={imgSrc}
-          alt="평가 이미지"
-          sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-          fill
-          ref={ratingImgRef}
-        />
+        <img className={styles.rating__image} src={imgSrc} alt="평가 이미지" ref={ratingImgRef} />
       </div>
       <div className={styles.rating__range__wrapper}>
         <span id="ratingText" className={styles.rating__text} ref={ratingTextRef}>

@@ -1,19 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
-import {
-  fThumbnail,
-  fCountry,
-  fRatingColor,
-  fRatingText,
-} from '@/utils/formatContent';
+import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 import styles from '@/styles/components/VideoItem.module.scss';
 
 /**
  * TODO:
- * - 정적 이미지 생성
+ * - 이미지 레이지 로딩 어떻게 할건지
+ * - 레이지 로딩은 클라이언트 컴포넌트에서만 사용 가능
  */
 
 const VideoItem = ({ video }) => {
@@ -22,21 +17,15 @@ const VideoItem = ({ video }) => {
   });
 
   return (
-    <Link
-      href={path}
-      className={styles.default__video__item}
-      aria-label={video.title}
-    >
+    <Link href={path} className={styles.default__video__item} aria-label={video.title}>
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
-          <Image
+          <img
             className={styles.default__thumbnail}
             src={fThumbnail(video.thumbnail)}
+            srcSet={fThumbnail(video.thumbnail)}
             alt="썸네일"
-            sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-            fill
-            placeholder="blur"
-            blurDataURL={fThumbnail(video.thumbnail)}
+            loading="lazy"
           />
         </picture>
         <div className={styles.default__code__wrapper}>
@@ -55,14 +44,9 @@ const VideoItem = ({ video }) => {
               </>
             )}
           </div>
-          <div
-            className={styles.default__rating__wrapper}
-            data-color={fRatingColor(video.rating)}
-          >
+          <div className={styles.default__rating__wrapper} data-color={fRatingColor(video.rating)}>
             <div className={styles.default__rating__square}></div>
-            <span className={styles.default__rating}>
-              {fRatingText(video.rating)}
-            </span>
+            <span className={styles.default__rating}>{fRatingText(video.rating)}</span>
           </div>
         </div>
       </div>

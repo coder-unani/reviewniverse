@@ -2,7 +2,6 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useUserDelete } from '@/hooks/useUserDelete';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
@@ -64,21 +63,14 @@ export default function page() {
             <br />
             삭제하시려면 아래의 버튼을 눌러주세요.
           </p>
-          <Image
+          <img
             className={styles.delete__image}
             src={DEFAULT_IMAGES.userDelete}
+            srcSet={DEFAULT_IMAGES.userDelete}
             alt="회원 탈퇴 이미지"
-            width={320}
-            height={320}
-            priority
           />
           <div className={styles.delete__button__wrapper}>
-            <button
-              type="button"
-              id="cancelButton"
-              className={styles.delete__cancel}
-              onClick={handleCancel}
-            >
+            <button type="button" id="cancelButton" className={styles.delete__cancel} onClick={handleCancel}>
               안할래요!
             </button>
             <Tooltip

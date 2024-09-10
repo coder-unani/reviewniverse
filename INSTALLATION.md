@@ -33,6 +33,8 @@ yarn add react-modal
 yarn add react-toastify
 yarn add react-tooltip
 yarn upgrade react-toastify
+yarn add nanoid
+yarn add react-lazy-load-image-component
 
 # 개발 의존성 라이브러리 설치
 

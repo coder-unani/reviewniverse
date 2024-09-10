@@ -1,12 +1,5 @@
 import { isEmpty } from 'lodash';
-import {
-  USER_CODE,
-  SCREEN_MAIN_ID,
-  VIDEO_ACTOR_CODE,
-  VIDEO_STAFF_CODE,
-  COUNTRY_CODE,
-  VIDEO_PLATFORM_CODE,
-} from '@/config/codes';
+import { USER_CODE, SCREEN_MAIN_ID, VIDEO_ACTOR_CODE, VIDEO_STAFF_CODE, VIDEO_PLATFORM_CODE } from '@/config/codes';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
 

@@ -1,4 +1,5 @@
-import Image from 'next/image';
+'use client';
+
 import { DEFAULT_IMAGES } from '@/config/constants';
 import styles from '@/styles/components/LoginLoading.module.scss';
 
@@ -7,13 +8,11 @@ const LoginLoading = () => {
     <main className={styles.loading__main}>
       <section className={styles.loading__section}>
         <div className={styles.loading__content}>
-          <Image
+          <img
             className={styles.loading__image}
             src={DEFAULT_IMAGES.loading}
+            srcSet={DEFAULT_IMAGES.loading}
             alt="로딩 이미지"
-            width={320}
-            height={320}
-            priority
           />
           <p className={styles.loading__title}>소셜 로그인 중입니다.</p>
           <p className={styles.loading__subtitle}>잠시만 기다려주세요.</p>

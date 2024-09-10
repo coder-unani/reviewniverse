@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingReview from '@/components/ui/RatingReview';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
@@ -45,9 +45,7 @@ const ReviewItem = ({ user, review }) => {
             <span className={styles.review__nickname}>{user.nickname}</span>
             {data.rating && <RatingReview rating={data.rating} />}
           </div>
-          <span className={styles.review__date}>
-            {fDiffDate(data.created_at)}
-          </span>
+          <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
         </div>
         {/* <button className={styles.review__more__button}>
           <MoreIcon />
@@ -56,39 +54,28 @@ const ReviewItem = ({ user, review }) => {
       <div className={styles.review__video__wrapper}>
         <Link href={path} className={styles.review__video__link}>
           <picture className={styles.review__thumbnail__wrapper}>
-            <Image
+            <LazyLoadImage
               className={styles.review__thumbnail}
               src={fThumbnail(data.video.thumbnail)}
+              srcSet={fThumbnail(data.video.thumbnail)}
               alt={data.video.title}
-              sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-              fill
-              placeholder="blur"
-              blurDataURL={fThumbnail(data.video.thumbnail)}
+              effect="blur"
             />
           </picture>
         </Link>
         <div className={styles.review__wrapper}>
           <div className={styles.review__content__wrapper}>
             <div className={styles.review__video__info__wrapper}>
-              <span className={styles.review__video__title}>
-                {data.video.title}
-              </span>
+              <span className={styles.review__video__title}>{data.video.title}</span>
               <span className={styles.review__video__release}>
                 <span>{fVideoCode(data.video.code)}</span>
                 <span>|</span>
                 <span>{fYear(data.video.release)}</span>
               </span>
             </div>
-            <div
-              className={styles.review__comment__wrapper}
-              data-spoiler={data.is_spoiler}
-            >
+            <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
               {data.is_spoiler ? (
-                <p
-                  className={styles.review__comment}
-                  data-active={active}
-                  onClick={handleSpoiler}
-                >
+                <p className={styles.review__comment} data-active={active} onClick={handleSpoiler}>
                   {data.title}
                 </p>
               ) : (
@@ -97,11 +84,7 @@ const ReviewItem = ({ user, review }) => {
             </div>
           </div>
           <div className={styles.review__more__wrapper}>
-            <ReviewLikeButton
-              videoId={data.video.id}
-              review={data}
-              setReview={setData}
-            />
+            <ReviewLikeButton videoId={data.video.id} review={data} setReview={setData} />
           </div>
         </div>
       </div>

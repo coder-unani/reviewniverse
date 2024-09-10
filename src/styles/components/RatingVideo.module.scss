@@ -29,6 +29,9 @@
 
 .rating__image {
   display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .rating__range__wrapper {
@@ -53,11 +56,7 @@
     &[data-rating='#{$i}'] {
       .rating__fill:nth-child(-n + #{$i}) {
         opacity: 1;
-        background-color: if(
-          $i <= 3,
-          $color-red,
-          if($i <= 7, $color-yellow, $color-green)
-        );
+        background-color: if($i <= 3, $color-red, if($i <= 7, $color-yellow, $color-green));
       }
     }
   }

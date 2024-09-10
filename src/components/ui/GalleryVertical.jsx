@@ -1,5 +1,4 @@
 import React, { useState, useRef } from 'react';
-import Image from 'next/image';
 import PhotoModal from '@/components/ui/Modal/Photo';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { fMakeThumbnailUrl, fMakeImageUrl } from '@/utils/formatContent';
@@ -55,14 +54,11 @@ const GalleryVertical = ({ content }) => {
           {items.map((image, index) => (
             <SwiperSlide className={styles.detail__gallery__item} key={index} onClick={() => togglePhotoModal(image)}>
               <picture className={styles.detail__photo__wrapper}>
-                <Image
+                <img
                   className={styles.detail__photo}
                   src={fMakeThumbnailUrl(image)}
+                  srcSet={fMakeThumbnailUrl(image)}
                   alt="갤러리 이미지"
-                  sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-                  fill
-                  placeholder="blur"
-                  blurDataURL={fMakeThumbnailUrl(image)}
                 />
               </picture>
             </SwiperSlide>

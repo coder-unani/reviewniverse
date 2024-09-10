@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, notFound } from 'next/navigation';
-import Image from 'next/image';
 import { useUser } from '@/hooks/useUser';
 import { useAuthContext } from '@/contexts/AuthContext';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
@@ -87,41 +86,29 @@ export default function page({ params }) {
             <section className={styles.user__info}>
               {isLogin && <SettingButton />}
               <div className={styles.user__background}>
-                <Image
+                <img
                   className={styles.user__background__image}
                   src={DEFAULT_IMAGES.noImage}
+                  srcSet={DEFAULT_IMAGES.noImage}
                   alt="배경 이미지"
-                  sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-                  fill
-                  priority
                 />
               </div>
               <div className={styles.user__profile}>
                 <ProfileImage image={profile.profile_image} size={100} />
                 <h1 className={styles.user__nickname}>{profile.nickname}</h1>
-                {profile.profile_text && (
-                  <p className={styles.user__introduction}>
-                    {profile.profile_text}
-                  </p>
-                )}
+                {profile.profile_text && <p className={styles.user__introduction}>{profile.profile_text}</p>}
               </div>
               <div className={styles.user__content}>
                 <Link href={pathRating}>
-                  <p className={styles.user__content__count}>
-                    {fNumberWithCommas(profile.rating_count)}
-                  </p>
+                  <p className={styles.user__content__count}>{fNumberWithCommas(profile.rating_count)}</p>
                   <p className={styles.user__content__label}>평가</p>
                 </Link>
                 <Link href={pathReview}>
-                  <p className={styles.user__content__count}>
-                    {fNumberWithCommas(profile.review_count)}
-                  </p>
+                  <p className={styles.user__content__count}>{fNumberWithCommas(profile.review_count)}</p>
                   <p className={styles.user__content__label}>리뷰</p>
                 </Link>
                 <Link href={pathLike}>
-                  <p className={styles.user__content__count}>
-                    {fNumberWithCommas(profile.like_count)}
-                  </p>
+                  <p className={styles.user__content__count}>{fNumberWithCommas(profile.like_count)}</p>
                   <p className={styles.user__content__label}>좋아요</p>
                 </Link>
               </div>

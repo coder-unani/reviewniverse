@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import Image from 'next/image';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useWatchTypeCreate } from '@/hooks/useWatchTypeCreate';
 import { showSuccessToast, showInfoToast } from '@/components/ui/Toast';
@@ -79,18 +78,14 @@ export default function page() {
               >
                 <div className={styles.favorite__content}>
                   <picture className={styles.favorite__image__wrapper}>
-                    <Image
+                    <img
                       className={styles.favorite__image}
                       src={watchtype.image}
+                      srcSet={watchtype.image}
                       alt="취향 이미지"
-                      sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-                      fill
-                      priority
                     />
                   </picture>
-                  <p className={styles.favorite__subtitle}>
-                    {watchtype.subtitle}
-                  </p>
+                  <p className={styles.favorite__subtitle}>{watchtype.subtitle}</p>
                   <p className={styles.favorite__title}>{watchtype.title}</p>
                 </div>
                 <button

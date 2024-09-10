@@ -8,6 +8,7 @@ import 'swiper/css/thumbs';
 import 'swiper/css/virtual';
 import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import '@/styles/globals.scss';
 
 // TODO: Suspense 사용
@@ -17,15 +18,13 @@ import '@/styles/globals.scss';
 export const metadata = {
   metadataBase: new URL(SETTINGS.SITE_BASE_URL), // 기본 URL 설정
   title: '리뷰니버스',
-  description:
-    '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!',
+  description: '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!',
   keywords: SITE_KEYWORDS,
   openGraph: {
     type: 'website',
     url: SETTINGS.SITE_BASE_URL,
     title: '리뷰니버스',
-    description:
-      '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!',
+    description: '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!',
     siteName: '리뷰니버스',
     images: [
       {

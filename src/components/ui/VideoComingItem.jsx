@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDate } from '@/utils/format';
 import { fThumbnail, fCountry } from '@/utils/formatContent';
@@ -18,21 +17,14 @@ const VideoComingItem = ({ video }) => {
   });
 
   return (
-    <Link
-      href={path}
-      className={defStyles.default__video__item}
-      aria-label={video.title}
-    >
+    <Link href={path} className={defStyles.default__video__item} aria-label={video.title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
-          <Image
+          <img
             className={defStyles.default__thumbnail}
             src={fThumbnail(video.thumbnail)}
-            alt="썸네일"
-            sizes="(max-width: 768px) 100%, (max-width: 1200px) 100%"
-            fill
-            placeholder="blur"
-            blurDataURL={fThumbnail(video.thumbnail)}
+            srcSet={fThumbnail(video.thumbnail)}
+            alt={video.title}
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>

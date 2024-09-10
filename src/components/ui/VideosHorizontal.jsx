@@ -1,159 +1,96 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
+import dynamic from 'next/dynamic';
 import VideoItem from '@/components/ui/VideoItem';
 import VideoRankItem from '@/components/ui/VideoRankItem';
 import VideoComingItem from '@/components/ui/VideoComingItem';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Virtual } from 'swiper/modules';
+import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/VideosHorizontal.module.scss';
 
-const VideosHorizontal = ({ children, content, template = 'default' }) => {
-  const [videos, setVideos] = useState([]);
-  const [isBeginning, setIsBeginning] = useState(true);
-  const [isEnd, setIsEnd] = useState(false);
-  const swiperRef = useRef(null);
-  // 스와이퍼 설정
-  const swiperConfig = {
-    modules: [Navigation, Virtual],
-    virtual: true, // 성능 최적화를 위한 가상 슬라이드
-    spaceBetween: 8,
-    slidesPerView: 3,
-    slidesPerGroup: 3,
-    speed: 1000,
-    allowTouchMove: true, // 모바일시 터치 이동 허용
-    breakpoints: {
-      577: {
-        slidesPerView: 3,
-        allowTouchMove: false,
-      },
-      769: {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        slidesPerGroup: 4,
-        allowTouchMove: false,
-      },
-      1025: {
-        spaceBetween: 12,
-        slidesPerView: 5,
-        slidesPerGroup: 5,
-        allowTouchMove: false,
-      },
-    },
-    onSwiper: (swiper) => {
-      swiperRef.current = swiper;
-      setIsBeginning(swiper.isBeginning);
-      setIsEnd(swiper.isEnd);
-    },
-    onSlideChange: (swiper) => {
-      setIsBeginning(swiper.isBeginning);
-      setIsEnd(swiper.isEnd);
-    },
+const VideosHorizontalSwiper = dynamic(() => import('@/components/ui/Swiper/VideosHorizontal'), { ssr: false });
+
+const VideosHorizontal = ({ children, videos, template = 'default' }) => {
+  if (isEmpty(videos)) {
+    return null;
+  }
+
+  const uniqueId = nanoid();
+
+  // 기본 비디오 아이템 렌더링
+  const DefaultItems = ({ videos }) => {
+    return videos.map((video, index) => (
+      <div className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`} key={video.id}>
+        <VideoItem video={video} index={index} />
+      </div>
+    ));
   };
 
-  // 비디오 데이터 설정
-  useEffect(() => {
-    if (!content) return;
-    setVideos(content);
-  }, [content]);
+  // 랭킹 비디오 아이템 렌더링
+  const RankItems = ({ videos }) => {
+    return videos.map((video, index) => (
+      <div className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`} key={video.id}>
+        <VideoRankItem video={video} index={index} />
+      </div>
+    ));
+  };
 
-  // 비디오 리스트 렌더링
-  const renderVideos = () => {
-    if (isEmpty(videos)) return null;
+  // 커밍순 아이템 렌더링
+  const ComingItems = ({ videos }) => {
+    return videos.map((video, index) => (
+      <div className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`} key={video.id}>
+        <VideoComingItem video={video} index={index} />
+      </div>
+    ));
+  };
 
-    // 스와이퍼 이전 버튼 클릭
-    const handlePrevClick = () => {
-      swiperRef.current.slidePrev();
-    };
+  // 템플릿에 따른 비디오 아이템 렌더링
+  const SwitchTemplate = ({ videos, template }) => {
+    switch (template) {
+      case 'default':
+        return <DefaultItems videos={videos} />;
+      case 'rank':
+        return <RankItems videos={videos} />;
+      case 'coming':
+        return <ComingItems videos={videos} />;
+      default:
+        return <DefaultItems videos={videos} />;
+    }
+  };
 
-    // 스와이퍼 다음 버튼 클릭
-    const handleNextClick = () => {
-      swiperRef.current.slideNext();
-    };
-
-    // 기본 비디오 아이템 렌더링
-    const renderDefaultItem = () => {
-      return videos.map((video, index) => (
-        <SwiperSlide
-          className={styles.horizontal__video__item}
-          key={video.id}
-          virtualIndex={index}
-        >
-          <VideoItem video={video} index={index} />
-        </SwiperSlide>
-      ));
-    };
-
-    // 랭킹 비디오 아이템 렌더링
-    const renderRankItem = () => {
-      return videos.map((video, index) => (
-        <SwiperSlide
-          className={styles.horizontal__video__item}
-          key={video.id}
-          virtualIndex={index}
-        >
-          <VideoRankItem video={video} index={index} />
-        </SwiperSlide>
-      ));
-    };
-
-    // 커밍순 아이템 렌더링
-    const renderComingItem = () => {
-      return videos.map((video, index) => (
-        <SwiperSlide
-          className={styles.horizontal__video__item}
-          key={video.id}
-          virtualIndex={index}
-        >
-          <VideoComingItem video={video} index={index} />
-        </SwiperSlide>
-      ));
-    };
-
-    // 템플릿에 따른 비디오 아이템 렌더링
-    const switchTemplate = () => {
-      switch (template) {
-        case 'default':
-          return renderDefaultItem();
-        case 'rank':
-          return renderRankItem();
-        case 'coming':
-          return renderComingItem();
-        default:
-          return renderDefaultItem();
-      }
-    };
-
-    return (
+  return (
+    <>
       <section className={styles.horizontal__videos__section}>
         {children}
         <div className={`${styles.horizontal__videos__wrapper} ${template}`}>
-          <Swiper className={styles.horizontal__videos} {...swiperConfig}>
-            {switchTemplate()}
-          </Swiper>
+          <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
+            <div className="swiper-wrapper">
+              <SwitchTemplate videos={videos} template={template} />
+            </div>
+          </div>
           <button
             type="button"
-            className={styles.horizontal__prev__button}
-            onClick={handlePrevClick}
-            disabled={isBeginning}
+            className={`swiper-prev-button ${styles.horizontal__prev__button}`}
+            data-swiper-id={uniqueId}
+            disabled // 초기 비활성화
           >
             <ArrowLeftIcon width={28} height={28} />
           </button>
           <button
             type="button"
-            className={styles.horizontal__next__button}
-            onClick={handleNextClick}
-            disabled={isEnd}
+            className={`swiper-next-button ${styles.horizontal__next__button}`}
+            data-swiper-id={uniqueId}
           >
             <ArrowRightIcon width={28} height={28} />
           </button>
         </div>
       </section>
-    );
-  };
 
-  return renderVideos();
+      {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
+      <VideosHorizontalSwiper uniqueId={uniqueId} />
+    </>
+  );
 };
 
 export default VideosHorizontal;
