@@ -29,6 +29,9 @@ const nextConfig = {
 
   // 프로덕션 환경에서 소스 맵 비활성화
   productionBrowserSourceMaps: false,
+
+  // ETag 사용 설정
+  generateEtags: true, // ETag 헤더를 활성화
 };
 
 export default withPlaiceholder(nextConfig);
