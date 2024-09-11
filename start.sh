@@ -3,4 +3,4 @@
 cd /data/app/reviewniverse/alpha
 
 # Start the server
-yarn start
+nohup yarn start &
