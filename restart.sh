@@ -24,4 +24,8 @@ sleep 2
 echo "Starting the application..."
 nohup yarn start &
 
-echo "Application restarted."
+# Restart the nginx service
+echo "Restarting nginx service..."
+sudo systemctl restart nginx.service
+
+echo "Application and nginx restarted."
