@@ -1,6 +1,13 @@
 #! /usr/bin/env sh
 
-cd /data/app/reviewniverse/alpha
+# Define the application directory
+APP_DIR="/data/app/reviewniverse/alpha"
 
-# Start the server
+# Navigate to the application directory
+cd $APP_DIR
+
+# Start the application
+echo "Starting the application..."
 nohup yarn start &
+
+echo "Application started."
