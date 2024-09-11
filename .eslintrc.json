@@ -4,23 +4,19 @@
     "es2021": true,
     "node": true
   },
-  "extends": [
-    "next/core-web-vitals", // Next.js의 기본 ESLint 규칙 포함
-    "airbnb", // Airbnb의 ESLint 규칙 포함
-    "plugin:prettier/recommended" // Prettier 규칙 포함 (eslint-config-prettier + eslint-plugin-prettier)
-  ],
+  "extends": ["next/core-web-vitals", "airbnb", "plugin:prettier/recommended"],
   "plugins": ["react", "react-hooks", "jsx-a11y", "import"],
   "rules": {
-    "prettier/prettier": ["error", { "singleQuote": true, "parser": "scss" }], // Prettier 규칙을 ESLint에 통합하여 오류로 처리
-    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }], // JSX를 사용할 수 있는 파일 확장자 지정
-    "import/prefer-default-export": "off", // 기본 내보내기 강제 비활성화
-    "react/react-in-jsx-scope": "off", // React 17+에서는 필요하지 않으므로 비활성화
+    "prettier/prettier": ["error", { "singleQuote": true }],
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+    "import/prefer-default-export": "off",
+    "react/react-in-jsx-scope": "off",
     "react/function-component-definition": [
       2,
       {
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
       }
-    ] // 함수형 컴포넌트 정의를 화살표 함수로 통일
+    ]
   }
 }
