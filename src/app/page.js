@@ -15,9 +15,10 @@ import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
 import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
-// 정적 페이지 증가(ISR, Incremental Static Regeneration)
+// ISR 재생성 주기 설정
 export const revalidate = HOME_REVALIDATE_SEC;
 
+// Screen 컨텐츠
 const getScreenVideos = async () => {
   const code = SCREEN_MAIN_ID;
   const display = 'detail';
@@ -31,7 +32,8 @@ const getScreenVideos = async () => {
   }
 };
 
-const getVideosRanking = async () => {
+// Ranking 컨텐츠
+const getRankingVideos = async () => {
   // 오늘 날짜
   const code = new Date().toISOString().slice(0, 10).replace(/-/g, '');
   const count = 20;
@@ -45,7 +47,8 @@ const getVideosRanking = async () => {
   }
 };
 
-const getVideosComing = async () => {
+// ComingSoon 컨텐츠
+const getUpcomingVideos = async () => {
   const page = 1;
   const size = 20;
   const orderBy = VIDEO_ORDER_OPTIONS.RELEASE_ASC;
@@ -60,7 +63,8 @@ const getVideosComing = async () => {
   }
 };
 
-const getVideosMonthly = async () => {
+// Current Monthly 컨텐츠
+const getCurrentVideos = async () => {
   const page = 1;
   const size = 20;
   const orderBy = VIDEO_ORDER_OPTIONS.RELEASE_ASC;
@@ -75,7 +79,8 @@ const getVideosMonthly = async () => {
   }
 };
 
-const getVideos = async () => {
+// 기본 컨텐츠
+const getDefaultVideos = async () => {
   const page = 1;
   const size = 100;
   const orderBy = VIDEO_ORDER_OPTIONS.RELEASE_DESC;
@@ -90,6 +95,7 @@ const getVideos = async () => {
   }
 };
 
+// Genres
 const getGenres = async () => {
   const count = 50;
 
@@ -106,10 +112,10 @@ const Home = async () => {
   // 데이터 페칭
   const [screenVideos, rankingVideos, comingVideos, monthlyVideos, videos, genres] = await Promise.all([
     getScreenVideos(),
-    getVideosRanking(),
-    getVideosComing(),
-    getVideosMonthly(),
-    getVideos(),
+    getRankingVideos(),
+    getUpcomingVideos(),
+    getCurrentVideos(),
+    getDefaultVideos(),
     getGenres(),
   ]);
 
