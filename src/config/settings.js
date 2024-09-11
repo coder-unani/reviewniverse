@@ -2,7 +2,7 @@ export const SETTINGS = {
   DEBUG: process.env.NEXT_PUBLIC_DEBUG === 'true',
   SITE_BASE_URL: process.env.NEXT_PUBLIC_SITE_BASE_URL,
   DEVICE_IDENTIFIER: process.env.NEXT_PUBLIC_DEVICE_IDENTIFIER,
-  API_BASE_URL: process.env.NEXT_PUBLIC_DEBUG === 'true' ? 'http://localhost:8000' : 'https://comet.reviewniverse.net',
+  API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
   CDN_BASE_URL: 'https://storage.reviewniverse.net',
   IMAGE_RESIZE_R5: 'r5',
   COOKIE_DOMAIN: process.env.NEXT_PUBLIC_COOKIE_DOMAIN,
