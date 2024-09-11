@@ -1,24 +1,29 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, notFound } from 'next/navigation';
 import { useVideos } from '@/hooks/useVideos';
 import VideosVertical from '@/components/ui/VideosVertical';
 import { showErrorToast } from '@/components/ui/Toast';
+import { SETTINGS } from '@/config/settings';
 import { DEFAULT_IMAGES } from '@/config/constants';
-import { ENDPOINTS } from '@/config/endpoints';
 import { MESSAGES } from '@/config/messages';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
-import styles from '@/styles/pages/Search.module.scss';
+import styles from '@/styles/pages/Productions.module.scss';
 
 /**
  * TODO:
- * - loading 상태 추가
- * - videos skeleton ui 추가
+ * - location.state 말고 다른 방법으로 name을 받아오는 방법 찾기
+ * - api 데이터에서 production 데이터 필요?
  */
 
-const SearchResults = ({ query }) => {
+const Productions = ({ id }) => {
   const router = useRouter();
+  const productionId = fParseInt(id);
+  // const location = useLocation();
+  // const name = location.state?.name;
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -26,18 +31,23 @@ const SearchResults = ({ query }) => {
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
-    query,
+    query: productionId,
     page,
-    enabled: query,
+    mode: 'id',
+    target: 'production',
+    orderBy: 'release_desc',
+    enabled: productionId,
+    // enabled: productionId || !isEmpty(name),
   });
 
+  /*
+  // productionId가 숫자형이 아닐 경우, location state에 name이 없을 경우
   useEffect(() => {
-    if (!query) {
-      return;
+    if (productionId === 0 || isEmpty(name)) {
+      notFound();
     }
-    setPage(1);
-    setVideos(null);
-  }, [query]);
+  }, [productionId, name]);
+  */
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
@@ -66,7 +76,7 @@ const SearchResults = ({ query }) => {
           ...prev,
           count: videosData.data.count,
           page: videosData.data.page,
-          data: prev.data ? [...prev.data, ...videosData.data.data] : [],
+          data: prev.data ? [...prev.data, ...videosData.data.data] : [...videosData.data.data],
         };
       });
     }
@@ -80,30 +90,21 @@ const SearchResults = ({ query }) => {
     return router.push(ENDPOINTS.ERROR);
   }
 
-  // if (isEmpty(videos)) {
-  //   return;
-  // }
+  if (isEmpty(videos)) {
+    return;
+  }
 
   return (
-    <section className={styles.search__section}>
-      {isEmpty(videos) || isEmpty(videos.data) ? (
-        <div className={styles.no__search__content}>
-          <img className={styles.no__search__image} src={DEFAULT_IMAGES.searchNotFound} alt="검색 결과 없음" />
-          <p className={styles.no__search__title}>
-            "<em>{query}</em>"에 대한 검색 결과가 없어요.
-          </p>
-          <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
+    <>
+      <section className={styles.production__section}>
+        <div className={styles.production__title__wrapper}>
+          {/* <h1 className={styles.production__title}>{name}</h1> */}
+          <h1 className={styles.production__title}>제작사명</h1>
         </div>
-      ) : (
-        <>
-          <strong className={styles.search__title}>
-            "<em>{query}</em>"의 검색 결과가 {videos.total} 개 있어요
-          </strong>
-          <VideosVertical videos={videos} handlePage={handlePage} />
-        </>
-      )}
-    </section>
+      </section>
+      <VideosVertical videos={videos} handlePage={handlePage} />
+    </>
   );
 };
 
-export default SearchResults;
+export default Productions;

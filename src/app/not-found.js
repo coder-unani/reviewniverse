@@ -1,10 +1,8 @@
-'use client';
-
 import HomeButton from '@/components/ui/Button/Home';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import styles from '@/styles/pages/NotFound.module.scss';
 
-export default function NotFound() {
+const NotFound = () => {
   return (
     <main className={styles.notfound__main}>
       <section className={styles.notfound__section}>
@@ -26,4 +24,6 @@ export default function NotFound() {
       </section>
     </main>
   );
-}
+};
+
+export default NotFound;

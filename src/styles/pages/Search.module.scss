@@ -1,6 +1,7 @@
 @use '@/styles/variables' as *;
 
 .search__main {
+  min-height: calc(100vh - $footer-height);
   padding-top: $header-height;
 }
 

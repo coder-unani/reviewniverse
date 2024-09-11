@@ -6,7 +6,7 @@ import styles from '@/styles/pages/Error.module.scss';
 
 // TODO: 에러 코드별 메세지 표시
 
-export default function Error({ error, reset }) {
+const Error = ({ error, reset }) => {
   return (
     <main className={styles.error__main}>
       <section className={styles.error__section}>
@@ -28,4 +28,6 @@ export default function Error({ error, reset }) {
       </section>
     </main>
   );
-}
+};
+
+export default Error;

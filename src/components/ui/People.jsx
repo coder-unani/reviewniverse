@@ -1,24 +1,31 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, notFound } from 'next/navigation';
 import { useVideos } from '@/hooks/useVideos';
+import PeopleImage from '@/components/ui/Button/People/Image';
 import VideosVertical from '@/components/ui/VideosVertical';
 import { showErrorToast } from '@/components/ui/Toast';
-import { DEFAULT_IMAGES } from '@/config/constants';
-import { ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 import { MESSAGES } from '@/config/messages';
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
-import styles from '@/styles/pages/Search.module.scss';
+import styles from '@/styles/pages/People.module.scss';
 
 /**
  * TODO:
- * - loading 상태 추가
- * - videos skeleton ui 추가
+ * - people로 통합됐는데, target 값이 필요한가?
  */
 
-const SearchResults = ({ query }) => {
+const People = ({ id }) => {
+  // const navigate = useNavigate();
   const router = useRouter();
+  const peopleId = fParseInt(id);
+  // const location = useLocation();
+  // const people = location.state && location.state.people ? location.state.people : {};
+  // const target = location.state && location.state.target ? location.state.target : '';
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -26,18 +33,22 @@ const SearchResults = ({ query }) => {
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
-    query,
+    query: peopleId,
     page,
-    enabled: query,
+    mode: 'id',
+    // target,
+    orderBy: 'release_desc',
+    enabled: peopleId,
+    // enabled: peopleId || !isEmpty(people) || !isEmpty(target),
   });
 
+  /*
   useEffect(() => {
-    if (!query) {
-      return;
+    if (peopleId === 0 || isEmpty(people) || isEmpty(target)) {
+      notFound();
     }
-    setPage(1);
-    setVideos(null);
-  }, [query]);
+  }, [peopleId, people, target]);
+  */
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
@@ -80,30 +91,23 @@ const SearchResults = ({ query }) => {
     return router.push(ENDPOINTS.ERROR);
   }
 
-  // if (isEmpty(videos)) {
-  //   return;
-  // }
+  if (isEmpty(videos)) {
+    return;
+  }
 
   return (
-    <section className={styles.search__section}>
-      {isEmpty(videos) || isEmpty(videos.data) ? (
-        <div className={styles.no__search__content}>
-          <img className={styles.no__search__image} src={DEFAULT_IMAGES.searchNotFound} alt="검색 결과 없음" />
-          <p className={styles.no__search__title}>
-            "<em>{query}</em>"에 대한 검색 결과가 없어요.
-          </p>
-          <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
+    <>
+      <section className={styles.people__section}>
+        <div className={styles.people__info__wrapper}>
+          {/* <PeopleImage image={people.picture} size={100} /> */}
+          <PeopleImage image={DEFAULT_IMAGES.noActor} size={100} />
+          {/* <h1 className={styles.people__name>{people.name}</h1> */}
+          <h1 className={styles.people__name}>배우명</h1>
         </div>
-      ) : (
-        <>
-          <strong className={styles.search__title}>
-            "<em>{query}</em>"의 검색 결과가 {videos.total} 개 있어요
-          </strong>
-          <VideosVertical videos={videos} handlePage={handlePage} />
-        </>
-      )}
-    </section>
+      </section>
+      <VideosVertical videos={videos} handlePage={handlePage} />
+    </>
   );
 };
 
-export default SearchResults;
+export default People;

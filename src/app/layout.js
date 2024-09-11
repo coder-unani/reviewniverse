@@ -37,7 +37,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children }) {
+const RootLayout = ({ children }) => {
   return (
     <html lang="ko">
       <body>
@@ -46,4 +46,6 @@ export default function RootLayout({ children }) {
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
