@@ -19,18 +19,11 @@ const nextConfig = {
   },
 
   // Webpack 설정 추가
-  webpack(config, { isServer, buildId }) {
-    // 자산 파일에 해시 추가하여 캐시 무효화
-    if (!isServer) {
-      config.output.filename = `static/js/[name].[contenthash].js`;
-      config.output.chunkFilename = `static/js/[name].[contenthash].js`;
-    }
-
+  webpack(config) {
     config.module.rules.push({
       test: /\.svg$/, // .svg 파일을 처리하기 위한 규칙 추가
       use: ['@svgr/webpack'], // @svgr/webpack 로더 사용
     });
-
     return config;
   },
 
@@ -39,21 +32,6 @@ const nextConfig = {
 
   // ETag 사용 설정
   generateEtags: true, // ETag 헤더를 활성화
-
-  // Cache-Control 헤더를 통해 캐시 무효화
-  async headers() {
-    return [
-      {
-        source: '/(.*)', // 모든 경로에 적용
-        headers: [
-          {
-            key: 'Cache-Control',
-            value: 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
-          },
-        ],
-      },
-    ];
-  },
 };
 
 export default withPlaiceholder(nextConfig);
