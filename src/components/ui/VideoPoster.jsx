@@ -2,7 +2,7 @@ import React from 'react';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionPoster = ({ poster }) => {
+const VideoPoster = ({ poster }) => {
   if (isEmpty(poster)) {
     return null;
   }
@@ -16,4 +16,4 @@ const VideoSectionPoster = ({ poster }) => {
   );
 };
 
-export default VideoSectionPoster;
+export default VideoPoster;

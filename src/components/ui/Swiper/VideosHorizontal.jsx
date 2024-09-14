@@ -23,10 +23,6 @@ const VideosHorizontal = ({ uniqueId }) => {
         slidesPerGroup: 3,
         speed: 1000,
         allowTouchMove: true, // 모바일시 터치 이동 허용
-        navigation: {
-          prevEl: prevButton,
-          nextEl: nextButton,
-        },
         breakpoints: {
           577: {
             spaceBetween: 8,
@@ -46,6 +42,10 @@ const VideosHorizontal = ({ uniqueId }) => {
             slidesPerGroup: 5,
             allowTouchMove: false,
           },
+        },
+        navigation: {
+          prevEl: prevButton,
+          nextEl: nextButton,
         },
         on: {
           init: (swiper) => {
@@ -67,7 +67,7 @@ const VideosHorizontal = ({ uniqueId }) => {
         slide.classList.remove('horizontal-margin-right');
       });
     }
-  }, []);
+  }, [uniqueId]);
 
   useEffect(() => {
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);

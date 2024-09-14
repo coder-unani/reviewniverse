@@ -4,7 +4,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionSynopsis = React.memo(({ synopsis }) => {
+const VideoSynopsis = React.memo(({ synopsis, title }) => {
   if (isEmpty(synopsis)) {
     return null;
   }
@@ -32,7 +32,7 @@ const VideoSectionSynopsis = React.memo(({ synopsis }) => {
 
   return (
     <section className={styles.detail__synopsis__section}>
-      <h4 className={styles.detail__main__title}>작품 소개</h4>
+      <h4 className={styles.detail__main__title}>{title}</h4>
       <summary className={`${styles.detail__synopsis} ${isExpanded ? styles.expanded : ''}`} ref={synopsisRef}>
         {synopsis}
       </summary>
@@ -46,4 +46,4 @@ const VideoSectionSynopsis = React.memo(({ synopsis }) => {
   );
 });
 
-export default VideoSectionSynopsis;
+export default VideoSynopsis;

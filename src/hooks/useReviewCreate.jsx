@@ -10,20 +10,21 @@ export const useReviewCreate = () => {
     onSuccess: (res, variables) => {
       if (res.status === 201) {
         cLog('리뷰가 등록되었습니다.');
+
+        const videoId = variables.videoId;
+        const userId = variables.userId;
+
         queryClient.invalidateQueries({
-          queryKey: [
-            'videoMyInfo',
-            { videoId: variables.videoId, userId: variables.userId },
-          ],
+          queryKey: ['videoMyInfo', { videoId, userId }],
         });
 
         queryClient.invalidateQueries({
-          queryKey: ['videoReviews', variables.videoId],
+          queryKey: ['videoReviews', videoId],
           exact: false,
         });
 
         queryClient.invalidateQueries({
-          queryKey: ['userReviews', variables.userId],
+          queryKey: ['userReviews', userId],
           exact: false,
         });
       } else {

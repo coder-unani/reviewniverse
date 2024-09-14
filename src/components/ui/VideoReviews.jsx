@@ -17,10 +17,11 @@ import styles from '@/styles/pages/Contents.module.scss';
 
 /**
  * TODO:
- * - 클라이언트 사이드 렌더링
+ * - 리뷰 무한 스크롤 (스와이퍼 삭제)
+ * - 리뷰 자세히 보기 (리뷰 모달?)
  */
 
-const VideoSectionReview = ({ videoId }) => {
+const VideoReviews = ({ videoId }) => {
   const { user } = useAuthContext();
   const { myInfo } = useContentsContext();
   const {
@@ -184,4 +185,4 @@ const VideoSectionReview = ({ videoId }) => {
   );
 };
 
-export default VideoSectionReview;
+export default VideoReviews;

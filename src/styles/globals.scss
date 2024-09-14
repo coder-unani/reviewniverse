@@ -141,13 +141,11 @@ header {
   padding: 10px 30px;
 }
 
-// main {
-//   min-height: calc(100vh - $footer-height);
-//   padding-top: $header-height;
-// }
-
+// 스와이퍼 초기 스타일
 .preview-margin-right {
-  margin-right: 24px;
+  &:not(:last-child) {
+    margin-right: 24px;
+  }
 }
 
 .horizontal-margin-right {
@@ -160,6 +158,23 @@ header {
   margin-right: 12px;
 }
 
+.sub-margin-right {
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+}
+
+.gallery-margin-right {
+  width: calc((100% - 36px) / 4);
+  margin-right: 12px;
+}
+
+.people-template {
+  grid-template-rows: repeat(2, 72px);
+  grid-template-columns: repeat(4, calc(100% / 4));
+}
+
+// 홈 버튼
 .home__button {
   display: inline-block;
   font-size: 14px;
@@ -174,6 +189,7 @@ header {
   cursor: pointer;
 }
 
+// 뒤로가기 버튼
 .back__button {
   position: absolute;
   top: 0;
@@ -189,6 +205,7 @@ header {
   }
 }
 
+// input 초기화 버튼
 .clear__button {
   flex: none;
   display: flex;
@@ -205,6 +222,7 @@ header {
   }
 }
 
+// 모달 닫기 버튼
 .modal__close__button {
   position: absolute;
   top: 9px;
@@ -218,20 +236,6 @@ header {
       fill: $color-white-04;
     }
   }
-}
-
-.people__image__wrapper {
-  position: relative;
-  background-size: cover;
-  overflow: hidden;
-  border-radius: 14px;
-}
-
-.people__image {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .review__like__button {
@@ -250,13 +254,39 @@ header {
   }
 }
 
+.people__image__wrapper {
+  flex-shrink: 0;
+  position: relative;
+  background-size: cover;
+  overflow: hidden;
+  border-radius: 14px;
+}
+
+.people__image {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @media (max-width: 1280px) {
   .preview-margin-right {
-    margin-right: 18px;
+    &:not(:last-child) {
+      margin-right: 18px;
+    }
   }
 
   .genre-margin-right {
     width: calc((100% - 60px) / 6);
+    margin-right: 12px;
+  }
+
+  .people-template {
+    grid-template-columns: repeat(3, calc(100% / 3));
+  }
+
+  .gallery-margin-right {
+    width: calc((100% - 24px) / 3);
     margin-right: 12px;
   }
 }
@@ -271,11 +301,17 @@ header {
     width: calc((100% - 40px) / 5);
     margin-right: 10px;
   }
+
+  .people-template {
+    grid-template-columns: repeat(2, calc(100% / 2));
+  }
 }
 
 @media (max-width: 768px) {
   .preview-margin-right {
-    margin-right: 12px;
+    &:not(:last-child) {
+      margin-right: 12px;
+    }
   }
 
   .horizontal-margin-right {
@@ -287,6 +323,17 @@ header {
     width: calc((100% - 21px) / 4);
     margin-right: 8px;
   }
+
+  .sub-margin-right {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
+  .gallery-margin-right {
+    width: calc((100% - 10px) / 2);
+    margin-right: 10px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -296,11 +343,17 @@ header {
   }
 
   .preview-margin-right {
-    margin-right: 10px;
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
   }
 
   .genre-margin-right {
     width: calc((100% - 21px) / 3.5);
     margin-right: 8px;
+  }
+
+  .people-template {
+    grid-template-columns: repeat(1, 100%);
   }
 }

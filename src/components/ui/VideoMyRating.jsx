@@ -6,7 +6,7 @@ import { useContentsContext } from '@/contexts/ContentsContext';
 import { fRatingColor, fRatingText } from '@/utils/formatContent';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionMyRating = ({ videoId }) => {
+const VideoMyRating = ({ videoId, title }) => {
   const { myInfo } = useContentsContext();
   const rating = myInfo && myInfo.rating ? myInfo.rating : 0;
   const ratingText = fRatingText(rating);
@@ -14,7 +14,7 @@ const VideoSectionMyRating = ({ videoId }) => {
 
   return (
     <section className={styles.detail__my__rating__section}>
-      <h4 className={styles.detail__main__title}>평가하기</h4>
+      <h4 className={styles.detail__main__title}>{title}</h4>
       <div className={styles.detail__my__rating}>
         <span className={`${styles.my__rating__text} ${styles.number}`} data-color={ratingColor}>
           {ratingText}
@@ -27,4 +27,4 @@ const VideoSectionMyRating = ({ videoId }) => {
   );
 };
 
-export default VideoSectionMyRating;
+export default VideoMyRating;

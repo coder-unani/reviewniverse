@@ -22,24 +22,24 @@ const VideosPreview = () => {
     if (thumbSwiperElement) {
       const thumbSwiperConfig = {
         modules: [Thumbs],
-        spaceBetween: 10,
+        // spaceBetween: 10,
         slidesPerView: 'auto',
         speed: 1500,
         loop: true,
         watchSlidesProgress: true,
         allowTouchMove: true,
         grabCursor: true,
-        breakpoints: {
-          577: {
-            spaceBetween: 12,
-          },
-          769: {
-            spaceBetween: 18,
-          },
-          1281: {
-            spaceBetween: 24,
-          },
-        },
+        // breakpoints: {
+        //   577: {
+        //     spaceBetween: 12,
+        //   },
+        //   769: {
+        //     spaceBetween: 18,
+        //   },
+        //   1281: {
+        //     spaceBetween: 24,
+        //   },
+        // },
       };
 
       const thumbSwiperInstance = new SwiperCore(thumbSwiperElement, thumbSwiperConfig);
@@ -54,10 +54,10 @@ const VideosPreview = () => {
       });
     }
 
-    const thumbSwiperSlide = document.querySelectorAll('.thumb-swiper .swiper-slide');
-    thumbSwiperSlide.forEach((slide) => {
-      slide.classList.remove('preview-margin-right');
-    });
+    // const thumbSwiperSlide = document.querySelectorAll('.thumb-swiper .swiper-slide');
+    // thumbSwiperSlide.forEach((slide) => {
+    //   slide.classList.remove('preview-margin-right');
+    // });
   }, []);
 
   useEffect(() => {

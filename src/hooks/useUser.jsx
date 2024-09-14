@@ -43,9 +43,10 @@ export const useUser = () => {
       }
     },
     onSccess: (res, variables) => {
+      // const userId = variables.userId;
       // if (res.status) {
       //   queryClient.invalidateQueries({
-      //     queryKey: ["user", { userId: variables.userId }],
+      //     queryKey: ["user", { userId }],
       //   });
       // }
     },

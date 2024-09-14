@@ -10,33 +10,25 @@ export const useReviewDelete = () => {
     onSuccess: (res, variables) => {
       if (res.status === 204) {
         cLog('리뷰가 삭제되었습니다.');
-        queryClient.setQueryData(
-          [
-            'videoMyInfo',
-            { videoId: variables.videoId, userId: variables.userId },
-          ],
-          (prev) => ({
-            ...prev,
-            review: {},
-          })
-        );
+        const videoId = variables.videoId;
+        const userId = variables.userId;
+        const reviewId = variables.reviewId;
 
-        queryClient.setQueriesData(
-          { queryKey: ['videoReviews', variables.videoId], exact: false },
-          (prev) => {
-            if (!prev) return prev;
-            const updatedReviews = { ...prev };
-            updatedReviews.total =
-              updatedReviews.total > 0 ? updatedReviews.total - 1 : 0;
-            updatedReviews.data = updatedReviews.data.filter(
-              (review) => review.id !== variables.reviewId
-            );
-            return updatedReviews;
-          }
-        );
+        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prev) => ({
+          ...prev,
+          review: {},
+        }));
+
+        queryClient.setQueriesData({ queryKey: ['videoReviews', videoId], exact: false }, (prev) => {
+          if (!prev) return prev;
+          const updatedReviews = { ...prev };
+          updatedReviews.total = updatedReviews.total > 0 ? updatedReviews.total - 1 : 0;
+          updatedReviews.data = updatedReviews.data.filter((review) => review.id !== reviewId);
+          return updatedReviews;
+        });
 
         queryClient.invalidateQueries({
-          queryKey: ['userReviews', variables.userId],
+          queryKey: ['userReviews', userId],
           exact: false,
         });
       } else {

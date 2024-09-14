@@ -16,46 +16,21 @@ const VideosHorizontal = ({ children, videos, template = 'default' }) => {
     return null;
   }
 
+  // 서버에서 최소한의 슬라이드를 렌더링
   const uniqueId = nanoid();
 
-  // 기본 비디오 아이템 렌더링
-  const DefaultItems = ({ videos }) => {
-    return videos.map((video, index) => (
-      <div className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`} key={video.id}>
-        <VideoItem video={video} index={index} />
-      </div>
-    ));
-  };
-
-  // 랭킹 비디오 아이템 렌더링
-  const RankItems = ({ videos }) => {
-    return videos.map((video, index) => (
-      <div className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`} key={video.id}>
-        <VideoRankItem video={video} index={index} />
-      </div>
-    ));
-  };
-
-  // 커밍순 아이템 렌더링
-  const ComingItems = ({ videos }) => {
-    return videos.map((video, index) => (
-      <div className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`} key={video.id}>
-        <VideoComingItem video={video} index={index} />
-      </div>
-    ));
-  };
-
   // 템플릿에 따른 비디오 아이템 렌더링
-  const SwitchTemplate = ({ videos, template }) => {
+  const RenderVideoItems = ({ video, template, index }) => {
     switch (template) {
-      case 'default':
-        return <DefaultItems videos={videos} />;
       case 'rank':
-        return <RankItems videos={videos} />;
+        // 랭킹 비디오 아이템 렌더링
+        return <VideoRankItem video={video} index={index} />;
       case 'coming':
-        return <ComingItems videos={videos} />;
+        // 커밍순 아이템 렌더링
+        return <VideoComingItem video={video} index={index} />;
       default:
-        return <DefaultItems videos={videos} />;
+        // 기본 비디오 아이템 렌더링
+        return <VideoItem video={video} index={index} />;
     }
   };
 
@@ -66,7 +41,14 @@ const VideosHorizontal = ({ children, videos, template = 'default' }) => {
         <div className={`${styles.horizontal__videos__wrapper} ${template}`}>
           <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
-              <SwitchTemplate videos={videos} template={template} />
+              {videos.map((video, index) => (
+                <div
+                  className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`}
+                  key={video.id}
+                >
+                  <RenderVideoItems video={video} template={template} index={index} />
+                </div>
+              ))}
             </div>
           </div>
           <button

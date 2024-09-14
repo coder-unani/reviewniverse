@@ -10,52 +10,41 @@ export const useVideoRating = () => {
     onSuccess: (res, variables) => {
       if (res.status === 200) {
         cLog('비디오 평가 점수가 변경되었습니다.');
+
         const rating = res.data.data.rating;
         const ratingAvg = res.data.data.rating_avg;
+        const videoId = variables.videoId;
+        const userId = variables.userId;
 
         // videoDetail 쿼리 키의 데이터를 업데이트
-        queryClient.setQueryData(
-          ['videoDetail', variables.videoId],
-          (prevDetail) => {
-            if (!prevDetail) return prevDetail;
-            return {
-              ...prevDetail,
-              data: { ...prevDetail.data, rating: ratingAvg },
-            };
-          }
-        );
+        queryClient.setQueryData(['videoDetail', videoId], (prevDetail) => {
+          if (!prevDetail) return prevDetail;
+          return {
+            ...prevDetail,
+            data: { ...prevDetail.data, rating: ratingAvg },
+          };
+        });
 
         // videoMyInfo 쿼리 키의 데이터를 업데이트
-        queryClient.setQueryData(
-          [
-            'videoMyInfo',
-            { videoId: variables.videoId, userId: variables.userId },
-          ],
-          (prevMyInfo) => {
-            if (!prevMyInfo) return prevMyInfo;
-            // review 데이터가 있는 경우
-            if (prevMyInfo.review && prevMyInfo.review.id) {
-              // videoReviews 쿼리 키의 데이터를 업데이트
-              queryClient.setQueriesData(
-                { queryKey: ['videoReviews', variables.videoId], exact: false },
-                (prevReviews) => {
-                  const updatedReviews = { ...prevReviews };
-                  updatedReviews.data = updatedReviews.data.map((review) =>
-                    review.id === prevMyInfo.review.id
-                      ? { ...review, rating: rating }
-                      : review
-                  );
-                  return updatedReviews;
-                }
+        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prevMyInfo) => {
+          if (!prevMyInfo) return prevMyInfo;
+          // review 데이터가 있는 경우
+          if (prevMyInfo.review && prevMyInfo.review.id) {
+            // videoReviews 쿼리 키의 데이터를 업데이트
+            queryClient.setQueriesData({ queryKey: ['videoReviews', videoId], exact: false }, (prevReviews) => {
+              const updatedReviews = { ...prevReviews };
+              updatedReviews.data = updatedReviews.data.map((review) =>
+                review.id === prevMyInfo.review.id ? { ...review, rating: rating } : review
               );
-            }
-            return { ...prevMyInfo, rating: rating };
+              return updatedReviews;
+            });
           }
-        );
+          return { ...prevMyInfo, rating: rating };
+        });
 
         // userRatings 쿼리 키의 데이터 무효화
         queryClient.invalidateQueries({
-          queryKey: ['userRatings', variables.userId],
+          queryKey: ['userRatings', userId],
           exact: false,
         });
       } else {

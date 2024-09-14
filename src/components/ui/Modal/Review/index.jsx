@@ -28,10 +28,8 @@ const ReviewModal = React.memo(({ content, myReview }) => {
   const modalRef = useRef();
   const { user } = useAuthContext();
   const { toggleReviewModal } = useModalContext();
-  const { mutate: reviewCreate, isPending: isCreatePending } =
-    useReviewCreate();
-  const { mutate: reviewUpdate, isPending: isUpdatePending } =
-    useReviewUpdate();
+  const { mutate: reviewCreate, isPending: isCreatePending } = useReviewCreate();
+  const { mutate: reviewUpdate, isPending: isUpdatePending } = useReviewUpdate();
   const [isSpoiler, setIsSpoiler] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
 
@@ -47,9 +45,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
 
   // 리뷰 유효성 검사
   const reviewSchema = Yup.object().shape({
-    title: Yup.string()
-      .required('리뷰를 입력해주세요.')
-      .max(200, '리뷰는 최대 200자까지 작성 가능합니다.'),
+    title: Yup.string().required('리뷰를 입력해주세요.').max(200, '리뷰는 최대 200자까지 작성 가능합니다.'),
   });
 
   // 리뷰 폼 기본값 설정
@@ -116,11 +112,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       );
     } else {
       // 내 리뷰가 있을 경우 리뷰 수정
-      if (
-        myReview.title === data.title &&
-        myReview.is_spoiler === isSpoiler &&
-        myReview.is_private === isPrivate
-      ) {
+      if (myReview.title === data.title && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
         showSuccessToast('리뷰가 수정되었습니다.');
         toggleReviewModal();
         return;
@@ -164,20 +156,12 @@ const ReviewModal = React.memo(({ content, myReview }) => {
 
   return (
     <Modal>
-      <div
-        className={styles.review__modal__wrapper}
-        ref={modalRef}
-        onClick={handleModalClose}
-      >
+      <div className={styles.review__modal__wrapper} ref={modalRef} onClick={handleModalClose}>
         <main className={styles.review__modal}>
           <section className={styles.review__section}>
             <h2 className={styles.review__title}>{content.title}</h2>
             <CloseButton onClose={toggleReviewModal} />
-            <form
-              method={methods}
-              onSubmit={onSubmit}
-              className={styles.review__form}
-            >
+            <form method={methods} onSubmit={onSubmit} className={styles.review__form}>
               <Controller
                 name="title"
                 control={control}
@@ -201,11 +185,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                     className={styles.review__spoiler__button}
                     onClick={toggleSpoiler}
                   >
-                    {isSpoiler ? (
-                      <SpoilerActivateIcon />
-                    ) : (
-                      <SpoilerDeactivateIcon />
-                    )}
+                    {isSpoiler ? <SpoilerActivateIcon /> : <SpoilerDeactivateIcon />}
                   </button>
                   <Tooltip
                     id="reviewModalSpoilerTooltip"
@@ -221,11 +201,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                     className={styles.review__private__button}
                     onClick={togglePrivate}
                   >
-                    {isPrivate ? (
-                      <PrivateActivateIcon />
-                    ) : (
-                      <PrivateDeactivateIcon />
-                    )}
+                    {isPrivate ? <PrivateActivateIcon /> : <PrivateDeactivateIcon />}
                   </button>
                   <Tooltip
                     id="reviewModalPrivateTooltip"
@@ -242,9 +218,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                   <button
                     type="submit"
                     className={styles.review__save__button}
-                    disabled={
-                      !isDirty || !isValid || isCreatePending || isUpdatePending
-                    }
+                    disabled={!isDirty || !isValid || isCreatePending || isUpdatePending}
                   >
                     {isEmpty(myReview) ? '등록' : '수정'}
                   </button>

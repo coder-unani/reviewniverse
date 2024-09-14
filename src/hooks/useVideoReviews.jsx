@@ -3,12 +3,7 @@ import { fetchVideoReviews } from '@/library/api/videos';
 
 // TODO: queryKey page, pageSize 추가
 
-export const useVideoReviews = ({
-  videoId,
-  page = null,
-  pageSize = null,
-  enabled,
-}) => {
+export const useVideoReviews = ({ videoId, page = null, pageSize = null, enabled }) => {
   return useQuery({
     queryKey: [
       'videoReviews',

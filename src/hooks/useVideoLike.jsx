@@ -11,20 +11,16 @@ export const useVideoLike = () => {
       if (res.status === 200) {
         cLog('비디오 좋아요 상태가 변경되었습니다.');
         const isLike = res.data.data.is_like;
+        const videoId = variables.videoId;
+        const userId = variables.userId;
 
-        queryClient.setQueryData(
-          [
-            'videoMyInfo',
-            { videoId: variables.videoId, userId: variables.userId },
-          ],
-          (prev) => ({
-            ...prev,
-            is_like: isLike,
-          })
-        );
+        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prev) => ({
+          ...prev,
+          is_like: isLike,
+        }));
 
         queryClient.invalidateQueries({
-          queryKey: ['userLikes', variables.userId],
+          queryKey: ['userLikes', userId],
           exact: false,
         });
       } else {

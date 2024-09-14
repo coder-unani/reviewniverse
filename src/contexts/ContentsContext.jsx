@@ -11,7 +11,7 @@ const ContentsContext = createContext();
 export const ContentsProvider = ({ children, id }) => {
   const { user } = useAuthContext();
   const videoId = fParseInt(id);
-
+  // 비디오 내정보 조회
   const {
     data: myInfo,
     error: myInfoError,
@@ -31,7 +31,7 @@ export const ContentsProvider = ({ children, id }) => {
 
   const values = useMemo(
     () => ({
-      // videoId: videoId,
+      videoId,
       myInfo,
       myInfoIsLoading,
       myInfoError,

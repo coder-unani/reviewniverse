@@ -2,49 +2,44 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
-import { Navigation } from 'swiper/modules';
+import { Grid, Navigation } from 'swiper/modules';
 
-const GenresVertical = ({ uniqueId }) => {
+const VideoPeople = ({ uniqueId }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    const genreSwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
+    const peopleSwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (genreSwiper) {
+    if (peopleSwiper) {
       // 스와이퍼 설정
-      const genreSwiperConfig = {
-        modules: [Navigation],
-        spaceBetween: 8,
-        slidesPerView: 3.5,
-        slidesPerGroup: 3,
+      const peopleSwiperConfig = {
+        modules: [Grid, Navigation],
+        slidesPerView: 1,
+        slidesPerGroup: 1,
         speed: 1000,
+        grid: { rows: 2, fill: 'column' },
         allowTouchMove: true,
         breakpoints: {
           577: {
-            slidesPerView: 4,
-            slidesPerGroup: 4,
-            allowTouchMove: false,
-          },
-          769: {
-            spaceBetween: 10,
-            slidesPerView: 5,
-            slidesPerGroup: 5,
+            slidesPerView: 2,
+            slidesPerGroup: 2,
+            grid: { rows: 2, fill: 'column' },
             allowTouchMove: false,
           },
           1025: {
-            spaceBetween: 12,
-            slidesPerView: 6,
-            slidesPerGroup: 6,
+            slidesPerView: 3,
+            slidesPerGroup: 3,
+            grid: { rows: 2, fill: 'column' },
             allowTouchMove: false,
           },
           1281: {
-            spaceBetween: 12,
-            slidesPerView: 7,
-            slidesPerGroup: 7,
+            slidesPerView: 4,
+            slidesPerGroup: 4,
+            grid: { rows: 2, fill: 'column' },
             allowTouchMove: false,
           },
         },
@@ -64,13 +59,11 @@ const GenresVertical = ({ uniqueId }) => {
         },
       };
 
-      const genreSwiperInstance = new SwiperCore(genreSwiper, genreSwiperConfig);
-      swiperRef.current = genreSwiperInstance;
+      const peopleSwiperInstance = new SwiperCore(peopleSwiper, peopleSwiperConfig);
+      swiperRef.current = peopleSwiperInstance;
 
-      const genreSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
-      genreSwiperSlide.forEach((slide) => {
-        slide.classList.remove('genre-margin-right');
-      });
+      const peopleSwiperWrapper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"] .swiper-wrapper`);
+      peopleSwiperWrapper.classList.remove('people-template');
     }
   }, [uniqueId]);
 
@@ -89,4 +82,4 @@ const GenresVertical = ({ uniqueId }) => {
   return null;
 };
 
-export default GenresVertical;
+export default VideoPeople;

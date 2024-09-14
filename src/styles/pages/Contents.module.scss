@@ -150,7 +150,6 @@
   background-color: rgba($color-white-02, 0.1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  margin-right: 12px;
 
   &[data-index='0'],
   &[data-color='default'] {
@@ -829,7 +828,6 @@
     min-width: 160px;
     height: 100px;
     border-radius: 21px;
-    margin-right: 10px;
 
     &[data-index='0'] {
       .detail__sub__content {
