@@ -1,9 +1,10 @@
+'use client';
+
 import React, { useEffect, useState, useRef } from 'react';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionSynopsis = React.memo(({ content }) => {
-  const synopsis = content.data.synopsis || '';
+const VideoSectionSynopsis = React.memo(({ synopsis }) => {
   if (isEmpty(synopsis)) {
     return null;
   }

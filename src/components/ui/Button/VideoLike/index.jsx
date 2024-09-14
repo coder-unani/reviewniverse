@@ -2,14 +2,16 @@
 
 import React from 'react';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useContentsContext } from '@/contexts/ContentsContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoLike } from '@/hooks/useVideoLike';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/components/ControlButton.module.scss';
 
-const VideoLikeButton = ({ videoId, myInfo }) => {
+const VideoLikeButton = ({ videoId }) => {
   const { user } = useAuthContext();
+  const { myInfo } = useContentsContext();
   const { toggleEnjoyModal } = useModalContext();
   const { mutate: videoLike, isPending: isLikePending } = useVideoLike();
 

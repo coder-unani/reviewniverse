@@ -1,9 +1,11 @@
 import React from 'react';
-import { fThumbnail } from '@/utils/formatContent';
+import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionPoster = ({ content }) => {
-  const poster = fThumbnail(content.data.thumbnail, false);
+const VideoSectionPoster = ({ poster }) => {
+  if (isEmpty(poster)) {
+    return null;
+  }
 
   return (
     <section className={styles.detail__poster__section}>

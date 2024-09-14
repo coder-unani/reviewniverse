@@ -9,9 +9,9 @@ import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import CollectionButton from '@/components/ui/Button/Collection';
 import ReviewButton from '@/components/ui/Button/Review';
 import VideoSectionSynopsis from '@/components/ui/VideoSectionSynopsis';
-import VideoSectionPoster from '@/components/ui/VideoSectionPoster';
+// import VideoSectionPoster from '@/components/ui/VideoSectionPoster';
 import VideoSectionPlatform from '@/components/ui/VideoSectionPlatform';
-import VideoSectionCast from '@/components/ui/VideoSectionCast';
+// import VideoSectionCast from '@/components/ui/VideoSectionCast';
 import VideoSectionGallery from '@/components/ui/VideoSectionGallery';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoDetailContext } from '@/contexts/VideoDetailContext';
@@ -62,26 +62,6 @@ const Contents = () => {
       },
     },
   };
-
-  /*
-  // 헤더 스타일 변경
-  useEffect(() => {
-    const header = document.querySelector('header');
-    const handleScroll = () => {
-      if (window.scrollY > 100 && header.classList.contains('transparent')) {
-        header.classList.remove('transparent');
-      } else if (window.scrollY <= 100 && !header.classList.contains('transparent')) {
-        header.classList.add('transparent');
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    header.classList.add('transparent');
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      header.classList.remove('transparent');
-    };
-  }, []);
-  */
 
   // 스켈레톤 UI 로딩
   if (contentIsLoading || myInfoIsLoading) {
@@ -228,14 +208,14 @@ const Contents = () => {
         <div className={styles.detail__sub__wrapper}>
           <section className={styles.detail__sub__section}>
             <VideoSectionSynopsis content={content} />
-            <VideoSectionPoster content={content} />
+            {/* <VideoSectionPoster content={content} /> */}
             <div className={styles.detail__more__wrapper}>
               <VideoSectionMyRating videoId={videoId} myInfo={myInfo} />
               <VideoSectionPlatform content={content} />
             </div>
           </section>
-          <VideoSectionCast content={content} target="actor" />
-          <VideoSectionCast content={content} target="staff" />
+          {/* <VideoSectionCast content={content} target="actor" />
+          <VideoSectionCast content={content} target="staff" /> */}
           <VideoSectionGallery content={content} />
           <VideoSectionReview videoId={videoId} myInfo={myInfo} />
         </div>

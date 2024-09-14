@@ -150,6 +150,7 @@
   background-color: rgba($color-white-02, 0.1);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  margin-right: 12px;
 
   &[data-index='0'],
   &[data-color='default'] {
@@ -413,7 +414,7 @@
   border-radius: 12px;
 }
 
-.detail__cast__section {
+.detail__people__section {
   width: 100%;
   max-width: 1440px;
   padding: 20px 60px;
@@ -428,7 +429,7 @@
   }
 }
 
-.detail__cast__wrapper {
+.detail__people__wrapper {
   position: relative;
 
   &[data-length='1'],
@@ -447,8 +448,8 @@
   }
 }
 
-.cast__prev__button,
-.cast__next__button {
+.people__prev__button,
+.people__next__button {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -479,17 +480,46 @@
   }
 }
 
-.cast__prev__button {
+.people__prev__button {
   left: -20px;
 }
 
-.cast__next__button {
+.people__next__button {
   right: -20px;
 }
 
-.cast__prev__button::after,
-.cast__next__button ::after {
+.people__prev__button::after,
+.people__next__button ::after {
   display: none;
+}
+
+.detail__people__link {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  margin-right: 12px;
+}
+
+.detail__people__info__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail__people__name {
+  font-size: 15px;
+  font-weight: 500;
+  color: $color-white-02;
+  margin-bottom: 4px;
+}
+
+.detail__people__role {
+  font-size: 14px;
+  color: $color-white-04;
+  overflow: hidden;
+
+  & + & {
+    margin-left: 8px;
+  }
 }
 
 .detail__gallery__section {
@@ -714,7 +744,7 @@
     width: 100%;
   }
 
-  .detail__cast__wrapper {
+  .detail__people__wrapper {
     &[data-length='4'] {
       .swiper-wrapper {
         grid-template-rows: repeat(2, 1fr);
@@ -758,11 +788,11 @@
     flex-wrap: wrap;
   }
 
-  .detail__cast__section {
+  .detail__people__section {
     padding: 20px 30px;
   }
 
-  .detail__cast__wrapper {
+  .detail__people__wrapper {
     &[data-length='3'] {
       .swiper-wrapper {
         grid-template-rows: repeat(2, 1fr);
@@ -799,6 +829,7 @@
     min-width: 160px;
     height: 100px;
     border-radius: 21px;
+    margin-right: 10px;
 
     &[data-index='0'] {
       .detail__sub__content {
@@ -999,7 +1030,7 @@
     padding: 20px 15px;
   }
 
-  .detail__cast__section {
+  .detail__people__section {
     padding: 20px 0;
 
     .detail__main__title {
@@ -1007,7 +1038,7 @@
     }
   }
 
-  .detail__cast__wrapper {
+  .detail__people__wrapper {
     &[data-length='2'] {
       .swiper-wrapper {
         grid-template-rows: repeat(2, 1fr);
@@ -1015,12 +1046,12 @@
     }
   }
 
-  .detail__cast {
+  .detail__people {
     padding: 0 15px;
   }
 
-  .cast__prev__button,
-  .cast__next__button {
+  .people__prev__button,
+  .people__next__button {
     display: none;
   }
 

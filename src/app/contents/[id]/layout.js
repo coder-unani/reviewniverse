@@ -1,0 +1,15 @@
+'use client';
+
+import React from 'react';
+import dynamic from 'next/dynamic';
+
+const ContentsProvider = dynamic(() => import('@/contexts/ContentsContext').then((mod) => mod.ContentsProvider), {
+  ssr: false,
+});
+
+const ContentsLayout = ({ children, params }) => {
+  const { id } = params;
+  return <ContentsProvider id={id}>{children}</ContentsProvider>;
+};
+
+export default ContentsLayout;

@@ -6,7 +6,7 @@ import styles from '@/styles/components/SkeletonContents.module.scss';
 import conStyles from '@/styles/pages/Contents.module.scss';
 
 const SkeletonVideoDetail = () => {
-  const [castCount, setCastCount] = useState(4);
+  const [peopleCount, setPeopleCount] = useState(4);
   const [galleryCount, setGalleryCount] = useState(4);
 
   useEffect(() => {
@@ -22,16 +22,16 @@ const SkeletonVideoDetail = () => {
     const width = window.innerWidth;
 
     if (width < 769) {
-      setCastCount(2);
+      setPeopleCount(2);
       setGalleryCount(2);
     } else if (width < 1024) {
-      setCastCount(2);
+      setPeopleCount(2);
       setGalleryCount(3);
     } else if (width < 1281) {
-      setCastCount(3);
+      setPeopleCount(3);
       setGalleryCount(3);
     } else {
-      setCastCount(4);
+      setPeopleCount(4);
       setGalleryCount(4);
     }
   };
@@ -99,11 +99,11 @@ const SkeletonVideoDetail = () => {
             </div>
           </section>
 
-          <section className={styles.detail__cast__section}>
+          <section className={styles.detail__people__section}>
             <Skeleton className={styles.detail__main__title} />
-            <article className={conStyles.detail__cast__wrapper}>
-              <div className={styles.detail__cast}>
-                {new Array(castCount).fill(0).map((_, index) => (
+            <article className={conStyles.detail__people__wrapper}>
+              <div className={styles.detail__people}>
+                {new Array(peopleCount).fill(0).map((_, index) => (
                   <div className={styles.detail__people__link} key={index}>
                     <div className="people__image__wrapper">
                       <Skeleton className={styles.people__image} />
@@ -118,11 +118,11 @@ const SkeletonVideoDetail = () => {
             </article>
           </section>
 
-          <section className={styles.detail__cast__section}>
+          <section className={styles.detail__people__section}>
             <Skeleton className={styles.detail__main__title} />
-            <article className={conStyles.detail__cast__wrapper}>
-              <div className={styles.detail__cast}>
-                {new Array(castCount).fill(0).map((_, index) => (
+            <article className={conStyles.detail__people__wrapper}>
+              <div className={styles.detail__people}>
+                {new Array(peopleCount).fill(0).map((_, index) => (
                   <div className={styles.detail__people__link} key={index}>
                     <div className="people__image__wrapper">
                       <Skeleton className={styles.people__image} />

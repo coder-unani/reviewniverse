@@ -5,6 +5,7 @@ import VideoReviewItem from '@/components/ui/VideoReviewItem';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { useAuthContext } from '@/contexts/AuthContext';
+import { useContentsContext } from '@/contexts/ContentsContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
 import { useReviewDelete } from '@/hooks/useReviewDelete';
@@ -19,8 +20,9 @@ import styles from '@/styles/pages/Contents.module.scss';
  * - 클라이언트 사이드 렌더링
  */
 
-const VideoSectionReview = ({ videoId, myInfo }) => {
+const VideoSectionReview = ({ videoId }) => {
   const { user } = useAuthContext();
+  const { myInfo } = useContentsContext();
   const {
     data: reviews,
     error: reviewsError,

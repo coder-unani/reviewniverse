@@ -2,10 +2,12 @@
 
 import React from 'react';
 import RatingVideo from '@/components/ui/RatingVideo';
+import { useContentsContext } from '@/contexts/ContentsContext';
 import { fRatingColor, fRatingText } from '@/utils/formatContent';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSectionMyRating = ({ videoId, myInfo }) => {
+const VideoSectionMyRating = ({ videoId }) => {
+  const { myInfo } = useContentsContext();
   const rating = myInfo && myInfo.rating ? myInfo.rating : 0;
   const ratingText = fRatingText(rating);
   const ratingColor = fRatingColor(rating);
