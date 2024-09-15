@@ -7,7 +7,7 @@ import VideosHorizontal from '@/components/ui/VideosHorizontal';
 import GenresVertical from '@/components/ui/GenresVertical';
 import VideoItem from '@/components/ui/VideoItem';
 import { SCREEN_MAIN_ID } from '@/config/codes';
-import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS } from '@/config/constants';
+import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS, VIDEO_MODEL_OPTIONS } from '@/config/constants';
 import { fExportScreenDataByCode } from '@/utils/formatContent';
 import { isEmpty } from 'lodash';
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
@@ -22,7 +22,7 @@ export const revalidate = HOME_REVALIDATE_SEC;
 const getScreenVideos = async () => {
   const options = {
     code: SCREEN_MAIN_ID,
-    display: 'detail',
+    display: VIDEO_MODEL_OPTIONS.DETAIL,
   };
 
   // Screen Videos API 호출
