@@ -44,9 +44,11 @@ const VideoUpComingItem = async ({ video }) => {
         <div className={defStyles.default__code__wrapper}>
           <div className={defStyles.default__code}>{code}</div>
         </div>
-        <div className={styles.coming__dday__wrapper}>
-          <p className={styles.coming__dday}>D-{countdown}</p>
-        </div>
+        {countdown && (
+          <div className={styles.coming__dday__wrapper}>
+            <p className={styles.coming__dday}>D-{countdown}</p>
+          </div>
+        )}
       </div>
       <div className={defStyles.default__info__container}>
         <p className={defStyles.default__title}>{title}</p>
