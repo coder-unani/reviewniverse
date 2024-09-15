@@ -15,36 +15,39 @@ const endpoints = {
 // Video List API
 /**
  * PARAMS:
- * - query: 검색키워드
  * - page: 페이지 번호
  * - size: 페이지 사이즈
- * - display: 디스플레이
+ * - orderBy: 정렬 조건
  * - mode: 검색 모드
- * - target: 검색 타겟
- * - orderBy: 정렬
- * - terms: release 상태
+ * - code: 검색 코드
+ * - by: 검색 대상
+ * - terms: 검색 기간
+ * - model: 검색 모델
+ * - query: 검색키워드
  */
 export const fetchVideos = async ({
-  query = null,
   page = null,
   size = null,
-  display = null,
-  mode = null,
-  target = null,
   orderBy = null,
+  mode = null,
+  code = null,
+  by = null,
   terms = null,
+  model = null,
+  query = null,
 }) => {
   try {
     const client = new FetchClient();
     const res = await client.get(endpoints.videos, {
-      ...(query && { q: query }),
       ...(page && { p: page }),
-      ...(size && { s: size }),
-      ...(display && { dp: display }),
-      ...(mode && { m: mode }),
-      ...(target && { tg: target }),
+      ...(size && { ps: size }),
       ...(orderBy && { ob: orderBy }),
+      ...(mode && { m: mode }),
+      ...(code && { cd: code }),
+      ...(by && { by: by }),
       ...(terms && { tm: terms }),
+      ...(model && { md: model }),
+      ...(query && { q: query }),
     });
     return res;
   } catch (error) {

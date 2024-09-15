@@ -2,14 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchVideos } from '@/library/api/videos';
 
 export const useVideos = ({
-  query = null,
   page = 1,
   size = 20,
-  display = null,
-  mode = null,
-  target = null,
   orderBy = null,
+  mode = null,
+  code = null,
+  by = null,
   terms = null,
+  model = null,
+  query = null,
   enabled = true,
 }) => {
   const STALE_TIME = 1000 * 60 * 5;
@@ -18,14 +19,15 @@ export const useVideos = ({
   const queryKey = [
     'videos',
     {
-      ...(query !== null && { query }),
       page,
       size,
-      ...(display !== null && { display }),
-      ...(mode !== null && { mode }),
-      ...(target !== null && { target }),
       ...(orderBy !== null && { orderBy }),
+      ...(mode !== null && { mode }),
+      ...(code !== null && { code }),
+      ...(by !== null && { by }),
       ...(terms !== null && { terms }),
+      ...(model !== null && { model }),
+      ...(query !== null && { query }),
     },
   ];
 
@@ -40,14 +42,15 @@ export const useVideos = ({
     queryKey: queryKey,
     queryFn: async () => {
       const res = await fetchVideos({
-        query,
         page,
         size,
-        display,
-        mode,
-        target,
         orderBy,
+        mode,
+        code,
+        by,
         terms,
+        model,
+        query,
       });
       /**
        * API를 통해 넘겨받은 데이터 가공이 필요하면 여기서 처리

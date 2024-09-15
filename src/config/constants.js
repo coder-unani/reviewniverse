@@ -20,11 +20,9 @@ export const DEFAULT_IMAGES = {
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, 인기, 추천, 검색, 통합검색, OTT, 평점';
 
-export const HOME_REVALIDATE_SEC = 300;
+export const HOME_REVALIDATE_SEC = 600;
 
 export const VIDEO_ORDER_OPTIONS = {
-  RELEASE_ASC: 'release_asc',
-  RELEASE_DESC: 'release_desc',
   VIEW_ASC: 'view_asc',
   VIEW_DESC: 'view_desc',
   RATING_ASC: 'rating_asc',
@@ -33,12 +31,42 @@ export const VIDEO_ORDER_OPTIONS = {
   LIKE_DESC: 'like_desc',
   REVIEW_ASC: 'review_asc',
   REVIEW_DESC: 'review_desc',
+  RELEASE_ASC: 'release_asc',
+  RELEASE_DESC: 'release_desc',
+};
+
+export const VIDEO_MODE_OPTIONS = {
+  KEYWORD: 'keyword',
+  ID: 'id',
+  CONDITION: 'condition',
+};
+
+export const VIDEO_CODE_OPTIONS = {
+  ALL: 'all',
+  MOVIES: 'movies',
+  SERIES: 'series',
+};
+
+export const VIDEO_BY_OPTIONS = {
+  ALL: 'all',
+  TITLE: 'title',
+  CODE: 'code',
+  PERSON: 'person',
+  GENRE: 'genre',
+  PLATFORM: 'platform',
+  PRODUCTION: 'production',
+  COUNTRY: 'country',
 };
 
 export const VIDEO_TERMS_OPTIONS = {
-  ALREADY: 'already',
-  COMING_SOON: 'coming_soon',
+  RELEASED: 'released',
   CURRENT: 'current',
+  UPCOMING: 'upcoming',
+};
+
+export const VIDEO_MODEL_OPTIONS = {
+  LIST: 'list',
+  DETAIL: 'detail',
 };
 
 // TODO: 문구 정리 필요

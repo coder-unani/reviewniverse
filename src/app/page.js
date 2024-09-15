@@ -20,11 +20,13 @@ export const revalidate = HOME_REVALIDATE_SEC;
 
 // Screen 컨텐츠
 const getScreenVideos = async () => {
-  const code = SCREEN_MAIN_ID;
-  const display = 'detail';
+  const options = {
+    code: SCREEN_MAIN_ID,
+    display: 'detail',
+  };
 
   // Screen Videos API 호출
-  const res = await fetchScreenVideos({ code, display });
+  const res = await fetchScreenVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {
@@ -34,12 +36,13 @@ const getScreenVideos = async () => {
 
 // Ranking 컨텐츠
 const getRankingVideos = async () => {
-  // 오늘 날짜
-  const code = new Date().toISOString().slice(0, 10).replace(/-/g, '');
-  const count = 20;
+  const options = {
+    code: new Date().toISOString().slice(0, 10).replace(/-/g, ''),
+    count: 20,
+  };
 
   // Ranking Videos API 호출
-  const res = await fetchRankingVideos({ code, count });
+  const res = await fetchRankingVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {
@@ -49,13 +52,15 @@ const getRankingVideos = async () => {
 
 // ComingSoon 컨텐츠
 const getUpcomingVideos = async () => {
-  const page = 1;
-  const size = 20;
-  const orderBy = VIDEO_ORDER_OPTIONS.RELEASE_ASC;
-  const terms = VIDEO_TERMS_OPTIONS.COMING_SOON;
+  const options = {
+    page: 1,
+    size: 20,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
+    terms: VIDEO_TERMS_OPTIONS.UPCOMING,
+  };
 
   // Coming Videos API 호출
-  const res = await fetchVideos({ page, size, orderBy, terms });
+  const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {
@@ -65,13 +70,15 @@ const getUpcomingVideos = async () => {
 
 // Current Monthly 컨텐츠
 const getCurrentVideos = async () => {
-  const page = 1;
-  const size = 20;
-  const orderBy = VIDEO_ORDER_OPTIONS.RELEASE_ASC;
-  const terms = VIDEO_TERMS_OPTIONS.CURRENT;
+  const options = {
+    page: 1,
+    size: 20,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
+    terms: VIDEO_TERMS_OPTIONS.CURRENT,
+  };
 
   // Monthly Videos API 호출
-  const res = await fetchVideos({ page, size, orderBy, terms });
+  const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {
@@ -81,13 +88,15 @@ const getCurrentVideos = async () => {
 
 // 기본 컨텐츠
 const getDefaultVideos = async () => {
-  const page = 1;
-  const size = 100;
-  const orderBy = VIDEO_ORDER_OPTIONS.RELEASE_DESC;
-  const terms = VIDEO_TERMS_OPTIONS.ALREADY;
+  const options = {
+    page: 1,
+    size: 100,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
+    terms: VIDEO_TERMS_OPTIONS.RELEASED,
+  };
 
   // Videos API 호출
-  const res = await fetchVideos({ page, size, orderBy, terms });
+  const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {
@@ -97,10 +106,12 @@ const getDefaultVideos = async () => {
 
 // Genres
 const getGenres = async () => {
-  const count = 50;
+  const options = {
+    count: 50,
+  };
 
   // Ranking Genres API 호출
-  const res = await fetchRankingGenres({ count });
+  const res = await fetchRankingGenres({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {
@@ -110,7 +121,7 @@ const getGenres = async () => {
 
 const Home = async () => {
   // 데이터 페칭
-  const [screenVideos, rankingVideos, comingVideos, monthlyVideos, videos, genres] = await Promise.all([
+  const [screenVideos, rankingVideos, upComingVideos, monthlyVideos, videos, genres] = await Promise.all([
     getScreenVideos(),
     getRankingVideos(),
     getUpcomingVideos(),
@@ -145,8 +156,8 @@ const Home = async () => {
   const rankingVideosTemplate = 'rank';
   const rankingVideosTitle = '🍿 리뷰니버스 TOP 20';
 
-  const comingVideosTemplate = 'coming';
-  const comingVideosTitle = '💖 두근두근 기대작';
+  const upComingVideosTemplate = 'coming';
+  const upComingVideosTitle = '💖 두근두근 기대작';
 
   const monthlyVideosTemplate = 'monthly';
   const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
@@ -178,9 +189,9 @@ const Home = async () => {
           </div>
         </GenresVertical>
 
-        <VideosHorizontal videos={comingVideos} template={comingVideosTemplate}>
+        <VideosHorizontal videos={upComingVideos} template={upComingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>{comingVideosTitle}</h2>
+            <h2 className={vhStyles.horizontal__title}>{upComingVideosTitle}</h2>
           </div>
         </VideosHorizontal>
 

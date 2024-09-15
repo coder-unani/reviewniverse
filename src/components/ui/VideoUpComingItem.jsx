@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDate } from '@/utils/format';
-import { fThumbnail, fCountry } from '@/utils/formatContent';
+import { fThumbnail, fCountry, fCountdown } from '@/utils/formatContent';
 // import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
-import styles from '@/styles/components/VideoComingItem.module.scss';
+import styles from '@/styles/components/VideoUpComingItem.module.scss';
 import defStyles from '@/styles/components/VideoItem.module.scss';
 
 /**
@@ -13,23 +13,27 @@ import defStyles from '@/styles/components/VideoItem.module.scss';
  * - 정적 이미지 생성
  */
 
-const VideoComingItem = async ({ video }) => {
+const VideoUpComingItem = async ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
     videoId: video.id,
   });
-
-  // blurDataURL을 생성하는 함수
+  const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
+  // blurDataURL을 생성하는 함수
   // const base64 = await getImagePlaceholder(thumbnail);
+  const code = video.code_string;
+  const countdown = fCountdown(video.upcoming);
+  const release = fDate(video.release);
+  const country = fCountry(video.country);
 
   return (
-    <Link href={path} className={defStyles.default__video__item} aria-label={video.title}>
+    <Link href={path} className={defStyles.default__video__item} aria-label={title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
           <Image
             className={defStyles.default__thumbnail}
             src={thumbnail}
-            alt={video.title}
+            alt={title}
             width={254}
             height={382}
             quality={100}
@@ -38,21 +42,21 @@ const VideoComingItem = async ({ video }) => {
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{video.code_string}</div>
+          <div className={defStyles.default__code}>{code}</div>
         </div>
         <div className={styles.coming__dday__wrapper}>
-          <p className={styles.coming__dday}>D-{video.d_day}</p>
+          <p className={styles.coming__dday}>D-{countdown}</p>
         </div>
       </div>
       <div className={defStyles.default__info__container}>
-        <p className={defStyles.default__title}>{video.title}</p>
+        <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
-            <span>{fDate(video.release)}</span>
-            {video.country && (
+            <span>{release}</span>
+            {country && (
               <>
                 <span>|</span>
-                <span>{fCountry(video.country)}</span>
+                <span>{country}</span>
               </>
             )}
           </div>
@@ -62,4 +66,4 @@ const VideoComingItem = async ({ video }) => {
   );
 };
 
-export default VideoComingItem;
+export default VideoUpComingItem;

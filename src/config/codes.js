@@ -1,9 +1,5 @@
 import { SETTINGS } from '@/config/settings';
 
-export const SCREEN_MAIN_ID = 'MA01,MA02,MA03,MA04,MA05';
-export const SCREEN_MOVIE_ID = 'MA01,MA02,MA03,MA04,MA05';
-export const SCREEN_SERIES_ID = 'MA01,MA02,MA03,MA04,MA05';
-
 export const USER_CODE = {
   10: 'email',
   11: 'google',
@@ -52,7 +48,17 @@ export const USER_WATCH_TYPE = [
   },
 ];
 
+export const SCREEN_MAIN_ID = 'MA01,MA02,MA03,MA04,MA05';
+export const SCREEN_MOVIE_ID = 'MA01,MA02,MA03,MA04,MA05';
+export const SCREEN_SERIES_ID = 'MA01,MA02,MA03,MA04,MA05';
+
+export const VIDEO_CODE = {
+  10: '영화',
+  11: '시리즈',
+};
+
 export const VIDEO_PLATFORM_CODE = {
+  '01': '극장',
   10: '넷플릭스',
   11: '디즈니플러스',
   12: '티빙',
@@ -65,6 +71,18 @@ export const VIDEO_PLATFORM_CODE = {
   50: 'KMDB',
   51: 'TMDB',
   70: '극장',
+};
+
+export const VIDEO_TRAILER_CODE = {
+  10: '공식 예고편',
+  11: '기타 예고편',
+  20: '티저',
+  30: '메이킹',
+  99: '기타',
+};
+
+export const VIDEO_TRAILER_PLATFORM_CODE = {
+  10: 'YouTube',
 };
 
 export const VIDEO_THUMBNAIL_CODE = {

@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useVideos } from '@/hooks/useVideos';
 import VideosVertical from '@/components/ui/VideosVertical';
 import { showErrorToast } from '@/components/ui/Toast';
-import { DEFAULT_IMAGES } from '@/config/constants';
+import { DEFAULT_IMAGES, VIDEO_MODE_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { MESSAGES } from '@/config/messages';
 import { isEmpty } from 'lodash';
@@ -28,6 +28,8 @@ const SearchResults = ({ query }) => {
   } = useVideos({
     query,
     page,
+    size: 20,
+    mode: VIDEO_MODE_OPTIONS.KEYWORD,
     enabled: query,
   });
 

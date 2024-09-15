@@ -137,7 +137,7 @@ export const fReleaseDate = (date) => {
 
 // 국가 포맷: 여러 나라일 경우 (한국, 일본, 미국)
 export const fCountry = (country) => {
-  if (isEmpty(country)) return '국가';
+  if (isEmpty(country)) return '';
   if (!Array.isArray(country)) return country;
   const countryAll = country.map((item) => item.name_ko).join(', ');
   return countryAll;
@@ -146,4 +146,11 @@ export const fCountry = (country) => {
 // 상영시간, 시리즈 텍스트 포맷
 export const fRuntimeText = (code) => {
   return code === '10' ? '상영시간' : '시리즈';
+};
+
+// 카운트다운 포맷
+export const fCountdown = (upcoming) => {
+  // upcoming 배열의 첫번째 요소의 countdown 값
+  if (isEmpty(upcoming)) return '';
+  return upcoming[0].countdown;
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import VideoItem from '@/components/ui/VideoItem';
 import VideoRankItem from '@/components/ui/VideoRankItem';
-import VideoComingItem from '@/components/ui/VideoComingItem';
+import VideoUpComingItem from '@/components/ui/VideoUpComingItem';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
@@ -27,7 +27,7 @@ const VideosHorizontal = ({ children, videos, template = 'default' }) => {
         return <VideoRankItem video={video} index={index} />;
       case 'coming':
         // 커밍순 아이템 렌더링
-        return <VideoComingItem video={video} index={index} />;
+        return <VideoUpComingItem video={video} index={index} />;
       default:
         // 기본 비디오 아이템 렌더링
         return <VideoItem video={video} index={index} />;
