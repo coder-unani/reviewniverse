@@ -1,17 +1,11 @@
-import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+'use client';
 
-const ContentsProvider = dynamic(() => import('@/contexts/ContentsContext').then((mod) => mod.ContentsProvider), {
-  ssr: false,
-});
+import React from 'react';
+import { ContentsProvider } from '@/contexts/ContentsContext';
 
 const ContentsLayout = ({ children, params }) => {
   const { id } = params;
-  return (
-    <Suspense fallback={''}>
-      <ContentsProvider id={id}>{children}</ContentsProvider>
-    </Suspense>
-  );
+  return <ContentsProvider id={id}>{children}</ContentsProvider>;
 };
 
 export default ContentsLayout;
