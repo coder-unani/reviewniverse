@@ -7,7 +7,7 @@ import VideoPoster from '@/components/ui/VideoPoster';
 import VideoPeople from '@/components/ui/VideoPeople';
 import VideoGallery from '@/components/ui/VideoGallery';
 import { SETTINGS } from '@/config/settings';
-import { SITE_KEYWORDS } from '@/config/constants';
+import { HOME_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fYear, fUpperCase } from '@/utils/format';
 import {
@@ -35,6 +35,8 @@ const VideoMyRating = dynamic(() => import('@/components/ui/VideoMyRating'), { s
 const VideoReviews = dynamic(() => import('@/components/ui/VideoReviews'), { ssr: false });
 const ContentsClient = dynamic(() => import('@/components/ui/Client/Contents'), { ssr: false });
 
+// ISR 재생성 주기 설정
+export const revalidate = HOME_REVALIDATE_SEC;
 /**
  * TODO:
  * - 반응형 레이아웃
