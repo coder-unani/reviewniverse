@@ -7,6 +7,7 @@ const nextConfig = {
 
   // 외부 이미지 도메인 추가
   images: {
+    unoptimized: true, // 최적화하지 않음
     // domains: ['storage.reviewniverse.net'], // 도메인 전체 허용
     remotePatterns: [
       {
