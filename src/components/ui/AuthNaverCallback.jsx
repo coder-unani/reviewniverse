@@ -18,7 +18,6 @@ import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthNaverCallback = () => {
-  const { naver } = window;
   const router = useRouter();
   const pathname = usePathname();
   // const searchParams = useSearchParams();
@@ -31,11 +30,27 @@ const AuthNaverCallback = () => {
   useEffect(() => {
     if (user) {
       showErrorToast(MESSAGES['L002']);
-      const pathUser = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
-      return router.push(pathUser);
+      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
+      router.push(path);
     }
-    handleNaverLogin();
-  }, [pathname, user]);
+
+    // 네이버 SDK 동적 로드
+    const script = document.createElement('script');
+    script.src = 'https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2-nopolyfill.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    document.body.appendChild(script);
+
+    // SDK 로드 완료 후 handleNaverLogin 호출
+    script.onload = () => {
+      handleNaverLogin();
+    };
+
+    // 컴포넌트 언마운트 시 스크립트 제거
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   useEffect(() => {
     if (!snsUser || !isAgree || isEmpty(agreeValues)) return;
@@ -110,9 +125,10 @@ const AuthNaverCallback = () => {
   };
   */
 
-  const handleNaverLogin = () => {
+  const handleNaverLogin = async () => {
     try {
-      const naverLogin = new window.naver.LoginWithNaverId({
+      const { naver } = window;
+      const naverLogin = new naver.LoginWithNaverId({
         clientId: SETTINGS.NAVER_CLIENT_ID,
         callbackUrl: SETTINGS.NAVER_CALLBACK_URL,
         isPopup: false,
@@ -133,6 +149,7 @@ const AuthNaverCallback = () => {
           // 가입여부 확인 (로그인)
           const res = await login(loginUser);
           if (res.status) {
+            console.log('login');
             showSuccessToast(MESSAGES[res.code]);
             router.push(ENDPOINTS.HOME);
           } else {

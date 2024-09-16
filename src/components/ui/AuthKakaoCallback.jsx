@@ -30,11 +30,12 @@ const AuthKakaoCallback = () => {
   useEffect(() => {
     if (user) {
       showErrorToast(MESSAGES['L002']);
-      const pathUser = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
-      return router.push(pathUser);
+      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
+      router.push(path);
     }
+
     handleKakaoLogin();
-  }, [searchParams, pathname, user]);
+  }, []);
 
   useEffect(() => {
     if (!snsUser || !isAgree || isEmpty(agreeValues)) return;

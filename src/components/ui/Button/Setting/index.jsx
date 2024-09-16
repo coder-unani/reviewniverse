@@ -65,11 +65,7 @@ const SettingButton = () => {
 
   return (
     <>
-      <button
-        type="button"
-        className={styles.setting__button}
-        onClick={toggleMenuModal}
-      >
+      <button type="button" className={styles.setting__button} onClick={toggleMenuModal}>
         <SettingIcon />
       </button>
       {isMenuModal && (

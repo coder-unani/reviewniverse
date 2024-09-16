@@ -1,5 +1,3 @@
-'use client';
-
 import { DEFAULT_IMAGES } from '@/config/constants';
 import styles from '@/styles/components/LoginLoading.module.scss';
 
