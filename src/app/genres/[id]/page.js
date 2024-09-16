@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import GenresVertical from '@/components/ui/GenresVertical';
 import { fetchRankingGenres } from '@/library/api/ranking';
@@ -9,6 +9,7 @@ const GenresComponent = dynamic(() => import('@/components/ui/Genres'), { ssr: f
 /**
  * TODO:
  * - 메타 태그 설정
+ * - fallback 스켈레톤 UI 추가
  */
 
 /*
@@ -58,9 +59,11 @@ const Genres = async ({ params }) => {
 
   return (
     <main className={styles.genre__main}>
-      <GenresComponent id={id}>
-        <GenresVertical genres={genres} />
-      </GenresComponent>
+      <Suspense fallback={''}>
+        <GenresComponent id={id}>
+          <GenresVertical genres={genres} />
+        </GenresComponent>
+      </Suspense>
     </main>
   );
 };

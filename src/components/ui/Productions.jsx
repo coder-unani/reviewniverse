@@ -5,25 +5,16 @@ import { useRouter, notFound } from 'next/navigation';
 import { useVideos } from '@/hooks/useVideos';
 import VideosVertical from '@/components/ui/VideosVertical';
 import { showErrorToast } from '@/components/ui/Toast';
-import { SETTINGS } from '@/config/settings';
-import { DEFAULT_IMAGES } from '@/config/constants';
 import { MESSAGES } from '@/config/messages';
+import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Productions.module.scss';
 
-/**
- * TODO:
- * - location.state 말고 다른 방법으로 name을 받아오는 방법 찾기
- * - api 데이터에서 production 데이터 필요?
- */
-
 const Productions = ({ id }) => {
   const router = useRouter();
   const productionId = fParseInt(id);
-  // const location = useLocation();
-  // const name = location.state?.name;
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -31,23 +22,21 @@ const Productions = ({ id }) => {
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
-    query: productionId,
     page,
-    mode: 'id',
-    target: 'production',
-    orderBy: 'release_desc',
+    size: 20,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
+    mode: VIDEO_MODE_OPTIONS.ID,
+    by: VIDEO_BY_OPTIONS.PRODUCTION,
+    query: productionId,
     enabled: productionId,
-    // enabled: productionId || !isEmpty(name),
   });
 
-  /*
-  // productionId가 숫자형이 아닐 경우, location state에 name이 없을 경우
+  // productionId가 숫자형이 아닐 경우 notFound 페이지로 이동
   useEffect(() => {
-    if (productionId === 0 || isEmpty(name)) {
+    if (productionId === 0) {
       notFound();
     }
-  }, [productionId, name]);
-  */
+  }, [productionId]);
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
@@ -94,12 +83,14 @@ const Productions = ({ id }) => {
     return;
   }
 
+  const productionName = videos.metadata.production.name;
+  const productionLogo = videos.metadata.production.logo;
+
   return (
     <>
       <section className={styles.production__section}>
         <div className={styles.production__title__wrapper}>
-          {/* <h1 className={styles.production__title}>{name}</h1> */}
-          <h1 className={styles.production__title}>제작사명</h1>
+          <h1 className={styles.production__title}>{productionName}</h1>
         </div>
       </section>
       <VideosVertical videos={videos} handlePage={handlePage} />

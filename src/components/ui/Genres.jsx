@@ -12,11 +12,6 @@ import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Genres.module.scss';
 
-/**
- * TODO:
- * - 메타 태그 설정은 서버 컴포넌트에서만 가능
- */
-
 const Genres = ({ children, id }) => {
   const router = useRouter();
   const genreId = fParseInt(id);
@@ -36,7 +31,7 @@ const Genres = ({ children, id }) => {
     enabled: genreId,
   });
 
-  // genreId가 숫자형이 아닐 경우
+  // genreId가 숫자형이 아닐 경우 notFound 페이지로 이동
   useEffect(() => {
     if (genreId === 0) {
       notFound();
