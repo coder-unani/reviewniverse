@@ -80,6 +80,7 @@ const VideosPreview = async ({ videos }) => {
                         width={254}
                         height={382}
                         quality={100}
+                        loading="lazy"
                       />
                     </picture>
                   </a>

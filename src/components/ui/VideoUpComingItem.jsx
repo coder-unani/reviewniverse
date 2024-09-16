@@ -37,6 +37,7 @@ const VideoUpComingItem = async ({ video }) => {
             width={254}
             height={382}
             quality={100}
+            loading="lazy"
             // placeholder="blur"
             // blurDataURL={base64}
           />

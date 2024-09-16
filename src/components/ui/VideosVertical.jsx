@@ -72,6 +72,7 @@ const VideosVertical = ({ children, videos, handlePage }) => {
                   height={382}
                   quality={100}
                   priority={index < 15}
+                  loading="lazy"
                   // placeholder="blur"
                   // blurDataURL={base64}
                 />

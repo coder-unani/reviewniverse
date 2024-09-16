@@ -45,6 +45,7 @@ const GenresVertical = ({ children, genres }) => {
                         width={254}
                         height={382}
                         quality={100}
+                        loading="lazy"
                       />
                     </picture>
                     <p className={styles.genre__video__title}>#{genre.name}</p>

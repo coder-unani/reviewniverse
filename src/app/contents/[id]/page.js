@@ -85,6 +85,9 @@ export const generateMetadata = async ({ params }) => {
   const metaTitle = `${title} (${releaseYear}) - 리뷰니버스`;
 
   return {
+    alternates: {
+      canonical: url,
+    },
     title: metaTitle,
     description: synopsis,
     keywords: keywords,

@@ -11,12 +11,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import '@/styles/globals.scss';
 
-// TODO: Suspense 사용
+// viewport 설정
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1.0,
+  maximumScale: 1,
+  userScalable: 'no',
+};
 
 // 메타태그 설정
 // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
 export const metadata = {
   metadataBase: new URL(SETTINGS.SITE_BASE_URL), // 기본 URL 설정
+  alternates: {
+    canonical: '/',
+  },
   title: '리뷰니버스',
   description: '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!',
   keywords: SITE_KEYWORDS,
@@ -35,11 +44,17 @@ export const metadata = {
       },
     ],
   },
+  icons: {
+    icon: '/favicon.ico',
+  },
 };
 
 const RootLayout = ({ children }) => {
   return (
     <html lang="ko">
+      <head>
+        <link rel="search" href="/opensearch.xml" title="리뷰니버스" type="application/opensearchdescription+xml" />
+      </head>
       <body>
         <DefaultLayout>{children}</DefaultLayout>
         <div id="modal" />
