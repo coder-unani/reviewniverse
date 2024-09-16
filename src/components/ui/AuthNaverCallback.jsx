@@ -112,7 +112,7 @@ const AuthNaverCallback = () => {
 
   const handleNaverLogin = () => {
     try {
-      const naverLogin = new naver.LoginWithNaverId({
+      const naverLogin = new window.naver.LoginWithNaverId({
         clientId: SETTINGS.NAVER_CLIENT_ID,
         callbackUrl: SETTINGS.NAVER_CALLBACK_URL,
         isPopup: false,
