@@ -21,7 +21,7 @@ const AuthNaverCallback = () => {
   const { naver } = window;
   const router = useRouter();
   const pathname = usePathname();
-  // const searchParams = useSearchParams();
+  const searchParams = useSearchParams();
   const { user, login, join } = useAuthContext();
   const { isMobile } = useThemeContext();
   const [snsUser, setSnsUser] = useState(null);
@@ -43,73 +43,72 @@ const AuthNaverCallback = () => {
   }, [snsUser, isAgree, agreeValues]);
 
   // TODO: 네이버 로그인 SDK 사용하지 않고 구현하려고 했으나, CORS 문제로 인해 실패 및 보류
-  /*
   useEffect(() => {
-    const handleNaverLogin = async () => {
-      try {
-        const code = searchParams.get("code");
-        const state = searchParams.get("state");
-
-        if (code) {
-          const client = new AxiosClient();
-          client.setHeader({
-            "X-Naver-Client-Id": SETTINGS.NAVER_CLIENT_ID,
-            "X-Naver-Client-Secret": SETTINGS.NAVER_CLIENT_SECRET,
-          });
-          const tokenRes = await client.get(`https://nid.naver.com/oauth2.0/token`, null, {
-            grant_type: "authorization_code",
-            client_id: SETTINGS.NAVER_CLIENT_ID,
-            client_secret: SETTINGS.NAVER_CLIENT_SECRET,
-            redirect_uri: encodeURIComponent(SETTINGS.NAVER_CALLBACK_URL),
-            code: code,
-            state: state,
-          });
-          console.log(tokenRes);
-          return;
-          const accessToken = tokenRes.data.access_token;
-
-          client.setHeader({ Authorization: `Bearer ${accessToken}` });
-          const userRes = await client.get(`https://openapi.naver.com/v1/nid/me`);
-          const naverUser = userRes.data;
-
-          const loginUser = {
-            code: fProviderCode("naver"),
-            email: naverUser.email,
-            sns_id: naverUser.id,
-          };
-
-          const res = await login(loginUser);
-          if (res.status) {
-            showSuccessToast(MESSAGES[res.code]);
-            router.push(ENDPOINTS.HOME);
-          } else {
-            if (res.code === "L003") {
-              setSnsUser({
-                code: loginUser.code,
-                email: naverUser.email,
-                sns_id: naverUser.id,
-                nickname: naverUser.nickname,
-                profile_image: naverUser.profile_image,
-              });
-            } else {
-              setSnsUser(null);
-              router.push(ENDPOINTS.USER_LOGIN);
-              showErrorToast(MESSAGES[res.code]);
-            }
-          }
-        }
-      } catch (error) {
-        console.log(error);
-        // setSnsUser(null);
-        // router.push(ENDPOINTS.USER_LOGIN);
-        // showErrorToast(MESSAGES["L002"]);
-      }
-    };
-
     handleNaverLogin();
   }, []);
-  */
 
+  const handleNaverLogin = async () => {
+    try {
+      const code = searchParams.get('code');
+      const state = searchParams.get('state');
+
+      if (code) {
+        const client = new AxiosClient();
+        client.setHeader({
+          'X-Naver-Client-Id': SETTINGS.NAVER_CLIENT_ID,
+          'X-Naver-Client-Secret': SETTINGS.NAVER_CLIENT_SECRET,
+        });
+        const tokenRes = await client.get(`https://nid.naver.com/oauth2.0/token`, null, {
+          grant_type: 'authorization_code',
+          client_id: SETTINGS.NAVER_CLIENT_ID,
+          client_secret: SETTINGS.NAVER_CLIENT_SECRET,
+          redirect_uri: encodeURIComponent(SETTINGS.NAVER_CALLBACK_URL),
+          code: code,
+          state: state,
+        });
+        console.log(tokenRes);
+        return;
+        const accessToken = tokenRes.data.access_token;
+
+        client.setHeader({ Authorization: `Bearer ${accessToken}` });
+        const userRes = await client.get(`https://openapi.naver.com/v1/nid/me`);
+        const naverUser = userRes.data;
+
+        const loginUser = {
+          code: fProviderCode('naver'),
+          email: naverUser.email,
+          sns_id: naverUser.id,
+        };
+
+        const res = await login(loginUser);
+        if (res.status) {
+          showSuccessToast(MESSAGES[res.code]);
+          router.push(ENDPOINTS.HOME);
+        } else {
+          if (res.code === 'L003') {
+            setSnsUser({
+              code: loginUser.code,
+              email: naverUser.email,
+              sns_id: naverUser.id,
+              nickname: naverUser.nickname,
+              profile_image: naverUser.profile_image,
+            });
+          } else {
+            setSnsUser(null);
+            router.push(ENDPOINTS.USER_LOGIN);
+            showErrorToast(MESSAGES[res.code]);
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      // setSnsUser(null);
+      // router.push(ENDPOINTS.USER_LOGIN);
+      // showErrorToast(MESSAGES["L002"]);
+    }
+  };
+
+  /*
   const handleNaverLogin = () => {
     try {
       const naverLogin = new naver.LoginWithNaverId({
@@ -162,6 +161,7 @@ const AuthNaverCallback = () => {
       showErrorToast(MESSAGES['L002']);
     }
   };
+  */
 
   const handleSocialJoin = async (snsUser, agreeValues) => {
     try {
