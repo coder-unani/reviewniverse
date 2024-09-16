@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useVideos } from '@/hooks/useVideos';
 import VideosVertical from '@/components/ui/VideosVertical';
+import { useVideos } from '@/hooks/useVideos';
 import { showErrorToast } from '@/components/ui/Toast';
 import { MESSAGES } from '@/config/messages';
 import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
