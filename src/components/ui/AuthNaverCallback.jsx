@@ -149,7 +149,6 @@ const AuthNaverCallback = () => {
           // 가입여부 확인 (로그인)
           const res = await login(loginUser);
           if (res.status) {
-            console.log('login');
             showSuccessToast(MESSAGES[res.code]);
             router.push(ENDPOINTS.HOME);
           } else {
