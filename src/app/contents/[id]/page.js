@@ -209,7 +209,12 @@ const Contents = async ({ params }) => {
         <h4 className={styles.detail__main__title}>{title}</h4>
         <article className={styles.detail__platform__wrapper}>
           {platforms.map((platform, index) => (
-            <button type="button" className={styles.detail__platform} data-url={platform.url} key={index}>
+            <button
+              type="button"
+              className={`platform-button ${styles.detail__platform}`}
+              data-url={platform.url}
+              key={index}
+            >
               <img className={styles.platform__image} src={`${imageBaseUrl}${platform.code}.png`} alt={platform.name} />
             </button>
           ))}
