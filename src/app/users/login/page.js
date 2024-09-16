@@ -27,7 +27,7 @@ const UsersLogin = () => {
           <img className={styles.login__button__image} src={DEFAULT_IMAGES.kakao} alt="kakao" />
           {kakaoButton}
         </button>
-        <div id="naverIdLogin" style={{ display: 'none' }} />
+        {/* <div id="naverIdLogin" style={{ display: 'none' }} /> */}
         <button type="button" className={`login-naver-button ${styles.login__button} ${styles.naver}`}>
           <img className={styles.login__button__image} src={DEFAULT_IMAGES.naver} alt="naver" />
           {naverButton}
