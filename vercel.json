@@ -1,5 +1,4 @@
 {
-  "versions": 2,
   "headers": [
     {
       "source": "/(.*)",
@@ -24,9 +23,5 @@
     }
   ],
   "trailingSlash": false,
-  "cleanUrls": true,
-  "cache": {
-    "staleWhileRevalidate": 60,
-    "maxAge": 31536000
-  }
+  "cleanUrls": true
 }
