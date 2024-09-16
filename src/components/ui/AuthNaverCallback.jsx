@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { AxiosClient } from '@/utils/HttpClient';
+// import { AxiosClient } from '@/utils/HttpClient';
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
@@ -21,7 +21,7 @@ const AuthNaverCallback = () => {
   const { naver } = window;
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
+  // const searchParams = useSearchParams();
   const { user, login, join } = useAuthContext();
   const { isMobile } = useThemeContext();
   const [snsUser, setSnsUser] = useState(null);
@@ -42,6 +42,7 @@ const AuthNaverCallback = () => {
     handleSocialJoin(snsUser, agreeValues);
   }, [snsUser, isAgree, agreeValues]);
 
+  /*
   // TODO: 네이버 로그인 SDK 사용하지 않고 구현하려고 했으나, CORS 문제로 인해 실패 및 보류
   useEffect(() => {
     handleNaverLogin();
@@ -107,8 +108,8 @@ const AuthNaverCallback = () => {
       // showErrorToast(MESSAGES["L002"]);
     }
   };
+  */
 
-  /*
   const handleNaverLogin = () => {
     try {
       const naverLogin = new naver.LoginWithNaverId({
@@ -161,7 +162,6 @@ const AuthNaverCallback = () => {
       showErrorToast(MESSAGES['L002']);
     }
   };
-  */
 
   const handleSocialJoin = async (snsUser, agreeValues) => {
     try {
