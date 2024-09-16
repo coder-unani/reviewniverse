@@ -87,9 +87,9 @@ export const generateMetadata = async ({ params }) => {
   return {
     title: metaTitle,
     description: synopsis,
-    keywords,
+    keywords: keywords,
     openGraph: {
-      url,
+      url: url,
       title: metaTitle,
       description: synopsis,
       images: [

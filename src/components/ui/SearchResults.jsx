@@ -26,10 +26,10 @@ const SearchResults = ({ query }) => {
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
-    query,
     page,
     size: 20,
     mode: VIDEO_MODE_OPTIONS.KEYWORD,
+    query,
     enabled: query,
   });
 

@@ -36,7 +36,9 @@ export const fPlatformCode = (code) => {
 // 플랫폼 배열에서 코드가 50미만인 것만 필터링
 export const fPlatformFilter = (platforms) => {
   if (isEmpty(platforms)) return [];
-  return platforms.filter((platform) => parseInt(platform.code) < 50);
+  // platforms 배열에서 code가 10이상 50미만인 것만 필터링
+  // return platforms.filter((platform) => parseInt(platform.code) < 50);
+  return platforms.filter((platform) => parseInt(platform.code) >= 10 && parseInt(platform.code) < 50);
 };
 
 // 출연진 역할 코드 포맷
