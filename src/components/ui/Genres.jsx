@@ -2,28 +2,19 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import dynamic from 'next/dynamic';
+import VideosVertical from '@/components/ui/VideosVertical';
 import { useVideos } from '@/hooks/useVideos';
 import { showErrorToast } from '@/components/ui/Toast';
 import { MESSAGES } from '@/config/messages';
+import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Genres.module.scss';
 
-/**
- * TODO:
- * - location.state 말고 다른 방법으로 name을 받아오는 방법 찾기
- * - React.lazy -> next/dynamic으로 변경
- * - 메타 태그 설정은 서버 컴포넌트에서만 가능
- */
-const VideosVertical = dynamic(() => import('@/components/ui/VideosVertical'), { ssr: false });
-
 const Genres = ({ children, id }) => {
-  // const location = useLocation();
   const router = useRouter();
   const genreId = fParseInt(id);
-  // const name = location.state?.name;
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -31,23 +22,21 @@ const Genres = ({ children, id }) => {
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
-    query: genreId,
     page,
-    mode: 'id',
-    target: 'genre',
-    orderBy: 'release_desc',
+    size: 20,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
+    mode: VIDEO_MODE_OPTIONS.ID,
+    by: VIDEO_BY_OPTIONS.GENRE,
+    query: genreId,
     enabled: genreId,
-    // enabled: genreId || !isEmpty(name),
   });
 
-  /*
-  // genreId가 숫자형이 아닐 경우, location state에 name이 없을 경우
+  // genreId가 숫자형이 아닐 경우 notFound 페이지로 이동
   useEffect(() => {
-    if (genreId === 0 || isEmpty(name)) {
+    if (genreId === 0) {
       notFound();
     }
-  }, [genreId, name]);
-  */
+  }, [genreId]);
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
@@ -94,11 +83,15 @@ const Genres = ({ children, id }) => {
     return;
   }
 
+  // TODO: 고도화 필요
+  const genreName = videos.metadata.genre.name;
+  const genreImage = videos.metadata.genre.background;
+
   return (
     <>
       <section className={styles.genre__section}>
         <div className={styles.genre__title__wrapper}>
-          <h1 className={styles.genre__title}>#{name}</h1>
+          <h1 className={styles.genre__title}>#{genreName}</h1>
         </div>
       </section>
       {children}

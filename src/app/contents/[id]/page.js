@@ -37,6 +37,7 @@ const ContentsClient = dynamic(() => import('@/components/ui/Client/Contents'), 
 
 // ISR 재생성 주기 설정
 export const revalidate = HOME_REVALIDATE_SEC;
+
 /**
  * TODO:
  * - 반응형 레이아웃

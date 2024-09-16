@@ -12,28 +12,32 @@ const VideoLikeItem = ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
     videoId: video.video.id,
   });
+  const title = video.video.title;
+  const thumbnail = fThumbnail(video.video.thumbnail);
+  const code = fVideoCode(video.video.code);
+  const release = fYear(video.video.release);
 
   return (
-    <Link href={path} className={defStyles.default__video__item} aria-label={video.video.title}>
+    <Link href={path} className={defStyles.default__video__item} aria-label={title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
           <LazyLoadImage
             className={defStyles.default__thumbnail}
-            src={fThumbnail(video.video.thumbnail)}
-            srcSet={fThumbnail(video.video.thumbnail)}
-            alt={video.video.title}
+            src={thumbnail}
+            srcSet={thumbnail}
+            alt={title}
             effect="blur"
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{fVideoCode(video.code)}</div>
+          <div className={defStyles.default__code}>{code}</div>
         </div>
       </div>
       <div className={defStyles.default__info__container}>
-        <p className={defStyles.default__title}>{video.video.title}</p>
+        <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
-            <span>{fYear(video.video.release)}</span>
+            <span>{release}</span>
           </div>
         </div>
       </div>

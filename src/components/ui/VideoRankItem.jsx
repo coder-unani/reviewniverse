@@ -18,10 +18,15 @@ const VideoRankItem = async ({ video, index }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
     videoId: video.id,
   });
-
-  // blurDataURL을 생성하는 함수
+  const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
+  // blurDataURL을 생성하는 함수
   // const base64 = await getImagePlaceholder(thumbnail);
+  const code = video.code_string;
+  const release = fYear(video.release);
+  const country = fCountry(video.country);
+  const ratingColor = fRatingColor(video.rating);
+  const ratingText = fRatingText(video.rating);
 
   // 랭킹 숫자 포맷
   const fRankingNumber = (number) => {
@@ -43,13 +48,13 @@ const VideoRankItem = async ({ video, index }) => {
   };
 
   return (
-    <Link href={path} className={defStyles.default__video__item} aria-label={video.title}>
+    <Link href={path} className={defStyles.default__video__item} aria-label={title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={styles.rank__thumbnail__wrapper}>
           <Image
             className={defStyles.default__thumbnail}
             src={thumbnail}
-            alt={video.title}
+            alt={title}
             width={254}
             height={382}
             quality={100}
@@ -58,25 +63,25 @@ const VideoRankItem = async ({ video, index }) => {
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{video.code_string}</div>
+          <div className={defStyles.default__code}>{code}</div>
         </div>
         <div className={styles.rank__number__wrapper}>{fRankingNumber(index + 1)}</div>
       </div>
       <div className={styles.rank__info__container}>
-        <p className={defStyles.default__title}>{video.title}</p>
+        <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
-            <span>{fYear(video.release)}</span>
-            {video.country && (
+            <span>{release}</span>
+            {country && (
               <>
                 <span>|</span>
-                <span>{fCountry(video.country)}</span>
+                <span>{country}</span>
               </>
             )}
           </div>
-          <div className={defStyles.default__rating__wrapper} data-color={fRatingColor(video.rating)}>
+          <div className={defStyles.default__rating__wrapper} data-color={ratingColor}>
             <div className={defStyles.default__rating__square}></div>
-            <span className={defStyles.default__rating}>{fRatingText(video.rating)}</span>
+            <span className={defStyles.default__rating}>{ratingText}</span>
           </div>
         </div>
       </div>
