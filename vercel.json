@@ -1,5 +1,5 @@
 {
-  "rewirtes": [
+  "rewrites": [
     {
       "source": "/sitemap/sitemap.xml",
       "destination": "https://storage.reviewniverse.net/sitemap/sitemap.xml"
