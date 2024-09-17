@@ -11,7 +11,7 @@
   gap: 12px;
   width: 100%;
   max-width: 1440px;
-  padding: 20px 60px 60px;
+  padding: 20px $padding-large 60px;
   margin: 0 auto;
 }
 
@@ -66,12 +66,12 @@
 
 @media (max-width: 1024px) {
   .footer__wrapper {
-    padding: 20px 30px 60px;
+    padding: 20px $padding-medium 60px;
   }
 }
 
 @media (max-width: 576px) {
   .footer__wrapper {
-    padding: 20px 15px 60px;
+    padding: 20px $padding-small 60px;
   }
 }

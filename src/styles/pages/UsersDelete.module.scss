@@ -83,13 +83,13 @@
   }
 
   .delete__wrapper {
-    padding: 0 15px 40px;
+    padding: 0 $padding-small 40px;
   }
 }
 
 @media (max-width: 576px) {
   .delete__wrapper {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 
   .delete__button__wrapper {

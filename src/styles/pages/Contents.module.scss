@@ -57,7 +57,7 @@
   align-items: flex-end;
   justify-content: space-between;
   max-width: 1440px;
-  padding: 0 60px;
+  padding: 0 $padding-large;
   margin: 0 auto;
 }
 
@@ -86,11 +86,14 @@
   gap: 6px;
   flex-wrap: wrap;
   margin-top: 8px;
+
+  li {
+    flex: none;
+  }
 }
 
 .detail__genre__link {
   position: relative;
-  flex: none;
   display: block;
   font-size: 13px;
   font-weight: 600;
@@ -132,7 +135,7 @@
   align-items: center;
   gap: 12px;
   max-width: 1440px;
-  padding: 0 60px;
+  padding: 0 $padding-large;
   margin: 0 auto;
 }
 
@@ -274,7 +277,7 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 40px;
-  padding: 20px 60px;
+  padding: 20px $padding-large;
 }
 
 .detail__main__title {
@@ -416,7 +419,7 @@
 .detail__people__section {
   width: 100%;
   max-width: 1440px;
-  padding: 20px 60px;
+  padding: 20px $padding-large;
   margin: 0 auto;
 
   :global(.people__image__wrapper) {
@@ -524,7 +527,7 @@
 .detail__gallery__section {
   width: 100%;
   max-width: 1440px;
-  padding: 20px 60px;
+  padding: 20px $padding-large;
   margin: 0 auto;
 }
 
@@ -602,7 +605,7 @@
 .detail__review__section {
   width: 100%;
   max-width: 1440px;
-  padding: 20px 60px;
+  padding: 20px $padding-large;
   margin: 0 auto;
 }
 
@@ -615,7 +618,7 @@
   text-align: center;
   border-radius: 14px;
   border: 1px solid $border-color-01;
-  padding: 20px 15px;
+  padding: 20px 16px;
 }
 
 .no__review__text {
@@ -639,7 +642,7 @@
   background: $color-magenta;
   background: -webkit-linear-gradient(to right, rgba($color-cyan, 0.75), rgba($color-magenta, 0.75));
   background: linear-gradient(to right, rgba($color-cyan, 0.75), rgba($color-magenta, 0.75));
-  padding: 0 15px;
+  padding: 0 16px;
 }
 
 .detail__my__review__wrapper {
@@ -648,7 +651,7 @@
   max-height: 110px;
   border-radius: 14px;
   border: 1px solid $border-color-01;
-  padding: 12px 14px;
+  padding: 12px 15px;
 
   &:hover {
     background-color: $color-white-09;
@@ -690,7 +693,7 @@
 .my__review__update__button {
   display: flex;
   align-items: center;
-  padding: 15px 10px;
+  padding: 16px 10px;
 
   &:hover {
     .my__review__button__icon {
@@ -754,17 +757,17 @@
 
 @media (max-width: 1024px) {
   .detail__main__info__wrapper {
-    padding: 0 30px;
+    padding: 0 $padding-medium;
   }
 
   .detail__sub__info__wrapper {
-    padding: 0 30px;
+    padding: 0 $padding-medium;
   }
 
   .detail__sub__section {
     grid-template-columns: auto 1fr;
     grid-template-rows: 1fr;
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 
   .detail__poster__section {
@@ -788,7 +791,7 @@
   }
 
   .detail__people__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 
   .detail__people__wrapper {
@@ -800,11 +803,11 @@
   }
 
   .detail__gallery__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 
   .detail__review__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 }
 
@@ -939,7 +942,7 @@
   }
 
   .detail__main__info__wrapper {
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .detail__title__og {
@@ -956,7 +959,7 @@
   }
 
   .detail__sub__info__wrapper {
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .detail__sub__info__item {
@@ -1025,14 +1028,14 @@
   }
 
   .detail__sub__section {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 
   .detail__people__section {
     padding: 20px 0;
 
     .detail__main__title {
-      padding-left: 15px;
+      padding-left: $padding-small;
     }
   }
 
@@ -1045,7 +1048,7 @@
   }
 
   .detail__people {
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .people__prev__button,
@@ -1057,12 +1060,12 @@
     padding: 20px 0;
 
     .detail__main__title {
-      padding-left: 15px;
+      padding-left: $padding-small;
     }
   }
 
   .detail__gallery {
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .gallery__prev__button,
@@ -1071,7 +1074,7 @@
   }
 
   .detail__review__section {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 
   .detail__my__review__wrapper {

@@ -140,17 +140,22 @@
   .favorite__section {
     width: 100%;
     padding: 0;
-    margin: 20px auto 0;
+    margin: 12px auto 0;
   }
 
   .favorite__form {
     border-radius: unset;
     border: none;
-    padding: 0 15px 40px;
+    padding: 0 $padding-small 40px;
   }
 
   .favorite__content__wrapper {
-    gap: 15px;
-    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    // grid-template-columns: repeat(2, 1fr);
+  }
+
+  .favorite__title {
+    font-size: 16px;
+    margin-bottom: 16px;
   }
 }

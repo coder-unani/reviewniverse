@@ -15,9 +15,7 @@ import defStyles from '@/styles/components/VideoItem.module.scss';
  */
 
 const VideoRankItem = async ({ video, index }) => {
-  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
-    videoId: video.id,
-  });
+  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
   // blurDataURL을 생성하는 함수

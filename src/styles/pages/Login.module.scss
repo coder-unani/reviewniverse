@@ -5,15 +5,14 @@
   max-width: 720px;
   height: 100%;
   min-height: calc(100vh - $footer-height);
-  padding: 60px;
-  padding-top: $header-height;
+  padding: $header-height $padding-large 60px;
   margin: 0 auto;
 }
 
 .login__header {
   width: 100%;
   text-align: center;
-  padding: 32px 0 20px;
+  // padding: 32px 0 20px;
 }
 
 .login__header__logo {
@@ -24,7 +23,8 @@
 .login__header__title {
   font-size: 17px;
   color: $color-white-01;
-  margin: 24px 0 20px;
+  // margin: 24px 0 20px;
+  margin: 32px 0 20px;
 }
 
 .login__button {
@@ -67,15 +67,15 @@
 
 @media (max-width: 768px) {
   .login__main {
-    position: fixed;
+    // position: fixed;
     background-color: $color-background;
-    padding: 60px 30px;
+    padding: 60px $padding-medium;
     z-index: 200;
   }
 }
 
 @media (max-width: 576px) {
   .login__main {
-    padding: 60px 15px;
+    padding: 60px $padding-small;
   }
 }

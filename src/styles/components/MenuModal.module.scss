@@ -27,7 +27,7 @@
   width: 100%;
   border-bottom-right-radius: 40px;
   background-color: rgba($color-white-01, 0.1);
-  padding: 36px 15px 13px;
+  padding: 36px $padding-small 13px;
 }
 
 .menu__header__user {
@@ -60,7 +60,7 @@
 }
 
 .menu__body {
-  padding: 24px 15px;
+  padding: 24px $padding-small;
 }
 
 .menu__body__title {

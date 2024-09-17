@@ -17,6 +17,7 @@ import { GoogleAnalytics } from '@next/third-parties/google';
 export const viewport = {
   width: 'device-width',
   initialScale: 1.0,
+  viewportFit: 'cover',
   maximumScale: 1,
   userScalable: 'no',
 };

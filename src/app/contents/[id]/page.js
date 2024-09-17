@@ -61,13 +61,11 @@ const getContent = async ({ videoId }) => {
 export const generateMetadata = async ({ params }) => {
   const { id } = params;
   const videoId = fParseInt(id);
-
   if (videoId === 0) {
     notFound();
   }
 
   const content = await getContent({ videoId });
-
   if (isEmpty(content)) {
     return {};
   }
@@ -111,7 +109,6 @@ export const generateMetadata = async ({ params }) => {
 const Contents = async ({ params }) => {
   const { id } = params;
   const videoId = fParseInt(id);
-
   if (videoId === 0) {
     notFound();
   }

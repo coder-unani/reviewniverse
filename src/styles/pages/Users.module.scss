@@ -36,7 +36,7 @@
 }
 
 .user__profile {
-  padding: 15px;
+  padding: 16px;
   margin-top: calc(-130px / 2);
 }
 
@@ -62,7 +62,7 @@
   align-items: center;
   height: 60px;
   border-top: 1px solid $border-color-01;
-  padding: 0 15px;
+  padding: 0 16px;
 
   a {
     flex: 1;
@@ -111,5 +111,13 @@
     border-radius: unset;
     border: none;
     border-bottom: 1px solid $border-color-01;
+  }
+
+  .user__profile {
+    padding: 16px $padding-small;
+  }
+
+  .user__content {
+    padding: 0 $padding-small;
   }
 }

@@ -8,9 +8,7 @@ import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatC
 import styles from '@/styles/components/VideoItem.module.scss';
 
 const VideoItem = async ({ video }) => {
-  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
-    videoId: video.id,
-  });
+  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
   // blurDataURL을 생성하는 함수

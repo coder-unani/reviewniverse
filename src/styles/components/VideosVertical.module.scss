@@ -1,7 +1,7 @@
 @use '@/styles/variables' as *;
 
 .vertical__videos__section {
-  padding: 20px 60px;
+  padding: 20px $padding-large;
 }
 
 .vertical__title__wrapper {
@@ -28,7 +28,7 @@
 
 @media (max-width: 1024px) {
   .vertical__videos__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 
   .vertical__videos__wrapper {
@@ -45,7 +45,7 @@
 
 @media (max-width: 576px) {
   .vertical__videos__section {
-    padding: 12px 15px;
+    padding: 12px $padding-small;
   }
 
   .vertical__title__wrapper {

@@ -59,7 +59,7 @@
   border: 1px solid transparent;
   border-radius: 12px;
   background-color: rgba($color-white-09, 0.6);
-  padding: 15px;
+  padding: 16px;
   resize: none;
   outline: none;
 
@@ -126,7 +126,7 @@
   color: $color-background;
   background-color: $color-white-02;
   border-radius: 8px;
-  padding: 0 15px;
+  padding: 0 16px;
 
   &:disabled {
     opacity: 0.3;
@@ -151,6 +151,6 @@
 
 @media (max-width: 576px) {
   .review__section {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 }

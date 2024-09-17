@@ -1,7 +1,7 @@
 $cdn-base-url: 'https://storage.reviewniverse.net';
 
 $color-primary: #fc00ff;
-$color-subprimary: #00dbde;
+$color-secondary: #00dbde;
 
 $color-background: #05151e;
 
@@ -17,7 +17,6 @@ $color-white-09: #12222b;
 
 $color-white: #ffffff;
 $color-black: #0c0c0c;
-
 $color-red: #ff6874;
 $color-yellow: #ffbd3f;
 $color-green: #00ce7a;
@@ -29,6 +28,11 @@ $border-color-02: rgba($color-white-02, 0.15);
 $border-color-03: rgba($color-white-02, 0.2);
 $border-color-04: rgba($color-white-02, 0.25);
 $border-color-05: rgba($color-white-02, 0.5);
+
+$padding-large: 60px;
+$padding-medium: 30px;
+$padding-small: 16px;
+// $padding-small: env(safe-area-inset-right, 16px);
 
 $header-height: 60px;
 $footer-height: 169px;

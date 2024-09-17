@@ -50,7 +50,7 @@
   align-items: flex-end;
   justify-content: space-between;
   max-width: 1440px;
-  padding: 0 60px;
+  padding: 0 $padding-large;
   margin: 0 auto;
 }
 
@@ -167,11 +167,11 @@
 
 @media (max-width: 1024px) {
   .preview__info__wrapper {
-    padding: 0 30px;
+    padding: 0 $padding-medium;
   }
 
   .preview__thumbnails__wrapper {
-    padding: 0 30px;
+    padding: 0 $padding-medium;
   }
 }
 
@@ -224,7 +224,7 @@
 
 @media (max-width: 576px) {
   .preview__info__wrapper {
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .preview__title__og {
@@ -241,7 +241,7 @@
 
   .preview__thumbnails {
     border-radius: unset;
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .preview__thumbnail__item {

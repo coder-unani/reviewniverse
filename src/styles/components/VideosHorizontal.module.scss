@@ -1,7 +1,7 @@
 @use '@/styles/variables' as *;
 
 .horizontal__videos__section {
-  padding: 20px 60px;
+  padding: 20px $padding-large;
   margin-bottom: 16px;
 }
 
@@ -89,7 +89,7 @@
 
 @media (max-width: 1024px) {
   .horizontal__videos__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 }
 
@@ -100,7 +100,7 @@
   }
 
   .horizontal__title__wrapper {
-    padding: 0 15px;
+    padding: 0 $padding-small;
     margin-bottom: 12px;
   }
 
@@ -116,7 +116,7 @@
   }
 
   .horizontal__videos {
-    padding: 0 15px;
+    padding: 0 $padding-small;
   }
 
   .horizontal__prev__button,

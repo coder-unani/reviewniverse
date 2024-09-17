@@ -133,16 +133,8 @@
 
       &:checked {
         background: $color-magenta;
-        background: -webkit-linear-gradient(
-          to right,
-          rgba($color-cyan, 0.75),
-          rgba($color-magenta, 0.75)
-        );
-        background: linear-gradient(
-          to right,
-          rgba($color-cyan, 0.75),
-          rgba($color-magenta, 0.75)
-        );
+        background: -webkit-linear-gradient(to right, rgba($color-cyan, 0.75), rgba($color-magenta, 0.75));
+        background: linear-gradient(to right, rgba($color-cyan, 0.75), rgba($color-magenta, 0.75));
         opacity: 1;
 
         &::before {
@@ -232,6 +224,6 @@
   }
 
   .edit__form {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 }

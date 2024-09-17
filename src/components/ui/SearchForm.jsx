@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef, Suspense } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useRouter, usePathname, useParams } from 'next/navigation';
 import ClearButton from '@/components/ui/Button/Clear';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import {
@@ -33,8 +33,7 @@ const SearchForm = () => {
   const [isDropDown, setIsDropDown] = useState(false);
   const [recentKeywords, setRecentKeywords] = useState([]);
   const [isSaveKeyword, setIsSaveKeyword] = useState(getStorageSaveKeyword());
-  const searchParams = useSearchParams();
-  const query = searchParams.get('query');
+  const { query } = useParams();
   const searchInputRef = useRef(null);
   const searchDropdownRef = useRef(null);
   const [inputValue, setInputValue] = useState('');
@@ -70,19 +69,20 @@ const SearchForm = () => {
       return;
     }
 
-    if (pathname !== ENDPOINTS.SEARCH) {
-      // 검색 페이지가 아닌 경우 검색어 초기화
-      setInputValue('');
-    } else {
+    if (pathname.includes(ENDPOINTS.SEARCH)) {
       // 모바일이고 검색 쿼리가 없는 경우
       if (isMobile && isEmpty(query)) {
         handleSearchOpen();
       }
       // 검색 쿼리가 있음에도 검색어 입력란에 값이 없는 경우
       if (query && inputValue !== query) {
-        setInputValue(query);
-        saveRecentKeywords(query);
+        const decodeQuery = decodeURIComponent(query);
+        setInputValue(decodeQuery);
+        saveRecentKeywords(decodeQuery);
       }
+    } else {
+      // 검색 페이지가 아닌 경우 검색어 초기화
+      setInputValue('');
     }
   }, [pathname, query]);
 
@@ -162,39 +162,35 @@ const SearchForm = () => {
   };
 
   // 최근 검색 없을 때 or 자동저장 꺼져있을 때 렌더링
-  const renderSearchEmpty = (msg) => {
-    return <div className={styles.search__empty}>{msg}</div>;
-  };
+  const RenderSearchEmpty = ({ message }) => <div className={styles.search__empty}>{message}</div>;
 
   // 최근 검색어 렌더링
-  const renderSearchContent = () => {
-    return (
-      <>
-        <div className={styles.search__header}>
-          <p className={styles.search__title}>최근 검색어</p>
-          <button type="button" className={styles.search__clear} onClick={handleRecentClear}>
-            전체 삭제
-          </button>
-        </div>
-        <ul className={styles.search__list}>
-          {recentKeywords.map((keyword, index) => (
-            <li className={styles.search__item} key={index}>
-              <Link href={`${ENDPOINTS.SEARCH}/${keyword}`} className={styles.search__link}>
-                <SearchIcon className={styles.search__icon} width={24} height={24} />
-                <p className={styles.search__keyword}>{keyword}</p>
-              </Link>
-              <button type="button" className={styles.search__remove} onClick={() => handleRecentRemove(keyword)}>
-                <CloseIcon className={styles.close__icon} width={24} height={24} />
-              </button>
-            </li>
-          ))}
-        </ul>
-      </>
-    );
-  };
+  const RenderSearchContent = () => (
+    <>
+      <div className={styles.search__header}>
+        <p className={styles.search__title}>최근 검색어</p>
+        <button type="button" className={styles.search__clear} onClick={handleRecentClear}>
+          전체 삭제
+        </button>
+      </div>
+      <ul className={styles.search__list}>
+        {recentKeywords.map((keyword, index) => (
+          <li className={styles.search__item} key={index}>
+            <Link href={`${ENDPOINTS.SEARCH}/${keyword}`} className={styles.search__link}>
+              <SearchIcon className={styles.search__icon} width={24} height={24} />
+              <p className={styles.search__keyword}>{keyword}</p>
+            </Link>
+            <button type="button" className={styles.search__remove} onClick={() => handleRecentRemove(keyword)}>
+              <CloseIcon className={styles.close__icon} width={24} height={24} />
+            </button>
+          </li>
+        ))}
+      </ul>
+    </>
+  );
 
   // 검색 드롭다운 렌더링
-  const renderSearchDropdown = () => {
+  const RenderSearchDropdown = () => {
     if (!isDropDown) return null;
 
     let content = null;
@@ -209,9 +205,9 @@ const SearchForm = () => {
       if (!isSaveKeyword) {
         message = '검색어 자동 저장 기능이 꺼져있습니다.';
       }
-      content = renderSearchEmpty(message);
+      content = <RenderSearchEmpty message={message} />;
     } else {
-      content = renderSearchContent();
+      content = <RenderSearchContent />;
     }
 
     return (
@@ -250,7 +246,7 @@ const SearchForm = () => {
           <SearchIcon className={styles.search__icon} width={18} height={18} />
         </button>
       </form>
-      {renderSearchDropdown()}
+      <RenderSearchDropdown />
     </>
   );
 };

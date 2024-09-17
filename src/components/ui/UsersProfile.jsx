@@ -121,9 +121,7 @@ const UsersProfile = () => {
       }
     });
     if (isEmpty(updateData)) {
-      const path = EndpointManager.generateUrl(ENDPOINTS.USER, {
-        userId: profile.id,
-      });
+      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: profile.id });
       router.push(path);
       showSuccessToast('프로필이 수정되었습니다.');
       return;
@@ -134,9 +132,7 @@ const UsersProfile = () => {
       {
         onSuccess: (res) => {
           if (res.status === 204) {
-            const path = EndpointManager.generateUrl(ENDPOINTS.USER, {
-              userId: profile.id,
-            });
+            const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: profile.id });
             router.push(path, { state: { isUserUpdate: true } });
             showSuccessToast('프로필이 수정되었습니다.');
           } else {

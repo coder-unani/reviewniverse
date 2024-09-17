@@ -84,6 +84,7 @@ const Genres = ({ children, id }) => {
   }
 
   // TODO: 고도화 필요
+  const genreSubtitle = '장르';
   const genreName = videos.metadata.genre.name;
   const genreImage = videos.metadata.genre.background;
 
@@ -91,6 +92,7 @@ const Genres = ({ children, id }) => {
     <>
       <section className={styles.genre__section}>
         <div className={styles.genre__title__wrapper}>
+          <p className={styles.genre__subtitle}>{genreSubtitle}</p>
           <h1 className={styles.genre__title}>#{genreName}</h1>
         </div>
       </section>

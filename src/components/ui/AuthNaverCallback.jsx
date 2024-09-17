@@ -227,7 +227,7 @@ const AuthNaverCallback = () => {
     <>
       {isMobile && <BackButton />}
       <div className={styles.join__header}>
-        <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" />
+        {/* <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" /> */}
         <h2 className={styles.join__header__title}>SNS 간편 로그인</h2>
       </div>
       <JoinAgree setIsAgree={setIsAgree} setAgreeValues={setAgreeValues} />

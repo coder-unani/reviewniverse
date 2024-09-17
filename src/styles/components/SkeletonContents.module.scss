@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .detail__title__og {
   min-width: 150px;
   width: 20%;
@@ -65,7 +67,7 @@
 .detail__people__section {
   width: 100%;
   max-width: 1440px;
-  padding: 20px 60px;
+  padding: 20px $padding-large;
   margin: 0 auto;
 
   :global(.people__image__wrapper) {
@@ -114,7 +116,7 @@
 .detail__gallery__section {
   width: 100%;
   max-width: 1440px;
-  padding: 20px 60px;
+  padding: 20px $padding-large;
   margin: 0 auto;
 }
 
@@ -137,11 +139,11 @@
 
 @media (max-width: 1024px) {
   .detail__people__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 
   .detail__gallery__section {
-    padding: 20px 30px;
+    padding: 20px $padding-medium;
   }
 }
 
@@ -162,11 +164,6 @@
 
   .detail__gallery__wrapper {
     gap: 10px;
-  }
-
-  .detail__platform {
-    width: 60px;
-    height: 60px;
   }
 
   .detail__photo {
@@ -194,7 +191,7 @@
   }
 
   .detail__people__section {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 
   .detail__people {
@@ -202,6 +199,6 @@
   }
 
   .detail__gallery__section {
-    padding: 20px 15px;
+    padding: 20px $padding-small;
   }
 }

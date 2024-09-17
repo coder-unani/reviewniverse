@@ -184,7 +184,7 @@ header {
   text-align: center;
   border-radius: 8px;
   background-color: $color-white-08;
-  padding: 0 15px;
+  padding: 0 16px;
   margin-top: 20px;
   cursor: pointer;
 }
@@ -225,13 +225,13 @@ header {
 // 모달 닫기 버튼
 .modal__close__button {
   position: absolute;
-  top: 9px;
-  right: 9px;
+  top: 14px;
+  right: 16px;
   display: flex;
-  padding: 6px;
   cursor: pointer;
 
   svg {
+    padding: 4px;
     path {
       fill: $color-white-04;
     }
@@ -302,6 +302,12 @@ header {
     margin-right: 10px;
   }
 
+  .sub-margin-right {
+    &:not(:last-child) {
+      margin-right: 10px;
+    }
+  }
+
   .people-template {
     grid-template-columns: repeat(2, calc(100% / 2));
   }
@@ -326,7 +332,7 @@ header {
 
   .sub-margin-right {
     &:not(:last-child) {
-      margin-right: 10px;
+      margin-right: 8px;
     }
   }
 
@@ -339,7 +345,7 @@ header {
 @media (max-width: 576px) {
   .header__search__wrapper {
     position: relative;
-    padding: 10px 15px;
+    padding: 10px $padding-small;
   }
 
   .preview-margin-right {

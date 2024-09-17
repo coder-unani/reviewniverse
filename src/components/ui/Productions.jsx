@@ -83,6 +83,7 @@ const Productions = ({ id }) => {
     return;
   }
 
+  const productionSubtitle = '제작사';
   const productionName = videos.metadata.production.name;
   const productionLogo = videos.metadata.production.logo;
 
@@ -90,6 +91,7 @@ const Productions = ({ id }) => {
     <>
       <section className={styles.production__section}>
         <div className={styles.production__title__wrapper}>
+          <p className={styles.production__subtitle}>{productionSubtitle}</p>
           <h1 className={styles.production__title}>{productionName}</h1>
         </div>
       </section>

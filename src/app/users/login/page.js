@@ -14,7 +14,7 @@ const UsersLogin = () => {
   return (
     <main className={styles.login__main}>
       <div className={styles.login__header}>
-        <img src={DEFAULT_IMAGES.logoWhite} alt="리뷰니버스 로고" className={styles.login__header__logo} />
+        {/* <img src={DEFAULT_IMAGES.logoWhite} alt="리뷰니버스 로고" className={styles.login__header__logo} /> */}
         <h2 className={styles.login__header__title}>{loginTitle}</h2>
       </div>
       <div className={styles.login__content}>

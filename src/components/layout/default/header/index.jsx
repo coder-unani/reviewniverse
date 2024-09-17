@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-// import dynamic from 'next/dynamic';
 import { useRouter, usePathname } from 'next/navigation';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
@@ -16,9 +15,7 @@ import SearchIcon from '@/resources/icons/search.svg';
 import MenuIcon from '@/resources/icons/menu.svg';
 import styles from '@/styles/components/Header.module.scss';
 
-// const SearchForm = dynamic(() => import('@/components/ui/SearchForm'), { ssr: false });
-// const ProfileImage = dynamic(() => import('@/components/ui/Button/Profile/Image'), { ssr: false });
-// const MenuModal = dynamic(() => import('@/components/ui/Modal/Menu'), { ssr: false });
+// TODO: 검색 페이지에서 검색 모달로 변경
 
 const Header = () => {
   const router = useRouter();
@@ -26,10 +23,15 @@ const Header = () => {
   const { user } = useAuthContext();
   const { isMobile } = useThemeContext();
   const [isMenuModal, setIsMenuModal] = useState(false);
-  const isSearch = pathname === ENDPOINTS.SEARCH;
+  const isSearch = pathname.includes(ENDPOINTS.SEARCH);
 
   // 헤더 스타일 변경
   useEffect(() => {
+    // 홈 페이지일 때만 헤더 스타일 변경
+    // TODO: 고도화 필요
+    const isContentIdPath = /^\/contents\/\d+$/.test(pathname);
+    if (pathname !== ENDPOINTS.HOME && !isContentIdPath) return;
+
     const header = document.querySelector('header');
     const handleScroll = () => {
       if (window.scrollY > 100 && header.classList.contains('transparent')) {
@@ -44,7 +46,7 @@ const Header = () => {
       window.removeEventListener('scroll', handleScroll);
       header.classList.remove('transparent');
     };
-  }, []);
+  }, [pathname]);
 
   // 모바일 메뉴 토글
   const toggleMobileMenu = () => {
@@ -94,9 +96,7 @@ const Header = () => {
   const DefaultHeader = () => {
     // 프로필 이미지 렌더링
     const ProfileLink = () => {
-      const path = EndpointManager.generateUrl(ENDPOINTS.USER, {
-        userId: user.id,
-      });
+      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
       return (
         <Link href={path} className={styles.toolbar__user}>
           <ProfileImage image={user.profile_image} size={34} />
@@ -125,7 +125,7 @@ const Header = () => {
 
   // 기본 헤더: DefaultHeader, 모바일 헤더: MobileHeader
   return (
-    <header className={`${styles.header} transparent`}>
+    <header className={styles.header}>
       {isMobile ? <MobileHeader /> : <DefaultHeader />}
       {isMenuModal && <MenuModal onClose={toggleMobileMenu} />}
     </header>

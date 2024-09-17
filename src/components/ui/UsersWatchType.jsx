@@ -14,6 +14,7 @@ import styles from '@/styles/pages/UsersWatchType.module.scss';
 /**
  * TODO:
  * - 유저가 없을 경우 로그인 페이지로 이동
+ * - 크기 줄이기
  */
 
 const UsersWatchType = () => {
