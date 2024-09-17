@@ -9,7 +9,7 @@ import styles from '@/styles/pages/Contents.module.scss';
 
 const VideoGallerySwiper = dynamic(() => import('@/components/ui/Swiper/VideoGallery'), { ssr: false });
 
-const VideoGallery = React.memo(({ gallery, title }) => {
+const VideoGallery = React.memo(({ gallery, title, alt }) => {
   if (isEmpty(gallery)) {
     return null;
   }
@@ -35,7 +35,7 @@ const VideoGallery = React.memo(({ gallery, title }) => {
                       className={styles.detail__photo}
                       src={fMakeThumbnailUrl(image)}
                       srcSet={fMakeThumbnailUrl(image)}
-                      alt="갤러리 이미지"
+                      alt={alt}
                     />
                   </picture>
                 </div>
@@ -60,7 +60,7 @@ const VideoGallery = React.memo(({ gallery, title }) => {
         </article>
       </section>
 
-      <VideoGallerySwiper uniqueId={uniqueId} />
+      <VideoGallerySwiper uniqueId={uniqueId} alt={alt} />
     </>
   );
 });

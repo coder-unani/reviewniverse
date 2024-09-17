@@ -19,6 +19,7 @@ import {
   fRatingText,
   fRuntimeText,
   fPlatformFilter,
+  fPlatformNameByCode,
   fActorCode,
   fStaffCode,
 } from '@/utils/formatContent';
@@ -82,7 +83,7 @@ export const generateMetadata = async ({ params }) => {
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
   const keywords = isEmpty(content.tag) ? SITE_KEYWORDS : `${SITE_KEYWORDS}, ${content.tag}`;
 
-  const metaTitle = `${title} (${releaseYear}) - 리뷰니버스`;
+  const metaTitle = `${title} (${releaseYear}) | 리뷰니버스`;
 
   return {
     alternates: {
@@ -139,6 +140,7 @@ const Contents = async ({ params }) => {
   const synopsisTitle = '작품 소개';
   const synopsis = content.synopsis || '';
   const poster = fThumbnail(content.thumbnail, false);
+  const posterAlt = `${titleKr} 포스터`;
   const myRatingTitle = '평가하기';
   const platformTitle = '보러가기';
   const platforms = fPlatformFilter(content.platform);
@@ -150,6 +152,7 @@ const Contents = async ({ params }) => {
   const staffFormatCode = fStaffCode;
   const galleryTitle = '갤러리';
   const gallery = content.thumbnail || [];
+  const galleryAlt = `${titleKr} 스틸컷`;
 
   // 장르 컴포넌트
   const VideoGenres = ({ genres }) => {
@@ -206,6 +209,7 @@ const Contents = async ({ params }) => {
     }
 
     const imageBaseUrl = `${SETTINGS.CDN_BASE_URL}/assets/images/platform/`;
+    console.log(platforms);
 
     return (
       <section className={styles.detail__platform__section}>
@@ -218,7 +222,11 @@ const Contents = async ({ params }) => {
               data-url={platform.url}
               key={index}
             >
-              <img className={styles.platform__image} src={`${imageBaseUrl}${platform.code}.png`} alt={platform.name} />
+              <img
+                className={styles.platform__image}
+                src={`${imageBaseUrl}${platform.code}.png`}
+                alt={`${fPlatformNameByCode(platform.code)} 보러가기`}
+              />
             </button>
           ))}
         </article>
@@ -323,7 +331,7 @@ const Contents = async ({ params }) => {
         <div className={styles.detail__sub__wrapper}>
           <section className={styles.detail__sub__section}>
             <VideoSynopsis synopsis={synopsis} title={synopsisTitle} />
-            <VideoPoster poster={poster} />
+            <VideoPoster poster={poster} alt={posterAlt} />
 
             <div className={styles.detail__more__wrapper}>
               <VideoMyRating videoId={videoId} title={myRatingTitle} />
@@ -332,7 +340,7 @@ const Contents = async ({ params }) => {
           </section>
           <VideoPeople people={actors} title={actorTitle} formatCode={actorFormatCode} />
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
-          <VideoGallery gallery={gallery} title={galleryTitle} />
+          <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
           <VideoReviews videoId={videoId} />
         </div>
       </main>

@@ -5,7 +5,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import PhotoModal from '@/components/ui/Modal/Photo';
 
-const VideoGallery = ({ uniqueId }) => {
+const VideoGallery = ({ uniqueId, alt }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [photoModal, setPhotoModal] = useState({ isOpen: false, url: '' });
@@ -84,7 +84,7 @@ const VideoGallery = ({ uniqueId }) => {
     setPhotoModal({ isOpen: !photoModal.isOpen, url });
   };
 
-  return photoModal.isOpen && <PhotoModal url={photoModal.url} onClose={togglePhotoModal} />;
+  return photoModal.isOpen && <PhotoModal url={photoModal.url} alt={alt} onClose={togglePhotoModal} />;
 };
 
 export default VideoGallery;

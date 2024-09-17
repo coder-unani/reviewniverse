@@ -6,7 +6,7 @@ import styles from '@/styles/components/PhotoModal.module.scss';
 
 // TODO: Image 컴포넌트로 변경
 
-const PhotoModal = React.memo(({ url, onClose }) => {
+const PhotoModal = React.memo(({ url, alt, onClose }) => {
   const modalRef = useRef();
 
   const handleModalClose = (e) => {
@@ -16,7 +16,7 @@ const PhotoModal = React.memo(({ url, onClose }) => {
   return (
     <Modal>
       <div className={styles.photo__modal} ref={modalRef} onClick={handleModalClose}>
-        <img className={styles.photo__image} src={url} alt="스틸컷" loading="lazy" />
+        <img className={styles.photo__image} src={url} alt={alt} loading="lazy" />
       </div>
     </Modal>
   );

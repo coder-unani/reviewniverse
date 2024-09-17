@@ -129,7 +129,7 @@ const RatingVideo = ({ videoId, myInfo }) => {
   return (
     <article className={styles.rating__container}>
       <div className={styles.rating__image__wrapper}>
-        <img className={styles.rating__image} src={imgSrc} alt="평가 이미지" ref={ratingImgRef} />
+        <img className={styles.rating__image} src={imgSrc} alt="평점" ref={ratingImgRef} />
       </div>
       <div className={styles.rating__range__wrapper}>
         <span id="ratingText" className={styles.rating__text} ref={ratingTextRef}>

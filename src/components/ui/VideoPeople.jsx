@@ -31,7 +31,7 @@ const VideoPeople = ({ people, title, formatCode }) => {
                     href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id })}
                     className={styles.detail__people__link}
                   >
-                    <PeopleImage image={person.picture} size={60} />
+                    <PeopleImage image={person.picture} size={60} alt={person.name} />
                     <div className={styles.detail__people__info__wrapper}>
                       <p className={styles.detail__people__name}>{person.name}</p>
                       <div className={styles.detail__people__role__wrapper}>

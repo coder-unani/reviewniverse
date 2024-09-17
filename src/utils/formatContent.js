@@ -28,9 +28,9 @@ export const fProviderCode = (provider) => {
 };
 
 // 플랫폼 포맷
-export const fPlatformCode = (code) => {
+export const fPlatformNameByCode = (code) => {
   const platformType = VIDEO_PLATFORM_CODE[code];
-  return platformType || '플랫폼';
+  return platformType || '';
 };
 
 // 플랫폼 배열에서 코드가 50미만인 것만 필터링

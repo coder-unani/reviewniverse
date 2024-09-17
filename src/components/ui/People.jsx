@@ -93,7 +93,7 @@ const People = ({ id }) => {
     <>
       <section className={styles.people__section}>
         <div className={styles.people__info__wrapper}>
-          <PeopleImage image={personPicture} size={100} />
+          <PeopleImage image={personPicture} size={100} alt={personName} />
           <h1 className={styles.people__name}>{personName}</h1>
         </div>
       </section>
