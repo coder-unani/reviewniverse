@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
 import Image from 'next/image';
 import { fDate } from '@/utils/format';
 import { fPreviewThumbnail, fBackgroundImage, fReleaseText } from '@/utils/formatContent';
@@ -64,10 +65,8 @@ const VideosPreview = async ({ videos }) => {
                   className={`swiper-slide preview-margin-right ${vpStyles.preview__thumbnail__item}`}
                   key={video.id}
                 >
-                  <a
-                    href={EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, {
-                      videoId: video.id,
-                    })}
+                  <Link
+                    href={EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.id })}
                     className={vpStyles.preview__thumbnail__link}
                     aria-label={video.title}
                     data-index={index}
@@ -83,7 +82,7 @@ const VideosPreview = async ({ videos }) => {
                         loading="lazy"
                       />
                     </picture>
-                  </a>
+                  </Link>
                 </div>
               ))}
             </div>

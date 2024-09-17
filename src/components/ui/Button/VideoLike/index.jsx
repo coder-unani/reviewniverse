@@ -44,6 +44,7 @@ const VideoLikeButton = ({ videoId }) => {
     <button
       type="button"
       className={`${styles.detail__control} ${styles.like}`}
+      aria-label="좋아요"
       onClick={handleLikeButton}
       disabled={isLikePending}
     >

@@ -30,6 +30,7 @@ const VideoPeople = ({ people, title, formatCode }) => {
                   <Link
                     href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id })}
                     className={styles.detail__people__link}
+                    aria-label={`${person.name} 작품 보러가기`}
                   >
                     <PeopleImage image={person.picture} size={60} alt={person.name} />
                     <div className={styles.detail__people__info__wrapper}>

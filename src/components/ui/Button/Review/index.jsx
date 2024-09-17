@@ -22,6 +22,7 @@ const ReviewButton = () => {
     <button
       type="button"
       className={`${styles.detail__control} ${styles.review}`}
+      aria-label="리뷰 작성하기"
       onClick={handleReviewCreate}
     >
       <span className={styles.detail__control__icon}></span>

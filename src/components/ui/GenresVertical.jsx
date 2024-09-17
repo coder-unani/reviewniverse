@@ -30,10 +30,7 @@ const GenresVertical = ({ children, genres }) => {
               {genres.map((genre) => (
                 <div className={`swiper-slide genre-margin-right ${vhStyles.horizontal__video__item}`} key={genre.id}>
                   <Link
-                    href={EndpointManager.generateUrl(ENDPOINTS.GENRE, {
-                      genreId: genre.id,
-                    })}
-                    // state={{ name: genre.name }}
+                    href={EndpointManager.generateUrl(ENDPOINTS.GENRE, { genreId: genre.id })}
                     className={styles.genre__video__link}
                     aria-label={genre.name}
                   >

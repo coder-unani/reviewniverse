@@ -165,6 +165,7 @@ const Contents = async ({ params }) => {
         <Link
           href={EndpointManager.generateUrl(ENDPOINTS.GENRE, { genreId: genre.id })}
           className={styles.detail__genre__link}
+          aria-label={`${genre.name} 장르 보러가기`}
         >
           {genre.name}
         </Link>
@@ -195,6 +196,7 @@ const Contents = async ({ params }) => {
       <Link
         href={EndpointManager.generateUrl(ENDPOINTS.PRODUCTION, { productionId: production.id })}
         className={styles.detail__sub__content}
+        aria-label={`${production.name} 제작사 보러가기`}
         key={index}
       >
         {production.name}
@@ -219,13 +221,14 @@ const Contents = async ({ params }) => {
             <button
               type="button"
               className={`platform-button ${styles.detail__platform}`}
+              aria-label={`${fPlatformNameByCode(platform.code)} 보러가기`}
               data-url={platform.url}
               key={index}
             >
               <img
                 className={styles.platform__image}
                 src={`${imageBaseUrl}${platform.code}.png`}
-                alt={`${fPlatformNameByCode(platform.code)} 보러가기`}
+                alt={fPlatformNameByCode(platform.code)}
               />
             </button>
           ))}
