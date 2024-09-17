@@ -74,12 +74,12 @@ const RootLayout = ({ children }) => {
       <head>
         <link rel="search" href="/opensearch.xml" title="리뷰니버스" type="application/opensearchdescription+xml" />
       </head>
+      <GoogleAnalytics gaId="G-14KE5C52P1" />
+      <NaverAnalytics />
       <body>
         <DefaultLayout>{children}</DefaultLayout>
         <div id="modal" />
       </body>
-      <GoogleAnalytics gaId="G-14KE5C52P1" />
-      <NaverAnalytics />
     </html>
   );
 };
