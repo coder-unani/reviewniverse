@@ -211,7 +211,6 @@ const Contents = async ({ params }) => {
     }
 
     const imageBaseUrl = `${SETTINGS.CDN_BASE_URL}/assets/images/platform/`;
-    console.log(platforms);
 
     return (
       <section className={styles.detail__platform__section}>
