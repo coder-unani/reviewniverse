@@ -81,7 +81,7 @@ export const generateMetadata = async ({ params }) => {
   const imageUrl = fBackgroundImage(content.thumbnail);
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
-  const keywords = isEmpty(content.tag) ? SITE_KEYWORDS : `${SITE_KEYWORDS}, ${content.tag}`;
+  const keywords = content.tag ? `${SITE_KEYWORDS}, ${title}, ${content.tag}` : `${SITE_KEYWORDS}, ${title}`;
 
   const metaTitle = `${title} (${releaseYear}) | 리뷰니버스`;
 
