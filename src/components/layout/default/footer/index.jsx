@@ -1,25 +1,7 @@
 'use client';
 
-import Script from 'next/script';
 import { useModalContext } from '@/contexts/ModalContext';
 import styles from '@/styles/components/Footer.module.scss';
-
-const NaverAnalytics = () => {
-  return (
-    <>
-      <Script src="//wcs.naver.net/wcslog.js" strategy="afterInteractive" />
-      <Script id="naver-logger" strategy="afterInteractive">
-        {`
-            if(!wcs_add) var wcs_add = {};
-            wcs_add["wa"] = "2d238f1fd3cdc";
-            if(window.wcs) {
-              wcs_do();
-            }
-          `}
-      </Script>
-    </>
-  );
-};
 
 const Footer = () => {
   const year = new Date().getFullYear();
@@ -50,7 +32,6 @@ const Footer = () => {
           </ul>
         </div>
       </section>
-      <NaverAnalytics />
     </footer>
   );
 };

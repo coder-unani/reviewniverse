@@ -10,6 +10,8 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import '@/styles/globals.scss';
+import Script from 'next/script';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 // viewport 설정
 export const viewport = {
@@ -49,6 +51,23 @@ export const metadata = {
   },
 };
 
+const NaverAnalytics = () => {
+  return (
+    <>
+      <Script src="//wcs.naver.net/wcslog.js" strategy="afterInteractive" />
+      <Script id="naver-logger" strategy="afterInteractive">
+        {`
+            if(!wcs_add) var wcs_add = {};
+            wcs_add["wa"] = "2d238f1fd3cdc";
+            if(window.wcs) {
+              wcs_do();
+            }
+          `}
+      </Script>
+    </>
+  );
+};
+
 const RootLayout = ({ children }) => {
   return (
     <html lang="ko">
@@ -59,6 +78,8 @@ const RootLayout = ({ children }) => {
         <DefaultLayout>{children}</DefaultLayout>
         <div id="modal" />
       </body>
+      <GoogleAnalytics gaId="G-14KE5C52P1" />
+      <NaverAnalytics />
     </html>
   );
 };
