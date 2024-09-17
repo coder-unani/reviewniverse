@@ -30,10 +30,10 @@ const MenuModal = ({ onClose }) => {
   };
 
   // 프로필 버튼 렌더링
-  const ProfileButton = () => <ProfileButton user={user} size={28} onClose={onClose} />;
+  const RenderProfileButton = () => <ProfileButton user={user} size={28} onClose={onClose} />;
 
   // 로그인 버튼 렌더링
-  const LoginButton = () => (
+  const RenderLoginButton = () => (
     <Link href={ENDPOINTS.USER_LOGIN} className={styles.menu__header__login} onClick={onClose}>
       <img className={styles.menu__profile__image} src={DEFAULT_IMAGES.noActor} alt="프로필 이미지" />
       로그인 해주세요
@@ -48,7 +48,9 @@ const MenuModal = ({ onClose }) => {
         <main className={styles.menu__modal}>
           <div className={styles.menu__header}>
             <CloseButton onClose={onClose} />
-            <div className={styles.menu__header__user}>{isEmpty(user) ? <LoginButton /> : <ProfileButton />}</div>
+            <div className={styles.menu__header__user}>
+              {isEmpty(user) ? <RenderLoginButton /> : <RenderProfileButton />}
+            </div>
           </div>
           <div className={styles.menu__body}>
             <p className={styles.menu__body__title}>메뉴</p>

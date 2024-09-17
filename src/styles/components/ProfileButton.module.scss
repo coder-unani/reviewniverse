@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .profile {
   display: flex;
   align-items: center;
@@ -14,5 +16,6 @@
   flex: none;
   font-size: 15px;
   font-weight: 500;
+  color: $color-white-01;
   margin-left: 8px;
 }
