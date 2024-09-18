@@ -6,7 +6,6 @@ import { useVideos } from '@/hooks/useVideos';
 import PeopleImage from '@/components/ui/Button/People/Image';
 import VideosVertical from '@/components/ui/VideosVertical';
 import { showErrorToast } from '@/components/ui/Toast';
-import { SETTINGS } from '@/config/settings';
 import { MESSAGES } from '@/config/messages';
 import { DEFAULT_IMAGES, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
@@ -86,7 +85,7 @@ const People = ({ id }) => {
   }
 
   const personName = videos.metadata.person.name;
-  const personPicture = `${SETTINGS.CDN_BASE_URL}/${videos.metadata.person.picture}`;
+  const personPicture = videos.metadata.person.picture;
   const personProfile = videos.metadata.person.profile;
 
   return (
