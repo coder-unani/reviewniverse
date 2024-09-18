@@ -99,8 +99,8 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
       return;
     }
 
+    // 드래그 시작
     setIsDragging(true);
-    handleRatingMove(e.touches[0].clientX);
   };
 
   // 터치 이동 이벤트
@@ -114,20 +114,26 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
     }
 
     if (isDragging) {
+      // 터치 이동 시 별점 값 갱신
       const touchX = e.touches[0].clientX;
       handleRatingMove(touchX);
     }
   };
 
   // 터치 종료 이벤트
-  const handleTouchEnd = async () => {
+  const handleTouchEnd = async (e) => {
     // API 호출 중일 경우 리턴
     if (isRatingPending) {
       return;
     }
 
     if (isDragging) {
+      // 터치가 끝난 위치로 최종 별점 갱신
+      const touchX = e.changedTouches[0].clientX;
+      handleRatingMove(touchX);
+      // 드래그 종료
       setIsDragging(false);
+
       await saveRating();
     }
   };
@@ -166,6 +172,10 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   // 평점 저장
   const saveRating = async () => {
     const rating = fillRatingRef?.current.dataset.rating;
+
+    if (!rating || rating === '0') {
+      return;
+    }
 
     await videoRating(
       { videoId, rating: rating, userId: user.id },
