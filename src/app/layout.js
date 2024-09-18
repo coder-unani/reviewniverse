@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import '@/styles/globals.scss';
 import Script from 'next/script';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 
 // viewport 설정
 export const viewport = {
@@ -75,6 +75,7 @@ const RootLayout = ({ children }) => {
       <head>
         <link rel="search" href="/opensearch.xml" title="리뷰니버스" type="application/opensearchdescription+xml" />
       </head>
+      <GoogleTagManager gtmId="GTM-K6WX4N4H" />
       <GoogleAnalytics gaId="G-14KE5C52P1" />
       <NaverAnalytics />
       <body>
