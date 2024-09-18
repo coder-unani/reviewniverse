@@ -2,6 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import PeopleImage from '@/components/ui/Button/People/Image';
+import { fMakeImageUrl } from '@/utils/formatContent';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
