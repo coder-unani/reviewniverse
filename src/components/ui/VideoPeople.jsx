@@ -32,7 +32,7 @@ const VideoPeople = ({ people, title, formatCode }) => {
                     className={styles.detail__people__link}
                     aria-label={`${person.name} 작품 보러가기`}
                   >
-                    <PeopleImage image={person.picture} size={60} alt={person.name} />
+                    <PeopleImage image={fMakeImageUrl(person.picture)} size={60} alt={person.name} />
                     <div className={styles.detail__people__info__wrapper}>
                       <p className={styles.detail__people__name}>{person.name}</p>
                       <div className={styles.detail__people__role__wrapper}>
