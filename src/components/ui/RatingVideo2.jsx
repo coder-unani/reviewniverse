@@ -73,6 +73,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
     if (isDragging) {
       return;
     }
+
     await saveRating();
   };
 
@@ -112,9 +113,16 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   const handleTouchEnd = async (e) => {
     if (isDragging) {
       e.preventDefault();
-      // 터치가 끝난 위치로 최종 별점 갱신
-      const touchX = e.changedTouches[0].clientX;
-      handleRatingMove(touchX);
+
+      // 로그인이 되어 있지 않을 경우
+      if (isEmpty(user)) {
+        handleRatingSet(0);
+      } else {
+        // 터치가 끝난 위치로 최종 별점 갱신
+        const touchX = e.changedTouches[0].clientX;
+        handleRatingMove(touchX);
+      }
+
       // 드래그 종료
       setIsDragging(false);
 
@@ -155,6 +163,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   // 평점 저장
   const saveRating = async () => {
+    // 로그인이 되어 있지 않을 경우
     if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
