@@ -19,6 +19,8 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   const { mutate: videoRating, isPending: isRatingPending } = useVideoRating();
   const [imgSrc, setImgSrc] = useState(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/0.png`);
   const [isDragging, setIsDragging] = useState(false); // 평점 드래그 여부
+  const [startX, setStartX] = useState(0);
+  const [startY, setStartY] = useState(0);
   const emptyRatingRef = useRef(null);
   const fillRatingRef = useRef(null);
   const ratingImgRef = useRef(null);
@@ -27,7 +29,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   useEffect(() => {
     const emptyRating = emptyRatingRef.current;
     const fillRating = fillRatingRef.current;
-    if (!emptyRating || !fillRating || isEmpty(myInfo)) return;
+    if (!emptyRating || !fillRating) return;
 
     // 로그인이 되어 있고, myInfo가 있을 경우 평가하기 이미지 및 텍스트 설정
     if (!isEmpty(user) && myInfo) {
@@ -38,7 +40,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
     emptyRating.addEventListener('mouseover', handleMouseOver);
     emptyRating.addEventListener('mouseout', handleMouseOut);
     emptyRating.addEventListener('click', handleClick);
-    emptyRating.addEventListener('touchstart', handleTouchStart);
+    emptyRating.addEventListener('touchstart', handleTouchStart, { passive: true });
     emptyRating.addEventListener('touchmove', handleTouchMove, { passive: false });
     emptyRating.addEventListener('touchend', handleTouchEnd);
 
@@ -54,21 +56,11 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   // 마우스 올렸을 때 이벤트
   const handleMouseOver = (e) => {
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
-
     handleRatingMove(e.clientX);
   };
 
   // 마우스 벗어났을 때 이벤트
   const handleMouseOut = (e) => {
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
-
     // 마우스가 빈 별 영역을 벗어났을 경우
     const emptyRating = emptyRatingRef.current;
     if (emptyRating && !emptyRating.contains(e.relatedTarget)) {
@@ -78,56 +70,45 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   // 클릭 이벤트
   const handleClick = async () => {
-    // 로그인 안했을 경우 Enjoy 모달 띄우기
-    if (isEmpty(user)) {
-      toggleEnjoyModal();
+    if (isDragging) {
       return;
     }
-
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
-
     await saveRating();
   };
 
   // 터치 시작 이벤트
   const handleTouchStart = (e) => {
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
-
     // 드래그 시작
     setIsDragging(true);
+
+    // 터치 시작 위치 저장
+    setStartX(e.touches[0].clientX);
+    setStartY(e.touches[0].clientY);
   };
 
   // 터치 이동 이벤트
   const handleTouchMove = (e) => {
-    // 스크롤 방지
-    e.preventDefault();
+    const currentX = e.touches[0].clientX;
+    const currentY = e.touches[0].clientY;
 
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
+    // X, Y 좌표의 이동 거리 계산
+    const deltaX = Math.abs(currentX - startX);
+    const deltaY = Math.abs(currentY - startY);
 
-    if (isDragging) {
+    // X축 이동 거리가 Y축 이동 거리보다 클 경우 별점 이동
+    if (deltaX > deltaY && isDragging) {
       // 터치 이동 시 별점 값 갱신
       const touchX = e.touches[0].clientX;
       handleRatingMove(touchX);
+    } else {
+      setIsDragging(false);
     }
   };
 
   // 터치 종료 이벤트
   const handleTouchEnd = async (e) => {
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
-
     if (isDragging) {
+      e.preventDefault();
       // 터치가 끝난 위치로 최종 별점 갱신
       const touchX = e.changedTouches[0].clientX;
       handleRatingMove(touchX);
@@ -171,8 +152,17 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   // 평점 저장
   const saveRating = async () => {
-    const rating = fillRatingRef?.current.dataset.rating;
+    if (isEmpty(user)) {
+      toggleEnjoyModal();
+      return;
+    }
 
+    // API 호출 중일 경우 리턴
+    if (isRatingPending) {
+      return;
+    }
+
+    const rating = fillRatingRef?.current.dataset.rating;
     if (!rating || rating === '0') {
       return;
     }
