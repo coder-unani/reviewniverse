@@ -9,6 +9,7 @@ import { isEmpty } from 'lodash';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
+import { DEFAULT_IMAGES } from '@/config/constants';
 
 const VideoPeopleSwiper = dynamic(() => import('@/components/ui/Swiper/VideoPeople'), { ssr: false });
 
@@ -33,7 +34,11 @@ const VideoPeople = ({ people, title, formatCode }) => {
                     className={styles.detail__people__link}
                     aria-label={`${person.name} 작품 보러가기`}
                   >
-                    <PeopleImage image={fMakeImageUrl(person.picture)} size={60} alt={person.name} />
+                    <PeopleImage
+                      image={fMakeImageUrl(person.picture, DEFAULT_IMAGES.noActor)}
+                      size={60}
+                      alt={person.name}
+                    />
                     <div className={styles.detail__people__info__wrapper}>
                       <p className={styles.detail__people__name}>{person.name}</p>
                       <div className={styles.detail__people__role__wrapper}>

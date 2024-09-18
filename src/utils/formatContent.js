@@ -54,8 +54,9 @@ export const fStaffCode = (code) => {
 };
 
 // 이미지 URL 포맷
-export const fMakeImageUrl = (image) => {
+export const fMakeImageUrl = (image, defaultImage = DEFAULT_IMAGES.noImage) => {
   // image에 http가 포함되어 있으면 그대로 반환
+  if (isEmpty(image)) return defaultImage;
   if (image.includes('http')) return image;
   return `${SETTINGS.CDN_BASE_URL}/${image}`;
 };
