@@ -88,6 +88,9 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   // 터치 이동 이벤트
   const handleTouchMove = (e) => {
+    // 스크롤 방지
+    e.preventDefault();
+
     const currentX = e.touches[0].clientX;
     const currentY = e.touches[0].clientY;
 
