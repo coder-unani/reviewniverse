@@ -16,13 +16,13 @@ const VideoMyRating = ({ videoId, title }) => {
   return (
     <section className={styles.detail__my__rating__section}>
       <h4 className={styles.detail__main__title}>{title}</h4>
-      <div className={styles.detail__my__rating}>
+      {/* <div className={styles.detail__my__rating}>
         <span className={`${styles.my__rating__text} ${styles.number}`} data-color={ratingColor}>
           {ratingText}
         </span>
         <span className={styles.my__rating__text}>/</span>
         <span className={styles.my__rating__text}>5</span>
-      </div>
+      </div> */}
       {/* <RatingVideo videoId={videoId} myInfo={myInfo} /> */}
       <RatingVideo2 videoId={videoId} myInfo={myInfo} />
     </section>

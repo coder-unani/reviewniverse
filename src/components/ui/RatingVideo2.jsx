@@ -216,7 +216,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
           {VIDEO_RATING_TEXT[0]}
         </span>
 
-        <div className={styles.rating__container}>
+        <div className={styles.rating__range__container}>
           <div className={styles.rating__wrapper}>
             <div className={styles.empty__rating} ref={emptyRatingRef}>
               {Array(5)
