@@ -224,14 +224,14 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
               {Array(5)
                 .fill()
                 .map((_, i) => (
-                  <StarIcon width={36} height={36} key={i} />
+                  <StarIcon width={45} height={45} key={i} />
                 ))}
             </div>
             <div className={styles.fill__rating} ref={fillRatingRef}>
               {Array(5)
                 .fill()
                 .map((_, i) => (
-                  <StarIcon width={36} height={36} key={i} />
+                  <StarIcon width={45} height={45} key={i} />
                 ))}
             </div>
           </div>
