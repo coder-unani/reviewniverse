@@ -26,6 +26,7 @@ import VideoPlatforms from '@/components/ui/VideoPlatforms';
 import VideoPeople from '@/components/ui/VideoPeople';
 import VideoGallery from '@/components/ui/VideoGallery';
 import { KakaoShareButton } from '@/components/ui/Button/Share/KakaoShareButton';
+import { FacebookShareButton } from '@/components/ui/Button/Share/FacebookShareButton';
 import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
@@ -311,7 +312,8 @@ const Contents = async ({ params }) => {
           <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
           <VideoReviews videoId={videoId} />
           {/* for test */}
-          <KakaoShareButton title={titleKr} desc={synopsis} link="https://www.reviewniverse.net" image={poster} />
+          <KakaoShareButton title={titleKr} desc={synopsis} image={poster} />
+          <FacebookShareButton title={titleKr} desc={synopsis} image={poster} />
         </div>
       </main>
 
