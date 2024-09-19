@@ -4,8 +4,8 @@ import { useEffect } from 'react';
 import { fMakeImageUrl } from '@/utils/formatContent';
 
 const KakaoShareButton = ({ title, desc, link, image = null }) => {
-  //   const kakaoAppKey = '6d737e11368f0332f12198070cbd0ef4';
-  const kakaoAppKey = '9a3a161ac1ce4723485924eba0ef8342';
+  const kakaoAppKey = '6d737e11368f0332f12198070cbd0ef4';
+  //   const kakaoAppKey = '9a3a161ac1ce4723485924eba0ef8342';
 
   // 디바이스 구분 함수
   const isMobile = () => {

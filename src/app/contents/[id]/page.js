@@ -311,7 +311,7 @@ const Contents = async ({ params }) => {
           <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
           <VideoReviews videoId={videoId} />
           {/* for test */}
-          <KakaoShareButton title="테스트" desc={synopsis} link="https://www.reviewniverse.net" image={poster} />
+          <KakaoShareButton title={titleKr} desc={synopsis} link="https://www.reviewniverse.net" image={poster} />
         </div>
       </main>
 
