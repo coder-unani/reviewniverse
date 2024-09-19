@@ -2,11 +2,9 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { nanoid } from 'nanoid';
+import { isEmpty } from 'lodash';
 import { fetchVideoDetail } from '@/library/api/videos';
-import VideoPoster from '@/components/ui/VideoPoster';
-import VideoPlatforms from '@/components/ui/VideoPlatforms';
-import VideoPeople from '@/components/ui/VideoPeople';
-import VideoGallery from '@/components/ui/VideoGallery';
 import { SETTINGS } from '@/config/settings';
 import { HOME_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
@@ -23,8 +21,11 @@ import {
   fActorCode,
   fStaffCode,
 } from '@/utils/formatContent';
-import { nanoid } from 'nanoid';
-import { isEmpty } from 'lodash';
+import VideoPoster from '@/components/ui/VideoPoster';
+import VideoPlatforms from '@/components/ui/VideoPlatforms';
+import VideoPeople from '@/components/ui/VideoPeople';
+import VideoGallery from '@/components/ui/VideoGallery';
+import { KakaoShareButton } from '@/components/ui/Button/Share/KakaoShareButton';
 import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
@@ -309,6 +310,8 @@ const Contents = async ({ params }) => {
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
           <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
           <VideoReviews videoId={videoId} />
+          {/* for test */}
+          <KakaoShareButton title="테스트" desc={synopsis} link="https://www.reviewniverse.net" image={poster} />
         </div>
       </main>
 
