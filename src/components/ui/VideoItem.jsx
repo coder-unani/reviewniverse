@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 // import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
+
 import styles from '@/styles/components/VideoItem.module.scss';
 
 const VideoItem = async ({ video }) => {

@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { isEmpty } from 'lodash';
+
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fDiffDate } from '@/utils/format';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingReview from '@/components/ui/RatingReview';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
-import { fDiffDate } from '@/utils/format';
-import { DEFAULT_IMAGES } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+
 import styles from '@/styles/components/VideoReviewItem.module.scss';
 
 /**

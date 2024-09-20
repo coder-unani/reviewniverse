@@ -1,18 +1,20 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Modal from '@/components/ui/Modal';
-import CloseButton from '@/components/ui/Button/Close';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller, useWatch } from 'react-hook-form';
+import { Tooltip } from 'react-tooltip';
+import { isEmpty, set } from 'lodash';
+
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { useReviewCreate } from '@/hooks/useReviewCreate';
 import { useReviewUpdate } from '@/hooks/useReviewUpdate';
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller, useWatch } from 'react-hook-form';
-import { Tooltip } from 'react-tooltip';
-import { isEmpty } from 'lodash';
+import Modal from '@/components/ui/Modal';
+import CloseButton from '@/components/ui/Button/Close';
+
 import SpoilerActivateIcon from '@/resources/icons/spoiler-activate.svg';
 import SpoilerDeactivateIcon from '@/resources/icons/spoiler-deactivate.svg';
 import PrivateActivateIcon from '@/resources/icons/private-activate.svg';
@@ -67,7 +69,6 @@ const ReviewModal = React.memo(({ content, myReview }) => {
     control,
     formState: { isDirty, isValid },
     setValue,
-    setFocus,
     trigger,
   } = methods;
 
@@ -138,11 +139,6 @@ const ReviewModal = React.memo(({ content, myReview }) => {
     }
   });
 
-  // 리뷰 모달 열릴 때 textarea에 포커스
-  useEffect(() => {
-    setFocus('title');
-  }, [setFocus]);
-
   // 내 리뷰가 있을 경우 폼에 내용 채우기
   useEffect(() => {
     if (isEmpty(myReview)) return;
@@ -168,6 +164,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                 render={({ field }) => (
                   <textarea
                     {...field}
+                    autoFocus // 리뷰 모달 열릴 때 textarea에 포커스
                     id="title"
                     className={styles.review__textarea}
                     placeholder="이 작품에 대한 리뷰를 남겨보세요."

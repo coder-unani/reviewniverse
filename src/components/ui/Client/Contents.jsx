@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
+
 import { useModalContext } from '@/contexts/ModalContext';
 import { useContentsContext } from '@/contexts/ContentsContext';
 

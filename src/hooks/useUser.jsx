@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { fetchUser } from '@/library/api/users';
+
 import { cLog, cError } from '@/utils/test';
+import { fetchUser } from '@/library/api/users';
 
 export const useUser = () => {
   return useMutation({

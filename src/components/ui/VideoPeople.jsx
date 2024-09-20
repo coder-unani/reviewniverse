@@ -1,15 +1,17 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import PeopleImage from '@/components/ui/Button/People/Image';
-import { fMakeImageUrl } from '@/utils/formatContent';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
+
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fMakeImageUrl } from '@/utils/formatContent';
+import PeopleImage from '@/components/ui/Button/People/Image';
+
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
-import { DEFAULT_IMAGES } from '@/config/constants';
 
 const VideoPeopleSwiper = dynamic(() => import('@/components/ui/Swiper/VideoPeople'), { ssr: false });
 

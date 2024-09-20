@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDate } from '@/utils/format';
 import { fThumbnail, fCountry, fCountdown } from '@/utils/formatContent';
 // import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
+
 import styles from '@/styles/components/VideoUpComingItem.module.scss';
 import defStyles from '@/styles/components/VideoItem.module.scss';
 

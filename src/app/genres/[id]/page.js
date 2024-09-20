@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import GenresVertical from '@/components/ui/GenresVertical';
+
 import { fetchRankingGenres } from '@/library/api/ranking';
+import GenresVertical from '@/components/ui/GenresVertical';
+
 import styles from '@/styles/pages/Genres.module.scss';
 
 const GenresComponent = dynamic(() => import('@/components/ui/Genres'), { ssr: false });

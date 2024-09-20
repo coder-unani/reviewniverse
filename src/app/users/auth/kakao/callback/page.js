@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+
 import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthKakaoCallback = dynamic(() => import('@/components/ui/AuthKakaoCallback'), { ssr: false });

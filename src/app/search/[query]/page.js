@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+
 import styles from '@/styles/pages/Search.module.scss';
 
 const SearchResults = dynamic(() => import('@/components/ui/SearchResults'), { ssr: false });

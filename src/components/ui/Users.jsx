@@ -3,14 +3,17 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, notFound } from 'next/navigation';
-import { useUser } from '@/hooks/useUser';
-import { useAuthContext } from '@/contexts/AuthContext';
-import ProfileImage from '@/components/ui/Button/Profile/Image';
-import SettingButton from '@/components/ui/Button/Setting';
-import { showErrorToast } from '@/components/ui/Toast';
+import Image from 'next/image';
+
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fNumberWithCommas } from '@/utils/format';
+import { useUser } from '@/hooks/useUser';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { showErrorToast } from '@/components/ui/Toast';
+import ProfileImage from '@/components/ui/Button/Profile/Image';
+
+import SettingButton from '@/components/ui/Button/Setting';
 import styles from '@/styles/pages/Users.module.scss';
 
 const Users = ({ id }) => {
@@ -84,11 +87,13 @@ const Users = ({ id }) => {
           <section className={styles.user__info}>
             {isLogin && <SettingButton />}
             <div className={styles.user__background}>
-              <img
+              <Image
                 className={styles.user__background__image}
                 src={DEFAULT_IMAGES.noImage}
-                srcSet={DEFAULT_IMAGES.noImage}
                 alt="배경 이미지"
+                width={600}
+                height={130}
+                priority
               />
             </div>
             <div className={styles.user__profile}>

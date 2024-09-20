@@ -2,13 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useVideos } from '@/hooks/useVideos';
-import VideosVertical from '@/components/ui/VideosVertical';
-import { showErrorToast } from '@/components/ui/Toast';
+import Image from 'next/image';
+import { isEmpty } from 'lodash';
+
 import { DEFAULT_IMAGES, VIDEO_MODE_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { MESSAGES } from '@/config/messages';
-import { isEmpty } from 'lodash';
+import { useVideos } from '@/hooks/useVideos';
+import { showErrorToast } from '@/components/ui/Toast';
+import VideosVertical from '@/components/ui/VideosVertical';
+
 import styles from '@/styles/pages/Search.module.scss';
 
 /**
@@ -90,7 +93,14 @@ const SearchResults = ({ query }) => {
     <section className={styles.search__section}>
       {isEmpty(videos) || isEmpty(videos.data) ? (
         <div className={styles.no__search__content}>
-          <img className={styles.no__search__image} src={DEFAULT_IMAGES.searchNotFound} alt="검색 결과 없음" />
+          <Image
+            className={styles.no__search__image}
+            src={DEFAULT_IMAGES.searchNotFound}
+            alt="검색 결과 없음"
+            width={320}
+            height={320}
+            priority
+          />
           <p className={styles.no__search__title}>
             "<em>{query}</em>"에 대한 검색 결과가 없어요.
           </p>

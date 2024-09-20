@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+
 import { ContentsProvider } from '@/contexts/ContentsContext';
 
 const ContentsLayout = ({ children, params }) => {

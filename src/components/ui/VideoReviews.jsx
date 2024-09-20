@@ -1,16 +1,18 @@
 'use client';
 
 import React, { useRef } from 'react';
-import VideoReviewItem from '@/components/ui/VideoReviewItem';
-import ProfileImage from '@/components/ui/Button/Profile/Image';
-import { showSuccessToast } from '@/components/ui/Toast';
+import { Tooltip } from 'react-tooltip';
+import { isEmpty } from 'lodash';
+
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useContentsContext } from '@/contexts/ContentsContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
 import { useReviewDelete } from '@/hooks/useReviewDelete';
-import { Tooltip } from 'react-tooltip';
-import { isEmpty } from 'lodash';
+import { showSuccessToast } from '@/components/ui/Toast';
+import VideoReviewItem from '@/components/ui/VideoReviewItem';
+import ProfileImage from '@/components/ui/Button/Profile/Image';
+
 import FillUpdateIcon from '@/resources/icons/fill-update.svg';
 import FillTrashIcon from '@/resources/icons/fill-trash.svg';
 import styles from '@/styles/pages/Contents.module.scss';
@@ -175,10 +177,13 @@ const VideoReviews = ({ videoId }) => {
 
   return (
     <section className={styles.detail__review__section}>
-      <h4 className={styles.detail__main__title}>
-        리뷰
-        <ReviewTotal />
-      </h4>
+      <div className={styles.detail__main__title__wrapper}>
+        <h4 className={styles.detail__main__title}>
+          리뷰
+          <ReviewTotal />
+        </h4>
+        {/* 더보기 */}
+      </div>
       <MyReviewWrapper />
       <ReviewsWrapper />
     </section>

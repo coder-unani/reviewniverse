@@ -1,7 +1,10 @@
 import React from 'react';
+import Image from 'next/image';
 import { isEmpty } from 'lodash';
+
 import { SETTINGS } from '@/config/settings';
 import { fPlatformNameByCode } from '@/utils/formatContent';
+
 import styles from '@/styles/pages/Contents.module.scss';
 
 const VideoPlatforms = ({ platforms, title }) => {
@@ -23,10 +26,13 @@ const VideoPlatforms = ({ platforms, title }) => {
             data-url={platform.url}
             key={index}
           >
-            <img
+            <Image
               className={styles.platform__image}
               src={`${imageBaseUrl}${platform.code}.png`}
               alt={fPlatformNameByCode(platform.code)}
+              width={60}
+              height={60}
+              loading="lazy"
             />
           </button>
         ))}

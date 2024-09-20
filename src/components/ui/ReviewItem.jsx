@@ -3,12 +3,14 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import ProfileImage from '@/components/ui/Button/Profile/Image';
-import RatingReview from '@/components/ui/RatingReview';
-import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
+
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDiffDate } from '@/utils/format';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
+import ProfileImage from '@/components/ui/Button/Profile/Image';
+import RatingReview from '@/components/ui/RatingReview';
+import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
+
 import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/components/ReviewItem.module.scss';
 

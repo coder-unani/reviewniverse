@@ -1,8 +1,10 @@
 import Link from 'next/link';
-import ProfileImage from '@/components/ui/Button/Profile/Image';
+import { isEmpty } from 'lodash';
+
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+import ProfileImage from '@/components/ui/Button/Profile/Image';
+
 import styles from '@/styles/components/ProfileButton.module.scss';
 
 const ProfileButton = ({ user, size, onClose }) => {

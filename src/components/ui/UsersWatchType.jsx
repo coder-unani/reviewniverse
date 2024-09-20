@@ -2,12 +2,15 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { isEmpty } from 'lodash';
+
+import { USER_WATCH_TYPE } from '@/config/codes';
+import { ENDPOINTS } from '@/config/endpoints';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useWatchTypeCreate } from '@/hooks/useWatchTypeCreate';
 import { showSuccessToast, showInfoToast } from '@/components/ui/Toast';
-import { USER_WATCH_TYPE } from '@/config/codes';
-import { ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+
 import CheckIcon from '@/resources/icons/check.svg';
 import styles from '@/styles/pages/UsersWatchType.module.scss';
 
@@ -78,11 +81,13 @@ const UsersWatchType = () => {
             >
               <div className={styles.favorite__content}>
                 <picture className={styles.favorite__image__wrapper}>
-                  <img
+                  <Image
                     className={styles.favorite__image}
                     src={watchtype.image}
-                    srcSet={watchtype.image}
                     alt="취향 이미지"
+                    width={200}
+                    height={200}
+                    priority
                   />
                 </picture>
                 <p className={styles.favorite__subtitle}>{watchtype.subtitle}</p>

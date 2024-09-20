@@ -2,19 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { isEmpty } from 'lodash';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, provider } from '@/library/firebase';
+
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { fProviderCode } from '@/utils/formatContent';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useThemeContext } from '@/contexts/ThemeContext';
+import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
-import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useThemeContext } from '@/contexts/ThemeContext';
-import { signInWithPopup } from 'firebase/auth';
-import { auth, provider } from '@/library/firebase';
-import { fProviderCode } from '@/utils/formatContent';
-import { MESSAGES } from '@/config/messages';
-import { DEFAULT_IMAGES } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+
 import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthGoogleCallback = () => {
@@ -129,7 +131,7 @@ const AuthGoogleCallback = () => {
     <>
       {isMobile && <BackButton />}
       <div className={styles.join__header}>
-        <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" />
+        {/* <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" /> */}
         <h2 className={styles.join__header__title}>SNS 간편 로그인</h2>
       </div>
       <JoinAgree setIsAgree={setIsAgree} setAgreeValues={setAgreeValues} />

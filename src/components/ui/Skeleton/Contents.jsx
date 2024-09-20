@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 import styles from '@/styles/components/SkeletonContents.module.scss';
 import conStyles from '@/styles/pages/Contents.module.scss';
 

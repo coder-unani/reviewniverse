@@ -1,6 +1,4 @@
 import Image from 'next/image';
-import { SETTINGS } from '@/config/settings';
-import { DEFAULT_IMAGES } from '@/config/constants';
 
 const PeopleImage = ({ image, size, alt }) => {
   const style = size ? { width: `${size}px`, height: `${size}px` } : {};

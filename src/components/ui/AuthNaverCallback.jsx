@@ -2,19 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { isEmpty } from 'lodash';
+
+import { SETTINGS } from '@/config/settings';
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { fProviderCode } from '@/utils/formatContent';
 // import { AxiosClient } from '@/utils/HttpClient';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useThemeContext } from '@/contexts/ThemeContext';
+import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
-import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useThemeContext } from '@/contexts/ThemeContext';
-import { fProviderCode } from '@/utils/formatContent';
-import { SETTINGS } from '@/config/settings';
-import { MESSAGES } from '@/config/messages';
-import { DEFAULT_IMAGES } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+
 import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthNaverCallback = () => {

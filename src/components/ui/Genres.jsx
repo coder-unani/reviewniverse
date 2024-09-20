@@ -2,14 +2,16 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import VideosVertical from '@/components/ui/VideosVertical';
-import { useVideos } from '@/hooks/useVideos';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
+import { isEmpty } from 'lodash';
+
 import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
 import { fParseInt } from '@/utils/format';
-import { isEmpty } from 'lodash';
+import { useVideos } from '@/hooks/useVideos';
+import { showErrorToast } from '@/components/ui/Toast';
+import VideosVertical from '@/components/ui/VideosVertical';
+
 import styles from '@/styles/pages/Genres.module.scss';
 
 const Genres = ({ children, id }) => {

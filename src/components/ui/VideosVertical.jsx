@@ -1,18 +1,17 @@
 'use client';
 
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-// import dynamic from 'next/dynamic';
 import Link from 'next/link';
-import Image from 'next/image';
-import { cLog } from '@/utils/test';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { isEmpty } from 'lodash';
+
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { cLog } from '@/utils/test';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
+
 import styles from '@/styles/components/VideosVertical.module.scss';
 import defStyles from '@/styles/components/VideoItem.module.scss';
-
-// const VideoItem = dynamic(() => import('@/components/ui/VideoItem'), { ssr: false });
 
 const VideosVertical = ({ children, videos, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
@@ -62,17 +61,12 @@ const VideosVertical = ({ children, videos, handlePage }) => {
           >
             <div className={defStyles.default__thumbnail__container}>
               <picture className={defStyles.default__thumbnail__wrapper}>
-                <Image
+                <LazyLoadImage
                   className={defStyles.default__thumbnail}
                   src={fThumbnail(video.thumbnail)}
+                  srcSet={fThumbnail(video.thumbnail)}
                   alt={video.title}
-                  width={254}
-                  height={382}
-                  quality={100}
-                  priority={index < 15}
-                  {...(index >= 15 && { loading: 'lazy' })}
-                  // placeholder="blur"
-                  // blurDataURL={base64}
+                  effect="blur"
                 />
               </picture>
               <div className={defStyles.default__code__wrapper}>

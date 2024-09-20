@@ -1,10 +1,11 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useMemo } from 'react';
+import { isEmpty } from 'lodash';
+
+import { fParseInt } from '@/utils/format';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useVideoMyInfo } from '@/hooks/useVideoMyInfo';
-import { fParseInt } from '@/utils/format';
-import { isEmpty } from 'lodash';
 
 const ContentsContext = createContext();
 

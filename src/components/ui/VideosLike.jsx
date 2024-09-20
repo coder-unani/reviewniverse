@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import VideoLikeItem from '@/components/ui/VideoLikeItem';
 import { isEmpty } from 'lodash';
+
+import VideoLikeItem from '@/components/ui/VideoLikeItem';
+
 import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
 const VideosLike = ({ children, videos, handlePage }) => {

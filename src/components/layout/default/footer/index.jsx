@@ -1,6 +1,7 @@
 'use client';
 
 import { useModalContext } from '@/contexts/ModalContext';
+
 import styles from '@/styles/components/Footer.module.scss';
 
 const Footer = () => {

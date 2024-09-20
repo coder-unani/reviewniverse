@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useRef } from 'react';
+
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { setStorageHidePopupBanner } from '@/utils/formatStorage';
 import Modal from '@/components/ui/Modal';
 import CloseButton from '@/components/ui/Button/Close';
-import { setStorageHidePopupBanner } from '@/utils/formatStorage';
-import { DEFAULT_IMAGES } from '@/config/constants';
+
 import styles from '@/styles/components/PopupBanner.module.scss';
 
 /**

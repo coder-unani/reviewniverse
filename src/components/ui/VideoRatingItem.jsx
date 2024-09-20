@@ -3,9 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import RatingReview from '@/components/ui/RatingReview';
+
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
+import RatingReview from '@/components/ui/RatingReview';
+
 import defStyles from '@/styles/components/VideoItem.module.scss';
 
 const VideoRatingItem = ({ video }) => {

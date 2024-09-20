@@ -1,10 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { nanoid } from 'nanoid';
+import { isEmpty } from 'lodash';
+
 import VideoItem from '@/components/ui/VideoItem';
 import VideoRankItem from '@/components/ui/VideoRankItem';
 import VideoUpComingItem from '@/components/ui/VideoUpComingItem';
-import { nanoid } from 'nanoid';
-import { isEmpty } from 'lodash';
+
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/VideosHorizontal.module.scss';

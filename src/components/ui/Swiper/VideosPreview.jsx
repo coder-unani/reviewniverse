@@ -2,11 +2,12 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { useThemeContext } from '@/contexts/ThemeContext';
 import SwiperCore from 'swiper';
 import { Thumbs, Autoplay, Parallax, EffectFade } from 'swiper/modules';
-import { fThumbnail } from '@/utils/formatContent';
+
 import { fParseInt } from '@/utils/format';
+import { fThumbnail } from '@/utils/formatContent';
+import { useThemeContext } from '@/contexts/ThemeContext';
 
 // TODO: 스와이퍼 클릭 이동 오류 수정
 

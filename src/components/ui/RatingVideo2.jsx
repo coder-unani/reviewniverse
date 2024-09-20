@@ -1,15 +1,18 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
+import Image from 'next/image';
+import { Tooltip } from 'react-tooltip';
+import { isEmpty } from 'lodash';
+
+import { SETTINGS } from '@/config/settings';
+import { VIDEO_RATING_TEXT } from '@/config/constants';
+import { fRating, fRatingColor } from '@/utils/formatContent';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoRating } from '@/hooks/useVideoRating';
 import { showSuccessToast } from '@/components/ui/Toast';
-import { Tooltip } from 'react-tooltip';
-import { fRating, fRatingColor } from '@/utils/formatContent';
-import { VIDEO_RATING_TEXT } from '@/config/constants';
-import { SETTINGS } from '@/config/settings';
-import { isEmpty } from 'lodash';
+
 import StarIcon from '@/resources/icons/fill-star.svg';
 import styles from '@/styles/components/RatingVideo2.module.scss';
 
@@ -211,7 +214,15 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   return (
     <article className={styles.rating__container}>
       <div className={styles.rating__image__wrapper}>
-        <img className={styles.rating__image} src={imgSrc} alt="평점" ref={ratingImgRef} />
+        <Image
+          className={styles.rating__image}
+          src={imgSrc}
+          alt="평점"
+          width={45}
+          height={45}
+          priority
+          ref={ratingImgRef}
+        />
       </div>
       <div className={styles.rating__range__wrapper}>
         <span id="ratingText" className={styles.rating__text} ref={ratingTextRef}>

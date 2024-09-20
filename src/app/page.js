@@ -1,4 +1,9 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
+
+import { SCREEN_MAIN_ID } from '@/config/codes';
+import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS, VIDEO_MODEL_OPTIONS } from '@/config/constants';
+import { fExportScreenDataByCode } from '@/utils/formatContent';
 import { fetchScreenVideos } from '@/library/api/screens';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
 import { fetchVideos } from '@/library/api/videos';
@@ -6,10 +11,7 @@ import VideosPreview from '@/components/ui/VideosPreview';
 import VideosHorizontal from '@/components/ui/VideosHorizontal';
 import GenresVertical from '@/components/ui/GenresVertical';
 import VideoItem from '@/components/ui/VideoItem';
-import { SCREEN_MAIN_ID } from '@/config/codes';
-import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS, VIDEO_MODEL_OPTIONS } from '@/config/constants';
-import { fExportScreenDataByCode } from '@/utils/formatContent';
-import { isEmpty } from 'lodash';
+
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
 import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosHorizontal.module.scss';

@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 import Modal from 'react-modal';
+
 import styles from '@/styles/components/ConfirmModal.module.scss';
 
 const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
@@ -58,11 +59,7 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
         },
       }}
     >
-      <main
-        className={styles.confirm__modal}
-        ref={modalRef}
-        onClick={handleModalClose}
-      >
+      <main className={styles.confirm__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.confirm__header}>
           <h4 className={styles.confirm__header__title}>알림</h4>
         </section>
@@ -70,19 +67,11 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
           <p className={styles.confirm__body__content}>{children}</p>
         </section>
         <section className={styles.confirm__footer}>
-          <button
-            type="button"
-            className={styles.cancel__button}
-            onClick={handleCancelClick}
-          >
+          <button type="button" className={styles.cancel__button} onClick={handleCancelClick}>
             취소
           </button>
           |
-          <button
-            type="button"
-            className={styles.confirm__button}
-            onClick={handleConfirmClick}
-          >
+          <button type="button" className={styles.confirm__button} onClick={handleConfirmClick}>
             확인
           </button>
         </section>

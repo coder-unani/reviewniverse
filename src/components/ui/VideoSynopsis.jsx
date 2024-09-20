@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { isEmpty } from 'lodash';
+
 import styles from '@/styles/pages/Contents.module.scss';
 
 const VideoSynopsis = React.memo(({ synopsis, title }) => {

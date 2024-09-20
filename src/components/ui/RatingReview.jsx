@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { fRating, fRatingColor } from '@/utils/formatContent';
+
 import styles from '@/styles/components/RatingReview.module.scss';
 
 const RatingReview = ({ rating }) => {

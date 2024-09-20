@@ -1,7 +1,10 @@
 'use client';
 
-import HomeButton from '@/components/ui/Button/Home';
+import Image from 'next/image';
+
 import { DEFAULT_IMAGES } from '@/config/constants';
+import HomeButton from '@/components/ui/Button/Home';
+
 import styles from '@/styles/pages/Error.module.scss';
 
 // TODO: 에러 코드별 메세지 표시
@@ -11,11 +14,13 @@ const Error = ({ error, reset }) => {
     <main className={styles.error__main}>
       <section className={styles.error__section}>
         <div className={styles.error__content}>
-          <img
+          <Image
             className={styles.error__image}
             src={DEFAULT_IMAGES.error}
-            srcSet={DEFAULT_IMAGES.error}
             alt="페이지를 찾을 수 없음"
+            width={320}
+            height={320}
+            priority
           />
           <p className={styles.error__title}>서비스에 접속할 수 없습니다.</p>
           <p className={styles.error__subtitle}>

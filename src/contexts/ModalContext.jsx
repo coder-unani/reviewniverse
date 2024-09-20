@@ -1,25 +1,16 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { setStorageHasVisited, getStorageHasVisited, getStorageHidePopupBanner } from '@/utils/formatStorage';
 import PopupBanner from '@/components/ui/Banner/Popup';
 import EnjoyModal from '@/components/ui/Modal/Enjoy';
 import ConfirmModal from '@/components/ui/Modal/Confirm';
 import TermsModal from '@/components/ui/Modal/Terms';
 import PrivacyModal from '@/components/ui/Modal/Privacy';
 import PrivacyCollectionModal from '@/components/ui/Modal/PrivacyCollection';
-import {
-  setStorageHasVisited,
-  getStorageHasVisited,
-  getStorageHidePopupBanner,
-} from '@/utils/formatStorage';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 
 /**
  * TODO:
@@ -36,8 +27,7 @@ const ModalContextProvider = ({ children }) => {
   const [isReviewModal, setIsReviewModal] = useState(false);
   const [isTermsModal, setIsTermsModal] = useState(false);
   const [isPrivacyModal, setIsPrivacyModal] = useState(false);
-  const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] =
-    useState(false);
+  const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] = useState(false);
   const [isConfirmModal, setIsConfirmModal] = useState(false);
   const [confirmMessage, setConfirmMessage] = useState('');
   const [confirmResolve, setConfirmResolve] = useState(null);
@@ -140,14 +130,9 @@ const ModalContextProvider = ({ children }) => {
       {isEnjoyModal && <EnjoyModal onClose={toggleEnjoyModal} />}
       {isTermsModal && <TermsModal onClose={toggleTermsModal} />}
       {isPrivacyModal && <PrivacyModal onClose={togglePrivacyModal} />}
-      {isPrivcayCollectionModal && (
-        <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />
-      )}
+      {isPrivcayCollectionModal && <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />}
       {isConfirmModal && (
-        <ConfirmModal
-          onClose={() => handleConfirm(false)}
-          onConfirm={() => handleConfirm(true)}
-        >
+        <ConfirmModal onClose={() => handleConfirm(false)} onConfirm={() => handleConfirm(true)}>
           {confirmMessage}
         </ConfirmModal>
       )}
@@ -158,9 +143,7 @@ const ModalContextProvider = ({ children }) => {
 const useModalContext = () => {
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error(
-      'useModalContext must be used within an ModalContextProvider'
-    );
+    throw new Error('useModalContext must be used within an ModalContextProvider');
   }
   return context;
 };

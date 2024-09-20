@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { fetchVideoLike } from '@/library/api/videos';
+
 import { cLog, cError } from '@/utils/test';
+import { fetchVideoLike } from '@/library/api/videos';
 
 export const useVideoLike = () => {
   const queryClient = useQueryClient();

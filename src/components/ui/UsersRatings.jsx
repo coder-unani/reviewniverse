@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useUserRatings } from '@/hooks/useUserRatings';
-import VideosRating from '@/components/ui/VideosRating';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
-import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
+
+import { ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { fParseInt } from '@/utils/format';
+import { useUserRatings } from '@/hooks/useUserRatings';
+import { showErrorToast } from '@/components/ui/Toast';
+import VideosRating from '@/components/ui/VideosRating';
+
 import styles from '@/styles/pages/UsersContents.module.scss';
 
 const UsersRatings = ({ id }) => {

@@ -2,10 +2,12 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
+import { isEmpty } from 'lodash';
+
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
 import { fPreviewThumbnail, fBackgroundImage, fReleaseText } from '@/utils/formatContent';
-import { isEmpty } from 'lodash';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+
 import vpStyles from '@/styles/components/VideosPreview.module.scss';
 
 const VideosPreviewSwiper = dynamic(() => import('@/components/ui/Swiper/VideosPreview'), { ssr: false });

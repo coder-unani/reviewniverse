@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+
 import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthGoogleCallback = dynamic(() => import('@/components/ui/AuthGoogleCallback'), { ssr: false });

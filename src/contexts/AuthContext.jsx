@@ -2,11 +2,12 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { fetchJoin, fetchLogin } from '@/library/api/users';
-import { fetchToken } from '@/library/api/token';
-import { showInfoToast, showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
+import { isEmpty } from 'lodash';
+
 import { ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { validateUser } from '@/utils/validation';
+import { cLog, cError } from '@/utils/test';
 import {
   getStorageUser,
   getStorageAccessToken,
@@ -15,9 +16,9 @@ import {
   removeStorageUser,
   removeStorageAccessToken,
 } from '@/utils/formatStorage';
-import { validateUser } from '@/utils/validation';
-import { cLog, cError } from '@/utils/test';
-import { isEmpty } from 'lodash';
+import { fetchJoin, fetchLogin } from '@/library/api/users';
+import { fetchToken } from '@/library/api/token';
+import { showInfoToast, showSuccessToast, showErrorToast } from '@/components/ui/Toast';
 
 const AuthContext = createContext(null);
 

@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { useModalContext } from '@/contexts/ModalContext';
 import { useForm } from 'react-hook-form';
 import { set } from 'lodash';
+
+import { useModalContext } from '@/contexts/ModalContext';
+
 import styles from '@/styles/components/JoinAgree.module.scss';
 
 /**
@@ -98,11 +100,7 @@ const JoinAgree = ({ setIsAgree, setAgreeValues }) => {
               [필수] 이용약관에 동의합니다.
             </label>
           </div>
-          <button
-            type="button"
-            className={styles.join__terms__button}
-            onClick={handleTermsClick}
-          >
+          <button type="button" className={styles.join__terms__button} onClick={handleTermsClick}>
             보기
           </button>
         </div>
@@ -119,11 +117,7 @@ const JoinAgree = ({ setIsAgree, setAgreeValues }) => {
               [필수] 개인정보 수집 및 이용에 동의합니다.
             </label>
           </div>
-          <button
-            type="button"
-            className={styles.join__privacy__button}
-            onClick={handlePrivacyClick}
-          >
+          <button type="button" className={styles.join__privacy__button} onClick={handlePrivacyClick}>
             보기
           </button>
         </div>
@@ -151,11 +145,7 @@ const JoinAgree = ({ setIsAgree, setAgreeValues }) => {
             [선택] 이벤트 및 기타 혜택 등에 대한 알림 수신에 동의합니다.
           </label>
         </div>
-        <button
-          type="submit"
-          className={styles.join__agree__button}
-          disabled={!isValid}
-        >
+        <button type="submit" className={styles.join__agree__button} disabled={!isValid}>
           {/* 다음 */}
           완료
         </button>

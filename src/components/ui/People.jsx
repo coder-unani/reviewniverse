@@ -2,16 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useVideos } from '@/hooks/useVideos';
-import PeopleImage from '@/components/ui/Button/People/Image';
-import VideosVertical from '@/components/ui/VideosVertical';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
+import { isEmpty } from 'lodash';
+
 import { DEFAULT_IMAGES, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
 import { fParseInt } from '@/utils/format';
 import { fMakeImageUrl } from '@/utils/formatContent';
-import { isEmpty } from 'lodash';
+import { useVideos } from '@/hooks/useVideos';
+import { showErrorToast } from '@/components/ui/Toast';
+import PeopleImage from '@/components/ui/Button/People/Image';
+import VideosVertical from '@/components/ui/VideosVertical';
+
 import styles from '@/styles/pages/People.module.scss';
 
 const People = ({ id }) => {

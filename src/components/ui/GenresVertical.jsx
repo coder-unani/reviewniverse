@@ -2,10 +2,12 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fMakeThumbnailUrl } from '@/utils/formatContent';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
+
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fMakeThumbnailUrl } from '@/utils/formatContent';
+
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/GenresVertical.module.scss';

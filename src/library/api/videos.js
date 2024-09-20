@@ -1,5 +1,5 @@
-import { FetchClient, AxiosClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
+import { FetchClient, AxiosClient } from '@/utils/HttpClient';
 import { cLog, cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;

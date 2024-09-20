@@ -3,9 +3,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
+
 import defStyles from '@/styles/components/VideoItem.module.scss';
 
 const VideoLikeItem = ({ video }) => {

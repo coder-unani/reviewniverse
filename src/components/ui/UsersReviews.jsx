@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useUserReviews } from '@/hooks/useUserReviews';
-import ReviewItem from '@/components/ui/ReviewItem';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
-import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
+
+import { ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { fParseInt } from '@/utils/format';
+import { useUserReviews } from '@/hooks/useUserReviews';
+import { showErrorToast } from '@/components/ui/Toast';
+import ReviewItem from '@/components/ui/ReviewItem';
+
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
 const UsersReviews = ({ id }) => {

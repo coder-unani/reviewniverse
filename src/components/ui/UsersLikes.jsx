@@ -2,13 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useUserLikes } from '@/hooks/useUserLikes';
-import VideosLike from '@/components/ui/VideosLike';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
-import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
+
+import { ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { fParseInt } from '@/utils/format';
+import { useUserLikes } from '@/hooks/useUserLikes';
+import { showErrorToast } from '@/components/ui/Toast';
+import VideosLike from '@/components/ui/VideosLike';
+
 import styles from '@/styles/pages/UsersContents.module.scss';
 
 const UsersLikes = ({ id }) => {

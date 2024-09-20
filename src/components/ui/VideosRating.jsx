@@ -1,6 +1,8 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import VideoRatingItem from '@/components/ui/VideoRatingItem';
 import { isEmpty } from 'lodash';
+
+import VideoRatingItem from '@/components/ui/VideoRatingItem';
+
 import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
 const VideosRating = ({ children, videos, handlePage }) => {
