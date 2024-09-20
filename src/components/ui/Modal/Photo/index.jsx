@@ -1,22 +1,53 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+import { fMakeImageUrl } from '@/utils/formatContent';
 import Modal from '@/components/ui/Modal';
+
+import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
+import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/PhotoModal.module.scss';
 
-// TODO: Image 컴포넌트로 변경
-
-const PhotoModal = React.memo(({ url, alt, onClose }) => {
+const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
+  const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const modalRef = useRef();
 
+  // 모달 닫기
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) onClose();
+    if (e.target === modalRef.current) {
+      onClose();
+    }
   };
+
+  // 슬라이드 변경
+  const handlePrevButton = () => {
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : prevIndex));
+  };
+
+  const handleNextButton = () => {
+    setCurrentIndex((prevIndex) => (prevIndex < gallery.length - 1 ? prevIndex + 1 : prevIndex));
+  };
+
+  useEffect(() => {
+    // 클릭된 이미지로 초기 인덱스 설정
+    setCurrentIndex(initialIndex);
+  }, [initialIndex]);
 
   return (
     <Modal>
       <div className={styles.photo__modal} ref={modalRef} onClick={handleModalClose}>
-        <img className={styles.photo__image} src={url} alt={alt} loading="lazy" />
+        <img className={styles.photo__image} src={fMakeImageUrl(gallery[currentIndex])} alt={alt} loading="lazy" />
+        <button className={styles.photo__prev__button} onClick={handlePrevButton} disabled={currentIndex === 0}>
+          <ArrowLeftIcon width={28} height={28} />
+        </button>
+        <button
+          className={styles.photo__next__button}
+          onClick={handleNextButton}
+          disabled={currentIndex === gallery.length - 1}
+        >
+          <ArrowRightIcon width={28} height={28} />
+        </button>
       </div>
     </Modal>
   );

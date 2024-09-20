@@ -5,10 +5,10 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 import PhotoModal from '@/components/ui/Modal/Photo';
 
-const VideoGallery = ({ uniqueId, alt }) => {
+const VideoGallery = ({ uniqueId, gallery, alt }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-  const [photoModal, setPhotoModal] = useState({ isOpen: false, url: '' });
+  const [photoModal, setPhotoModal] = useState({ isOpen: false, initialIndex: 0 });
   const swiperRef = useRef(null);
 
   useEffect(() => {
@@ -62,7 +62,8 @@ const VideoGallery = ({ uniqueId, alt }) => {
         slide.classList.remove('gallery-margin-right');
 
         slide.addEventListener('click', () => {
-          togglePhotoModal(slide.dataset.url);
+          const index = Number(slide.dataset.index);
+          togglePhotoModal(index);
         });
       });
     }
@@ -80,11 +81,15 @@ const VideoGallery = ({ uniqueId, alt }) => {
     }
   }, [isBeginning, isEnd, uniqueId]);
 
-  const togglePhotoModal = (url = '') => {
-    setPhotoModal({ isOpen: !photoModal.isOpen, url });
+  const togglePhotoModal = (index) => {
+    setPhotoModal({ isOpen: !photoModal.isOpen, initialIndex: index });
   };
 
-  return photoModal.isOpen && <PhotoModal url={photoModal.url} alt={alt} onClose={togglePhotoModal} />;
+  return (
+    photoModal.isOpen && (
+      <PhotoModal gallery={gallery} initialIndex={photoModal.initialIndex} alt={alt} onClose={togglePhotoModal} />
+    )
+  );
 };
 
 export default VideoGallery;

@@ -24,8 +24,9 @@ const VideosPreview = async ({ videos }) => {
             <div className="swiper-slide" key={video.id}>
               <picture className={vpStyles.preview__background__wrapper}>
                 <div
-                  className={vpStyles.preview__background__image}
+                  className={`preview-background-image ${vpStyles.preview__background__image}`}
                   style={{ backgroundImage: `url(${fPreviewThumbnail(video.thumbnail)})` }}
+                  data-url={video.thumbnail[0]}
                 />
               </picture>
 

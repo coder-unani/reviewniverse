@@ -1,8 +1,11 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { fMakeThumbnailUrl, fMakeImageUrl } from '@/utils/formatContent';
+import Image from 'next/image';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
+
+import { fMakeThumbnailUrl, fMakeImageUrl } from '@/utils/formatContent';
+
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
@@ -26,9 +29,9 @@ const VideoGallery = React.memo(({ gallery, title, alt }) => {
               {gallery.map((image, index) => (
                 <div
                   className={`swiper-slide gallery-margin-right ${styles.detail__gallery__item}`}
-                  key={index}
                   data-url={fMakeImageUrl(image)}
-                  // onClick={() => togglePhotoModal(image)}
+                  data-index={index}
+                  key={index}
                 >
                   <picture className={styles.detail__photo__wrapper}>
                     <img
@@ -60,7 +63,7 @@ const VideoGallery = React.memo(({ gallery, title, alt }) => {
         </article>
       </section>
 
-      <VideoGallerySwiper uniqueId={uniqueId} alt={alt} />
+      <VideoGallerySwiper uniqueId={uniqueId} gallery={gallery} alt={alt} />
     </>
   );
 });

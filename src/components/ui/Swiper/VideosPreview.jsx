@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import SwiperCore from 'swiper';
 import { Thumbs, Autoplay, Parallax, EffectFade } from 'swiper/modules';
+import { fThumbnail } from '@/utils/formatContent';
 import { fParseInt } from '@/utils/format';
 
 // TODO: 스와이퍼 클릭 이동 오류 수정
@@ -22,24 +23,12 @@ const VideosPreview = () => {
     if (thumbSwiperElement) {
       const thumbSwiperConfig = {
         modules: [Thumbs],
-        // spaceBetween: 10,
         slidesPerView: 'auto',
         speed: 1500,
         loop: true,
         watchSlidesProgress: true,
         allowTouchMove: true,
         grabCursor: true,
-        // breakpoints: {
-        //   577: {
-        //     spaceBetween: 12,
-        //   },
-        //   769: {
-        //     spaceBetween: 18,
-        //   },
-        //   1281: {
-        //     spaceBetween: 24,
-        //   },
-        // },
       };
 
       const thumbSwiperInstance = new SwiperCore(thumbSwiperElement, thumbSwiperConfig);
@@ -54,10 +43,13 @@ const VideosPreview = () => {
       });
     }
 
-    // const thumbSwiperSlide = document.querySelectorAll('.thumb-swiper .swiper-slide');
-    // thumbSwiperSlide.forEach((slide) => {
-    //   slide.classList.remove('preview-margin-right');
-    // });
+    // 모바일시 배경 이미지 포스터로 변경
+    const previewBackgroundImage = document.querySelectorAll('.preview-background-image');
+    previewBackgroundImage.forEach((image) => {
+      if (!isMobile) return;
+      const imageUrl = image.dataset.url;
+      image.style.backgroundImage = `url(${fThumbnail(imageUrl, false)})`;
+    });
   }, []);
 
   useEffect(() => {
@@ -101,7 +93,7 @@ const VideosPreview = () => {
 
       const target = e.currentTarget;
       const path = target.getAttribute('href');
-      const index = fParseInt(target.getAttribute('data-index'));
+      const index = fParseInt(target.dataset.index);
 
       // 스크롤 중이 아니고 활성화된 썸네일 클릭 시 페이지 이동
       if (!isDraggingRef.current && index === activeThumbIndexRef.current) {
