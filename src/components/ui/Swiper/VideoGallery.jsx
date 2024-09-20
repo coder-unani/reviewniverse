@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
+import { fParseInt } from '@/utils/format';
 import PhotoModal from '@/components/ui/Modal/Photo';
 
 const VideoGallery = ({ uniqueId, gallery, alt }) => {
@@ -60,10 +61,12 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
 
       const gallerySwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
       gallerySwiperSlide.forEach((slide) => {
+        // 서버 컴포넌트 스타일을 위해 추가했던 클래스명 제거
         slide.classList.remove('gallery-margin-right');
 
+        // 포토 모달 이벤트 추가
         slide.addEventListener('click', () => {
-          const index = Number(slide.dataset.index);
+          const index = fParseInt(slide.dataset.index);
           togglePhotoModal(index);
         });
       });

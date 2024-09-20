@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
-import { fetchVideoDetail } from '@/library/api/videos';
+
 import { SETTINGS } from '@/config/settings';
 import { HOME_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fetchVideoDetail } from '@/library/api/videos';
 import { fParseInt, fYear, fUpperCase } from '@/utils/format';
 import {
   fBackgroundImage,
@@ -21,21 +21,24 @@ import {
   fActorCode,
   fStaffCode,
 } from '@/utils/formatContent';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import VideoLikeButton from '@/components/ui/Button/VideoLike';
+import ReviewButton from '@/components/ui/Button/Review';
+import ShareButton from '@/components/ui/Button/Share';
+import KakaoShareButton from '@/components/ui/Button/Share/Kakao';
+import FacebookShareButton from '@/components/ui/Button/Share/Facebook';
+import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoPoster from '@/components/ui/VideoPoster';
+import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoPlatforms from '@/components/ui/VideoPlatforms';
 import VideoPeople from '@/components/ui/VideoPeople';
 import VideoGallery from '@/components/ui/VideoGallery';
-import { KakaoShareButton } from '@/components/ui/Button/Share/KakaoShareButton';
-import { FacebookShareButton } from '@/components/ui/Button/Share/FacebookShareButton';
+import VideoReviews from '@/components/ui/VideoReviews';
+
 import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoLikeButton = dynamic(() => import('@/components/ui/Button/VideoLike'), { ssr: false });
-const ReviewButton = dynamic(() => import('@/components/ui/Button/Review'), { ssr: false });
 const VideoSubInfoSwiper = dynamic(() => import('@/components/ui/Swiper/VideoSubInfo'), { ssr: false });
-const VideoSynopsis = dynamic(() => import('@/components/ui/VideoSynopsis'), { ssr: false });
-const VideoMyRating = dynamic(() => import('@/components/ui/VideoMyRating'), { ssr: false });
-const VideoReviews = dynamic(() => import('@/components/ui/VideoReviews'), { ssr: false });
 const ContentsClient = dynamic(() => import('@/components/ui/Client/Contents'), { ssr: false });
 
 // ISR 재생성 주기 설정
@@ -229,6 +232,7 @@ const Contents = async ({ params }) => {
                   <VideoLikeButton videoId={videoId} />
                   {/* <CollectionButton /> */}
                   <ReviewButton />
+                  <ShareButton />
                 </article>
               </article>
             </div>

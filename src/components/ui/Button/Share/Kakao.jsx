@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+
 import { fMakeImageUrl } from '@/utils/formatContent';
 
 const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
@@ -80,4 +81,4 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
   );
 };
 
-export { KakaoShareButton };
+export default KakaoShareButton;

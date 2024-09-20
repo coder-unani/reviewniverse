@@ -72,4 +72,4 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
   );
 };
 
-export { FacebookShareButton };
+export default FacebookShareButton;
