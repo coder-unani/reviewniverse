@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
+
 import PhotoModal from '@/components/ui/Modal/Photo';
 
 const VideoGallery = ({ uniqueId, gallery, alt }) => {

@@ -34,11 +34,13 @@ const VideoGallery = React.memo(({ gallery, title, alt }) => {
                   key={index}
                 >
                   <picture className={styles.detail__photo__wrapper}>
-                    <img
+                    <Image
                       className={styles.detail__photo}
                       src={fMakeThumbnailUrl(image)}
-                      srcSet={fMakeThumbnailUrl(image)}
                       alt={alt}
+                      width={323}
+                      height={181}
+                      loading="lazy"
                     />
                   </picture>
                 </div>

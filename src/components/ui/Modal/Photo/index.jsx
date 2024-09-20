@@ -3,13 +3,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import { fMakeImageUrl } from '@/utils/formatContent';
+import { useThemeContext } from '@/contexts/ThemeContext';
 import Modal from '@/components/ui/Modal';
+import CloseButton from '@/components/ui/Button/Close';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/PhotoModal.module.scss';
 
 const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
+  const { isMobile } = useThemeContext();
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const modalRef = useRef();
 
@@ -37,6 +40,7 @@ const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
   return (
     <Modal>
       <div className={styles.photo__modal} ref={modalRef} onClick={handleModalClose}>
+        {isMobile && <CloseButton onClose={onClose} />}
         <img className={styles.photo__image} src={fMakeImageUrl(gallery[currentIndex])} alt={alt} loading="lazy" />
         <button className={styles.photo__prev__button} onClick={handlePrevButton} disabled={currentIndex === 0}>
           <ArrowLeftIcon width={28} height={28} />
