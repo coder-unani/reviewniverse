@@ -37,6 +37,8 @@ yarn add nanoid
 yarn add react-lazy-load-image-component
 yarn add sharp plaiceholder
 yarn add @plaiceholder/next
+yarn add @next/third-parties
+yarn add dompurify
 
 # 개발 의존성 라이브러리 설치
 

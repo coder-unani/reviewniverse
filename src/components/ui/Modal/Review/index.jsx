@@ -5,7 +5,8 @@ import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import { Tooltip } from 'react-tooltip';
-import { isEmpty, set } from 'lodash';
+import DOMPurify from 'dompurify';
+import { isEmpty } from 'lodash';
 
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
@@ -92,12 +93,15 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       return;
     }
 
+    // DOMPurify로 입력된 리뷰 내용을 정화 (XSS 방지)
+    const sanitizedTitle = DOMPurify.sanitize(data.title);
+
     if (isEmpty(myReview)) {
       // 내 리뷰가 없을 경우 리뷰 등록
       await reviewCreate(
         {
           videoId: content.id,
-          title: data.title,
+          title: sanitizedTitle,
           is_spoiler: isSpoiler,
           is_private: isPrivate,
           userId: user.id,
@@ -113,7 +117,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       );
     } else {
       // 내 리뷰가 있을 경우 리뷰 수정
-      if (myReview.title === data.title && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
+      if (myReview.title === sanitizedTitle && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
         showSuccessToast('리뷰가 수정되었습니다.');
         toggleReviewModal();
         return;
@@ -122,7 +126,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
         {
           videoId: content.id,
           reviewId: myReview.id,
-          title: data.title,
+          title: sanitizedTitle,
           is_spoiler: isSpoiler,
           is_private: isPrivate,
           userId: user.id,
