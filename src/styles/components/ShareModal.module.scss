@@ -1,5 +1,24 @@
 @use '@/styles/variables' as *;
 
+.share__modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.56);
+  z-index: 998;
+}
+
+.share__modal__wrapper {
+  position: absolute;
+  width: 450px;
+  z-index: 999;
+}
+
 .share__modal {
   display: flex;
   flex-direction: column;
@@ -87,8 +106,20 @@
   line-height: 34px;
   color: $color-background;
   border-radius: 8px;
-  // border-radius: 17px;
   background-color: $color-white-02;
   padding: 0 16px;
   margin: 0 8px;
+}
+
+@media (max-width: 768px) {
+  .share__modal__wrapper {
+    width: 100%;
+    bottom: 0;
+  }
+
+  .share__modal {
+    justify-content: flex-end;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+  }
 }

@@ -43,29 +43,8 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
       isOpen={isOpen}
       onRequestClose={onClose}
       bodyOpenClassName="modal__open"
-      style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.56)',
-          zIndex: 998,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        content: {
-          position: 'absolute',
-          top: 'auto',
-          left: 'auto',
-          right: 'auto',
-          bottom: 'auto',
-          width: 450,
-          height: 'auto',
-          padding: '0',
-          border: 'none',
-          background: 'transparent',
-          overflow: 'visible',
-          zIndex: 999,
-        },
-      }}
+      className={styles.share__modal__wrapper}
+      overlayClassName={styles.share__modal__overlay}
     >
       <main className={styles.share__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.share__header}>
