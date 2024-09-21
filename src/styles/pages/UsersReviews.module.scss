@@ -2,7 +2,7 @@
 
 .reviews__main {
   min-height: calc(100vh - $footer-height);
-  padding: 60px 0;
+  padding: $header-height 0 60px;
 }
 
 .reviews__title__section {

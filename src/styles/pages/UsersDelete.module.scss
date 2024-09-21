@@ -2,12 +2,12 @@
 
 .delete__main {
   min-height: calc(100vh - $footer-height);
-  padding: 60px 0;
+  padding: $header-height 0 60px;
 }
 
 .delete__section {
   max-width: 640px;
-  padding: 0px 20px 100px;
+  padding: 0 20px;
   margin: 40px auto 0px;
 }
 
@@ -40,7 +40,7 @@
 
 .delete__image {
   width: 100%;
-  max-width: 320px;
+  max-width: 240px;
   object-fit: contain;
 }
 

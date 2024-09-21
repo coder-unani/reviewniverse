@@ -2,12 +2,12 @@
 
 .user__main {
   min-height: calc(100vh - $footer-height);
-  padding-top: 60px;
+  padding: $header-height 0 60px;
 }
 
 .user__section {
   width: 640px;
-  padding: 0px 20px 100px;
+  padding: 0 20px;
   margin: 40px auto 0px;
 }
 
