@@ -63,7 +63,7 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
         },
         buttons: [
           {
-            title: '웹으로 보기',
+            title: '보러가기',
             link: {
               mobileWebUrl: mobileLink,
               webUrl: pcLink,

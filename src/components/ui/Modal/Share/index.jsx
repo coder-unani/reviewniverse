@@ -13,7 +13,7 @@ import styles from '@/styles/components/ShareModal.module.scss';
 
 const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
   const modalRef = useRef();
-  const currentUrl = window.location.href;
+  const shareLinkUrl = window.location.href;
 
   // 클라이언트 사이드에서만 Modal.setAppElement 설정
   useEffect(() => {
@@ -58,7 +58,7 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
             <XShareButton title={title} desc={desc} image={image} /> */}
           </div>
           <div className={styles.share__link__wrapper}>
-            <input type="text" className={styles.share__link} value={currentUrl} readOnly />
+            <input type="text" className={styles.share__link} value={shareLinkUrl} readOnly />
             <button type="button" className={styles.share__link__button} onClick={handleCopyLink}>
               복사
             </button>
