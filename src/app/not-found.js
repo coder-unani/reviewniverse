@@ -14,8 +14,8 @@ const NotFound = () => {
             className={styles.notfound__image}
             src={DEFAULT_IMAGES.pageNotFound}
             alt="페이지를 찾을 수 없음"
-            width={320}
-            height={320}
+            width={240}
+            height={240}
             priority
           />
           <p className={styles.notfound__title}>요청하신 페이지를 찾을 수 없습니다.</p>

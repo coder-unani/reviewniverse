@@ -69,8 +69,8 @@ const UsersDelete = () => {
           className={styles.delete__image}
           src={DEFAULT_IMAGES.userDelete}
           alt="회원 탈퇴 이미지"
-          width={320}
-          height={320}
+          width={240}
+          height={240}
           priority
         />
         <div className={styles.delete__button__wrapper}>

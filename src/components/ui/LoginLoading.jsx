@@ -13,8 +13,8 @@ const LoginLoading = () => {
             className={styles.loading__image}
             src={DEFAULT_IMAGES.loading}
             alt="로딩 이미지"
-            width={320}
-            height={320}
+            width={240}
+            height={240}
             priority
           />
           <p className={styles.loading__title}>소셜 로그인 중입니다.</p>

@@ -97,8 +97,8 @@ const SearchResults = ({ query }) => {
             className={styles.no__search__image}
             src={DEFAULT_IMAGES.searchNotFound}
             alt="검색 결과 없음"
-            width={320}
-            height={320}
+            width={240}
+            height={240}
             priority
           />
           <p className={styles.no__search__title}>
