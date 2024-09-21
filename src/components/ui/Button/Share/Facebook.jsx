@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+
+import { DEFAULT_IMAGES } from '@/config/constants';
+
+import styles from '@/styles/components/ShareModal.module.scss';
 
 const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
   const fbAppId = 'your_facebook_app_id'; // 페이스북 앱 ID
@@ -62,13 +68,19 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
   };
 
   return (
-    <a id="btn-facebook-share" href="#" onClick={handleClick}>
-      <img
-        src="https://www.facebook.com/images/fb_icon_325x325.png"
-        alt="페이스북 공유하기 버튼"
-        style={{ width: '40px', height: '40px' }}
-      />
-    </a>
+    <Link id="btn-facebook-share" className={styles.share__button} href="#" onClick={handleClick}>
+      <picture className={styles.share__button__image__wrapper}>
+        <Image
+          className={styles.share__button__image}
+          src={DEFAULT_IMAGES.shareFacebook}
+          alt="페이스북 공유하기 버튼"
+          width={60}
+          height={60}
+          loading="lazy"
+        />
+      </picture>
+      <p className={styles.share__button__name}>Facebook</p>
+    </Link>
   );
 };
 

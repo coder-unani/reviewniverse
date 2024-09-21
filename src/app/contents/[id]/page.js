@@ -24,9 +24,7 @@ import {
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
-// import ShareButton from '@/components/ui/Button/Share';
-// import KakaoShareButton from '@/components/ui/Button/Share/Kakao';
-// import FacebookShareButton from '@/components/ui/Button/Share/Facebook';
+import ShareButton from '@/components/ui/Button/Share';
 import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoPoster from '@/components/ui/VideoPoster';
 import VideoMyRating from '@/components/ui/VideoMyRating';
@@ -119,6 +117,9 @@ const Contents = async ({ params }) => {
   }
 
   const content = await getContent({ videoId });
+  if (isEmpty(content)) {
+    notFound();
+  }
 
   const uniqueId = nanoid();
   const backgroundImageUrl = fBackgroundImage(content.thumbnail);
@@ -232,7 +233,7 @@ const Contents = async ({ params }) => {
                   <VideoLikeButton videoId={videoId} />
                   {/* <CollectionButton /> */}
                   <ReviewButton />
-                  {/* <ShareButton /> */}
+                  <ShareButton title={titleKr} desc={synopsis} image={poster} />
                 </article>
               </article>
             </div>
@@ -315,9 +316,6 @@ const Contents = async ({ params }) => {
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
           <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
           <VideoReviews videoId={videoId} />
-          {/* for test */}
-          {/* <KakaoShareButton title={titleKr} desc={synopsis} image={poster} />
-          <FacebookShareButton title={titleKr} desc={synopsis} image={poster} /> */}
         </div>
       </main>
 

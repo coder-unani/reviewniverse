@@ -3,18 +3,21 @@ import { SETTINGS } from '@/config/settings';
 export const DEFAULT_IMAGES = {
   logo: `${SETTINGS.CDN_BASE_URL}/assets/images/logo.svg`,
   logoWhite: `${SETTINGS.CDN_BASE_URL}/assets/images/logo-white.svg`,
-  kakao: `${SETTINGS.CDN_BASE_URL}/assets/images/kakao.png`,
-  naver: `${SETTINGS.CDN_BASE_URL}/assets/images/naver.png`,
-  google: `${SETTINGS.CDN_BASE_URL}/assets/images/google.png`,
   noActor: `${SETTINGS.CDN_BASE_URL}/assets/images/no-actor.png`,
   noImage: `${SETTINGS.CDN_BASE_URL}/assets/images/no-image.png`,
-  popup: `${SETTINGS.CDN_BASE_URL}/assets/images/popup.png`,
+  loading: `${SETTINGS.CDN_BASE_URL}/assets/images/loading.png`,
   userLogin: `${SETTINGS.CDN_BASE_URL}/assets/images/user-login.png`,
   userDelete: `${SETTINGS.CDN_BASE_URL}/assets/images/user-delete.png`,
-  loading: `${SETTINGS.CDN_BASE_URL}/assets/images/loading.png`,
   searchNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/search-not-found.png`,
   pageNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/page-not-found.png`,
   error: `${SETTINGS.CDN_BASE_URL}/assets/images/error.png`,
+  kakao: `${SETTINGS.CDN_BASE_URL}/assets/images/kakao.png`,
+  naver: `${SETTINGS.CDN_BASE_URL}/assets/images/naver.png`,
+  google: `${SETTINGS.CDN_BASE_URL}/assets/images/google.png`,
+  shareKakaoTalk: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/kakaotalk.png`,
+  shareFacebook: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/facebook.png`,
+  shareX: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/X.png`,
+  popup: `${SETTINGS.CDN_BASE_URL}/assets/images/popup.png`,
 };
 
 export const SITE_KEYWORDS =

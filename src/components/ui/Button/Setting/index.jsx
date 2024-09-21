@@ -70,6 +70,7 @@ const SettingButton = () => {
       <button type="button" className={styles.setting__button} onClick={toggleMenuModal}>
         <SettingIcon />
       </button>
+
       {isMenuModal && (
         <div className={styles.setting__menu} ref={menuRef}>
           <ul>

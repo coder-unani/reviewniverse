@@ -1,8 +1,13 @@
 'use client';
 
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
+import { DEFAULT_IMAGES } from '@/config/constants';
 import { fMakeImageUrl } from '@/utils/formatContent';
+
+import styles from '@/styles/components/ShareModal.module.scss';
 
 const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
   const kakaoAppKey = '6d737e11368f0332f12198070cbd0ef4';
@@ -72,12 +77,19 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
   };
 
   return (
-    <a id="btn-kakaotalk-share-feed" href="#" onClick={handleClick}>
-      <img
-        src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
-        alt="카카오톡 공유하기 버튼"
-      />
-    </a>
+    <Link id="btn-kakaotalk-share-feed" className={styles.share__button} href="#" onClick={handleClick}>
+      <picture className={styles.share__button__image__wrapper}>
+        <Image
+          className={styles.share__button__image}
+          src={DEFAULT_IMAGES.shareKakaoTalk}
+          alt="카카오톡 공유하기 버튼"
+          width={60}
+          height={60}
+          loading="lazy"
+        />
+      </picture>
+      <p className={styles.share__button__name}>카카오톡</p>
+    </Link>
   );
 };
 

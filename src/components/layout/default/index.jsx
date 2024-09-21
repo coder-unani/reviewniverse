@@ -21,7 +21,7 @@ const DefaultLayout = ({ children }) => {
       <ThemeContextProvider>
         <AuthContextProvider>
           <ModalContextProvider>
-            <div className="wrapper">
+            <div id="wrapper" className="wrapper">
               <Suspense fallback={''}>
                 <Header />
               </Suspense>

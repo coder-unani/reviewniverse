@@ -222,6 +222,11 @@ header {
   }
 }
 
+// 모달 열렸을 때
+.modal__open {
+  overflow: hidden;
+}
+
 // 모달 닫기 버튼
 .modal__close__button {
   position: absolute;
@@ -238,11 +243,13 @@ header {
   }
 }
 
+// 리뷰 좋아요 버튼
 .review__like__button {
   display: flex;
   align-items: center;
 }
 
+// 리뷰 좋아요 카운트
 .review__like__count {
   font-size: 14px;
   font-weight: 600;
@@ -254,6 +261,7 @@ header {
   }
 }
 
+// 배우 이미지
 .people__image__wrapper {
   flex-shrink: 0;
   position: relative;

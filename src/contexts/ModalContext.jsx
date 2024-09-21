@@ -22,14 +22,23 @@ const ModalContext = createContext();
 const ModalContextProvider = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
+  // 팝업 모달
   const [isPopupBanner, setIsPopupBanner] = useState(false);
+  // 로그인 모달
   const [isEnjoyModal, setIsEnjoyModal] = useState(false);
+  // 리뷰 모달
   const [isReviewModal, setIsReviewModal] = useState(false);
+  // 약관 모달
   const [isTermsModal, setIsTermsModal] = useState(false);
+  // 개인정보 처리방침 모달
   const [isPrivacyModal, setIsPrivacyModal] = useState(false);
+  // 개인정보 수집 및 이용 동의 모달
   const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] = useState(false);
+  // 확인 모달
   const [isConfirmModal, setIsConfirmModal] = useState(false);
+  // 확인 모달 메세지
   const [confirmMessage, setConfirmMessage] = useState('');
+  // 확인 모달 결과 처리 함수
   const [confirmResolve, setConfirmResolve] = useState(null);
 
   /*
@@ -53,6 +62,7 @@ const ModalContextProvider = ({ children }) => {
   */
 
   useEffect(() => {
+    // 페이지 이동 시 모달창 닫기
     if (isEnjoyModal) setIsEnjoyModal(false);
     if (isReviewModal) setIsReviewModal(false);
     if (isTermsModal) setIsTermsModal(false);
@@ -131,11 +141,9 @@ const ModalContextProvider = ({ children }) => {
       {isTermsModal && <TermsModal onClose={toggleTermsModal} />}
       {isPrivacyModal && <PrivacyModal onClose={togglePrivacyModal} />}
       {isPrivcayCollectionModal && <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />}
-      {isConfirmModal && (
-        <ConfirmModal onClose={() => handleConfirm(false)} onConfirm={() => handleConfirm(true)}>
-          {confirmMessage}
-        </ConfirmModal>
-      )}
+      <ConfirmModal isOpen={isConfirmModal} onClose={() => handleConfirm(false)} onConfirm={() => handleConfirm(true)}>
+        {confirmMessage}
+      </ConfirmModal>
     </ModalContext.Provider>
   );
 };

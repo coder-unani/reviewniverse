@@ -5,15 +5,16 @@ import Modal from 'react-modal';
 
 import styles from '@/styles/components/ConfirmModal.module.scss';
 
-const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
+const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
   const modalRef = useRef();
 
   // 클라이언트 사이드에서만 Modal.setAppElement 설정
   useEffect(() => {
     // window 객체가 존재할 때만 실행
     if (typeof window !== 'undefined') {
-      // Next.js에서는 #__next가 최상위 요소
-      Modal.setAppElement(document.getElementById('__next'));
+      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
+      // Modal.setAppElement(document.getElementById('__next'));
+      Modal.setAppElement(document.getElementById('wrapper'));
     }
   }, []);
 
@@ -36,21 +37,25 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
 
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
-      ariaHideApp={false}
+      bodyOpenClassName="modal__open"
       style={{
         overlay: {
           backgroundColor: 'rgba(0, 0, 0, 0.56)',
           zIndex: 998,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         },
         content: {
           position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
+          top: 'auto',
+          left: 'auto',
+          right: 'auto',
+          bottom: 'auto',
           width: 300,
-          height: 150,
+          height: 'auto',
           padding: '0',
           border: 'none',
           background: 'transparent',
