@@ -22,7 +22,7 @@ const VideoGallery = React.memo(({ gallery, title, alt }) => {
   return (
     <>
       <section className={styles.detail__gallery__section}>
-        <h4 className={styles.detail__main__title}>{title}</h4>
+        <div className={styles.detail__main__title}>{title}</div>
         <article className={styles.detail__gallery__wrapper}>
           <div className={`swiper ${styles.detail__gallery}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">

@@ -25,7 +25,7 @@ const VideoPeople = ({ people, title, formatCode }) => {
   return (
     <>
       <section className={styles.detail__people__section}>
-        <h4 className={styles.detail__main__title}>{title}</h4>
+        <div className={styles.detail__main__title}>{title}</div>
         <article className={styles.detail__people__wrapper} data-length={people.length}>
           <div className={`swiper ${styles.detail__people}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper people-template">

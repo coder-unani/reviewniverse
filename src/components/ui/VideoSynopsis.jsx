@@ -33,7 +33,7 @@ const VideoSynopsis = React.memo(({ synopsis, title }) => {
 
   return (
     <section className={styles.detail__synopsis__section}>
-      <h4 className={styles.detail__main__title}>{title}</h4>
+      <div className={styles.detail__main__title}>{title}</div>
       <summary className={`${styles.detail__synopsis} ${isExpanded ? styles.expanded : ''}`} ref={synopsisRef}>
         {synopsis}
       </summary>

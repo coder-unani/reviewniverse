@@ -178,10 +178,10 @@ const VideoReviews = ({ videoId }) => {
   return (
     <section className={styles.detail__review__section}>
       <div className={styles.detail__main__title__wrapper}>
-        <h4 className={styles.detail__main__title}>
+        <div className={styles.detail__main__title}>
           리뷰
           <ReviewTotal />
-        </h4>
+        </div>
         {/* 더보기 */}
       </div>
       <MyReviewWrapper />

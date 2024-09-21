@@ -16,7 +16,7 @@ const VideoPlatforms = ({ platforms, title }) => {
 
   return (
     <section className={styles.detail__platform__section}>
-      <h4 className={styles.detail__main__title}>{title}</h4>
+      <div className={styles.detail__main__title}>{title}</div>
       <article className={styles.detail__platform__wrapper}>
         {platforms.map((platform, index) => (
           <button
