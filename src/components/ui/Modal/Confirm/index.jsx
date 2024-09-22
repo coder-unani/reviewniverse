@@ -40,29 +40,8 @@ const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
       isOpen={isOpen}
       onRequestClose={onClose}
       bodyOpenClassName="modal__open"
-      style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.56)',
-          zIndex: 998,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-        },
-        content: {
-          position: 'absolute',
-          top: 'auto',
-          left: 'auto',
-          right: 'auto',
-          bottom: 'auto',
-          width: 300,
-          height: 'auto',
-          padding: '0',
-          border: 'none',
-          background: 'transparent',
-          overflow: 'visible',
-          zIndex: 999,
-        },
-      }}
+      className={styles.confirm__modal__wrapper}
+      overlayClassName={styles.confirm__modal__overlay}
     >
       <main className={styles.confirm__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.confirm__header}>

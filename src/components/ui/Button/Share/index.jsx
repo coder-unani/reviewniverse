@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-
-import ShareModal from '@/components/ui/Modal/Share';
+import dynamic from 'next/dynamic';
 
 import styles from '@/styles/components/ControlButton.module.scss';
+
+const ShareModal = dynamic(() => import('@/components/ui/Modal/Share'), { ssr: false });
 
 const ShareButton = ({ title, desc, image }) => {
   const [isShareModal, setIsShareModal] = useState(false);

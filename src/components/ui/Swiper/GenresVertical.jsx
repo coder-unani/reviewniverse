@@ -4,6 +4,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
+import { DEFAULT_IMAGES } from '@/config/constants';
+
 const GenresVertical = ({ uniqueId }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
@@ -71,6 +73,30 @@ const GenresVertical = ({ uniqueId }) => {
       genreSwiperSlide.forEach((slide) => {
         slide.classList.remove('genre-margin-right');
       });
+
+      // 이미지에 대한 onError 처리
+      const images = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] img`);
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const testImage = new Image();
+            testImage.src = img.src;
+
+            testImage.onerror = () => {
+              img.src = DEFAULT_IMAGES.noImage; // 대체 이미지로 변경
+            };
+
+            observer.unobserve(img); // 감지 후 감시 중단
+          }
+        });
+      });
+
+      images.forEach((img) => observer.observe(img));
+
+      return () => {
+        images.forEach((img) => observer.unobserve(img)); // 컴포넌트 언마운트 시 관찰 해제
+      };
     }
   }, [uniqueId]);
 

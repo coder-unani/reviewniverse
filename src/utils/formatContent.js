@@ -1,5 +1,12 @@
 import { isEmpty } from 'lodash';
-import { USER_CODE, SCREEN_MAIN_ID, VIDEO_ACTOR_CODE, VIDEO_STAFF_CODE, VIDEO_PLATFORM_CODE } from '@/config/codes';
+import {
+  USER_CODE,
+  SCREEN_MAIN_ID,
+  VIDEO_ACTOR_CODE,
+  VIDEO_STAFF_CODE,
+  VIDEO_PLATFORM_CODE,
+  VIDEO_TRAILER_CODE,
+} from '@/config/codes';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
 
@@ -51,6 +58,12 @@ export const fActorCode = (code) => {
 export const fStaffCode = (code) => {
   const staffType = VIDEO_STAFF_CODE[code];
   return staffType || '제작';
+};
+
+// 트레일러 코드 포맷
+export const fTrailerCode = (code) => {
+  const trailerType = VIDEO_TRAILER_CODE[code];
+  return trailerType || '예고편';
 };
 
 // 이미지 URL 포맷

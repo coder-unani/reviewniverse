@@ -76,8 +76,9 @@ export const VIDEO_PLATFORM_CODE = {
 export const VIDEO_TRAILER_CODE = {
   10: '공식 예고편',
   11: '기타 예고편',
-  20: '티저',
-  30: '메이킹',
+  20: '티저 영상',
+  30: '클립 영상',
+  40: '메이킹 필름',
   99: '기타',
 };
 

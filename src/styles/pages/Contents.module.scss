@@ -594,6 +594,15 @@
   background-color: transparent;
 }
 
+.detail__photo__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 45px;
+}
+
 .detail__photo {
   display: flex;
   width: 100%;
@@ -1067,6 +1076,11 @@
 
   .detail__gallery {
     padding: 0 $padding-small;
+  }
+
+  .detail__photo__icon {
+    width: 30px;
+    height: 30px;
   }
 
   .gallery__prev__button,

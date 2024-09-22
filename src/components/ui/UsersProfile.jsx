@@ -263,7 +263,7 @@ const UsersProfile = () => {
               style={{ display: 'none' }}
             />
             <label htmlFor="profile_image">
-              <ImageIcon />
+              <ImageIcon width={32} height={32} />
             </label>
           </div>
           {errors.profile_image && <p className={styles.edit__error}>{errors.profile_image.message}</p>}

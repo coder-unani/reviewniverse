@@ -30,6 +30,7 @@ import VideoPoster from '@/components/ui/VideoPoster';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoPlatforms from '@/components/ui/VideoPlatforms';
 import VideoPeople from '@/components/ui/VideoPeople';
+import VideoTrailer from '@/components/ui/VideoTrailer';
 import VideoGallery from '@/components/ui/VideoGallery';
 import VideoReviews from '@/components/ui/VideoReviews';
 
@@ -153,6 +154,9 @@ const Contents = async ({ params }) => {
   const staffTitle = '제작진';
   const staffs = content.staff || [];
   const staffFormatCode = fStaffCode;
+  const trailer = content.trailer || [];
+  const trailerTitle = '관련 영상';
+  const trailerAlt = titleKr;
   const galleryTitle = '갤러리';
   const gallery = content.thumbnail || [];
   const galleryAlt = `${titleKr} 스틸컷`;
@@ -314,6 +318,7 @@ const Contents = async ({ params }) => {
           </section>
           <VideoPeople people={actors} title={actorTitle} formatCode={actorFormatCode} />
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
+          <VideoTrailer trailer={trailer} title={trailerTitle} alt={trailerAlt} />
           <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
           <VideoReviews videoId={videoId} />
         </div>
