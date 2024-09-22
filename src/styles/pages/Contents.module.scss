@@ -596,13 +596,13 @@
   background-color: $color-white-09;
 }
 
-.detail__photo__icon {
+.detail__play__icon {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 42px;
-  height: 42px;
+  width: 48px;
+  height: 48px;
 }
 
 .detail__photo {
@@ -1080,9 +1080,9 @@
     padding: 0 $padding-small;
   }
 
-  .detail__photo__icon {
-    width: 30px;
-    height: 30px;
+  .detail__play__icon {
+    width: 36px;
+    height: 36px;
   }
 
   .gallery__prev__button,

@@ -36,7 +36,7 @@ const VideoTrailer = React.memo(({ trailer, title, alt }) => {
                   key={index}
                 >
                   <picture className={styles.detail__photo__wrapper}>
-                    <PlayIcon className={styles.detail__photo__icon} width={30} height={30} />
+                    <PlayIcon className={styles.detail__play__icon} width={36} height={36} />
                     <Image
                       className={styles.detail__photo}
                       src={video.thumbnail}
