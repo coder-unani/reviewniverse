@@ -591,7 +591,9 @@
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: transparent;
+  border-radius: 14px;
+  background: url('#{$cdn-base-url}/assets/images/default-image.png') no-repeat center / auto 33.3333%;
+  background-color: $color-white-09;
 }
 
 .detail__photo__icon {
@@ -599,8 +601,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 45px;
-  height: 45px;
+  width: 42px;
+  height: 42px;
 }
 
 .detail__photo {

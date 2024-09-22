@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDate } from '@/utils/format';
 import { fThumbnail, fCountry, fCountdown } from '@/utils/formatContent';
-// import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
 
 import styles from '@/styles/components/VideoUpComingItem.module.scss';
 import defStyles from '@/styles/components/VideoItem.module.scss';
@@ -19,8 +18,6 @@ const VideoUpComingItem = async ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
-  // blurDataURL을 생성하는 함수
-  // const base64 = await getImagePlaceholder(thumbnail);
   const code = video.code_string;
   const countdown = fCountdown(video.upcoming);
   const release = fDate(video.release);
@@ -38,8 +35,6 @@ const VideoUpComingItem = async ({ video }) => {
             height={382}
             quality={100}
             loading="lazy"
-            // placeholder="blur"
-            // blurDataURL={base64}
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>

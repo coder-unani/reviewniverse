@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
-import { DEFAULT_IMAGES } from '@/config/constants';
+import { fReplaceImageOnError } from '@/utils/formatContent';
 
 const GenresVertical = ({ uniqueId }) => {
   const [isBeginning, setIsBeginning] = useState(true);
@@ -75,27 +75,12 @@ const GenresVertical = ({ uniqueId }) => {
       });
 
       // 이미지에 대한 onError 처리
-      const images = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] img`);
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            const testImage = new Image();
-            testImage.src = img.src;
+      const cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
 
-            testImage.onerror = () => {
-              img.src = DEFAULT_IMAGES.noImage; // 대체 이미지로 변경
-            };
-
-            observer.unobserve(img); // 감지 후 감시 중단
-          }
-        });
-      });
-
-      images.forEach((img) => observer.observe(img));
-
+      // 컴포넌트 언마운트 시 스와이퍼 인스턴스, 이미지 에러 처리 함수 제거
       return () => {
-        images.forEach((img) => observer.unobserve(img)); // 컴포넌트 언마운트 시 관찰 해제
+        genreSwiperInstance.destroy();
+        cleanUpImage();
       };
     }
   }, [uniqueId]);

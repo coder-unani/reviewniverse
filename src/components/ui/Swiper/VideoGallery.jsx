@@ -5,6 +5,7 @@ import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
 import { fParseInt } from '@/utils/format';
+import { fReplaceImageOnError } from '@/utils/formatContent';
 import PhotoModal from '@/components/ui/Modal/Photo';
 
 const VideoGallery = ({ uniqueId, gallery, alt }) => {
@@ -70,6 +71,15 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
           togglePhotoModal(index);
         });
       });
+
+      // 이미지에 대한 onError 처리
+      const cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
+
+      // 컴포넌트 언마운트 시 스와이퍼 인스턴스, 이미지 에러 처리 함수 제거
+      return () => {
+        gallerySwiperInstance.destroy();
+        cleanUpImage();
+      };
     }
   }, [uniqueId]);
 

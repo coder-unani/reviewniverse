@@ -1,4 +1,5 @@
 import { isEmpty } from 'lodash';
+
 import {
   USER_CODE,
   SCREEN_MAIN_ID,
@@ -171,4 +172,34 @@ export const fCountdown = (upcoming) => {
   // upcoming 배열의 첫번째 요소의 countdown 값
   if (isEmpty(upcoming)) return '';
   return upcoming[0].countdown;
+};
+
+// 이미지 에러 처리 포맷: 이미지가 없을 경우 대체 이미지로 변경
+export const fReplaceImageOnError = (selector) => {
+  const images = document.querySelectorAll(selector);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const testImage = new Image();
+        testImage.src = img.src;
+
+        // 이미지 로드 에러 시 대체 이미지로 변경
+        testImage.onerror = () => {
+          img.style.display = 'none'; // 이미지 태그를 숨김
+        };
+
+        // 관찰 중지
+        observer.unobserve(img);
+      }
+    });
+  });
+
+  images.forEach((img) => observer.observe(img));
+
+  return () => {
+    // 컴포넌트 언마운트 시 관찰 해제
+    images.forEach((img) => observer.unobserve(img));
+  };
 };
