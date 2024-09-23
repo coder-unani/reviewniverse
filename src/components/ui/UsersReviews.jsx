@@ -9,7 +9,7 @@ import { MESSAGES } from '@/config/messages';
 import { fParseInt } from '@/utils/format';
 import { useUserReviews } from '@/hooks/useUserReviews';
 import { showErrorToast } from '@/components/ui/Toast';
-import ReviewItem from '@/components/ui/ReviewItem';
+import Reviews from '@/components/ui/Reviews';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
@@ -42,7 +42,7 @@ const UsersReviews = ({ id }) => {
       return;
     }
     if (!reviewsData.status) {
-      if (videosData.code === 'C001') {
+      if (reviewsData.code === 'C001') {
         // TODO: 고도화 필요
         if (page > 1) setPage((prev) => prev - 1);
         // showErrorToast(MESSAGES["C001"]);
@@ -55,7 +55,7 @@ const UsersReviews = ({ id }) => {
       setReviews(reviewsData.data);
     } else {
       setReviews((prev) => {
-        if (prev.page === videosData.data.page) return prev;
+        if (prev.page === reviewsData.data.page) return prev;
         return {
           ...prev,
           count: reviewsData.data.count,
@@ -86,8 +86,9 @@ const UsersReviews = ({ id }) => {
         </strong>
       </section>
       <section className={styles.reviews__content__section}>
-        {!isEmpty(reviews.data) &&
-          reviews.data.map((review) => <ReviewItem key={review.id} user={reviews.user} review={review} />)}
+        <div className={styles.reviews__content__wrapper}>
+          {!isEmpty(reviews.data) && <Reviews reviews={reviews} handlePage={handlePage} />}
+        </div>
       </section>
     </>
   );
