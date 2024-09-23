@@ -7,7 +7,7 @@ import { fPlatformNameByCode } from '@/utils/formatContent';
 
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoPlatforms = ({ platforms, title }) => {
+const VideoPlatform = ({ platforms, title }) => {
   if (isEmpty(platforms)) {
     return null;
   }
@@ -41,4 +41,4 @@ const VideoPlatforms = ({ platforms, title }) => {
   );
 };
 
-export default VideoPlatforms;
+export default VideoPlatform;

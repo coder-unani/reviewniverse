@@ -32,12 +32,14 @@ export const useReviewLike = () => {
         //   return updatedMyInfo;
         // });
 
-        // videoReviews 캐시 업데이트
+        // videoReviews 쿼리 키의 데이터 업데이트
         queryClient.setQueriesData({ queryKey: ['videoReviews', videoId], exact: false }, (prev) => {
-          if (!prev) return prev;
-          const updatedReviews = { ...prev };
-          updatedReviews.data = updatedReviews.data.map((review) => {
+          if (!prev || !prev.data) return prev;
+
+          let isUpdated = false;
+          const updatedReviews = prev.data.data.map((review) => {
             if (review.id === reviewId) {
+              isUpdated = true;
               return {
                 ...review,
                 like_count: likeCount,
@@ -46,15 +48,26 @@ export const useReviewLike = () => {
             }
             return review;
           });
-          return updatedReviews;
+
+          if (!isUpdated) return prev;
+
+          return {
+            ...prev,
+            data: {
+              ...prev.data,
+              data: updatedReviews,
+            },
+          };
         });
 
-        // userReviews 캐시 업데이트
+        // userReviews 쿼리 키의 데이터 업데이트
         queryClient.setQueriesData({ queryKey: ['userReviews', userId], exact: false }, (prev) => {
-          if (!prev) return prev;
-          const updatedReviews = { ...prev };
-          updatedReviews.data.data = updatedReviews.data.data.map((review) => {
+          if (!prev || !prev.data) return prev;
+
+          let isUpdated = false;
+          const updatedReviews = prev.data.data.map((review) => {
             if (review.id === reviewId) {
+              isUpdated = true;
               return {
                 ...review,
                 like_count: likeCount,
@@ -63,7 +76,16 @@ export const useReviewLike = () => {
             }
             return review;
           });
-          return updatedReviews;
+
+          if (!isUpdated) return prev;
+
+          return {
+            ...prev,
+            data: {
+              ...prev.data,
+              data: updatedReviews,
+            },
+          };
         });
       } else {
         throw new Error('리뷰 좋아요 상태 변경에 실패했습니다.');

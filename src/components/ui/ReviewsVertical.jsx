@@ -1,14 +1,13 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
-import ReviewItem from '@/components/ui/ReviewItem';
+import UserReviewItem from '@/components/ui/UserReviewItem';
 
-import vvStyles from '@/styles/components/VideosVertical.module.scss';
-
-const Reviews = ({ children, reviews, handlePage }) => {
+const ReviewsVertical = ({ children, reviews, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
+  // hasMore 상태 변경
   useEffect(() => {
     if (reviews.data && reviews.total <= reviews.data.length) {
       setHasMore(false);
@@ -17,6 +16,7 @@ const Reviews = ({ children, reviews, handlePage }) => {
     }
   }, [reviews]);
 
+  // 무한 스크롤 처리
   const lastItemRef = useCallback(
     (node) => {
       if (!hasMore) return;
@@ -33,6 +33,7 @@ const Reviews = ({ children, reviews, handlePage }) => {
     [hasMore, reviews]
   );
 
+  // 리뷰 데이터가 없는 경우
   if (isEmpty(reviews.data)) {
     return;
   }
@@ -40,11 +41,11 @@ const Reviews = ({ children, reviews, handlePage }) => {
   return (
     <>
       {reviews.data.map((review) => (
-        <ReviewItem key={review.id} user={reviews.user} review={review} />
+        <UserReviewItem user={reviews.user} review={review} key={review.id} />
       ))}
       {hasMore && <article ref={lastItemRef}></article>}
     </>
   );
 };
 
-export default Reviews;
+export default ReviewsVertical;

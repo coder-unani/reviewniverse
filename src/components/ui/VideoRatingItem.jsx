@@ -6,7 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
-import RatingReview from '@/components/ui/RatingReview';
+import RatingScore from '@/components/ui/RatingScore';
 
 import defStyles from '@/styles/components/VideoItem.module.scss';
 
@@ -37,7 +37,7 @@ const VideoRatingItem = ({ video }) => {
         <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
-            <RatingReview rating={rating} />
+            <RatingScore rating={rating} />
           </div>
         </div>
       </div>

@@ -1,17 +1,18 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { isEmpty } from 'lodash';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fDiffDate } from '@/utils/format';
+import { fYear, fDiffDate } from '@/utils/format';
+import { fVideoCode, fThumbnail } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
-import RatingReview from '@/components/ui/RatingReview';
+import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
-import styles from '@/styles/components/VideoReviewItem.module.scss';
+import MoreIcon from '@/resources/icons/more.svg';
+import styles from '@/styles/components/ReviewItem.module.scss';
 
 /**
  * TODO:
@@ -20,54 +21,75 @@ import styles from '@/styles/components/VideoReviewItem.module.scss';
  */
 
 const VideoReviewItem = ({ videoId, review }) => {
+  const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
-  const profilePath = review.user ? EndpointManager.generateUrl(ENDPOINTS.USER, { userId: review.user.id }) : '';
-  const profileImage = review.user ? review.user.profile_image : DEFAULT_IMAGES.noActor;
-  const profileNickname = review.user ? review.user.nickname : '탈퇴한 회원 입니다.';
+  const userPath = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: data.user.id });
 
   useEffect(() => {
+    setData(review);
     setActive(review.is_spoiler);
   }, [review]);
 
-  // 스포일러 리뷰 클릭 시 스포일러 내용 보이기/숨기기
   const handleSpoiler = () => {
     if (!active) return;
     setActive((prev) => !prev);
   };
 
   return (
-    <article className={styles.detail__review__item}>
-      <div className={styles.detail__review__profile__wrapper}>
-        <Link href={profilePath} className={styles.detail__review__profile__link} data-active={!isEmpty(review.user)}>
-          <ProfileImage image={profileImage} size={36} />
+    <div className={styles.review__item}>
+      <div className={styles.review__profile__wrapper}>
+        <Link href={userPath} className={styles.review__profile__link}>
+          <ProfileImage image={data.user.profile_image} size={36} />
+          <div className={styles.review__profile__info__wrapper}>
+            <div className={styles.review__nickname__wrapper}>
+              <span className={styles.review__nickname}>{data.user.nickname}</span>
+              {data.rating && <RatingScore rating={data.rating} />}
+            </div>
+            <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
+          </div>
         </Link>
+        {/* <button className={styles.review__more__button}>
+          <MoreIcon />
+        </button> */}
       </div>
-      <div className={styles.detail__review__content__wrapper}>
-        <div className={styles.detail__review__header}>
-          <Link
-            href={profilePath}
-            className={styles.detail__review__nickname__link}
-            data-active={!isEmpty(review.user)}
-          >
-            <p className={styles.detail__review__nickname}>{profileNickname}</p>
-          </Link>
-          {review.rating && <RatingReview rating={review.rating} />}
-        </div>
-        <div className={styles.detail__review__body} data-spoiler={review.is_spoiler}>
-          {review.is_spoiler ? (
-            <p className={styles.detail__review__content} data-active={active} onClick={handleSpoiler}>
-              {review.title}
-            </p>
-          ) : (
-            <p className={styles.detail__review__content}>{review.title}</p>
-          )}
-        </div>
-        <div className={styles.detail__review__footer}>
-          <span className={styles.detail__review__date}>{fDiffDate(review.created_at)}</span>
-          <ReviewLikeButton videoId={videoId} review={review} />
+      <div className={styles.review__video__wrapper}>
+        {/* <Link href={path} className={styles.review__video__link}>
+          <picture className={styles.review__thumbnail__wrapper}>
+            <LazyLoadImage
+              className={styles.review__thumbnail}
+              src={fThumbnail(data.video.thumbnail)}
+              srcSet={fThumbnail(data.video.thumbnail)}
+              alt={data.video.title}
+              effect="blur"
+            />
+          </picture>
+        </Link> */}
+        <div className={styles.review__wrapper}>
+          <div className={styles.review__content__wrapper}>
+            {/* <div className={styles.review__video__info__wrapper}>
+              <span className={styles.review__video__title}>{data.video.title}</span>
+              <span className={styles.review__video__release}>
+                <span>{fVideoCode(data.video.code)}</span>
+                <span>|</span>
+                <span>{fYear(data.video.release)}</span>
+              </span>
+            </div> */}
+            <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
+              {data.is_spoiler ? (
+                <p className={styles.review__comment} data-active={active} onClick={handleSpoiler}>
+                  {data.title}
+                </p>
+              ) : (
+                <p className={styles.review__comment}>{data.title}</p>
+              )}
+            </div>
+          </div>
+          <div className={styles.review__more__wrapper}>
+            <ReviewLikeButton videoId={videoId} review={data} setReview={setData} />
+          </div>
         </div>
       </div>
-    </article>
+    </div>
   );
 };
 

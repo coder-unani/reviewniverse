@@ -8,7 +8,7 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDiffDate } from '@/utils/format';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
-import RatingReview from '@/components/ui/RatingReview';
+import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
 import MoreIcon from '@/resources/icons/more.svg';
@@ -20,17 +20,19 @@ import styles from '@/styles/components/ReviewItem.module.scss';
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
-const ReviewItem = ({ user, review }) => {
+const UserReviewItem = ({ user, review }) => {
   const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
 
+  // 리뷰 데이터 state 설정
   useEffect(() => {
     setData(review);
     setActive(review.is_spoiler);
   }, [review]);
 
+  // 스포일러 처리
   const handleSpoiler = () => {
     if (!active) return;
     setActive((prev) => !prev);
@@ -43,7 +45,7 @@ const ReviewItem = ({ user, review }) => {
         <div className={styles.review__profile__info__wrapper}>
           <div className={styles.review__nickname__wrapper}>
             <span className={styles.review__nickname}>{user.nickname}</span>
-            {data.rating && <RatingReview rating={data.rating} />}
+            {data.rating && <RatingScore rating={data.rating} />}
           </div>
           <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
         </div>
@@ -92,4 +94,4 @@ const ReviewItem = ({ user, review }) => {
   );
 };
 
-export default ReviewItem;
+export default UserReviewItem;

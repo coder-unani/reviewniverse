@@ -2,9 +2,9 @@ import React from 'react';
 
 import { fRating, fRatingColor } from '@/utils/formatContent';
 
-import styles from '@/styles/components/RatingReview.module.scss';
+import styles from '@/styles/components/RatingScore.module.scss';
 
-const RatingReview = ({ rating }) => {
+const RatingScore = ({ rating }) => {
   // const length = Math.ceil(fRating(rating));
   const color = fRatingColor(rating);
 
@@ -21,4 +21,4 @@ const RatingReview = ({ rating }) => {
   );
 };
 
-export default RatingReview;
+export default RatingScore;

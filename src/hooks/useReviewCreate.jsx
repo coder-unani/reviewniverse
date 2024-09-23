@@ -15,15 +15,18 @@ export const useReviewCreate = () => {
         const videoId = variables.videoId;
         const userId = variables.userId;
 
+        // videoMyInfo 쿼리 키의 데이터 무효화
         queryClient.invalidateQueries({
           queryKey: ['videoMyInfo', { videoId, userId }],
         });
 
+        // videoReviews 쿼리 키의 데이터 무효화
         queryClient.invalidateQueries({
           queryKey: ['videoReviews', videoId],
           exact: false,
         });
 
+        // userReviews 쿼리 키의 데이터 무효화
         queryClient.invalidateQueries({
           queryKey: ['userReviews', userId],
           exact: false,

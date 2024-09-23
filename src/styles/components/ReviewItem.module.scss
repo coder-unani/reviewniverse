@@ -14,11 +14,15 @@
   }
 }
 
-.review__profile__wrapper {
-  position: relative;
+.review__profile__link {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+.review__profile__wrapper {
+  position: relative;
+  display: flex;
 }
 
 .review__profile__info__wrapper {

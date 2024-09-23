@@ -251,6 +251,7 @@ header {
 
 // 리뷰 좋아요 카운트
 .review__like__count {
+  min-width: 10px;
   font-size: 14px;
   font-weight: 600;
   color: $color-white-06;

@@ -28,8 +28,8 @@ import ShareButton from '@/components/ui/Button/Share';
 import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoPoster from '@/components/ui/VideoPoster';
 import VideoMyRating from '@/components/ui/VideoMyRating';
-import VideoPlatforms from '@/components/ui/VideoPlatforms';
-import VideoReviews from '@/components/ui/VideoReviews';
+import VideoPlatform from '@/components/ui/VideoPlatform';
+import VideoReview from '@/components/ui/VideoReview';
 import VideoPeople from '@/components/ui/VideoPeople';
 import VideoTrailer from '@/components/ui/VideoTrailer';
 import VideoGallery from '@/components/ui/VideoGallery';
@@ -313,10 +313,10 @@ const Contents = async ({ params }) => {
 
             <div className={styles.detail__more__wrapper}>
               <VideoMyRating videoId={videoId} title={myRatingTitle} />
-              <VideoPlatforms platforms={platforms} title={platformTitle} />
+              <VideoPlatform platforms={platforms} title={platformTitle} />
             </div>
           </section>
-          <VideoReviews videoId={videoId} />
+          <VideoReview videoId={videoId} />
           <VideoPeople people={actors} title={actorTitle} formatCode={actorFormatCode} />
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
           <VideoTrailer trailer={trailer} title={trailerTitle} alt={trailerAlt} />

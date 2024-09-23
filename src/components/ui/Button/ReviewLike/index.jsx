@@ -24,9 +24,11 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
       toggleEnjoyModal();
       return;
     }
+
     if (isLikePending) {
       return;
     }
+
     await reviewLike(
       { videoId, reviewId: review.id, userId: user.id },
       {

@@ -17,30 +17,49 @@ export const useVideoRating = () => {
         const videoId = variables.videoId;
         const userId = variables.userId;
 
-        // videoDetail 쿼리 키의 데이터를 업데이트
+        // videoDetail 쿼리 키의 데이터 업데이트
         queryClient.setQueryData(['videoDetail', videoId], (prevDetail) => {
-          if (!prevDetail) return prevDetail;
+          if (!prevDetail || prevDetail.data.rating === ratingAvg) return prevDetail;
           return {
             ...prevDetail,
             data: { ...prevDetail.data, rating: ratingAvg },
           };
         });
 
-        // videoMyInfo 쿼리 키의 데이터를 업데이트
+        // videoMyInfo 쿼리 키의 데이터 업데이트
         queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prevMyInfo) => {
           if (!prevMyInfo) return prevMyInfo;
+
           // review 데이터가 있는 경우
           if (prevMyInfo.review && prevMyInfo.review.id) {
-            // videoReviews 쿼리 키의 데이터를 업데이트
+            // videoReviews 쿼리 키의 데이터 업데이트
             queryClient.setQueriesData({ queryKey: ['videoReviews', videoId], exact: false }, (prevReviews) => {
-              const updatedReviews = { ...prevReviews };
-              updatedReviews.data = updatedReviews.data.map((review) =>
-                review.id === prevMyInfo.review.id ? { ...review, rating: rating } : review
-              );
-              return updatedReviews;
+              if (!prevReviews || !prevReviews.data) return prevReviews;
+
+              let isUpdated = false;
+              const updatedReviews = prevReviews.data.data.map((review) => {
+                if (review.id === prevMyInfo.review.id) {
+                  isUpdated = true;
+                  return { ...review, rating: rating };
+                }
+                return review;
+              });
+
+              if (!isUpdated) return prevReviews;
+
+              return {
+                ...prevReviews,
+                data: {
+                  ...prevReviews.data,
+                  data: updatedReviews,
+                },
+              };
             });
           }
-          return { ...prevMyInfo, rating: rating };
+
+          if (prevMyInfo.rating === rating) return prevMyInfo;
+
+          return { ...prevMyInfo, rating };
         });
 
         // userRatings 쿼리 키의 데이터 무효화
