@@ -6,14 +6,13 @@
 }
 
 .user__section {
-  margin: 0 $margin-large;
+  margin: 0 $margin-medium;
 }
 
 .user__wrapper {
   max-width: 640px;
   border-radius: 14px;
-  padding-top: 40px;
-  margin: 0 auto;
+  margin: 40px auto 0;
   overflow: hidden;
 }
 
@@ -102,9 +101,8 @@
   line-height: 16px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 576px) {
   .user__section {
-    width: 100%;
     margin: 0;
   }
 
@@ -112,7 +110,7 @@
     border-radius: unset;
     border: none;
     border-bottom: 1px solid $border-color-01;
-    padding: 0;
+    margin-top: 0;
   }
 
   .user__background__image {

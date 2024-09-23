@@ -6,13 +6,12 @@
 }
 
 .edit__section {
-  max-width: 640px;
-  padding: 0px 20px;
-  margin: 40px auto 0px;
+  margin: 0 $margin-medium;
 }
 
 .edit__form {
-  padding: 20px;
+  max-width: 640px;
+  margin: 40px auto 0;
   overflow: hidden;
 
   label {
@@ -218,12 +217,6 @@
 
 @media (max-width: 768px) {
   .edit__section {
-    width: 100%;
-    padding: 0;
-    margin: 20px auto 0;
-  }
-
-  .edit__form {
-    padding: 20px $padding-small;
+    margin: 0 $margin-small;
   }
 }
