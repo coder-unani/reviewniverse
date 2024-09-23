@@ -80,12 +80,14 @@ const UsersLikes = ({ id }) => {
 
   return (
     <>
-      <section className={styles.contents__section}>
+      <section className={styles.contents__title__section}>
         <strong className={styles.contents__title}>
           <em>{videos.user.nickname}</em> 님이 좋아하는 작품이 {videos.total} 개 있어요
         </strong>
       </section>
-      {!isEmpty(videos.data) && <VideosLike videos={videos} handlePage={handlePage} />}
+      <section className={styles.contents__content__section}>
+        {!isEmpty(videos.data) && <VideosLike videos={videos} handlePage={handlePage} />}
+      </section>
     </>
   );
 };

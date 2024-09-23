@@ -1,16 +1,12 @@
 @use '@/styles/variables' as *;
 
 .contents__main {
-  width: 100%;
-  max-width: 1440px;
   min-height: calc(100vh - $footer-height);
   padding: $header-height 0 60px;
-  margin: 0 auto;
 }
 
-.contents__section {
+.contents__title__section {
   max-width: 1440px;
-  padding-top: 12px;
   margin: 0 auto;
 }
 
@@ -20,7 +16,7 @@
   font-weight: 600;
   color: $color-white-04;
   line-height: 20px;
-  padding: 16px $padding-large 0;
+  padding: 28px $padding-large 0;
 
   em {
     font-weight: 800;
@@ -28,14 +24,19 @@
   }
 }
 
+.contents__content__section {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
 @media (max-width: 1024px) {
   .contents__title {
-    padding: 16px $padding-medium 0;
+    padding: 28px $padding-medium 0;
   }
 }
 
 @media (max-width: 576px) {
   .contents__title {
-    padding: 16px $padding-small 0;
+    padding: 28px $padding-small 0;
   }
 }

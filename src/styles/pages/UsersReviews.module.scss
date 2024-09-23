@@ -16,8 +16,7 @@
   font-weight: 600;
   color: $color-white-04;
   line-height: 20px;
-  padding-top: 28px;
-  margin: 0 auto;
+  margin: 28px auto 0;
 
   em {
     font-weight: 800;
@@ -29,10 +28,9 @@
   margin: 0 $margin-medium;
 }
 
-.reviews__content__wrapper {
+.reviews__content {
   max-width: 640px;
-  padding-top: 20px;
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 
 @media (max-width: 576px) {

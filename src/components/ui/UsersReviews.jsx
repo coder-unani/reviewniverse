@@ -86,7 +86,7 @@ const UsersReviews = ({ id }) => {
         </strong>
       </section>
       <section className={styles.reviews__content__section}>
-        <div className={styles.reviews__content__wrapper}>
+        <div className={styles.reviews__content}>
           {!isEmpty(reviews.data) && <Reviews reviews={reviews} handlePage={handlePage} />}
         </div>
       </section>
