@@ -6,7 +6,7 @@ import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS, VIDEO_MO
 import { fExportScreenDataByCode } from '@/utils/formatContent';
 import { fetchScreenVideos } from '@/library/api/screens';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
-import { fetchVideos } from '@/library/api/videos';
+import { fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
 import VideosPreview from '@/components/ui/VideosPreview';
 import VideosHorizontal from '@/components/ui/VideosHorizontal';
 import GenresVertical from '@/components/ui/GenresVertical';
@@ -57,12 +57,10 @@ const getUpcomingVideos = async () => {
   const options = {
     page: 1,
     size: 20,
-    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
-    terms: VIDEO_TERMS_OPTIONS.UPCOMING,
   };
 
   // Coming Videos API 호출
-  const res = await fetchVideos({ ...options });
+  const res = await fetchUpcomingVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   } else {

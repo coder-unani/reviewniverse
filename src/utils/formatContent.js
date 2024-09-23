@@ -167,13 +167,6 @@ export const fRuntimeText = (code) => {
   return code === '10' ? '상영시간' : '시리즈';
 };
 
-// 카운트다운 포맷
-export const fCountdown = (upcoming) => {
-  // upcoming 배열의 첫번째 요소의 countdown 값
-  if (isEmpty(upcoming)) return '';
-  return upcoming[0].countdown;
-};
-
 // 이미지 에러 처리 포맷: 이미지가 없을 경우 대체 이미지로 변경
 export const fReplaceImageOnError = (selector) => {
   const images = document.querySelectorAll(selector);

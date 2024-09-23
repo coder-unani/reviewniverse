@@ -16,16 +16,8 @@
     height: 100%;
     border-radius: 8px;
     background: $color-magenta;
-    background: -webkit-linear-gradient(
-      to right,
-      rgba($color-cyan, 0.75),
-      rgba($color-magenta, 0.75)
-    );
-    background: linear-gradient(
-      to right,
-      rgba($color-cyan, 0.75),
-      rgba($color-magenta, 0.75)
-    );
+    background: -webkit-linear-gradient(to right, rgba($color-cyan, 0.75), rgba($color-magenta, 0.75));
+    background: linear-gradient(to right, rgba($color-cyan, 0.75), rgba($color-magenta, 0.75));
   }
 }
 
@@ -37,6 +29,10 @@
   line-height: 25px;
   padding: 0 8px;
   z-index: 1;
+}
+
+.coming__platform {
+  color: $color-white-01;
 }
 
 @media (max-width: 576px) {

@@ -5,6 +5,7 @@ import { useRouter, notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import { ENDPOINTS } from '@/config/endpoints';
+import { cLog } from '@/utils/test';
 import { fParseInt } from '@/utils/format';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
 import VideoReviewsVertical from '@/components/ui/VideoReviewsVertical';
@@ -17,11 +18,12 @@ const VideoReviews = ({ id }) => {
   const [reviews, setReviews] = useState(null);
   const [page, setPage] = useState(1);
   const pageSize = 20;
+  const metadata = 'video';
   const {
     data: reviewsData,
     error: reviewsError,
     isLoading: reviewsIsLoading,
-  } = useVideoReviews({ videoId, page, pageSize, enabled: videoId });
+  } = useVideoReviews({ videoId, page, pageSize, metadata, enabled: videoId });
 
   // 숫자가 아닌 경우 notFound 페이지로 이동
   useEffect(() => {
@@ -85,7 +87,11 @@ const VideoReviews = ({ id }) => {
     <>
       <section className={styles.reviews__title__section}>
         <strong className={styles.reviews__title}>
-          {/* <em>{reviews.user.nickname}</em> 님이 기록한 리뷰가 {reviews.total} 개 있어요 */}
+          {reviews.metadata && (
+            <>
+              <em>{reviews.metadata.video.title}</em> 의 모든 리뷰
+            </>
+          )}
         </strong>
       </section>
       <section className={styles.reviews__content__section}>

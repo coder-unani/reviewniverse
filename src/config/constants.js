@@ -64,7 +64,6 @@ export const VIDEO_BY_OPTIONS = {
 export const VIDEO_TERMS_OPTIONS = {
   RELEASED: 'released',
   CURRENT: 'current',
-  UPCOMING: 'upcoming',
 };
 
 export const VIDEO_MODEL_OPTIONS = {

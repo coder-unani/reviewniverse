@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDate } from '@/utils/format';
-import { fThumbnail, fCountry, fCountdown } from '@/utils/formatContent';
+import { fPlatformNameByCode, fThumbnail } from '@/utils/formatContent';
+import { cLog } from '@/utils/test';
 
 import styles from '@/styles/components/VideoUpComingItem.module.scss';
 import defStyles from '@/styles/components/VideoItem.module.scss';
@@ -19,9 +21,20 @@ const VideoUpComingItem = async ({ video }) => {
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
   const code = video.code_string;
-  const countdown = fCountdown(video.upcoming);
-  const release = fDate(video.release);
-  const country = fCountry(video.country);
+  let upComing = {};
+  if (isEmpty(video.upcoming)) {
+    upComing = {
+      platform: '',
+      url: '',
+      release: video.release,
+      countdown: 0,
+    };
+  } else {
+    upComing = video.upcoming[0];
+  }
+  const countdown = upComing.countdown;
+  const release = fDate(upComing.release);
+  const platform = fPlatformNameByCode(upComing.platform) || '공개 예정';
 
   return (
     <Link href={path} className={defStyles.default__video__item} aria-label={title}>
@@ -40,21 +53,19 @@ const VideoUpComingItem = async ({ video }) => {
         <div className={defStyles.default__code__wrapper}>
           <div className={defStyles.default__code}>{code}</div>
         </div>
-        {countdown && (
-          <div className={styles.coming__dday__wrapper}>
-            <p className={styles.coming__dday}>D-{countdown}</p>
-          </div>
-        )}
+        <div className={styles.coming__dday__wrapper}>
+          <p className={styles.coming__dday}>{countdown > 0 ? `D-${countdown}` : '오늘 공개'}</p>
+        </div>
       </div>
       <div className={defStyles.default__info__container}>
         <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
             <span>{release}</span>
-            {country && (
+            {platform && (
               <>
                 <span>|</span>
-                <span>{country}</span>
+                <span className={styles.coming__platform}>{platform}</span>
               </>
             )}
           </div>

@@ -4,7 +4,7 @@ import { fetchVideoReviews } from '@/library/api/videos';
 
 // TODO: queryKey page, pageSize 추가
 
-export const useVideoReviews = ({ videoId, page = null, pageSize = null, enabled }) => {
+export const useVideoReviews = ({ videoId, page = null, pageSize = null, metadata = null, enabled }) => {
   return useQuery({
     queryKey: [
       'videoReviews',
@@ -12,10 +12,11 @@ export const useVideoReviews = ({ videoId, page = null, pageSize = null, enabled
       {
         ...(page !== null && { page }),
         ...(pageSize !== null && { pageSize }),
+        ...(metadata !== null && { metadata }),
       },
     ],
     queryFn: async () => {
-      const res = await fetchVideoReviews({ videoId, page, pageSize });
+      const res = await fetchVideoReviews({ videoId, page, pageSize, metadata });
       if (res.status === 200) {
         return {
           status: true,
