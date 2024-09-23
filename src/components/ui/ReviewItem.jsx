@@ -20,11 +20,12 @@ import styles from '@/styles/components/ReviewItem.module.scss';
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
-const UserReviewItem = ({ user, review }) => {
+const ReviewItem = ({ user, review }) => {
   const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
-  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
+  const videoPath = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
+  const userPath = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
 
   // 리뷰 데이터 state 설정
   useEffect(() => {
@@ -41,20 +42,22 @@ const UserReviewItem = ({ user, review }) => {
   return (
     <div className={styles.review__item}>
       <div className={styles.review__profile__wrapper}>
-        <ProfileImage image={user.profile_image} size={36} />
-        <div className={styles.review__profile__info__wrapper}>
-          <div className={styles.review__nickname__wrapper}>
-            <span className={styles.review__nickname}>{user.nickname}</span>
-            {data.rating && <RatingScore rating={data.rating} />}
+        <Link href={userPath} className={styles.review__profile__link}>
+          <ProfileImage image={user.profile_image} size={36} />
+          <div className={styles.review__profile__info__wrapper}>
+            <div className={styles.review__nickname__wrapper}>
+              <span className={styles.review__nickname}>{user.nickname}</span>
+              {data.rating && <RatingScore rating={data.rating} />}
+            </div>
+            <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
           </div>
-          <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
-        </div>
+        </Link>
         {/* <button className={styles.review__more__button}>
           <MoreIcon />
         </button> */}
       </div>
       <div className={styles.review__video__wrapper}>
-        <Link href={path} className={styles.review__video__link}>
+        <Link href={videoPath} className={styles.review__video__link}>
           <picture className={styles.review__thumbnail__wrapper}>
             <LazyLoadImage
               className={styles.review__thumbnail}
@@ -94,4 +97,4 @@ const UserReviewItem = ({ user, review }) => {
   );
 };
 
-export default UserReviewItem;
+export default ReviewItem;

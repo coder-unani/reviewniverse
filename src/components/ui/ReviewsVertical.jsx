@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
-import UserReviewItem from '@/components/ui/UserReviewItem';
+import ReviewItem from '@/components/ui/ReviewItem';
 
 const ReviewsVertical = ({ children, reviews, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
@@ -41,7 +41,7 @@ const ReviewsVertical = ({ children, reviews, handlePage }) => {
   return (
     <>
       {reviews.data.map((review) => (
-        <UserReviewItem user={reviews.user} review={review} key={review.id} />
+        <ReviewItem user={reviews.user} review={review} key={review.id} />
       ))}
       {hasMore && <article ref={lastItemRef}></article>}
     </>
