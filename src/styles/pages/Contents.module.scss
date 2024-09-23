@@ -208,7 +208,8 @@
 
   &.production {
     .detail__sub__content__wrapper {
-      gap: 28px;
+      // gap: 28px;
+      gap: 8px;
     }
 
     &[data-index]:not([data-index='0'], [data-index='1']) {
