@@ -24,7 +24,7 @@ const ReviewItem = ({ user, review }) => {
   const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
-  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: review.video.id });
+  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
 
   useEffect(() => {
     setData(review);

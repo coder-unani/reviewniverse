@@ -54,7 +54,7 @@ const VideosVertical = ({ children, videos, handlePage }) => {
       <div className={styles.vertical__videos__wrapper}>
         {videos.data.map((video, index) => (
           <Link
-            href={EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.id })}
+            href={EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id })}
             className={defStyles.default__video__item}
             aria-label={video.title}
             key={video.id}

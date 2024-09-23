@@ -20,7 +20,7 @@ export const metadata = ({ params }) => {
   const title = `${name}의 검색결과 - 리뷰니버스`;
   const description = `${name}의 검색결과 - 리뷰니버스`;
   const imageUrl = DEFAULT_IMAGES.logo;
-  const path = EndpointManager.generateUrl(ENDPOINTS.GENRE, { genreId });
+  const path = EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
 
   return {

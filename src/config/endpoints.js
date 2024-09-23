@@ -10,10 +10,11 @@ export class EndpointManager {
 
 export const ENDPOINTS = {
   HOME: '/',
-  VIDEO_DETAIL: '/contents/:videoId',
+  CONTENTS: '/contents/:videoId',
+  CONTENTS_REVIEWS: '/contents/:videoId/reviews',
   PEOPLE: '/people/:peopleId',
-  GENRE: '/genres/:genreId',
-  PRODUCTION: '/productions/:productionId',
+  GENRES: '/genres/:genreId',
+  PRODUCTIONS: '/productions/:productionId',
   SEARCH: '/search',
   USER_AUTH_KAKAO_CALLBACK: '/users/auth/kakao/callback',
   USER_AUTH_NAVER_CALLBACK: '/users/auth/naver/callback',
@@ -28,6 +29,6 @@ export const ENDPOINTS = {
   USER_DELETE: '/users/delete',
   // ERROR: '/500',
   ERROR: '/error',
-  NOT_FOUND: '/_not-found',
+  // NOT_FOUND: '/_not-found',
   DENIED_ALL: '/*',
 };

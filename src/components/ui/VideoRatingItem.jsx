@@ -11,7 +11,7 @@ import RatingReview from '@/components/ui/RatingReview';
 import defStyles from '@/styles/components/VideoItem.module.scss';
 
 const VideoRatingItem = ({ video }) => {
-  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.video.id });
+  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.video.id });
   const title = video.video.title;
   const thumbnail = fThumbnail(video.video.thumbnail);
   const code = fVideoCode(video.video.code);

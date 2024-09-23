@@ -69,7 +69,7 @@ const VideosPreview = async ({ videos }) => {
                   key={video.id}
                 >
                   <Link
-                    href={EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId: video.id })}
+                    href={EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id })}
                     className={vpStyles.preview__thumbnail__link}
                     aria-label={video.title}
                     data-index={index}

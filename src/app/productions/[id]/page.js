@@ -17,7 +17,7 @@ export const metadata = ({ params }) => {
   const title = `${name} - 리뷰니버스`;
   const description = `${name}의 ${videos.total}개 작품`;
   const imageUrl = DEFAULT_IMAGES.logo;
-  const path = EndpointManager.generateUrl(ENDPOINTS.PRODUCTION, { productionId });
+  const path = EndpointManager.generateUrl(ENDPOINTS.PRODUCTIONS, { productionId });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
 
   return {

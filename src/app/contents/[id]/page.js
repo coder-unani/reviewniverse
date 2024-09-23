@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 
 import { SETTINGS } from '@/config/settings';
 import { HOME_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
-import { fetchVideoDetail } from '@/library/api/videos';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fYear, fUpperCase } from '@/utils/format';
 import {
   fBackgroundImage,
@@ -21,7 +21,7 @@ import {
   fActorCode,
   fStaffCode,
 } from '@/utils/formatContent';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
 import ShareButton from '@/components/ui/Button/Share';
@@ -29,10 +29,10 @@ import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoPoster from '@/components/ui/VideoPoster';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoPlatforms from '@/components/ui/VideoPlatforms';
+import VideoReviews from '@/components/ui/VideoReviews';
 import VideoPeople from '@/components/ui/VideoPeople';
 import VideoTrailer from '@/components/ui/VideoTrailer';
 import VideoGallery from '@/components/ui/VideoGallery';
-import VideoReviews from '@/components/ui/VideoReviews';
 
 import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/pages/Contents.module.scss';
@@ -81,7 +81,7 @@ export const generateMetadata = async ({ params }) => {
   const synopsis = content.synopsis || '';
   // const imageUrl = fThumbnail(content.thumbnail);
   const imageUrl = fBackgroundImage(content.thumbnail);
-  const path = EndpointManager.generateUrl(ENDPOINTS.VIDEO_DETAIL, { videoId });
+  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
   const keywords = content.tag ? `${SITE_KEYWORDS}, ${title}, ${content.tag}` : `${SITE_KEYWORDS}, ${title}`;
 
@@ -170,7 +170,7 @@ const Contents = async ({ params }) => {
     return genres.map((genre, index) => (
       <li key={index}>
         <Link
-          href={EndpointManager.generateUrl(ENDPOINTS.GENRE, { genreId: genre.id })}
+          href={EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId: genre.id })}
           className={styles.detail__genre__link}
           aria-label={`${genre.name} 장르 보러가기`}
         >
@@ -201,7 +201,7 @@ const Contents = async ({ params }) => {
 
     return productions.map((production, index) => (
       <Link
-        href={EndpointManager.generateUrl(ENDPOINTS.PRODUCTION, { productionId: production.id })}
+        href={EndpointManager.generateUrl(ENDPOINTS.PRODUCTIONS, { productionId: production.id })}
         className={styles.detail__sub__content}
         aria-label={`${production.name} 제작사 보러가기`}
         key={index}
@@ -316,11 +316,11 @@ const Contents = async ({ params }) => {
               <VideoPlatforms platforms={platforms} title={platformTitle} />
             </div>
           </section>
+          <VideoReviews videoId={videoId} />
           <VideoPeople people={actors} title={actorTitle} formatCode={actorFormatCode} />
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
           <VideoTrailer trailer={trailer} title={trailerTitle} alt={trailerAlt} />
           <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
-          <VideoReviews videoId={videoId} />
         </div>
       </main>
 
