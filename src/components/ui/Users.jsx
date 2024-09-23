@@ -25,15 +25,9 @@ const Users = ({ id }) => {
   const { mutateAsync: userFetch } = useUser();
   const [isLogin, setIsLogin] = useState(false);
   const [profile, setProfile] = useState(null);
-  const pathRating = EndpointManager.generateUrl(ENDPOINTS.USER_RATINGS, {
-    userId,
-  });
-  const pathReview = EndpointManager.generateUrl(ENDPOINTS.USER_REVIEWS, {
-    userId,
-  });
-  const pathLike = EndpointManager.generateUrl(ENDPOINTS.USER_LIKES, {
-    userId,
-  });
+  const pathRating = EndpointManager.generateUrl(ENDPOINTS.USER_RATINGS, { userId });
+  const pathReview = EndpointManager.generateUrl(ENDPOINTS.USER_REVIEWS, { userId });
+  const pathLike = EndpointManager.generateUrl(ENDPOINTS.USER_LIKES, { userId });
 
   useEffect(() => {
     // 유저 아이디가 숫자가 아니라면 404페이지로 이동
