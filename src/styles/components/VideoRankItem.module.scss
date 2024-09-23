@@ -56,6 +56,8 @@
 
 @media (max-width: 576px) {
   .rank__thumbnail__wrapper {
+    border-radius: 8px;
+
     &::after {
       border-radius: 8px;
     }

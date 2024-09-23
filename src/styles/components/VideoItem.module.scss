@@ -15,9 +15,9 @@
   display: flex;
   width: 100%;
   height: 100%;
+  border-radius: 14px;
   background: url('#{$cdn-base-url}/assets/images/default-image.png') no-repeat center / auto 20%;
   background-color: $color-white-09;
-  border-radius: 14px;
 
   &::after {
     content: '';
@@ -151,6 +151,8 @@
 
 @media (max-width: 576px) {
   .default__thumbnail__wrapper {
+    border-radius: 8px;
+
     &::after {
       border-radius: 8px;
     }
