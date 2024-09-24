@@ -23,16 +23,12 @@
 
 .coming__dday {
   position: relative;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: $color-white-01;
   line-height: 25px;
   padding: 0 8px;
   z-index: 1;
-}
-
-.coming__platform {
-  color: $color-white-01;
 }
 
 @media (max-width: 576px) {
@@ -47,7 +43,8 @@
   }
 
   .coming__dday {
-    line-height: 24px;
+    font-size: 12px;
+    line-height: 22px;
     padding: 0 7px;
   }
 }
