@@ -4,42 +4,49 @@ import React, { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
-const VideosHorizontal = ({ uniqueId }) => {
+import { fReplaceImageOnError } from '@/utils/formatContent';
+
+const GenresSwiper = ({ uniqueId }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const swiperRef = useRef(null);
 
   useEffect(() => {
-    const horizontalSwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
+    const genreSwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (horizontalSwiper) {
+    if (genreSwiper) {
       // 스와이퍼 설정
-      const horizontalSwiperConfig = {
+      const genreSwiperConfig = {
         modules: [Navigation],
         spaceBetween: 8,
-        slidesPerView: 3,
+        slidesPerView: 3.5,
         slidesPerGroup: 3,
         speed: 1000,
-        allowTouchMove: true, // 모바일시 터치 이동 허용
+        allowTouchMove: true,
         breakpoints: {
           577: {
-            spaceBetween: 8,
-            slidesPerView: 3,
-            slidesPerGroup: 3,
-            allowTouchMove: false,
-          },
-          769: {
-            spaceBetween: 10,
             slidesPerView: 4,
             slidesPerGroup: 4,
             allowTouchMove: false,
           },
-          1025: {
-            spaceBetween: 12,
+          769: {
+            spaceBetween: 10,
             slidesPerView: 5,
             slidesPerGroup: 5,
+            allowTouchMove: false,
+          },
+          1025: {
+            spaceBetween: 12,
+            slidesPerView: 6,
+            slidesPerGroup: 6,
+            allowTouchMove: false,
+          },
+          1281: {
+            spaceBetween: 12,
+            slidesPerView: 7,
+            slidesPerGroup: 7,
             allowTouchMove: false,
           },
         },
@@ -59,13 +66,22 @@ const VideosHorizontal = ({ uniqueId }) => {
         },
       };
 
-      const horizontalSwiperInstance = new SwiperCore(horizontalSwiper, horizontalSwiperConfig);
-      swiperRef.current = horizontalSwiperInstance;
+      const genreSwiperInstance = new SwiperCore(genreSwiper, genreSwiperConfig);
+      swiperRef.current = genreSwiperInstance;
 
-      const horizontalSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
-      horizontalSwiperSlide.forEach((slide) => {
-        slide.classList.remove('horizontal-margin-right');
+      const genreSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
+      genreSwiperSlide.forEach((slide) => {
+        slide.classList.remove('genre-margin-right');
       });
+
+      // 이미지에 대한 onError 처리
+      const cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
+
+      // 컴포넌트 언마운트 시 스와이퍼 인스턴스, 이미지 에러 처리 함수 제거
+      return () => {
+        genreSwiperInstance.destroy();
+        cleanUpImage();
+      };
     }
   }, [uniqueId]);
 
@@ -84,4 +100,4 @@ const VideosHorizontal = ({ uniqueId }) => {
   return null;
 };
 
-export default VideosHorizontal;
+export default GenresSwiper;

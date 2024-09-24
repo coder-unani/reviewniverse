@@ -1,11 +1,11 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
-import VideoForLike from '@/components/ui/VideoForLike';
+import VideoForRating from '@/components/ui/VideoForRating';
 
-import vvStyles from '@/styles/components/VideosVertical.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
-const VideosLike = ({ children, videos, handlePage }) => {
+const VideosForRating = ({ children, videos, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
@@ -42,7 +42,7 @@ const VideosLike = ({ children, videos, handlePage }) => {
       {children}
       <div className={vvStyles.vertical__videos__wrapper}>
         {videos.data.map((video, index) => (
-          <VideoForLike key={index} video={video} />
+          <VideoForRating key={index} video={video} />
         ))}
         {hasMore && <article ref={lastItemRef}></article>}
       </div>
@@ -50,4 +50,4 @@ const VideosLike = ({ children, videos, handlePage }) => {
   );
 };
 
-export default VideosLike;
+export default VideosForRating;

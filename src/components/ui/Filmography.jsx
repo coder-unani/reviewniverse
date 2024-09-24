@@ -5,12 +5,12 @@ import { useRouter, notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import { DEFAULT_IMAGES, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { fMakeImageUrl } from '@/utils/formatContent';
 import { useVideos } from '@/hooks/useVideos';
 import PeopleImage from '@/components/ui/Button/People/Image';
-import VideosVertical from '@/components/ui/VideosVertical';
+import Videos from '@/components/ui/Videos';
 
 import styles from '@/styles/pages/People.module.scss';
 
@@ -96,7 +96,7 @@ const Filmography = ({ id }) => {
           <h1 className={styles.people__name}>{personName}</h1>
         </div>
       </section>
-      <VideosVertical videos={videos} handlePage={handlePage} />
+      <Videos videos={videos} handlePage={handlePage} />
     </>
   );
 };

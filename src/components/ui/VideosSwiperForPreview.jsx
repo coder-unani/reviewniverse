@@ -8,11 +8,11 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
 import { fPreviewThumbnail, fBackgroundImage, fReleaseText } from '@/utils/formatContent';
 
-import vpStyles from '@/styles/components/VideosPreview.module.scss';
+import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
 
-const VideosPreviewSwiper = dynamic(() => import('@/components/ui/Swiper/VideosPreview'), { ssr: false });
+const PreviewSwiper = dynamic(() => import('@/components/ui/Swiper/VideosSwiperForPreview'), { ssr: false });
 
-const VideosPreview = async ({ videos }) => {
+const VideosSwiperForPreview = async ({ videos }) => {
   if (isEmpty(videos)) {
     return null;
   }
@@ -45,7 +45,7 @@ const VideosPreview = async ({ videos }) => {
                     </div>
                   </div>
                   <div className={vpStyles.preview__release__wrapper}>
-                    <div className={vpStyles.preview__release} data-swiper-parallax="-200">
+                    <div className={vpStyles.preview__release} data-swiper-parallax="-150">
                       <span>{fReleaseText(video.code)}</span>
                       <span>|</span>
                       <span>{fDate(video.release)}</span>
@@ -94,9 +94,9 @@ const VideosPreview = async ({ videos }) => {
       </section>
 
       {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <VideosPreviewSwiper />
+      <PreviewSwiper />
     </>
   );
 };
 
-export default VideosPreview;
+export default VideosSwiperForPreview;

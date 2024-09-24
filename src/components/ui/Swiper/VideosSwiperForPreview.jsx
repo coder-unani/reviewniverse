@@ -11,7 +11,7 @@ import { useThemeContext } from '@/contexts/ThemeContext';
 
 // TODO: 스와이퍼 클릭 이동 오류 수정
 
-const VideosPreview = () => {
+const VideosSwiperForPreview = () => {
   const router = useRouter();
   const { isMobile } = useThemeContext();
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -64,7 +64,7 @@ const VideosPreview = () => {
         modules: [Thumbs, Autoplay, Parallax, EffectFade],
         thumbs: { swiper: thumbsSwiper }, // 썸네일 슬라이더와 연결
         slidesPerView: 'auto',
-        speed: 1000,
+        speed: 1500,
         autoplay: {
           delay: 6000,
           disableOnInteraction: false,
@@ -124,4 +124,4 @@ const VideosPreview = () => {
   return null;
 };
 
-export default VideosPreview;
+export default VideosSwiperForPreview;

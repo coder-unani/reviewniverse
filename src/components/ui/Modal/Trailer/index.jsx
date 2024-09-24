@@ -17,6 +17,8 @@ const TrailerModal = React.memo(({ trailer, initialIndex = 0, alt, isOpen, onClo
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const modalRef = useRef();
 
+  console.log(trailer);
+
   // 모달 닫기
   const handleModalClose = (e) => {
     if (e.target === modalRef.current) {

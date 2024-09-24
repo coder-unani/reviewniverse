@@ -66,7 +66,7 @@ export const VIDEO_PLATFORM_CODE = {
   14: '쿠팡플레이',
   15: '왓챠',
   16: '시리즈온',
-  17: 'Apple TV+',
+  17: '애플 TV+',
   31: '라프텔',
   50: 'KMDB',
   51: 'TMDB',

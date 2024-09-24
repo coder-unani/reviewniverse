@@ -2,11 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDiffDate } from '@/utils/format';
-import { fVideoCode, fThumbnail } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
@@ -53,27 +51,8 @@ const Review = ({ videoId, review }) => {
         </button> */}
       </div>
       <div className={styles.review__video__wrapper}>
-        {/* <Link href={path} className={styles.review__video__link}>
-          <picture className={styles.review__thumbnail__wrapper}>
-            <LazyLoadImage
-              className={styles.review__thumbnail}
-              src={fThumbnail(data.video.thumbnail)}
-              srcSet={fThumbnail(data.video.thumbnail)}
-              alt={data.video.title}
-              effect="blur"
-            />
-          </picture>
-        </Link> */}
         <div className={styles.review__wrapper}>
           <div className={styles.review__content__wrapper}>
-            {/* <div className={styles.review__video__info__wrapper}>
-              <span className={styles.review__video__title}>{data.video.title}</span>
-              <span className={styles.review__video__release}>
-                <span>{fVideoCode(data.video.code)}</span>
-                <span>|</span>
-                <span>{fYear(data.video.release)}</span>
-              </span>
-            </div> */}
             <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
               {data.is_spoiler ? (
                 <p className={styles.review__comment} data-active={active} onClick={handleSpoiler}>

@@ -7,10 +7,8 @@ import { isEmpty } from 'lodash';
 
 import { DEFAULT_IMAGES, VIDEO_MODE_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { MESSAGES } from '@/config/messages';
 import { useVideos } from '@/hooks/useVideos';
-import { showErrorToast } from '@/components/ui/Toast';
-import VideosVertical from '@/components/ui/VideosVertical';
+import Videos from '@/components/ui/Videos';
 
 import styles from '@/styles/pages/Search.module.scss';
 
@@ -54,7 +52,6 @@ const SearchResults = ({ query }) => {
         if (page === 1) {
           return router.push(ENDPOINTS.ERROR);
         } else {
-          // showErrorToast(MESSAGES["C001"]);
           setPage((prev) => prev - 1);
           return;
         }
@@ -111,7 +108,7 @@ const SearchResults = ({ query }) => {
           <strong className={styles.search__title}>
             "<em>{query}</em>"의 검색 결과가 {videos.total} 개 있어요
           </strong>
-          <VideosVertical videos={videos} handlePage={handlePage} />
+          <Videos videos={videos} handlePage={handlePage} />
         </>
       )}
     </section>

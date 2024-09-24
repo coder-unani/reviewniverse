@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 
 import ReviewWithVideo from '@/components/ui/ReviewWithVideo';
 
-const ReviewsVertical = ({ children, reviews, handlePage }) => {
+const ReviewsForUser = ({ children, reviews, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
@@ -48,4 +48,4 @@ const ReviewsVertical = ({ children, reviews, handlePage }) => {
   );
 };
 
-export default ReviewsVertical;
+export default ReviewsForUser;

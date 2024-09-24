@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { useUserRatings } from '@/hooks/useUserRatings';
-import VideosRating from '@/components/ui/VideosRating';
+import VideosForRating from '@/components/ui/VideosForRating';
 
 import styles from '@/styles/pages/UsersContents.module.scss';
 
@@ -94,7 +94,7 @@ const UsersRatings = ({ id }) => {
         </strong>
       </section>
       <section className={styles.contents__content__section}>
-        {!isEmpty(videos.data) && <VideosRating videos={videos} handlePage={handlePage} />}
+        {!isEmpty(videos.data) && <VideosForRating videos={videos} handlePage={handlePage} />}
       </section>
     </>
   );

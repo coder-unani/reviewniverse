@@ -10,12 +10,12 @@ import { fMakeThumbnailUrl } from '@/utils/formatContent';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
-import styles from '@/styles/components/GenresVertical.module.scss';
-import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
+import styles from '@/styles/components/GenresSwiper.module.scss';
+import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 
-const GenresVerticalSwiper = dynamic(() => import('@/components/ui/Swiper/GenresVertical'), { ssr: false });
+const GenresSwiperClient = dynamic(() => import('@/components/ui/Swiper/GenresSwiper'), { ssr: false });
 
-const GenresVertical = ({ children, genres }) => {
+const GenresSwiper = ({ children, genres }) => {
   if (isEmpty(genres)) {
     return null;
   }
@@ -72,9 +72,9 @@ const GenresVertical = ({ children, genres }) => {
       </section>
 
       {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <GenresVerticalSwiper uniqueId={uniqueId} />
+      <GenresSwiperClient uniqueId={uniqueId} />
     </>
   );
 };
 
-export default GenresVertical;
+export default GenresSwiper;

@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { useUserReviews } from '@/hooks/useUserReviews';
-import ReviewsVertical from '@/components/ui/ReviewsVertical';
+import ReviewsForUser from '@/components/ui/ReviewsForUser';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
@@ -90,7 +90,7 @@ const UsersReviews = ({ id }) => {
       </section>
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>
-          {!isEmpty(reviews.data) && <ReviewsVertical reviews={reviews} handlePage={handlePage} />}
+          {!isEmpty(reviews.data) && <ReviewsForUser reviews={reviews} handlePage={handlePage} />}
         </div>
       </section>
     </>

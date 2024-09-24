@@ -5,8 +5,8 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
 
 import styles from '@/styles/components/SkeletonHome.module.scss';
 import homeStyles from '@/styles/pages/Home.module.scss';
-import vpStyles from '@/styles/components/VideosPreview.module.scss';
-import vvStyles from '@/styles/components/VideosVertical.module.scss';
+import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
 /**
  * TODO:

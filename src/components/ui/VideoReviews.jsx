@@ -8,7 +8,7 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { cLog } from '@/utils/test';
 import { fParseInt } from '@/utils/format';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
-import ReviewsVerticalForVideo from '@/components/ui/ReviewsVerticalForVideo';
+import ReviewsForVideo from '@/components/ui/ReviewsForVideo';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
@@ -96,9 +96,7 @@ const VideoReviews = ({ id }) => {
       </section>
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>
-          {!isEmpty(reviews.data) && (
-            <ReviewsVerticalForVideo videoId={videoId} reviews={reviews} handlePage={handlePage} />
-          )}
+          {!isEmpty(reviews.data) && <ReviewsForVideo videoId={videoId} reviews={reviews} handlePage={handlePage} />}
         </div>
       </section>
     </>

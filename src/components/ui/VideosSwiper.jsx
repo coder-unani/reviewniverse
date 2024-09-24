@@ -9,11 +9,11 @@ import VideoForUpcoming from '@/components/ui/VideoForUpcoming';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
-import styles from '@/styles/components/VideosHorizontal.module.scss';
+import styles from '@/styles/components/VideosSwiper.module.scss';
 
-const VideosHorizontalSwiper = dynamic(() => import('@/components/ui/Swiper/VideosHorizontal'), { ssr: false });
+const VideosSwiperClient = dynamic(() => import('@/components/ui/Swiper/VideosSwiper'), { ssr: false });
 
-const VideosHorizontal = ({ children, videos, template = 'default' }) => {
+const VideosSwiper = ({ children, videos, template = 'default' }) => {
   if (isEmpty(videos)) {
     return null;
   }
@@ -72,9 +72,9 @@ const VideosHorizontal = ({ children, videos, template = 'default' }) => {
       </section>
 
       {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <VideosHorizontalSwiper uniqueId={uniqueId} />
+      <VideosSwiperClient uniqueId={uniqueId} />
     </>
   );
 };
 
-export default VideosHorizontal;
+export default VideosSwiper;

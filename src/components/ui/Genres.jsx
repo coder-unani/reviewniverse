@@ -5,12 +5,10 @@ import { useRouter, notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { MESSAGES } from '@/config/messages';
+import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { useVideos } from '@/hooks/useVideos';
-import { showErrorToast } from '@/components/ui/Toast';
-import VideosVertical from '@/components/ui/VideosVertical';
+import Videos from '@/components/ui/Videos';
 
 import styles from '@/styles/pages/Genres.module.scss';
 
@@ -50,7 +48,6 @@ const Genres = ({ children, id }) => {
         if (page === 1) {
           return router.push(ENDPOINTS.ERROR);
         } else {
-          // showErrorToast(MESSAGES["C001"]);
           setPage((prev) => prev - 1);
           return;
         }
@@ -99,7 +96,7 @@ const Genres = ({ children, id }) => {
         </div>
       </section>
       {children}
-      <VideosVertical videos={videos} handlePage={handlePage} />
+      <Videos videos={videos} handlePage={handlePage} />
     </>
   );
 };

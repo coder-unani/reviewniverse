@@ -2,7 +2,7 @@ import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import { fetchRankingGenres } from '@/library/api/ranking';
-import GenresVertical from '@/components/ui/GenresVertical';
+import GenresSwiper from '@/components/ui/GenresSwiper';
 
 import styles from '@/styles/pages/Genres.module.scss';
 
@@ -63,7 +63,7 @@ const Genres = async ({ params }) => {
     <main className={styles.genre__main}>
       <Suspense fallback={''}>
         <GenresComponent id={id}>
-          <GenresVertical genres={genres} />
+          <GenresSwiper genres={genres} />
         </GenresComponent>
       </Suspense>
     </main>

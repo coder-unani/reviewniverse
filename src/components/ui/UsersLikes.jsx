@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { useUserLikes } from '@/hooks/useUserLikes';
-import VideosLike from '@/components/ui/VideosLike';
+import VideosForLike from '@/components/ui/VideosForLike';
 
 import styles from '@/styles/pages/UsersContents.module.scss';
 
@@ -95,7 +95,7 @@ const UsersLikes = ({ id }) => {
         </strong>
       </section>
       <section className={styles.contents__content__section}>
-        {!isEmpty(videos.data) && <VideosLike videos={videos} handlePage={handlePage} />}
+        {!isEmpty(videos.data) && <VideosForLike videos={videos} handlePage={handlePage} />}
       </section>
     </>
   );

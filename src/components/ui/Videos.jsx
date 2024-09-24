@@ -10,10 +10,10 @@ import { cLog } from '@/utils/test';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 
-import styles from '@/styles/components/VideosVertical.module.scss';
+import styles from '@/styles/components/Videos.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
 
-const VideosVertical = ({ children, videos, handlePage }) => {
+const Videos = ({ children, videos, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
@@ -99,4 +99,4 @@ const VideosVertical = ({ children, videos, handlePage }) => {
   );
 };
 
-export default VideosVertical;
+export default Videos;

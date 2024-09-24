@@ -7,15 +7,15 @@ import { fExportScreenDataByCode } from '@/utils/formatContent';
 import { fetchScreenVideos } from '@/library/api/screens';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
 import { fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
-import VideosPreview from '@/components/ui/VideosPreview';
-import VideosHorizontal from '@/components/ui/VideosHorizontal';
-import GenresVertical from '@/components/ui/GenresVertical';
+import VideosSwiperForPreview from '@/components/ui/VideosSwiperForPreview';
+import VideosSwiper from '@/components/ui/VideosSwiper';
+import GenresSwiper from '@/components/ui/GenresSwiper';
 import Video from '@/components/ui/Video';
 
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
 import styles from '@/styles/pages/Home.module.scss';
-import vhStyles from '@/styles/components/VideosHorizontal.module.scss';
-import vvStyles from '@/styles/components/VideosVertical.module.scss';
+import vhStyles from '@/styles/components/VideosSwiper.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
 // ISR 재생성 주기 설정
 export const revalidate = HOME_REVALIDATE_SEC;
@@ -170,67 +170,67 @@ const Home = async () => {
   return (
     <main className={styles.home__main}>
       <section className={styles.home__preview__section}>
-        <VideosPreview videos={previewVideos} />
+        <VideosSwiperForPreview videos={previewVideos} />
       </section>
 
       <section className={styles.home__main__section}>
-        <VideosHorizontal videos={rankingVideos} template={rankingVideosTemplate}>
+        <VideosSwiper videos={rankingVideos} template={rankingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>{rankingVideosTitle}</h2>
           </div>
-        </VideosHorizontal>
+        </VideosSwiper>
 
-        <GenresVertical genres={genres}>
+        <GenresSwiper genres={genres}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={`${vhStyles.horizontal__title} ${vhStyles.genre}`}>
               <LayoutIcon width={24} height={25} />
               {genresTitle}
             </h2>
           </div>
-        </GenresVertical>
+        </GenresSwiper>
 
-        <VideosHorizontal videos={upComingVideos} template={upComingVideosTemplate}>
+        <VideosSwiper videos={upComingVideos} template={upComingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>{upComingVideosTitle}</h2>
           </div>
-        </VideosHorizontal>
+        </VideosSwiper>
 
-        <VideosHorizontal videos={monthlyVideos} template={monthlyVideosTemplate}>
+        <VideosSwiper videos={monthlyVideos} template={monthlyVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>{monthlyVideosTitle}</h2>
           </div>
-        </VideosHorizontal>
+        </VideosSwiper>
 
         {!isEmpty(screenMA02Videos) && (
-          <VideosHorizontal videos={screenMA02Videos} template={screenMA02Template}>
+          <VideosSwiper videos={screenMA02Videos} template={screenMA02Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>{screenMA02Title}</h2>
             </div>
-          </VideosHorizontal>
+          </VideosSwiper>
         )}
 
         {!isEmpty(screenMA03Videos) && (
-          <VideosHorizontal videos={screenMA03Videos} template={screenMA03Template}>
+          <VideosSwiper videos={screenMA03Videos} template={screenMA03Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>{screenMA03Title}</h2>
             </div>
-          </VideosHorizontal>
+          </VideosSwiper>
         )}
 
         {!isEmpty(screenMA04Videos) && (
-          <VideosHorizontal videos={screenMA04Videos} template={screenMA04Template}>
+          <VideosSwiper videos={screenMA04Videos} template={screenMA04Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>{screenMA04Title}</h2>
             </div>
-          </VideosHorizontal>
+          </VideosSwiper>
         )}
 
         {!isEmpty(screenMA05Videos) && (
-          <VideosHorizontal videos={screenMA05Videos} template={screenMA05Template}>
+          <VideosSwiper videos={screenMA05Videos} template={screenMA05Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>{screenMA05Title}</h2>
             </div>
-          </VideosHorizontal>
+          </VideosSwiper>
         )}
 
         <section className={vvStyles.vertical__videos__section}>
