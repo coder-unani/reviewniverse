@@ -13,7 +13,7 @@ import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/GenresSwiper.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 
-const GenresSwiperClient = dynamic(() => import('@/components/ui/Swiper/GenresSwiper'), { ssr: false });
+const GenresSwiperClient = dynamic(() => import('@/components/ui/Client/GenresSwiper'), { ssr: false });
 
 const GenresSwiper = ({ children, genres }) => {
   if (isEmpty(genres)) {

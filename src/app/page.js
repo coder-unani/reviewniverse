@@ -121,7 +121,7 @@ const getGenres = async () => {
 
 const Home = async () => {
   // 데이터 페칭
-  const [screenVideos, rankingVideos, upComingVideos, monthlyVideos, videos, genres] = await Promise.all([
+  const [screenVideos, rankingVideos, upcomingVideos, monthlyVideos, videos, genres] = await Promise.all([
     getScreenVideos(),
     getRankingVideos(),
     getUpcomingVideos(),
@@ -156,8 +156,8 @@ const Home = async () => {
   const rankingVideosTemplate = 'rank';
   const rankingVideosTitle = '🍿 리뷰니버스 TOP 20';
 
-  const upComingVideosTemplate = 'coming';
-  const upComingVideosTitle = '💖 두근두근 기대작';
+  const upcomingVideosTemplate = 'coming';
+  const upcomingVideosTitle = '💖 두근두근 기대작';
 
   const monthlyVideosTemplate = 'monthly';
   const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
@@ -189,9 +189,9 @@ const Home = async () => {
           </div>
         </GenresSwiper>
 
-        <VideosSwiper videos={upComingVideos} template={upComingVideosTemplate}>
+        <VideosSwiper videos={upcomingVideos} template={upcomingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>{upComingVideosTitle}</h2>
+            <h2 className={vhStyles.horizontal__title}>{upcomingVideosTitle}</h2>
           </div>
         </VideosSwiper>
 

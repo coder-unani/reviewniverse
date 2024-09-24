@@ -11,7 +11,7 @@ import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/VideosSwiper.module.scss';
 
-const VideosSwiperClient = dynamic(() => import('@/components/ui/Swiper/VideosSwiper'), { ssr: false });
+const VideosSwiperClient = dynamic(() => import('@/components/ui/Client/VideosSwiper'), { ssr: false });
 
 const VideosSwiper = ({ children, videos, template = 'default' }) => {
   if (isEmpty(videos)) {

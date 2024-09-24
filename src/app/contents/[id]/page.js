@@ -41,10 +41,10 @@ import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSubInfoSwiper = dynamic(() => import('@/components/ui/Swiper/VideoSubInfo'), { ssr: false });
-const VideoTrailerSwiper = dynamic(() => import('@/components/ui/Swiper/VideoTrailer'), { ssr: false });
-const VideoGallerySwiper = dynamic(() => import('@/components/ui/Swiper/VideoGallery'), { ssr: false });
-const VideoPeopleSwiper = dynamic(() => import('@/components/ui/Swiper/VideoPeople'), { ssr: false });
+const VideoSubInfoClient = dynamic(() => import('@/components/ui/Client/VideoSubInfo'), { ssr: false });
+const VideoTrailerClient = dynamic(() => import('@/components/ui/Client/VideoTrailer'), { ssr: false });
+const VideoGalleryClient = dynamic(() => import('@/components/ui/Client/VideoGallery'), { ssr: false });
+const VideoPeopleClient = dynamic(() => import('@/components/ui/Client/VideoPeople'), { ssr: false });
 const ContentsClient = dynamic(() => import('@/components/ui/Client/Contents'), { ssr: false });
 
 // ISR 재생성 주기 설정
@@ -237,7 +237,7 @@ const Contents = async ({ params }) => {
         </section>
 
         {/* 출연진/제작진 swiper 제어: 클라이언트 컴포넌트 */}
-        <VideoPeopleSwiper uniqueId={uniqueId} />
+        <VideoPeopleClient uniqueId={uniqueId} />
       </>
     );
   };
@@ -369,7 +369,7 @@ const Contents = async ({ params }) => {
               </div>
             </div>
             {/* 비디오 subInfo swiper 제어: 클라이언트 컴포넌트 */}
-            <VideoSubInfoSwiper uniqueId={subInfoUniqueId} />
+            <VideoSubInfoClient uniqueId={subInfoUniqueId} />
           </div>
         </section>
 
@@ -474,7 +474,7 @@ const Contents = async ({ params }) => {
                 </article>
               </section>
               {/* 트레일러 swiper 제어: 클라이언트 컴포넌트  */}
-              <VideoTrailerSwiper uniqueId={trailerUniqueId} trailer={trailer} alt={titleKr} />
+              <VideoTrailerClient uniqueId={trailerUniqueId} trailer={trailer} alt={titleKr} />
             </>
           )}
 
@@ -524,7 +524,7 @@ const Contents = async ({ params }) => {
                 </article>
               </section>
               {/* 갤러리 swiper 제어: 클라이언트 컴포넌트  */}
-              <VideoGallerySwiper uniqueId={galleryUniqueId} gallery={gallery} alt={galleryAlt} />
+              <VideoGalleryClient uniqueId={galleryUniqueId} gallery={gallery} alt={galleryAlt} />
             </>
           )}
         </div>

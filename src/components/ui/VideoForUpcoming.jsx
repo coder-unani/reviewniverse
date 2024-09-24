@@ -21,20 +21,20 @@ const VideoForUpcoming = async ({ video }) => {
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
   const code = video.code_string;
-  let upComing = {};
+  let upcoming = {};
   if (isEmpty(video.upcoming)) {
-    upComing = {
+    upcoming = {
       platform: '',
       url: '',
       release: video.release,
       countdown: 0,
     };
   } else {
-    upComing = video.upcoming[0];
+    upcoming = video.upcoming[0];
   }
-  const countdown = upComing.countdown;
-  const release = fDate(upComing.release);
-  const platform = fPlatformNameByCode(upComing.platform) || '공개 예정';
+  const countdown = upcoming.countdown;
+  const release = fDate(upcoming.release);
+  const platform = fPlatformNameByCode(upcoming.platform) || '공개 예정';
 
   return (
     <Link href={path} className={defStyles.default__video__item} aria-label={title}>
