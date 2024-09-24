@@ -998,9 +998,10 @@
   }
 
   // for test
-  .detail__platfrom__wrapper {
+  .detail__platform__wrapper {
     display: flex;
     flex-direction: column;
+    gap: 8px;
   }
 
   .detail__platform {
@@ -1008,8 +1009,12 @@
     flex-direction: row;
     gap: 8px;
     background-color: $color-white-09;
-    border-radius: 14px;
+    border-radius: 12px;
     padding: 10px 8px;
+  }
+
+  .platform__image__wrapper {
+    border-radius: 8px;
   }
 
   .platform__image__overlay {
@@ -1017,8 +1022,8 @@
   }
 
   .platform__image {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 
   .platform__info {
