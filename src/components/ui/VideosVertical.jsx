@@ -11,7 +11,7 @@ import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 
 import styles from '@/styles/components/VideosVertical.module.scss';
-import defStyles from '@/styles/components/VideoItem.module.scss';
+import defStyles from '@/styles/components/Video.module.scss';
 
 const VideosVertical = ({ children, videos, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);

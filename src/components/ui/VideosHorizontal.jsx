@@ -3,9 +3,9 @@ import dynamic from 'next/dynamic';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
-import VideoItem from '@/components/ui/VideoItem';
-import VideoRankItem from '@/components/ui/VideoRankItem';
-import VideoUpComingItem from '@/components/ui/VideoUpComingItem';
+import Video from '@/components/ui/Video';
+import VideoForRank from '@/components/ui/VideoForRank';
+import VideoForUpcoming from '@/components/ui/VideoForUpcoming';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
@@ -26,13 +26,13 @@ const VideosHorizontal = ({ children, videos, template = 'default' }) => {
     switch (template) {
       case 'rank':
         // 랭킹 비디오 아이템 렌더링
-        return <VideoRankItem video={video} index={index} />;
+        return <VideoForRank video={video} index={index} />;
       case 'coming':
         // 커밍순 아이템 렌더링
-        return <VideoUpComingItem video={video} index={index} />;
+        return <VideoForUpcoming video={video} index={index} />;
       default:
         // 기본 비디오 아이템 렌더링
-        return <VideoItem video={video} index={index} />;
+        return <Video video={video} index={index} />;
     }
   };
 

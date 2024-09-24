@@ -58,7 +58,8 @@
 .default__info__container {
   display: flex;
   flex-direction: column;
-  margin-top: 16px;
+  // margin-top: 16px;
+  margin-top: 10px;
 }
 
 .default__title {
@@ -165,7 +166,7 @@
   .default__info__container {
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 12px;
+    margin-top: 8px;
   }
 
   .default__subtitle__wrapper {

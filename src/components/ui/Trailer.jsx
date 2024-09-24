@@ -11,11 +11,11 @@ import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoTrailerSwiper = dynamic(() => import('@/components/ui/Swiper/VideoTrailer'), { ssr: false });
+const TrailerSwiper = dynamic(() => import('@/components/ui/Swiper/Trailer'), { ssr: false });
 
 // TODO: 썸네일 위에 재생 아이콘 추가
 
-const VideoTrailer = React.memo(({ trailer, title, alt }) => {
+const Trailer = React.memo(({ trailer, title, alt }) => {
   if (isEmpty(trailer)) {
     return null;
   }
@@ -68,9 +68,9 @@ const VideoTrailer = React.memo(({ trailer, title, alt }) => {
         </article>
       </section>
 
-      <VideoTrailerSwiper uniqueId={uniqueId} trailer={trailer} alt={alt} />
+      <TrailerSwiper uniqueId={uniqueId} trailer={trailer} alt={alt} />
     </>
   );
 });
 
-export default VideoTrailer;
+export default Trailer;

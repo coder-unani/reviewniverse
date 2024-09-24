@@ -8,15 +8,15 @@ import { fYear, fDate } from '@/utils/format';
 import { fPlatformNameByCode, fThumbnail } from '@/utils/formatContent';
 import { cLog } from '@/utils/test';
 
-import styles from '@/styles/components/VideoUpComingItem.module.scss';
-import defStyles from '@/styles/components/VideoItem.module.scss';
+import styles from '@/styles/components/VideoForUpcoming.module.scss';
+import defStyles from '@/styles/components/Video.module.scss';
 
 /**
  * TODO:
  * - 정적 이미지 생성
  */
 
-const VideoUpComingItem = async ({ video }) => {
+const VideoForUpcoming = async ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
@@ -75,4 +75,4 @@ const VideoUpComingItem = async ({ video }) => {
   );
 };
 
-export default VideoUpComingItem;
+export default VideoForUpcoming;

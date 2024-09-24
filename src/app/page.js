@@ -10,7 +10,7 @@ import { fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
 import VideosPreview from '@/components/ui/VideosPreview';
 import VideosHorizontal from '@/components/ui/VideosHorizontal';
 import GenresVertical from '@/components/ui/GenresVertical';
-import VideoItem from '@/components/ui/VideoItem';
+import Video from '@/components/ui/Video';
 
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
 import styles from '@/styles/pages/Home.module.scss';
@@ -239,7 +239,7 @@ const Home = async () => {
           </div>
           <div className={vvStyles.vertical__videos__wrapper}>
             {videos.map((video, index) => (
-              <VideoItem key={index} video={video} />
+              <Video key={index} video={video} />
             ))}
           </div>
         </section>

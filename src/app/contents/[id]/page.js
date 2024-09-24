@@ -29,10 +29,10 @@ import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoPoster from '@/components/ui/VideoPoster';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoPlatform from '@/components/ui/VideoPlatform';
-import VideoReview from '@/components/ui/VideoReview';
+import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
 import VideoPeople from '@/components/ui/VideoPeople';
-import VideoTrailer from '@/components/ui/VideoTrailer';
-import VideoGallery from '@/components/ui/VideoGallery';
+import Trailer from '@/components/ui/Trailer';
+import Gallery from '@/components/ui/Gallery';
 
 import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/pages/Contents.module.scss';
@@ -316,11 +316,11 @@ const Contents = async ({ params }) => {
               <VideoPlatform platforms={platforms} title={platformTitle} />
             </div>
           </section>
-          <VideoReview videoId={videoId} />
+          <VideoReviewSimple videoId={videoId} />
           <VideoPeople people={actors} title={actorTitle} formatCode={actorFormatCode} />
           <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
-          <VideoTrailer trailer={trailer} title={trailerTitle} alt={trailerAlt} />
-          <VideoGallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
+          <Trailer trailer={trailer} title={trailerTitle} alt={trailerAlt} />
+          <Gallery gallery={gallery} title={galleryTitle} alt={galleryAlt} />
         </div>
       </main>
 

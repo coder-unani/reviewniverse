@@ -6,17 +6,15 @@ import { isEmpty } from 'lodash';
 
 import { DEFAULT_IMAGES, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { MESSAGES } from '@/config/messages';
 import { fParseInt } from '@/utils/format';
 import { fMakeImageUrl } from '@/utils/formatContent';
 import { useVideos } from '@/hooks/useVideos';
-import { showErrorToast } from '@/components/ui/Toast';
 import PeopleImage from '@/components/ui/Button/People/Image';
 import VideosVertical from '@/components/ui/VideosVertical';
 
 import styles from '@/styles/pages/People.module.scss';
 
-const People = ({ id }) => {
+const Filmography = ({ id }) => {
   const router = useRouter();
   const peopleId = fParseInt(id);
   const [page, setPage] = useState(1);
@@ -52,7 +50,6 @@ const People = ({ id }) => {
         if (page === 1) {
           return router.push(ENDPOINTS.ERROR);
         } else {
-          // showErrorToast(MESSAGES["C001"]);
           setPage((prev) => prev - 1);
           return;
         }
@@ -104,4 +101,4 @@ const People = ({ id }) => {
   );
 };
 
-export default People;
+export default Filmography;

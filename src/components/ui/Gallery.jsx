@@ -4,15 +4,15 @@ import Image from 'next/image';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
-import { fMakeThumbnailUrl, fMakeImageUrl } from '@/utils/formatContent';
+import { fMakeThumbnailUrl } from '@/utils/formatContent';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoGallerySwiper = dynamic(() => import('@/components/ui/Swiper/VideoGallery'), { ssr: false });
+const GallerySwiper = dynamic(() => import('@/components/ui/Swiper/Gallery'), { ssr: false });
 
-const VideoGallery = React.memo(({ gallery, title, alt }) => {
+const Gallery = React.memo(({ gallery, title, alt }) => {
   if (isEmpty(gallery)) {
     return null;
   }
@@ -64,9 +64,9 @@ const VideoGallery = React.memo(({ gallery, title, alt }) => {
         </article>
       </section>
 
-      <VideoGallerySwiper uniqueId={uniqueId} gallery={gallery} alt={alt} />
+      <GallerySwiper uniqueId={uniqueId} gallery={gallery} alt={alt} />
     </>
   );
 });
 
-export default VideoGallery;
+export default Gallery;

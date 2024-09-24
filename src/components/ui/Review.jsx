@@ -12,7 +12,7 @@ import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
 import MoreIcon from '@/resources/icons/more.svg';
-import styles from '@/styles/components/ReviewItem.module.scss';
+import styles from '@/styles/components/Review.module.scss';
 
 /**
  * TODO:
@@ -20,7 +20,7 @@ import styles from '@/styles/components/ReviewItem.module.scss';
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
-const VideoReviewItem = ({ videoId, review }) => {
+const Review = ({ videoId, review }) => {
   const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
   const userPath = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: data.user.id });
@@ -93,4 +93,4 @@ const VideoReviewItem = ({ videoId, review }) => {
   );
 };
 
-export default VideoReviewItem;
+export default Review;

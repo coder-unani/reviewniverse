@@ -1,9 +1,9 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
-import VideoReviewItem from '@/components/ui/VideoReviewItem';
+import Review from '@/components/ui/Review';
 
-const ReviewsVertical = ({ children, videoId, reviews, handlePage }) => {
+const ReviewsVerticalForVideo = ({ children, videoId, reviews, handlePage }) => {
   const [hasMore, setHasMore] = useState(true);
   const observer = useRef();
 
@@ -41,11 +41,11 @@ const ReviewsVertical = ({ children, videoId, reviews, handlePage }) => {
   return (
     <>
       {reviews.data.map((review) => (
-        <VideoReviewItem videoId={videoId} review={review} key={review.id} />
+        <Review videoId={videoId} review={review} key={review.id} />
       ))}
       {hasMore && <article ref={lastItemRef}></article>}
     </>
   );
 };
 
-export default ReviewsVertical;
+export default ReviewsVerticalForVideo;

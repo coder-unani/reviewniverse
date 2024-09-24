@@ -8,15 +8,15 @@ import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 // import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
 
-import styles from '@/styles/components/VideoRankItem.module.scss';
-import defStyles from '@/styles/components/VideoItem.module.scss';
+import styles from '@/styles/components/VideoForRank.module.scss';
+import defStyles from '@/styles/components/Video.module.scss';
 
 /**
  * TODO:
  * - 정적 이미지 생성
  */
 
-const VideoRankItem = async ({ video, index }) => {
+const VideoForRank = async ({ video, index }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
@@ -69,7 +69,7 @@ const VideoRankItem = async ({ video, index }) => {
         </div>
         <div className={styles.rank__number__wrapper}>{fRankingNumber(index + 1)}</div>
       </div>
-      <div className={styles.rank__info__container}>
+      <div className={defStyles.default__info__container}>
         <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
@@ -91,4 +91,4 @@ const VideoRankItem = async ({ video, index }) => {
   );
 };
 
-export default VideoRankItem;
+export default VideoForRank;

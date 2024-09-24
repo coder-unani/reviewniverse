@@ -5,17 +5,17 @@ import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { fYear } from '@/utils/format';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
-import RatingScore from '@/components/ui/RatingScore';
 
-import defStyles from '@/styles/components/VideoItem.module.scss';
+import defStyles from '@/styles/components/Video.module.scss';
 
-const VideoRatingItem = ({ video }) => {
+const VideoForLike = ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.video.id });
   const title = video.video.title;
   const thumbnail = fThumbnail(video.video.thumbnail);
   const code = fVideoCode(video.video.code);
-  const rating = video.rating;
+  const release = fYear(video.video.release);
 
   return (
     <Link href={path} className={defStyles.default__video__item} aria-label={title}>
@@ -37,7 +37,7 @@ const VideoRatingItem = ({ video }) => {
         <p className={defStyles.default__title}>{title}</p>
         <div className={defStyles.default__subtitle__wrapper}>
           <div className={defStyles.default__subtitle}>
-            <RatingScore rating={rating} />
+            <span>{release}</span>
           </div>
         </div>
       </div>
@@ -45,4 +45,4 @@ const VideoRatingItem = ({ video }) => {
   );
 };
 
-export default VideoRatingItem;
+export default VideoForLike;

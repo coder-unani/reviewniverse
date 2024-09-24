@@ -7,7 +7,7 @@ import { Navigation } from 'swiper/modules';
 import { fParseInt } from '@/utils/format';
 import TrailerModal from '@/components/ui/Modal/Trailer';
 
-const VideoTrailer = ({ uniqueId, trailer, alt }) => {
+const Trailer = ({ uniqueId, trailer, alt }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [trailerModal, setTrailerModal] = useState({ isOpen: false, initialIndex: 0 });
@@ -100,4 +100,4 @@ const VideoTrailer = ({ uniqueId, trailer, alt }) => {
   );
 };
 
-export default VideoTrailer;
+export default Trailer;

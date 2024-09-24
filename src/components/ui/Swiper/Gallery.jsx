@@ -8,7 +8,7 @@ import { fParseInt } from '@/utils/format';
 import { fReplaceImageOnError } from '@/utils/formatContent';
 import PhotoModal from '@/components/ui/Modal/Photo';
 
-const VideoGallery = ({ uniqueId, gallery, alt }) => {
+const Gallery = ({ uniqueId, gallery, alt }) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
   const [photoModal, setPhotoModal] = useState({ isOpen: false, initialIndex: 0 });
@@ -106,4 +106,4 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
   );
 };
 
-export default VideoGallery;
+export default Gallery;

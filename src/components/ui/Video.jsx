@@ -7,9 +7,9 @@ import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 // import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
 
-import styles from '@/styles/components/VideoItem.module.scss';
+import styles from '@/styles/components/Video.module.scss';
 
-const VideoItem = async ({ video }) => {
+const Video = async ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
@@ -63,4 +63,4 @@ const VideoItem = async ({ video }) => {
   );
 };
 
-export default VideoItem;
+export default Video;

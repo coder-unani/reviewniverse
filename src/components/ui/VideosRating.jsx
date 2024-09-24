@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { isEmpty } from 'lodash';
 
-import VideoRatingItem from '@/components/ui/VideoRatingItem';
+import VideoForRating from '@/components/ui/VideoForRating';
 
 import vvStyles from '@/styles/components/VideosVertical.module.scss';
 
@@ -42,7 +42,7 @@ const VideosRating = ({ children, videos, handlePage }) => {
       {children}
       <div className={vvStyles.vertical__videos__wrapper}>
         {videos.data.map((video, index) => (
-          <VideoRatingItem key={index} video={video} />
+          <VideoForRating key={index} video={video} />
         ))}
         {hasMore && <article ref={lastItemRef}></article>}
       </div>

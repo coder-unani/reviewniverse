@@ -12,7 +12,7 @@ import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
 import { useReviewDelete } from '@/hooks/useReviewDelete';
 import { showSuccessToast } from '@/components/ui/Toast';
-import VideoReviewDetail from '@/components/ui/VideoReviewDetail';
+import ReviewForVideo from '@/components/ui/ReviewForVideo';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
@@ -26,7 +26,7 @@ import styles from '@/styles/pages/Contents.module.scss';
  * - 리뷰 자세히 보기 (리뷰 모달?)
  */
 
-const VideoReview = ({ videoId }) => {
+const VideoReviewSimple = ({ videoId }) => {
   const { user } = useAuthContext();
   const { toggleEnjoyModal, toggleReviewModal, toggleConfirmModal } = useModalContext();
   const { myInfo } = useContentsContext();
@@ -186,7 +186,7 @@ const VideoReview = ({ videoId }) => {
     return (
       <article className={styles.detail__review__wrapper}>
         {reviews.data.map((review) => (
-          <VideoReviewDetail key={review.id} videoId={videoId} review={review} />
+          <ReviewForVideo key={review.id} videoId={videoId} review={review} />
         ))}
       </article>
     );
@@ -213,4 +213,4 @@ const VideoReview = ({ videoId }) => {
   );
 };
 
-export default VideoReview;
+export default VideoReviewSimple;

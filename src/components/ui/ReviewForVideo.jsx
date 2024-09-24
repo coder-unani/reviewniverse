@@ -11,7 +11,7 @@ import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
-import styles from '@/styles/components/VideoReviewDetail.module.scss';
+import styles from '@/styles/components/ReviewForVideo.module.scss';
 
 /**
  * TODO:
@@ -19,7 +19,7 @@ import styles from '@/styles/components/VideoReviewDetail.module.scss';
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
-const VideoReviewDetail = ({ videoId, review }) => {
+const ReviewForVideo = ({ videoId, review }) => {
   const [active, setActive] = useState(review.is_spoiler);
   const profilePath = review.user ? EndpointManager.generateUrl(ENDPOINTS.USER, { userId: review.user.id }) : '';
   const profileImage = review.user ? review.user.profile_image : DEFAULT_IMAGES.noActor;
@@ -71,4 +71,4 @@ const VideoReviewDetail = ({ videoId, review }) => {
   );
 };
 
-export default VideoReviewDetail;
+export default ReviewForVideo;
