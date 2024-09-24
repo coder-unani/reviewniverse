@@ -23,7 +23,8 @@ export const DEFAULT_IMAGES = {
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, 인기, 추천, 검색, 통합검색, OTT, 평점';
 
-export const HOME_REVALIDATE_SEC = 600;
+export const HOME_REVALIDATE_SEC = 300;
+export const VIDEO_REVALIDATE_SEC = 600;
 
 export const VIDEO_ORDER_OPTIONS = {
   VIEW_ASC: 'view_asc',

@@ -6,7 +6,7 @@ import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
 import { SETTINGS } from '@/config/settings';
-import { HOME_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
+import { VIDEO_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fYear, fUpperCase } from '@/utils/format';
 import {
@@ -41,7 +41,7 @@ const VideoSubInfoSwiper = dynamic(() => import('@/components/ui/Swiper/VideoSub
 const ContentsClient = dynamic(() => import('@/components/ui/Client/Contents'), { ssr: false });
 
 // ISR 재생성 주기 설정
-export const revalidate = HOME_REVALIDATE_SEC;
+export const revalidate = VIDEO_REVALIDATE_SEC;
 
 /**
  * TODO:
