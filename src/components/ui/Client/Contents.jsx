@@ -14,7 +14,7 @@ const Contents = ({ content }) => {
 
   // 플랫폼 버튼 클릭 이벤트
   useEffect(() => {
-    const platforms = document.querySelectorAll('button.platform-button');
+    const platforms = document.querySelectorAll('li.platform-item');
     platforms.forEach((platform) => {
       platform.addEventListener('click', () => {
         const url = platform.dataset.url;

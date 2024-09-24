@@ -70,7 +70,6 @@ export const VIDEO_PLATFORM_CODE = {
   31: '라프텔',
   50: 'KMDB',
   51: 'TMDB',
-  70: '극장',
 };
 
 export const VIDEO_TRAILER_CODE = {

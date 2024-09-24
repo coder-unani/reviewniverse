@@ -26,6 +26,7 @@ import {
   fTrailerCode,
   fMakeThumbnailUrl,
 } from '@/utils/formatContent';
+import { cLog } from '@/utils/test';
 import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
@@ -40,6 +41,7 @@ import PlayIcon from '@/resources/icons/play.svg';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
+import Video from '@/components/ui/Video';
 
 const VideoSubInfoClient = dynamic(() => import('@/components/ui/Client/VideoSubInfo'), { ssr: false });
 const VideoTrailerClient = dynamic(() => import('@/components/ui/Client/VideoTrailer'), { ssr: false });
@@ -156,13 +158,12 @@ const Contents = async ({ params }) => {
   const poster = fThumbnail(content.thumbnail, false);
   const posterAlt = `${titleKr} 포스터`;
   const myRatingTitle = '평가하기';
+  const upcoming = content.upcoming || [];
   const platformTitle = '보러가기';
   const platforms = fPlatformFilter(content.platform);
-  const actorUniqueId = nanoid();
   const actorTitle = '출연진';
   const actors = content.actor || [];
   const actorFormatCode = fActorCode;
-  const staffUniqueId = nanoid();
   const staffTitle = '제작진';
   const staffs = content.staff || [];
   const staffFormatCode = fStaffCode;
@@ -173,6 +174,64 @@ const Contents = async ({ params }) => {
   const galleryTitle = '갤러리';
   const gallery = content.thumbnail || [];
   const galleryAlt = `${titleKr} 스틸컷`;
+
+  // 플랫폼 보러가기
+  const VideoPlatform = ({ platforms, upcoming }) => {
+    if (isEmpty(platforms)) {
+      return null;
+    }
+
+    // platforms.code 와 upcoming.code 가 같은 upcoming 데이터를 찾아서 platforms에 upcoming.release 추가
+    const updatedPlatforms = platforms.map((platform) => {
+      const upcomingPlatform = upcoming.find((upcoming) => upcoming.platform === platform.code);
+      if (upcomingPlatform) {
+        return {
+          ...platform,
+          release: upcomingPlatform.release,
+        };
+      }
+      return platform;
+    });
+
+    cLog(updatedPlatforms);
+
+    return (
+      <section className={styles.detail__platform__section}>
+        <div className={styles.detail__main__title}>{platformTitle}</div>
+        <ul className={styles.detail__platform__wrapper}>
+          {updatedPlatforms.map((platform, index) => (
+            <li
+              className={`platform-item ${styles.detail__platform}`}
+              aria-label={`${fPlatformNameByCode(platform.code)} 보러가기`}
+              data-url={platform.url}
+              key={index}
+            >
+              <div className={styles.platform__image__wrapper}>
+                {platform.release && (
+                  <div className={styles.platform__image__overlay}>
+                    <span className={styles.platform__release__overlay}>{fYear(platform.release)}</span>
+                    <span className={styles.platform__release__overlay}>{fReleaseDate(platform.release)}</span>
+                  </div>
+                )}
+                <Image
+                  className={styles.platform__image}
+                  src={`${SETTINGS.CDN_BASE_URL}/assets/images/platform/${platform.code}.png`}
+                  alt={fPlatformNameByCode(platform.code)}
+                  width={60}
+                  height={60}
+                  loading="lazy"
+                />
+              </div>
+              <div className={styles.platform__info}>
+                <p className={styles.platform__name}>{fPlatformNameByCode(platform.code)}</p>
+                {platform.release && <p className={styles.platform__release}>{platform.release}</p>}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  };
 
   // 출연진/제작진 컴포넌트
   const VideoPeople = ({ people, title, formatCode }) => {
@@ -368,6 +427,7 @@ const Contents = async ({ params }) => {
                 </div>
               </div>
             </div>
+
             {/* 비디오 subInfo swiper 제어: 클라이언트 컴포넌트 */}
             <VideoSubInfoClient uniqueId={subInfoUniqueId} />
           </div>
@@ -391,32 +451,8 @@ const Contents = async ({ params }) => {
               {/* 평가하기: 클라이언트 컴포넌트 */}
               <VideoMyRating videoId={videoId} title={myRatingTitle} />
 
-              {/* 보러가기 */}
-              {!isEmpty(platforms) && (
-                <section className={styles.detail__platform__section}>
-                  <div className={styles.detail__main__title}>{platformTitle}</div>
-                  <article className={styles.detail__platform__wrapper}>
-                    {platforms.map((platform, index) => (
-                      <button
-                        type="button"
-                        className={`platform-button ${styles.detail__platform}`}
-                        aria-label={`${fPlatformNameByCode(platform.code)} 보러가기`}
-                        data-url={platform.url}
-                        key={index}
-                      >
-                        <Image
-                          className={styles.platform__image}
-                          src={`${SETTINGS.CDN_BASE_URL}/assets/images/platform/${platform.code}.png`}
-                          alt={fPlatformNameByCode(platform.code)}
-                          width={60}
-                          height={60}
-                          loading="lazy"
-                        />
-                      </button>
-                    ))}
-                  </article>
-                </section>
-              )}
+              {/* 플랫폼 보러가기 */}
+              <VideoPlatform platforms={platforms} upcoming={upcoming} />
             </div>
           </section>
 
@@ -473,6 +509,7 @@ const Contents = async ({ params }) => {
                   </button>
                 </article>
               </section>
+
               {/* 트레일러 swiper 제어: 클라이언트 컴포넌트  */}
               <VideoTrailerClient uniqueId={trailerUniqueId} trailer={trailer} alt={titleKr} />
             </>
@@ -523,6 +560,7 @@ const Contents = async ({ params }) => {
                   </button>
                 </article>
               </section>
+
               {/* 갤러리 swiper 제어: 클라이언트 컴포넌트  */}
               <VideoGalleryClient uniqueId={galleryUniqueId} gallery={gallery} alt={galleryAlt} />
             </>
