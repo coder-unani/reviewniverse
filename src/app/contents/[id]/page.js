@@ -9,7 +9,7 @@ import { isEmpty } from 'lodash';
 import { SETTINGS } from '@/config/settings';
 import { DEFAULT_IMAGES, VIDEO_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fParseInt, fYear, fUpperCase } from '@/utils/format';
+import { fParseInt, fYear, fDate, fUpperCase } from '@/utils/format';
 import {
   fBackgroundImage,
   fThumbnail,
@@ -222,7 +222,7 @@ const Contents = async ({ params }) => {
               </div>
               <div className={styles.platform__info}>
                 <p className={styles.platform__name}>{fPlatformNameByCode(platform.code)}</p>
-                {platform.release && <p className={styles.platform__release}>{platform.release}</p>}
+                {platform.release && <p className={styles.platform__release}>공개예정일: {fDate(platform.release)}</p>}
               </div>
             </li>
           ))}
