@@ -193,8 +193,6 @@ const Contents = async ({ params }) => {
       return platform;
     });
 
-    cLog(updatedPlatforms);
-
     return (
       <section className={styles.detail__platform__section}>
         <div className={styles.detail__main__title}>{platformTitle}</div>
