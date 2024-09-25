@@ -46,6 +46,7 @@ const SearchResults = ({ query }) => {
     if (videosIsLoading || !videosData) {
       return;
     }
+
     if (!videosData.status) {
       if (videosData.code === 'C001') {
         // TODO: 고도화 필요
@@ -59,6 +60,7 @@ const SearchResults = ({ query }) => {
         return router.push(ENDPOINTS.ERROR);
       }
     }
+
     if (page === 1) {
       setVideos({ ...videosData.data });
     } else {
@@ -82,9 +84,9 @@ const SearchResults = ({ query }) => {
     return router.push(ENDPOINTS.ERROR);
   }
 
-  // if (isEmpty(videos)) {
-  //   return;
-  // }
+  if (isEmpty(videos)) {
+    return;
+  }
 
   return (
     <section className={styles.search__section}>
