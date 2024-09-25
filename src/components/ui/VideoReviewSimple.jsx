@@ -107,7 +107,9 @@ const VideoReviewSimple = ({ videoId }) => {
       } else if (isEmpty(reviews.data)) {
         return (
           <>
-            기록된 리뷰가 없습니다. <em>첫번째</em> 리뷰를 남겨보세요!
+            기록된 리뷰가 없습니다.
+            <br />
+            <em>첫번째</em> 리뷰를 남겨보세요!
           </>
         );
       } else if (isEmpty(myInfo.review)) {
