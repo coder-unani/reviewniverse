@@ -37,7 +37,7 @@ const VideosSwiperForPreview = async ({ videos }) => {
                   <div className={vpStyles.preview__title__wrapper}>
                     <div>
                       <p className={vpStyles.preview__title__og} data-swiper-parallax="-150">
-                        {video.title_og || video.title}
+                        {video.title_og || video.title_en || video.title}
                       </p>
                       <h2 className={vpStyles.preview__title__kr} data-swiper-parallax="-250">
                         {video.title}
