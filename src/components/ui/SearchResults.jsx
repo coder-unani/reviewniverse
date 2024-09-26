@@ -20,6 +20,8 @@ import styles from '@/styles/pages/Search.module.scss';
 
 const SearchResults = ({ query }) => {
   const router = useRouter();
+  // URI 인코딩된 한글 쿼리를 디코딩
+  const decodeQuery = decodeURIComponent(query);
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -30,17 +32,17 @@ const SearchResults = ({ query }) => {
     page,
     size: 20,
     mode: VIDEO_MODE_OPTIONS.KEYWORD,
-    query,
-    enabled: query,
+    query: decodeQuery,
+    enabled: decodeQuery,
   });
 
   useEffect(() => {
-    if (!query) {
+    if (!decodeQuery) {
       return;
     }
     setPage(1);
     setVideos(null);
-  }, [query]);
+  }, [decodeQuery]);
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
@@ -101,14 +103,14 @@ const SearchResults = ({ query }) => {
             priority
           />
           <p className={styles.no__search__title}>
-            "<em>{query}</em>"에 대한 검색 결과가 없어요.
+            "<em>{decodeQuery}</em>"에 대한 검색 결과가 없어요.
           </p>
           <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
         </div>
       ) : (
         <>
           <strong className={styles.search__title}>
-            "<em>{query}</em>"의 검색 결과가 {videos.total} 개 있어요
+            "<em>{decodeQuery}</em>"의 검색 결과가 {videos.total} 개 있어요
           </strong>
           <Videos videos={videos} handlePage={handlePage} />
         </>

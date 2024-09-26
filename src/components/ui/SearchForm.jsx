@@ -132,7 +132,7 @@ const SearchForm = () => {
     if (!inputValue || !inputValue.trim()) return;
     handleSearchClose();
     saveRecentKeywords(inputValue);
-    const path = `${ENDPOINTS.SEARCH}/${inputValue}`;
+    const path = `${ENDPOINTS.SEARCH}/${encodeURIComponent(inputValue)}`;
     router.push(path);
   };
 

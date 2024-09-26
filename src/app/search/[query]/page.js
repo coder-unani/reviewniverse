@@ -13,13 +13,11 @@ const SearchResults = dynamic(() => import('@/components/ui/SearchResults'), { s
 
 const Search = ({ params }) => {
   const { query } = params;
-  // URI 인코딩된 한글 쿼리를 디코딩
-  const decodedQuery = decodeURIComponent(query);
 
   return (
     <main className={styles.search__main}>
       <Suspense fallback={''}>
-        <SearchResults query={decodedQuery} />
+        <SearchResults query={query} />
       </Suspense>
     </main>
   );
