@@ -11,6 +11,7 @@ import ConfirmModal from '@/components/ui/Modal/Confirm';
 import TermsModal from '@/components/ui/Modal/Terms';
 import PrivacyModal from '@/components/ui/Modal/Privacy';
 import PrivacyCollectionModal from '@/components/ui/Modal/PrivacyCollection';
+import PlatformModal from '@/components/ui/Modal/Platform';
 
 /**
  * TODO:
@@ -28,6 +29,8 @@ const ModalContextProvider = ({ children }) => {
   const [isEnjoyModal, setIsEnjoyModal] = useState(false);
   // 리뷰 모달
   const [isReviewModal, setIsReviewModal] = useState(false);
+  // 플랫폼 모달
+  const [isPlatformModal, setIsPlatformModal] = useState(false);
   // 약관 모달
   const [isTermsModal, setIsTermsModal] = useState(false);
   // 개인정보 처리방침 모달
@@ -65,6 +68,7 @@ const ModalContextProvider = ({ children }) => {
     // 페이지 이동 시 모달창 닫기
     if (isEnjoyModal) setIsEnjoyModal(false);
     if (isReviewModal) setIsReviewModal(false);
+    if (isPlatformModal) setIsPlatformModal(false);
     if (isTermsModal) setIsTermsModal(false);
     if (isPrivacyModal) setIsPrivacyModal(false);
     if (isPrivcayCollectionModal) setIsPrivacyCollectionModal(false);
@@ -84,6 +88,15 @@ const ModalContextProvider = ({ children }) => {
   // 리뷰 모달창 토글
   const toggleReviewModal = () => {
     setIsReviewModal((prev) => !prev);
+  };
+
+  // 플랫폼 모달창 토글
+  const openPlatformModal = () => {
+    setIsPlatformModal(true);
+  };
+
+  const closePlatformModal = () => {
+    setIsPlatformModal(false);
   };
 
   // 약관 모달창 토글
@@ -125,6 +138,7 @@ const ModalContextProvider = ({ children }) => {
       isReviewModal,
       toggleEnjoyModal,
       toggleReviewModal,
+      openPlatformModal,
       toggleTermsModal,
       togglePrivacyModal,
       togglePrivacyCollectionModal,
@@ -138,6 +152,7 @@ const ModalContextProvider = ({ children }) => {
       {children}
       {isPopupBanner && <PopupBanner onClose={togglePopupBanner} />}
       {isEnjoyModal && <EnjoyModal onClose={toggleEnjoyModal} />}
+      <PlatformModal isOpen={isPlatformModal} onClose={closePlatformModal} />
       {isTermsModal && <TermsModal onClose={toggleTermsModal} />}
       {isPrivacyModal && <PrivacyModal onClose={togglePrivacyModal} />}
       {isPrivcayCollectionModal && <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />}

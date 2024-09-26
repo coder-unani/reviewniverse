@@ -1,6 +1,6 @@
 @use '@/styles/variables' as *;
 
-.confirm__modal__overlay {
+.platform__modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,14 +13,14 @@
   z-index: 998;
 }
 
-.confirm__modal__wrapper {
+.platform__modal__wrapper {
   position: absolute;
   width: 300px;
   outline: none;
   z-index: 999;
 }
 
-.confirm__modal {
+.platform__modal {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,24 +30,25 @@
   padding: 20px 20px 0 20px;
 }
 
-.confirm__header__title {
+.platform__header__title {
   font-size: 16px;
   font-weight: 800;
   color: $color-white-01;
   text-align: center;
 }
 
-.confirm__body {
+.platform__body {
   padding: 24px 0;
 }
 
-.confirm__body__content {
+.platform__body__content {
   font-size: 14px;
   color: $color-white-01;
+  line-height: 1.5;
   text-align: center;
 }
 
-.confirm__footer {
+.platform__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -55,8 +56,7 @@
   border-top: 1px solid $border-color-01;
 }
 
-.cancel__button,
-.confirm__button {
+.platform__button {
   flex: 1;
   font-size: 14px;
   // color: $color-white-02;

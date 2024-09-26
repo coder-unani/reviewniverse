@@ -127,6 +127,18 @@ export const VIDEO_STAFF_CODE = {
   30: '조감독',
 };
 
+export const INQUIRY_CODE = {
+  10: '문의',
+  11: '회원 문의',
+  12: '제안',
+  13: '제휴',
+  14: '오류',
+  15: '등록 요청',
+  16: '수정 요청',
+  21: '신고',
+  99: '기타',
+};
+
 export const COUNTRY_CODE = {
   AF: {
     name_en: 'Afghanistan',

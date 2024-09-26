@@ -47,7 +47,7 @@ const GenresSwiper = ({ children, genres }) => {
                         loading="lazy"
                       />
                     </picture>
-                    <p className={styles.genre__video__title}>#{genre.name}</p>
+                    <p className={styles.genre__video__title}>{`#${genre.name}`}</p>
                   </Link>
                 </div>
               ))}
