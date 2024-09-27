@@ -79,7 +79,8 @@ const AuthGoogleCallback = () => {
     } catch (error) {
       setSnsUser(null);
       router.push(ENDPOINTS.USER_LOGIN);
-      showErrorToast(MESSAGES['L002']);
+      // showErrorToast(MESSAGES['L002']);
+      showErrorToast(error);
     }
   };
 
