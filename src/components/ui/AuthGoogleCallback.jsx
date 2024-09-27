@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { isEmpty } from 'lodash';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { auth, provider } from '@/library/firebase';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
@@ -27,59 +27,75 @@ const AuthGoogleCallback = () => {
   const [snsUser, setSnsUser] = useState(null);
   const [isAgree, setIsAgree] = useState(false);
   const [agreeValues, setAgreeValues] = useState({});
+  const [authProcessed, setAuthProcessed] = useState(false);
 
   useEffect(() => {
-    // 로그인 상태일 경우, 회원 정보 페이지로 이동
-    if (user) {
+    const handleGoogleLogin = async () => {
+      try {
+        const result = await getRedirectResult(auth);
+        console.log('result', result);
+        if (result && result.user) {
+          const googleUser = result.user;
+          await processLogin(googleUser);
+          setAuthProcessed(true);
+        } else if (!authProcessed && isMobile) {
+          await signInWithRedirect(auth, provider);
+        } else if (!authProcessed && !isMobile) {
+          const result = await signInWithPopup(auth, provider);
+          const googleUser = result.user;
+          await processLogin(googleUser);
+          setAuthProcessed(true);
+        }
+      } catch (error) {
+        setSnsUser(null);
+        router.push(ENDPOINTS.USER_LOGIN);
+        showErrorToast(error.message);
+      }
+    };
+
+    const processLogin = async (googleUser) => {
+      try {
+        const loginUser = {
+          code: fProviderCode('google'),
+          email: googleUser.email,
+          sns_id: googleUser.uid,
+        };
+        const res = await login(loginUser);
+        if (res.status) {
+          showSuccessToast(MESSAGES[res.code]);
+          router.push(ENDPOINTS.HOME);
+        } else {
+          if (res.code === 'L003') {
+            setSnsUser({
+              code: loginUser.code,
+              email: googleUser.email,
+              sns_id: googleUser.uid,
+              nickname: googleUser.displayName,
+              profile_image: googleUser.photoURL,
+            });
+          } else {
+            // TODO: 이메일/닉네임 유효성 검사
+            throw new Error(MESSAGES[res.code]);
+          }
+        }
+      } catch (error) {
+        showErrorToast(MESSAGES['L002']);
+      }
+    };
+
+    if (!user && !authProcessed) {
+      handleGoogleLogin();
+    } else if (user) {
       showErrorToast(MESSAGES['L002']);
       const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
       router.push(path);
     }
-
-    handleGoogleLogin();
-  }, []);
+  }, [user, authProcessed, isMobile, router]);
 
   useEffect(() => {
     if (!snsUser || !isAgree || isEmpty(agreeValues)) return;
     handleSocialJoin(snsUser, agreeValues);
   }, [snsUser, isAgree, agreeValues]);
-
-  const handleGoogleLogin = async () => {
-    try {
-      const googleRes = await signInWithPopup(auth, provider);
-      const googleUser = googleRes.user;
-
-      const loginUser = {
-        code: fProviderCode('google'),
-        email: googleUser.email,
-        sns_id: googleUser.uid,
-      };
-
-      // 로그인 확인
-      const res = await login(loginUser);
-      if (res.status) {
-        showSuccessToast(MESSAGES[res.code]);
-        router.push(ENDPOINTS.HOME);
-      } else {
-        if (res.code === 'L003') {
-          setSnsUser({
-            code: loginUser.code,
-            email: googleUser.email,
-            sns_id: googleUser.uid,
-            nickname: googleUser.displayName,
-            profile_image: googleUser.photoURL,
-          });
-        } else {
-          // TODO: 이메일/닉네임 유효성 검사
-          throw new Error(MESSAGES[res.code]);
-        }
-      }
-    } catch (error) {
-      setSnsUser(null);
-      router.push(ENDPOINTS.USER_LOGIN);
-      showErrorToast(MESSAGES['L002']);
-    }
-  };
 
   const handleSocialJoin = async (snsUser, agreeValues) => {
     try {
