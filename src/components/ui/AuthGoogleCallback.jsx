@@ -55,6 +55,8 @@ const AuthGoogleCallback = () => {
         sns_id: googleUser.uid,
       };
 
+      document.querySelector('.error__message').textContent = '로그인중';
+
       // 로그인 확인
       const res = await login(loginUser);
       if (res.status) {
@@ -71,16 +73,15 @@ const AuthGoogleCallback = () => {
           });
         } else {
           // TODO: 이메일/닉네임 유효성 검사
-          setSnsUser(null);
-          navigate(ENDPOINTS.USER_LOGIN);
-          showErrorToast(MESSAGES[res.code]);
+          throw new Error(MESSAGES[res.code]);
         }
       }
     } catch (error) {
       setSnsUser(null);
       router.push(ENDPOINTS.USER_LOGIN);
       // showErrorToast(MESSAGES['L002']);
-      showErrorToast(error);
+      document.querySelector('.error__message').textContent = error;
+      showErrorToast(error.message);
     }
   };
 
