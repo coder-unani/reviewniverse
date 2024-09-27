@@ -91,6 +91,7 @@ const ModalContextProvider = ({ children }) => {
   };
 
   // 플랫폼 모달창 토글
+  // TODO: 토글로 구현했지만, 2번 실행되는 문제로 인해 open/close 함수로 변경
   const openPlatformModal = () => {
     setIsPlatformModal(true);
   };
