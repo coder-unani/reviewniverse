@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { isEmpty } from 'lodash';
+import { isEmpty, set } from 'lodash';
 import { signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { auth, provider } from '@/library/firebase';
 
@@ -13,6 +13,7 @@ import { fProviderCode } from '@/utils/formatContent';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
+import { getSessionStorage, setSessionStorage, removeSessionStorage } from '@/utils/storage';
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
@@ -32,13 +33,19 @@ const AuthGoogleCallback = () => {
   useEffect(() => {
     const handleGoogleLogin = async () => {
       try {
-        const result = await getRedirectResult(auth);
-        console.log('result', result);
-        if (result && result.user) {
-          const googleUser = result.user;
-          await processLogin(googleUser);
-          setAuthProcessed(true);
+        const redirectState = getSessionStorage('redirect_in_progress');
+        if (redirectState === 'true') {
+          const result = await getRedirectResult(auth);
+          console.log('result', result);
+
+          if (result && result.user) {
+            const googleUser = result.user;
+            await processLogin(googleUser);
+            setAuthProcessed(true);
+            removeSessionStorage('redirect_in_progress');
+          }
         } else if (!authProcessed && isMobile) {
+          setSessionStorage('redirect_in_progress', 'true');
           await signInWithRedirect(auth, provider);
         } else if (!authProcessed && !isMobile) {
           const result = await signInWithPopup(auth, provider);
