@@ -32,11 +32,12 @@ const AuthGoogleCallback = () => {
     // 로그인 상태일 경우, 회원 정보 페이지로 이동
     if (user) {
       showErrorToast(MESSAGES['L002']);
-      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
-      router.push(path);
+      // const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
+      // router.push(path);
+      router.push(ENDPOINTS.HOME);
+    } else {
+      handleGoogleLogin();
     }
-
-    handleGoogleLogin();
   }, []);
 
   useEffect(() => {
