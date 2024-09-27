@@ -55,8 +55,6 @@ const AuthGoogleCallback = () => {
         sns_id: googleUser.uid,
       };
 
-      document.querySelector('.error__message').textContent = '로그인중';
-
       // 로그인 확인
       const res = await login(loginUser);
       if (res.status) {
@@ -80,7 +78,6 @@ const AuthGoogleCallback = () => {
       setSnsUser(null);
       router.push(ENDPOINTS.USER_LOGIN);
       // showErrorToast(MESSAGES['L002']);
-      document.querySelector('.error__message').textContent = error;
       showErrorToast(error.message);
     }
   };

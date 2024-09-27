@@ -56,7 +56,6 @@ const UsersLogin = () => {
           {googleButton}
         </button>
       </div>
-      <div className="error__message" style={{ color: '#ffffff' }}></div>
 
       <UsersLoginClient />
     </main>
