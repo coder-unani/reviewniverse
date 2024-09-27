@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { isEmpty } from 'lodash';
-import { signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
+import { signInWithPopup } from 'firebase/auth';
 import { auth, provider } from '@/library/firebase';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
@@ -34,10 +34,10 @@ const AuthGoogleCallback = () => {
       showErrorToast(MESSAGES['L002']);
       const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
       router.push(path);
-    } else {
-      handleGoogleLogin();
     }
-  }, [user, router]);
+
+    handleGoogleLogin();
+  }, []);
 
   useEffect(() => {
     if (!snsUser || !isAgree || isEmpty(agreeValues)) return;
@@ -46,51 +46,38 @@ const AuthGoogleCallback = () => {
 
   const handleGoogleLogin = async () => {
     try {
-      if (isMobile) {
-        // 모바일일 때는 signInWithRedirect 사용
-        await signInWithRedirect(auth, provider);
-        const result = await getRedirectResult(auth);
-        if (result) {
-          const googleUser = result.user;
-          await processLogin(googleUser);
-        }
+      const googleRes = await signInWithPopup(auth, provider);
+      const googleUser = googleRes.user;
+
+      const loginUser = {
+        code: fProviderCode('google'),
+        email: googleUser.email,
+        sns_id: googleUser.uid,
+      };
+
+      // 로그인 확인
+      const res = await login(loginUser);
+      if (res.status) {
+        showSuccessToast(MESSAGES[res.code]);
+        router.push(ENDPOINTS.HOME);
       } else {
-        // 모바일이 아닐 때는 signInWithPopup 사용
-        const googleRes = await signInWithPopup(auth, provider);
-        const googleUser = googleRes.user;
-        await processLogin(googleUser);
+        if (res.code === 'L003') {
+          setSnsUser({
+            code: loginUser.code,
+            email: googleUser.email,
+            sns_id: googleUser.uid,
+            nickname: googleUser.displayName,
+            profile_image: googleUser.photoURL,
+          });
+        } else {
+          // TODO: 이메일/닉네임 유효성 검사
+          throw new Error(MESSAGES[res.code]);
+        }
       }
     } catch (error) {
       setSnsUser(null);
       router.push(ENDPOINTS.USER_LOGIN);
-      showErrorToast(error.message);
-    }
-  };
-
-  const processLogin = async (googleUser) => {
-    const loginUser = {
-      code: fProviderCode('google'),
-      email: googleUser.email,
-      sns_id: googleUser.uid,
-    };
-
-    // 로그인 확인
-    const res = await login(loginUser);
-    if (res.status) {
-      showSuccessToast(MESSAGES[res.code]);
-      router.push(ENDPOINTS.HOME);
-    } else {
-      if (res.code === 'L003') {
-        setSnsUser({
-          code: loginUser.code,
-          email: googleUser.email,
-          sns_id: googleUser.uid,
-          nickname: googleUser.displayName,
-          profile_image: googleUser.photoURL,
-        });
-      } else {
-        throw new Error(MESSAGES[res.code]);
-      }
+      showErrorToast(MESSAGES['L002']);
     }
   };
 
