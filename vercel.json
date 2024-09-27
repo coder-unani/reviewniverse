@@ -3,6 +3,10 @@
     {
       "source": "/sitemap/sitemap.xml",
       "destination": "https://storage.reviewniverse.net/sitemap/sitemap.xml"
+    },
+    {
+      "source": "/__/auth/",
+      "destination": "https://reviewniverse-899d2.firebaseapp.com/__/auth/"
     }
   ],
   "headers": [
