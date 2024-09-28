@@ -96,58 +96,60 @@ const AuthGoogleCallback = () => {
       // 사용자 정보 없고 로그인이 진행중이지 않을 때
       handleGoogleLogin();
     } else if (user) {
-      // 사용자 정보가 있을 때
-      showErrorToast(MESSAGES['L002']);
-      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
-      router.push(path);
+      // 사용자 정보가 있을 때 (로그인 상태에서 주소치고 들어온 경우 홈으로 이동)
+      router.push(ENDPOINTS.HOME);
     }
   }, [user, isProcessed, isMobile, router]);
 
   useEffect(() => {
+    // snsUser, isAgree, agreeValues 값이 없으면 함수 실행하지 않음
     if (!snsUser || !isAgree || isEmpty(agreeValues)) return;
+
+    // 사이트 회원 가입 함수 실행
     handleSocialJoin(snsUser, agreeValues);
   }, [snsUser, isAgree, agreeValues]);
 
   // 사이트 회원가입
   const handleSocialJoin = async (snsUser, agreeValues) => {
+    const joinUser = {
+      code: snsUser.code,
+      email: snsUser.email,
+      sns_id: snsUser.sns_id,
+      nickname: snsUser.nickname,
+      profile_image: snsUser.profile_image,
+      is_privacy_agree: agreeValues.privacy,
+      is_terms_agree: agreeValues.terms,
+      is_age_agree: agreeValues.age,
+      is_marketing_agree: agreeValues.marketing,
+    };
+
     try {
-      const joinUser = {
-        code: snsUser.code,
-        email: snsUser.email,
-        sns_id: snsUser.sns_id,
-        nickname: snsUser.nickname,
-        profile_image: snsUser.profile_image,
-        is_privacy_agree: agreeValues.privacy,
-        is_terms_agree: agreeValues.terms,
-        is_age_agree: agreeValues.age,
-        is_marketing_agree: agreeValues.marketing,
-      };
-
       const res = await join(joinUser);
-      if (res.status) {
-        showSuccessToast(MESSAGES[res.code]);
 
+      if (res.status) {
+        // 회원가입 성공
         const loginUser = {
           code: joinUser.code,
           email: joinUser.email,
           sns_id: joinUser.sns_id,
         };
 
+        // 로그인 시도
         const loginRes = await login(loginUser);
         if (loginRes.status) {
-          // 회원 취향 등록 페이지로 이동
+          // 로그인 성공 시 회원 취향 등록 페이지로 이동
           router.push(ENDPOINTS.USER_WATCHTYPE);
         } else {
           // 로그인 실패
-          showErrorToast(MESSAGES[res.code]);
-          router.push(ENDPOINTS.USER_LOGIN);
+          throw new Error(MESSAGES[loginRes.code]);
         }
       } else {
         // 회원가입 실패
-        showErrorToast(MESSAGES[res.code]);
-        router.push(ENDPOINTS.USER_LOGIN);
+        throw new Error(MESSAGES[res.code]);
       }
-    } catch {
+    } catch (error) {
+      showErrorToast(error.message);
+      router.push(ENDPOINTS.USER_LOGIN);
     } finally {
       setSnsUser(null);
     }
