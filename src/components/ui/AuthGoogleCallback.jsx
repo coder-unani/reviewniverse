@@ -29,6 +29,7 @@ const AuthGoogleCallback = () => {
   const [isAgree, setIsAgree] = useState(false);
   const [agreeValues, setAgreeValues] = useState({});
   const [isProcessed, setIsProcessed] = useState(false);
+  const [isCreated, setIsCreated] = useState(false);
 
   useEffect(() => {
     // 구글 로그인
@@ -100,8 +101,12 @@ const AuthGoogleCallback = () => {
       router.push(ENDPOINTS.HOME);
     } else if (user && isProcessed) {
       // 사용자 정보가 있고 로그인이 진행중일 때 유저 왓치타입 페이지로 이동 (=회원가입 성공 후 로그인 성공)
-      showSuccessToast(MESSAGES['J001']);
-      router.push(ENDPOINTS.USER_WATCHTYPE);
+      if (isCreated) {
+        showSuccessToast(MESSAGES['J001']);
+        router.push(ENDPOINTS.USER_WATCHTYPE);
+      } else {
+        router.push(ENDPOINTS.HOME);
+      }
     }
   }, [user, isProcessed, isMobile, router]);
 
@@ -131,6 +136,7 @@ const AuthGoogleCallback = () => {
       const res = await join(joinUser);
 
       if (res.status) {
+        setIsCreated(true);
         // 회원가입 성공
         const loginUser = {
           code: joinUser.code,
