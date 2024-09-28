@@ -3,8 +3,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname, useParams } from 'next/navigation';
-import ClearButton from '@/components/ui/Button/Clear';
-import { useThemeContext } from '@/contexts/ThemeContext';
+import { isEmpty } from 'lodash';
+
+import { ENDPOINTS } from '@/config/endpoints';
 import {
   getStorageKeyword,
   setStorageKeyword,
@@ -14,8 +15,9 @@ import {
   setStorageSaveKeyword,
   getStorageSaveKeyword,
 } from '@/utils/formatStorage';
-import { isEmpty } from 'lodash';
-import { ENDPOINTS } from '@/config/endpoints';
+import { useThemeContext } from '@/contexts/ThemeContext';
+import ClearButton from '@/components/ui/Button/Clear';
+
 import SearchIcon from '@/resources/icons/search.svg';
 import CloseIcon from '@/resources/icons/close.svg';
 import styles from '@/styles/components/SearchForm.module.scss';
@@ -130,7 +132,7 @@ const SearchForm = () => {
     if (!inputValue || !inputValue.trim()) return;
     handleSearchClose();
     saveRecentKeywords(inputValue);
-    const path = `${ENDPOINTS.SEARCH}/${inputValue}`;
+    const path = `${ENDPOINTS.SEARCH}/${encodeURIComponent(inputValue)}`;
     router.push(path);
   };
 

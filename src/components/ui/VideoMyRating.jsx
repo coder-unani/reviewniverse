@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import RatingVideo from '@/components/ui/RatingVideo';
-import RatingVideo2 from '@/components/ui/RatingVideo2';
-import { useContentsContext } from '@/contexts/ContentsContext';
+
 import { fRatingColor, fRatingText } from '@/utils/formatContent';
+import { useContentsContext } from '@/contexts/ContentsContext';
+import RatingVideo2 from '@/components/ui/RatingVideo2';
+
 import styles from '@/styles/pages/Contents.module.scss';
 
 const VideoMyRating = ({ videoId, title }) => {
@@ -15,7 +16,7 @@ const VideoMyRating = ({ videoId, title }) => {
 
   return (
     <section className={styles.detail__my__rating__section}>
-      <h4 className={styles.detail__main__title}>{title}</h4>
+      <div className={styles.detail__main__title}>{title}</div>
       {/* <div className={styles.detail__my__rating}>
         <span className={`${styles.my__rating__text} ${styles.number}`} data-color={ratingColor}>
           {ratingText}
@@ -23,7 +24,6 @@ const VideoMyRating = ({ videoId, title }) => {
         <span className={styles.my__rating__text}>/</span>
         <span className={styles.my__rating__text}>5</span>
       </div> */}
-      {/* <RatingVideo videoId={videoId} myInfo={myInfo} /> */}
       <RatingVideo2 videoId={videoId} myInfo={myInfo} />
     </section>
   );

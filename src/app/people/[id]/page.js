@@ -1,8 +1,9 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+
 import styles from '@/styles/pages/People.module.scss';
 
-const PeopleComponent = dynamic(() => import('@/components/ui/People'), { ssr: false });
+const Filmography = dynamic(() => import('@/components/ui/Filmography'), { ssr: false });
 
 /**
  * TODO:
@@ -45,7 +46,7 @@ const People = ({ params }) => {
   return (
     <main className={styles.people__main}>
       <Suspense fallback={''}>
-        <PeopleComponent id={id} />
+        <Filmography id={id} />
       </Suspense>
     </main>
   );

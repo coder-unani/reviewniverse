@@ -1,25 +1,17 @@
 'use client';
 
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useState,
-} from 'react';
+import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { setStorageHasVisited, getStorageHasVisited, getStorageHidePopupBanner } from '@/utils/formatStorage';
 import PopupBanner from '@/components/ui/Banner/Popup';
 import EnjoyModal from '@/components/ui/Modal/Enjoy';
 import ConfirmModal from '@/components/ui/Modal/Confirm';
 import TermsModal from '@/components/ui/Modal/Terms';
 import PrivacyModal from '@/components/ui/Modal/Privacy';
 import PrivacyCollectionModal from '@/components/ui/Modal/PrivacyCollection';
-import {
-  setStorageHasVisited,
-  getStorageHasVisited,
-  getStorageHidePopupBanner,
-} from '@/utils/formatStorage';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import PlatformModal from '@/components/ui/Modal/Platform';
 
 /**
  * TODO:
@@ -31,15 +23,25 @@ const ModalContext = createContext();
 const ModalContextProvider = ({ children }) => {
   const router = useRouter();
   const pathname = usePathname();
+  // 팝업 모달
   const [isPopupBanner, setIsPopupBanner] = useState(false);
+  // 로그인 모달
   const [isEnjoyModal, setIsEnjoyModal] = useState(false);
+  // 리뷰 모달
   const [isReviewModal, setIsReviewModal] = useState(false);
+  // 플랫폼 모달
+  const [isPlatformModal, setIsPlatformModal] = useState(false);
+  // 약관 모달
   const [isTermsModal, setIsTermsModal] = useState(false);
+  // 개인정보 처리방침 모달
   const [isPrivacyModal, setIsPrivacyModal] = useState(false);
-  const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] =
-    useState(false);
+  // 개인정보 수집 및 이용 동의 모달
+  const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] = useState(false);
+  // 확인 모달
   const [isConfirmModal, setIsConfirmModal] = useState(false);
+  // 확인 모달 메세지
   const [confirmMessage, setConfirmMessage] = useState('');
+  // 확인 모달 결과 처리 함수
   const [confirmResolve, setConfirmResolve] = useState(null);
 
   /*
@@ -63,8 +65,10 @@ const ModalContextProvider = ({ children }) => {
   */
 
   useEffect(() => {
+    // 페이지 이동 시 모달창 닫기
     if (isEnjoyModal) setIsEnjoyModal(false);
     if (isReviewModal) setIsReviewModal(false);
+    if (isPlatformModal) setIsPlatformModal(false);
     if (isTermsModal) setIsTermsModal(false);
     if (isPrivacyModal) setIsPrivacyModal(false);
     if (isPrivcayCollectionModal) setIsPrivacyCollectionModal(false);
@@ -84,6 +88,16 @@ const ModalContextProvider = ({ children }) => {
   // 리뷰 모달창 토글
   const toggleReviewModal = () => {
     setIsReviewModal((prev) => !prev);
+  };
+
+  // 플랫폼 모달창 토글
+  // TODO: 토글로 구현했지만, 2번 실행되는 문제로 인해 open/close 함수로 변경
+  const openPlatformModal = () => {
+    setIsPlatformModal(true);
+  };
+
+  const closePlatformModal = () => {
+    setIsPlatformModal(false);
   };
 
   // 약관 모달창 토글
@@ -125,6 +139,7 @@ const ModalContextProvider = ({ children }) => {
       isReviewModal,
       toggleEnjoyModal,
       toggleReviewModal,
+      openPlatformModal,
       toggleTermsModal,
       togglePrivacyModal,
       togglePrivacyCollectionModal,
@@ -138,19 +153,13 @@ const ModalContextProvider = ({ children }) => {
       {children}
       {isPopupBanner && <PopupBanner onClose={togglePopupBanner} />}
       {isEnjoyModal && <EnjoyModal onClose={toggleEnjoyModal} />}
+      <PlatformModal isOpen={isPlatformModal} onClose={closePlatformModal} />
       {isTermsModal && <TermsModal onClose={toggleTermsModal} />}
       {isPrivacyModal && <PrivacyModal onClose={togglePrivacyModal} />}
-      {isPrivcayCollectionModal && (
-        <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />
-      )}
-      {isConfirmModal && (
-        <ConfirmModal
-          onClose={() => handleConfirm(false)}
-          onConfirm={() => handleConfirm(true)}
-        >
-          {confirmMessage}
-        </ConfirmModal>
-      )}
+      {isPrivcayCollectionModal && <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />}
+      <ConfirmModal isOpen={isConfirmModal} onClose={() => handleConfirm(false)} onConfirm={() => handleConfirm(true)}>
+        {confirmMessage}
+      </ConfirmModal>
     </ModalContext.Provider>
   );
 };
@@ -158,9 +167,7 @@ const ModalContextProvider = ({ children }) => {
 const useModalContext = () => {
   const context = useContext(ModalContext);
   if (!context) {
-    throw new Error(
-      'useModalContext must be used within an ModalContextProvider'
-    );
+    throw new Error('useModalContext must be used within an ModalContextProvider');
   }
   return context;
 };

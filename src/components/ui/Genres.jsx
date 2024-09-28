@@ -2,14 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import VideosVertical from '@/components/ui/VideosVertical';
-import { useVideos } from '@/hooks/useVideos';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
-import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { isEmpty } from 'lodash';
+
+import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
+import { ENDPOINTS } from '@/config/endpoints';
+import { fParseInt } from '@/utils/format';
+import { useVideos } from '@/hooks/useVideos';
+import Videos from '@/components/ui/Videos';
+
 import styles from '@/styles/pages/Genres.module.scss';
 
 const Genres = ({ children, id }) => {
@@ -42,13 +42,13 @@ const Genres = ({ children, id }) => {
     if (videosIsLoading || !videosData) {
       return;
     }
+
     if (!videosData.status) {
       if (videosData.code === 'C001') {
         // TODO: 고도화 필요
         if (page === 1) {
           return router.push(ENDPOINTS.ERROR);
         } else {
-          // showErrorToast(MESSAGES["C001"]);
           setPage((prev) => prev - 1);
           return;
         }
@@ -56,6 +56,7 @@ const Genres = ({ children, id }) => {
         return router.push(ENDPOINTS.ERROR);
       }
     }
+
     if (page === 1) {
       setVideos({ ...videosData.data });
     } else {
@@ -97,7 +98,7 @@ const Genres = ({ children, id }) => {
         </div>
       </section>
       {children}
-      <VideosVertical videos={videos} handlePage={handlePage} />
+      <Videos videos={videos} handlePage={handlePage} />
     </>
   );
 };

@@ -222,11 +222,16 @@ header {
   }
 }
 
+// 모달 열렸을 때
+.modal__open {
+  overflow: hidden;
+}
+
 // 모달 닫기 버튼
 .modal__close__button {
   position: absolute;
   top: 14px;
-  right: 16px;
+  right: $padding-small;
   display: flex;
   cursor: pointer;
 
@@ -238,12 +243,15 @@ header {
   }
 }
 
+// 리뷰 좋아요 버튼
 .review__like__button {
   display: flex;
   align-items: center;
 }
 
+// 리뷰 좋아요 카운트
 .review__like__count {
+  min-width: 10px;
   font-size: 14px;
   font-weight: 600;
   color: $color-white-06;
@@ -254,6 +262,7 @@ header {
   }
 }
 
+// 배우 이미지
 .people__image__wrapper {
   flex-shrink: 0;
   position: relative;

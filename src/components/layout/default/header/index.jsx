@@ -3,13 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
+import { isEmpty } from 'lodash';
+
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import SearchForm from '@/components/ui/SearchForm';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import MenuModal from '@/components/ui/Modal/Menu';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+
 import LogoIcon from '@/resources/icons/logo-white.svg';
 import SearchIcon from '@/resources/icons/search.svg';
 import MenuIcon from '@/resources/icons/menu.svg';
@@ -40,8 +42,10 @@ const Header = () => {
         header.classList.add('transparent');
       }
     };
+
     window.addEventListener('scroll', handleScroll);
     header.classList.add('transparent');
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
       header.classList.remove('transparent');

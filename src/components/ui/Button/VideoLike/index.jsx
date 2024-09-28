@@ -1,12 +1,14 @@
 'use client';
 
 import React from 'react';
+import { isEmpty } from 'lodash';
+
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useContentsContext } from '@/contexts/ContentsContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoLike } from '@/hooks/useVideoLike';
 import { showSuccessToast } from '@/components/ui/Toast';
-import { isEmpty } from 'lodash';
+
 import styles from '@/styles/components/ControlButton.module.scss';
 
 const VideoLikeButton = ({ videoId }) => {

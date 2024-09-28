@@ -1,11 +1,30 @@
 @use '@/styles/variables' as *;
 
+.confirm__modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.56);
+  z-index: 998;
+}
+
+.confirm__modal__wrapper {
+  position: absolute;
+  width: 300px;
+  outline: none;
+  z-index: 999;
+}
+
 .confirm__modal {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  height: 100%;
   background-color: $color-white-09;
   border-radius: 16px;
   padding: 20px 20px 0 20px;
@@ -19,7 +38,7 @@
 }
 
 .confirm__body {
-  padding: 20px 0;
+  padding: 24px 0;
 }
 
 .confirm__body__content {
@@ -42,5 +61,5 @@
   font-size: 14px;
   // color: $color-white-02;
   color: $color-magenta;
-  padding: 15px 0;
+  padding: 16px 0;
 }

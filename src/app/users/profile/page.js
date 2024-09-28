@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+
 import styles from '@/styles/pages/UsersProfile.module.scss';
 
 const UsersProfileComponent = dynamic(() => import('@/components/ui/UsersProfile'), { ssr: false });

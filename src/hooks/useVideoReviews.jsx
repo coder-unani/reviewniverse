@@ -1,9 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { fetchVideoReviews } from '@/library/api/videos';
 
 // TODO: queryKey page, pageSize 추가
 
-export const useVideoReviews = ({ videoId, page = null, pageSize = null, enabled }) => {
+export const useVideoReviews = ({ videoId, page = null, pageSize = null, metadata = null, enabled }) => {
   return useQuery({
     queryKey: [
       'videoReviews',
@@ -11,11 +12,26 @@ export const useVideoReviews = ({ videoId, page = null, pageSize = null, enabled
       {
         ...(page !== null && { page }),
         ...(pageSize !== null && { pageSize }),
+        ...(metadata !== null && { metadata }),
       },
     ],
     queryFn: async () => {
-      const res = await fetchVideoReviews({ videoId, page, pageSize });
-      return res.status === 200 ? res.data : [];
+      const res = await fetchVideoReviews({ videoId, page, pageSize, metadata });
+      if (res.status === 200) {
+        return {
+          status: true,
+          code: '',
+          data: res.data,
+        };
+      } else if (res.status === 429) {
+        return {
+          status: false,
+          code: 'C001',
+          data: [],
+        };
+      } else {
+        throw new Error('C999');
+      }
     },
     enabled: !!enabled,
     staleTime: 1000 * 60 * 5,

@@ -1,7 +1,9 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
-import GenresVertical from '@/components/ui/GenresVertical';
+
 import { fetchRankingGenres } from '@/library/api/ranking';
+import GenresSwiper from '@/components/ui/GenresSwiper';
+
 import styles from '@/styles/pages/Genres.module.scss';
 
 const GenresComponent = dynamic(() => import('@/components/ui/Genres'), { ssr: false });
@@ -18,7 +20,7 @@ export const metadata = ({ params }) => {
   const title = `${name}의 검색결과 - 리뷰니버스`;
   const description = `${name}의 검색결과 - 리뷰니버스`;
   const imageUrl = DEFAULT_IMAGES.logo;
-  const path = EndpointManager.generateUrl(ENDPOINTS.GENRE, { genreId });
+  const path = EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
 
   return {
@@ -61,7 +63,7 @@ const Genres = async ({ params }) => {
     <main className={styles.genre__main}>
       <Suspense fallback={''}>
         <GenresComponent id={id}>
-          <GenresVertical genres={genres} />
+          <GenresSwiper genres={genres} />
         </GenresComponent>
       </Suspense>
     </main>

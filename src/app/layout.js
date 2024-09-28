@@ -1,6 +1,10 @@
-import DefaultLayout from '@/components/layout/default';
+import Script from 'next/script';
+import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
+
 import { SETTINGS } from '@/config/settings';
 import { DEFAULT_IMAGES, SITE_KEYWORDS } from '@/config/constants';
+import DefaultLayout from '@/components/layout/default';
+
 import 'swiper/css';
 import 'swiper/css/grid';
 import 'swiper/css/effect-fade';
@@ -10,8 +14,6 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import 'react-toastify/dist/ReactToastify.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 import '@/styles/globals.scss';
-import Script from 'next/script';
-import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 
 // viewport 설정
 export const viewport = {

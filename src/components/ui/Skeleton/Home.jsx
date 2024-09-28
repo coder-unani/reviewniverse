@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+
 import styles from '@/styles/components/SkeletonHome.module.scss';
 import homeStyles from '@/styles/pages/Home.module.scss';
-import vpStyles from '@/styles/components/VideosPreview.module.scss';
-import vvStyles from '@/styles/components/VideosVertical.module.scss';
+import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
 /**
  * TODO:
@@ -59,10 +60,7 @@ const SkeletonHome = () => {
             <div className={styles.preview__thumbnails__wrapper}>
               <div className={styles.preview__thumbnails}>
                 {new Array(previewCount).fill(0).map((_, index) => (
-                  <div
-                    className={vpStyles.preview__thumbnail__item}
-                    key={index}
-                  >
+                  <div className={vpStyles.preview__thumbnail__item} key={index}>
                     <div className={vpStyles.preview__thumbnail__link}>
                       <Skeleton className={styles.preview__thumbnail} />
                     </div>

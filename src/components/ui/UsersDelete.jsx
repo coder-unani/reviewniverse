@@ -2,13 +2,16 @@
 
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import { Tooltip } from 'react-tooltip';
+import { isEmpty } from 'lodash';
+
+import { DEFAULT_IMAGES } from '@/config/constants';
+import { ENDPOINTS } from '@/config/endpoints';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useUserDelete } from '@/hooks/useUserDelete';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { DEFAULT_IMAGES } from '@/config/constants';
-import { ENDPOINTS } from '@/config/endpoints';
-import { Tooltip } from 'react-tooltip';
-import { isEmpty } from 'lodash';
+
 import styles from '@/styles/pages/UsersDelete.module.scss';
 
 const UsersDelete = () => {
@@ -62,11 +65,13 @@ const UsersDelete = () => {
           <br />
           삭제하시려면 아래의 버튼을 눌러주세요.
         </p>
-        <img
+        <Image
           className={styles.delete__image}
           src={DEFAULT_IMAGES.userDelete}
-          srcSet={DEFAULT_IMAGES.userDelete}
           alt="회원 탈퇴 이미지"
+          width={240}
+          height={240}
+          priority
         />
         <div className={styles.delete__button__wrapper}>
           <button type="button" id="cancelButton" className={styles.delete__cancel} onClick={handleCancel}>

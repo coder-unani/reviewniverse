@@ -1,3 +1,5 @@
+@use '@/styles/variables' as *;
+
 .photo__modal {
   position: fixed;
   top: 0;
@@ -5,8 +7,14 @@
   bottom: 0;
   transform: translateX(-50%);
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.56);
+  // background-color: rgba(0, 0, 0, 0.56);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 999;
+
+  :global(.modal__close__button) {
+    top: 5%;
+    z-index: 999;
+  }
 }
 
 .photo__image {
@@ -18,4 +26,59 @@
   max-height: 90%;
   object-fit: contain;
   border-radius: 14px;
+}
+
+.photo__prev__button,
+.photo__next__button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid $border-color-01;
+  background-color: $color-background;
+  box-shadow: 0 0 2px 0 rgba($color-white, 0.05);
+  padding: 5px;
+  z-index: 10;
+  cursor: pointer;
+
+  &:disabled {
+    display: none;
+  }
+
+  &:hover {
+    border: 1px solid $border-color-03;
+    background-color: $color-white-09;
+  }
+
+  svg {
+    path {
+      fill: $color-white-02;
+    }
+  }
+}
+
+.photo__prev__button {
+  left: calc(5% - 20px);
+}
+
+.photo__next__button {
+  right: calc(5% - 20px);
+}
+
+.photo__prev__button::after,
+.photo__next__button ::after {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .photo__prev__button {
+    left: 3%;
+  }
+
+  .photo__next__button {
+    right: 3%;
+  }
 }

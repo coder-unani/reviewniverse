@@ -7,25 +7,31 @@
 
   &.like {
     .detail__control__icon {
-      background-image: url('#{$cdn-base-url}/assets/images/outline-heart.svg');
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-heart.svg');
       &.active {
-        background-image: url('#{$cdn-base-url}/assets/images/fill-heart.svg');
+        background-image: url('#{$cdn-base-url}/assets/images/button/fill-heart.svg');
       }
     }
   }
 
   &.collection {
     .detail__control__icon {
-      background-image: url('#{$cdn-base-url}/assets/images/outline-folder.svg');
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-folder.svg');
       &.active {
-        background-image: url('#{$cdn-base-url}/assets/images/fill-folder.svg');
+        background-image: url('#{$cdn-base-url}/assets/images/button/fill-folder.svg');
       }
     }
   }
 
   &.review {
     .detail__control__icon {
-      background-image: url('#{$cdn-base-url}/assets/images/outline-pen.svg');
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-pen.svg');
+    }
+  }
+
+  &.share {
+    .detail__control__icon {
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-share.svg');
     }
   }
 }
@@ -37,4 +43,9 @@
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
+  opacity: 0.8;
+  transition: opacity 0.3s;
+  &.active {
+    opacity: 1;
+  }
 }

@@ -2,14 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useUserUpdate } from '@/hooks/useUserUpdate';
-import { useValidateNickname } from '@/hooks/useValidateNickname';
-import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
+import Image from 'next/image';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, useWatch } from 'react-hook-form';
-import { useUserMe } from '@/hooks/useUserMe';
+import { isEmpty } from 'lodash';
+
 import {
   DEFAULT_IMAGES,
   PROFILE_IMAGE_FILE_SIZE,
@@ -18,7 +16,12 @@ import {
 } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { isValidFileSize, isValidFileType } from '@/utils/validation';
-import { isEmpty } from 'lodash';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useUserMe } from '@/hooks/useUserMe';
+import { useUserUpdate } from '@/hooks/useUserUpdate';
+import { useValidateNickname } from '@/hooks/useValidateNickname';
+import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
+
 import ImageIcon from '@/resources/icons/outline-image.svg';
 import styles from '@/styles/pages/UsersProfile.module.scss';
 
@@ -250,7 +253,7 @@ const UsersProfile = () => {
       <form method={methods} onSubmit={onSubmit} className={styles.edit__form} encType="multipart/form-data">
         <div className={`${styles.edit__input__wrapper} ${styles.image}`}>
           <div className={styles.edit__profile__image}>
-            <img src={previewImage} alt="프로필 이미지" />
+            <Image src={previewImage} alt="프로필 이미지" width={100} height={100} priority />
             <input
               type="file"
               id="profile_image"
@@ -260,7 +263,7 @@ const UsersProfile = () => {
               style={{ display: 'none' }}
             />
             <label htmlFor="profile_image">
-              <ImageIcon />
+              <ImageIcon width={32} height={32} />
             </label>
           </div>
           {errors.profile_image && <p className={styles.edit__error}>{errors.profile_image.message}</p>}

@@ -1,13 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { fetchUserLikes } from '@/library/api/users';
 
-export const useUserLikes = ({
-  userId,
-  page = null,
-  pageSize = null,
-  orderBy = null,
-  enabled,
-}) => {
+export const useUserLikes = ({ userId, page = null, pageSize = null, orderBy = null, enabled }) => {
   return useQuery({
     queryKey: [
       'userLikes',

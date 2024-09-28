@@ -1,12 +1,13 @@
 'use client';
 
 import React, { useRef } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Modal from '@/components/ui/Modal';
-import CloseButton from '@/components/ui/Button/Close';
+
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
+import Modal from '@/components/ui/Modal';
+import CloseButton from '@/components/ui/Button/Close';
+
 import styles from '@/styles/components/EnjoyModal.module.scss';
 
 const EnjoyModal = React.memo(({ onClose }) => {
@@ -30,7 +31,12 @@ const EnjoyModal = React.memo(({ onClose }) => {
           <section className={styles.enjoy__section}>
             <CloseButton onClose={onClose} />
             <div className={styles.enjoy__image__wrapper}>
-              <img className={styles.enjoy__image} src={DEFAULT_IMAGES.userLogin} alt="회원 환영 이미지" />
+              <img
+                className={styles.enjoy__image}
+                src={DEFAULT_IMAGES.userLogin}
+                alt="회원 환영 이미지"
+                loading="lazy"
+              />
               <p className={styles.enjoy__content}>로그인 후 이용할 수 있어요!</p>
             </div>
             <div className={styles.enjoy__button__wrapper}>

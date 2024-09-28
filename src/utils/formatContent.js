@@ -1,5 +1,13 @@
 import { isEmpty } from 'lodash';
-import { USER_CODE, SCREEN_MAIN_ID, VIDEO_ACTOR_CODE, VIDEO_STAFF_CODE, VIDEO_PLATFORM_CODE } from '@/config/codes';
+
+import {
+  USER_CODE,
+  SCREEN_MAIN_ID,
+  VIDEO_ACTOR_CODE,
+  VIDEO_STAFF_CODE,
+  VIDEO_PLATFORM_CODE,
+  VIDEO_TRAILER_CODE,
+} from '@/config/codes';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
 
@@ -37,8 +45,8 @@ export const fPlatformNameByCode = (code) => {
 export const fPlatformFilter = (platforms) => {
   if (isEmpty(platforms)) return [];
   // platforms 배열에서 code가 10이상 50미만인 것만 필터링
-  // return platforms.filter((platform) => parseInt(platform.code) < 50);
   return platforms.filter((platform) => parseInt(platform.code) >= 10 && parseInt(platform.code) < 50);
+  // return platforms.filter((platform) => parseInt(platform.code) < 50);
 };
 
 // 출연진 역할 코드 포맷
@@ -53,9 +61,16 @@ export const fStaffCode = (code) => {
   return staffType || '제작';
 };
 
+// 트레일러 코드 포맷
+export const fTrailerCode = (code) => {
+  const trailerType = VIDEO_TRAILER_CODE[code];
+  return trailerType || '예고편';
+};
+
 // 이미지 URL 포맷
-export const fMakeImageUrl = (image) => {
+export const fMakeImageUrl = (image, defaultImage = DEFAULT_IMAGES.noImage) => {
   // image에 http가 포함되어 있으면 그대로 반환
+  if (isEmpty(image)) return defaultImage;
   if (image.includes('http')) return image;
   return `${SETTINGS.CDN_BASE_URL}/${image}`;
 };
@@ -152,9 +167,32 @@ export const fRuntimeText = (code) => {
   return code === '10' ? '상영시간' : '시리즈';
 };
 
-// 카운트다운 포맷
-export const fCountdown = (upcoming) => {
-  // upcoming 배열의 첫번째 요소의 countdown 값
-  if (isEmpty(upcoming)) return '';
-  return upcoming[0].countdown;
+// 이미지 에러 처리 포맷: 이미지가 없을 경우 대체 이미지로 변경
+export const fReplaceImageOnError = (selector) => {
+  const images = document.querySelectorAll(selector);
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const testImage = new Image();
+        testImage.src = img.src;
+
+        // 이미지 로드 에러 시 대체 이미지로 변경
+        testImage.onerror = () => {
+          img.style.display = 'none'; // 이미지 태그를 숨김
+        };
+
+        // 관찰 중지
+        observer.unobserve(img);
+      }
+    });
+  });
+
+  images.forEach((img) => observer.observe(img));
+
+  return () => {
+    // 컴포넌트 언마운트 시 관찰 해제
+    images.forEach((img) => observer.unobserve(img));
+  };
 };

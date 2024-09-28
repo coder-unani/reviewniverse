@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
-import { useUserReviews } from '@/hooks/useUserReviews';
-import ReviewItem from '@/components/ui/ReviewItem';
-import { showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
+import { isEmpty } from 'lodash';
+
 import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
-import { isEmpty } from 'lodash';
+import { useUserReviews } from '@/hooks/useUserReviews';
+import ReviewsForUser from '@/components/ui/ReviewsForUser';
+
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
 const UsersReviews = ({ id }) => {
@@ -21,39 +21,41 @@ const UsersReviews = ({ id }) => {
     data: reviewsData,
     error: reviewsError,
     isLoading: reviewsIsLoading,
-  } = useUserReviews({
-    userId: userId,
-    page,
-    pageSize,
-    // orderBy: "created_at_desc",
-    enabled: userId,
-  });
+  } = useUserReviews({ userId, page, pageSize, enabled: userId });
 
+  // 숫자가 아닌 경우 notFound 페이지로 이동
   useEffect(() => {
     if (userId === 0) {
       notFound();
     }
   }, [userId]);
 
+  // 리뷰 데이터 처리
   useEffect(() => {
+    // API 호출 중이거나 데이터가 없는 경우
     if (reviewsIsLoading || !reviewsData) {
       return;
     }
+
+    // API 호출 결과가 실패인 경우
     if (!reviewsData.status) {
-      if (videosData.code === 'C001') {
+      // 429 에러인 경우
+      if (reviewsData.code === 'C001') {
         // TODO: 고도화 필요
         if (page > 1) setPage((prev) => prev - 1);
-        // showErrorToast(MESSAGES["C001"]);
         return;
       } else {
         return router.push(ENDPOINTS.ERROR);
       }
     }
+
     if (page === 1) {
+      // 첫 페이지인 경우
       setReviews(reviewsData.data);
     } else {
+      // 첫 페이지가 아닌 경우 데이터 추가
       setReviews((prev) => {
-        if (prev.page === videosData.data.page) return prev;
+        if (prev.page === reviewsData.data.page) return prev;
         return {
           ...prev,
           count: reviewsData.data.count,
@@ -64,14 +66,17 @@ const UsersReviews = ({ id }) => {
     }
   }, [reviewsIsLoading, reviewsData, page]);
 
+  // 페이지 변경
   const handlePage = (newPage) => {
     setPage(newPage);
   };
 
+  // 에러 발생 시 에러 페이지로 이동
   if (reviewsError) {
     return router.push(ENDPOINTS.ERROR);
   }
 
+  // 리뷰 데이터가 없는 경우
   if (isEmpty(reviews)) {
     return null;
   }
@@ -84,8 +89,9 @@ const UsersReviews = ({ id }) => {
         </strong>
       </section>
       <section className={styles.reviews__content__section}>
-        {!isEmpty(reviews.data) &&
-          reviews.data.map((review) => <ReviewItem key={review.id} user={reviews.user} review={review} />)}
+        <div className={styles.reviews__content}>
+          {!isEmpty(reviews.data) && <ReviewsForUser reviews={reviews} handlePage={handlePage} />}
+        </div>
       </section>
     </>
   );

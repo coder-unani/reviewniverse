@@ -2,19 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
-import { AxiosClient } from '@/utils/HttpClient';
-import LoginLoading from '@/components/ui/LoginLoading';
-import JoinAgree from '@/components/ui/JoinAgree';
-import BackButton from '@/components/ui/Button/Back';
-import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { useAuthContext } from '@/contexts/AuthContext';
-import { useThemeContext } from '@/contexts/ThemeContext';
-import { fProviderCode } from '@/utils/formatContent';
+import { isEmpty } from 'lodash';
+
 import { SETTINGS } from '@/config/settings';
 import { MESSAGES } from '@/config/messages';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+import { fProviderCode } from '@/utils/formatContent';
+import { AxiosClient } from '@/utils/HttpClient';
+import { useAuthContext } from '@/contexts/AuthContext';
+import { useThemeContext } from '@/contexts/ThemeContext';
+import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
+import LoginLoading from '@/components/ui/LoginLoading';
+import JoinAgree from '@/components/ui/JoinAgree';
+import BackButton from '@/components/ui/Button/Back';
+
 import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthKakaoCallback = () => {
@@ -142,7 +144,7 @@ const AuthKakaoCallback = () => {
     <>
       {isMobile && <BackButton />}
       <div className={styles.join__header}>
-        <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" />
+        {/* <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" /> */}
         <h2 className={styles.join__header__title}>SNS 간편 로그인</h2>
       </div>
       <JoinAgree setIsAgree={setIsAgree} setAgreeValues={setAgreeValues} />

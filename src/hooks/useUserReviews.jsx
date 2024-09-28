@@ -1,13 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
+
 import { fetchUserReviews } from '@/library/api/users';
 
-export const useUserReviews = ({
-  userId,
-  page = null,
-  pageSize = null,
-  orderBy = null,
-  enabled,
-}) => {
+export const useUserReviews = ({ userId, page = null, pageSize = null, orderBy = null, enabled }) => {
   return useQuery({
     queryKey: [
       'userReviews',

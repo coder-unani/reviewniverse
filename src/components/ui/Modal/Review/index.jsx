@@ -1,18 +1,21 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import Modal from '@/components/ui/Modal';
-import CloseButton from '@/components/ui/Button/Close';
+import * as Yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm, Controller, useWatch } from 'react-hook-form';
+import { Tooltip } from 'react-tooltip';
+import DOMPurify from 'dompurify';
+import { isEmpty } from 'lodash';
+
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { useReviewCreate } from '@/hooks/useReviewCreate';
 import { useReviewUpdate } from '@/hooks/useReviewUpdate';
-import * as Yup from 'yup';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm, Controller, useWatch } from 'react-hook-form';
-import { Tooltip } from 'react-tooltip';
-import { isEmpty } from 'lodash';
+import Modal from '@/components/ui/Modal';
+import CloseButton from '@/components/ui/Button/Close';
+
 import SpoilerActivateIcon from '@/resources/icons/spoiler-activate.svg';
 import SpoilerDeactivateIcon from '@/resources/icons/spoiler-deactivate.svg';
 import PrivateActivateIcon from '@/resources/icons/private-activate.svg';
@@ -67,7 +70,6 @@ const ReviewModal = React.memo(({ content, myReview }) => {
     control,
     formState: { isDirty, isValid },
     setValue,
-    setFocus,
     trigger,
   } = methods;
 
@@ -91,12 +93,15 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       return;
     }
 
+    // DOMPurify로 입력된 리뷰 내용을 정화 (XSS 방지)
+    const sanitizedTitle = DOMPurify.sanitize(data.title);
+
     if (isEmpty(myReview)) {
       // 내 리뷰가 없을 경우 리뷰 등록
       await reviewCreate(
         {
           videoId: content.id,
-          title: data.title,
+          title: sanitizedTitle,
           is_spoiler: isSpoiler,
           is_private: isPrivate,
           userId: user.id,
@@ -112,7 +117,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       );
     } else {
       // 내 리뷰가 있을 경우 리뷰 수정
-      if (myReview.title === data.title && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
+      if (myReview.title === sanitizedTitle && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
         showSuccessToast('리뷰가 수정되었습니다.');
         toggleReviewModal();
         return;
@@ -121,7 +126,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
         {
           videoId: content.id,
           reviewId: myReview.id,
-          title: data.title,
+          title: sanitizedTitle,
           is_spoiler: isSpoiler,
           is_private: isPrivate,
           userId: user.id,
@@ -137,11 +142,6 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       );
     }
   });
-
-  // 리뷰 모달 열릴 때 textarea에 포커스
-  useEffect(() => {
-    setFocus('title');
-  }, [setFocus]);
 
   // 내 리뷰가 있을 경우 폼에 내용 채우기
   useEffect(() => {
@@ -168,6 +168,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                 render={({ field }) => (
                   <textarea
                     {...field}
+                    autoFocus // 리뷰 모달 열릴 때 textarea에 포커스
                     id="title"
                     className={styles.review__textarea}
                     placeholder="이 작품에 대한 리뷰를 남겨보세요."

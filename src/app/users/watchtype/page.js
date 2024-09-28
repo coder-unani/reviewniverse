@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+
 import styles from '@/styles/pages/UsersWatchType.module.scss';
 
 const UsersWatchTypeComponent = dynamic(() => import('@/components/ui/UsersWatchType'), { ssr: false });

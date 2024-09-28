@@ -2,13 +2,16 @@
 
 import React, { useRef } from 'react';
 import Link from 'next/link';
-import Modal from '@/components/ui/Modal';
-import ProfileButton from '@/components/ui/Button/Profile';
-import CloseButton from '@/components/ui/Button/Close';
-import { useAuthContext } from '@/contexts/AuthContext';
+import Image from 'next/image';
+import { isEmpty } from 'lodash';
+
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { isEmpty } from 'lodash';
+import { useAuthContext } from '@/contexts/AuthContext';
+import Modal from '@/components/ui/Modal';
+import CloseButton from '@/components/ui/Button/Close';
+import ProfileButton from '@/components/ui/Button/Profile';
+
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/MenuModal.module.scss';
 
@@ -35,7 +38,14 @@ const MenuModal = ({ onClose }) => {
   // 로그인 버튼 렌더링
   const RenderLoginButton = () => (
     <Link href={ENDPOINTS.USER_LOGIN} className={styles.menu__header__login} onClick={onClose}>
-      <img className={styles.menu__profile__image} src={DEFAULT_IMAGES.noActor} alt="프로필 이미지" />
+      <Image
+        className={styles.menu__profile__image}
+        src={DEFAULT_IMAGES.noActor}
+        alt="프로필 이미지"
+        width={28}
+        height={28}
+        loading="lazy"
+      />
       로그인 해주세요
       <ArrowRightIcon width={24} height={24} />
     </Link>

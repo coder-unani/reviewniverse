@@ -1,0 +1,52 @@
+@use '@/styles/variables' as *;
+
+.reviews__main {
+  min-height: calc(100vh - $footer-height);
+  padding: $header-height 0 60px;
+}
+
+.reviews__title__section {
+  max-width: 1440px;
+  padding-top: 12px;
+  margin: 0 auto;
+}
+
+.reviews__title {
+  display: block;
+  font-size: 16px;
+  font-weight: 600;
+  color: $color-white-04;
+  line-height: 20px;
+  padding: 16px $padding-large 0;
+
+  em {
+    font-weight: 800;
+    color: $color-white-01;
+  }
+}
+
+.reviews__content__section {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 20px $padding-large 0;
+}
+
+@media (max-width: 1024px) {
+  .reviews__title {
+    padding: 16px $padding-medium 0;
+  }
+
+  .reviews__content__section {
+    padding: 20px $padding-medium 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .reviews__content__section {
+    padding: 20px 0 0;
+  }
+
+  .reviews__title {
+    padding: 16px $padding-small 0;
+  }
+}

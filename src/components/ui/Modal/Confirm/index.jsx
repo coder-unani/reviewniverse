@@ -2,17 +2,19 @@
 
 import React, { useEffect, useRef } from 'react';
 import Modal from 'react-modal';
+
 import styles from '@/styles/components/ConfirmModal.module.scss';
 
-const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
+const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
   const modalRef = useRef();
 
   // 클라이언트 사이드에서만 Modal.setAppElement 설정
   useEffect(() => {
     // window 객체가 존재할 때만 실행
     if (typeof window !== 'undefined') {
-      // Next.js에서는 #__next가 최상위 요소
-      Modal.setAppElement(document.getElementById('__next'));
+      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
+      // Modal.setAppElement(document.getElementById('__next'));
+      Modal.setAppElement(document.getElementById('wrapper'));
     }
   }, []);
 
@@ -35,34 +37,13 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
 
   return (
     <Modal
-      isOpen={true}
+      isOpen={isOpen}
       onRequestClose={onClose}
-      ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.56)',
-          zIndex: 998,
-        },
-        content: {
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: 300,
-          height: 150,
-          padding: '0',
-          border: 'none',
-          background: 'transparent',
-          overflow: 'visible',
-          zIndex: 999,
-        },
-      }}
+      bodyOpenClassName="modal__open"
+      className={styles.confirm__modal__wrapper}
+      overlayClassName={styles.confirm__modal__overlay}
     >
-      <main
-        className={styles.confirm__modal}
-        ref={modalRef}
-        onClick={handleModalClose}
-      >
+      <main className={styles.confirm__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.confirm__header}>
           <h4 className={styles.confirm__header__title}>알림</h4>
         </section>
@@ -70,19 +51,11 @@ const ConfirmModal = React.memo(({ children, onClose, onConfirm }) => {
           <p className={styles.confirm__body__content}>{children}</p>
         </section>
         <section className={styles.confirm__footer}>
-          <button
-            type="button"
-            className={styles.cancel__button}
-            onClick={handleCancelClick}
-          >
+          <button type="button" className={styles.cancel__button} onClick={handleCancelClick}>
             취소
           </button>
           |
-          <button
-            type="button"
-            className={styles.confirm__button}
-            onClick={handleConfirmClick}
-          >
+          <button type="button" className={styles.confirm__button} onClick={handleConfirmClick}>
             확인
           </button>
         </section>

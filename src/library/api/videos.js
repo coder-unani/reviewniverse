@@ -1,10 +1,11 @@
-import { FetchClient, AxiosClient } from '@/utils/HttpClient';
 import { SETTINGS } from '@/config/settings';
+import { FetchClient, AxiosClient } from '@/utils/HttpClient';
 import { cLog, cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
   videos: baseURL + '/v1/videos',
+  videosUpcoming: baseURL + '/v1/videos/upcoming',
   videoDetail: baseURL + '/v1/videos/:videoId',
   videoReviews: baseURL + '/v1/videos/:videoId/reviews',
   videoMyInfo: baseURL + '/v1/videos/:videoId/myinfo',
@@ -55,6 +56,19 @@ export const fetchVideos = async ({
   }
 };
 
+export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
+  try {
+    const client = new FetchClient();
+    const res = await client.get(endpoints.videosUpcoming, {
+      ...(page && { p: page }),
+      ...(size && { ps: size }),
+    });
+    return res;
+  } catch (error) {
+    cError(error);
+  }
+};
+
 export const fetchVideoDetail = async ({ videoId }) => {
   try {
     const client = new FetchClient();
@@ -65,12 +79,13 @@ export const fetchVideoDetail = async ({ videoId }) => {
   }
 };
 
-export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null }) => {
+export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null, metadata = null }) => {
   try {
     const client = new AxiosClient();
     const res = await client.get(endpoints.videoReviews.replace(':videoId', videoId), {
       ...(page && { p: page }),
       ...(pageSize && { ps: pageSize }),
+      ...(metadata && { metadata: metadata }),
     });
     return res;
   } catch (error) {

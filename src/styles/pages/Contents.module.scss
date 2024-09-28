@@ -196,7 +196,7 @@
   &.country {
     .detail__sub__content__wrapper {
       // gap: 24px;
-      gap: 8px;
+      gap: 10px;
     }
 
     &[data-index]:not([data-index='0'], [data-index='1']) {
@@ -208,7 +208,8 @@
 
   &.production {
     .detail__sub__content__wrapper {
-      gap: 28px;
+      // gap: 28px;
+      gap: 10px;
     }
 
     &[data-index]:not([data-index='0'], [data-index='1']) {
@@ -280,12 +281,35 @@
   padding: 20px $padding-large;
 }
 
+.detail__main__title__wrapper {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
 .detail__main__title {
   font-size: 16px;
   font-weight: 700;
   color: $color-white-02;
   line-height: 18px;
   margin-bottom: 15px;
+}
+
+.detail__review__more__button {
+  display: flex;
+  align-items: center;
+}
+
+.detail__review__more__text {
+  font-size: 14px;
+  color: $color-white-04;
+  margin-right: -4px;
+}
+
+.detail__review__more__icon {
+  path {
+    fill: $color-white-04;
+  }
 }
 
 .detail__poster__section {
@@ -405,15 +429,60 @@
 
 .detail__platform {
   position: relative;
-  width: 60px;
-  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+
+.platform__image__wrapper {
+  position: relative;
+  display: flex;
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .platform__image {
   width: 60px;
   height: 60px;
   object-fit: cover;
-  border-radius: 12px;
+}
+
+.platform__image__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-background, 0.5);
+  pointer-events: none;
+}
+
+.platform__release__overlay {
+  color: $color-white-02;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.platform__info {
+  display: none;
+}
+
+.platform__name {
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-white-02;
+}
+
+.platform__release {
+  font-size: 12px;
+  color: $color-white-04;
 }
 
 .detail__people__section {
@@ -591,12 +660,24 @@
   display: flex;
   width: 100%;
   height: 100%;
-  background-color: transparent;
+  border-radius: 14px;
+  background: url('#{$cdn-base-url}/assets/images/default-image.png') no-repeat center / auto 33.3333%;
+  background-color: $color-white-09;
+}
+
+.detail__play__icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 48px;
+  height: 48px;
 }
 
 .detail__photo {
   display: flex;
   width: 100%;
+  height: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 14px;
@@ -748,7 +829,7 @@
 
   .detail__people__wrapper {
     &[data-length='4'] {
-      .swiper-wrapper {
+      :global(.swiper-wrapper) {
         grid-template-rows: repeat(2, 1fr);
       }
     }
@@ -796,7 +877,7 @@
 
   .detail__people__wrapper {
     &[data-length='3'] {
-      .swiper-wrapper {
+      :global(.swiper-wrapper) {
         grid-template-rows: repeat(2, 1fr);
       }
     }
@@ -914,6 +995,41 @@
   .detail__more__wrapper {
     grid-column: 1;
     grid-row: 1;
+  }
+
+  // for test
+  .detail__platform__wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detail__platform {
+    flex: 1;
+    flex-direction: row;
+    gap: 8px;
+    background-color: $color-white-09;
+    border-radius: 12px;
+    padding: 10px 8px;
+  }
+
+  .platform__image__wrapper {
+    border-radius: 8px;
+  }
+
+  .platform__image__overlay {
+    display: none;
+  }
+
+  .platform__image {
+    width: 30px;
+    height: 30px;
+  }
+
+  .platform__info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .detail__photo {
@@ -1041,7 +1157,7 @@
 
   .detail__people__wrapper {
     &[data-length='2'] {
-      .swiper-wrapper {
+      :global(.swiper-wrapper) {
         grid-template-rows: repeat(2, 1fr);
       }
     }
@@ -1066,6 +1182,11 @@
 
   .detail__gallery {
     padding: 0 $padding-small;
+  }
+
+  .detail__play__icon {
+    width: 36px;
+    height: 36px;
   }
 
   .gallery__prev__button,

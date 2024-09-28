@@ -1,0 +1,65 @@
+@use '@/styles/variables' as *;
+
+.platform__modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.56);
+  z-index: 998;
+}
+
+.platform__modal__wrapper {
+  position: absolute;
+  width: 300px;
+  outline: none;
+  z-index: 999;
+}
+
+.platform__modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  background-color: $color-white-09;
+  border-radius: 16px;
+  padding: 20px 20px 0 20px;
+}
+
+.platform__header__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: $color-white-01;
+  text-align: center;
+}
+
+.platform__body {
+  padding: 24px 0;
+}
+
+.platform__body__content {
+  font-size: 14px;
+  color: $color-white-01;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.platform__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: $border-color-04;
+  border-top: 1px solid $border-color-01;
+}
+
+.platform__button {
+  flex: 1;
+  font-size: 14px;
+  // color: $color-white-02;
+  color: $color-magenta;
+  padding: 16px 0;
+}

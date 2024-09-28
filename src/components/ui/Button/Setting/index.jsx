@@ -2,11 +2,13 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
+
+import { MESSAGES } from '@/config/messages';
+import { ENDPOINTS } from '@/config/endpoints';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { MESSAGES } from '@/config/messages';
-import { ENDPOINTS } from '@/config/endpoints';
+
 import SettingIcon from '@/resources/icons/setting.svg';
 import styles from '@/styles/components/SettingButton.module.scss';
 
@@ -68,6 +70,7 @@ const SettingButton = () => {
       <button type="button" className={styles.setting__button} onClick={toggleMenuModal}>
         <SettingIcon />
       </button>
+
       {isMenuModal && (
         <div className={styles.setting__menu} ref={menuRef}>
           <ul>

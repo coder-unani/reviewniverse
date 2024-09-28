@@ -2,13 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useVideos } from '@/hooks/useVideos';
-import VideosVertical from '@/components/ui/VideosVertical';
-import { showErrorToast } from '@/components/ui/Toast';
+import Image from 'next/image';
+import { isEmpty } from 'lodash';
+
 import { DEFAULT_IMAGES, VIDEO_MODE_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { MESSAGES } from '@/config/messages';
-import { isEmpty } from 'lodash';
+import { useVideos } from '@/hooks/useVideos';
+import Videos from '@/components/ui/Videos';
+
 import styles from '@/styles/pages/Search.module.scss';
 
 /**
@@ -19,6 +20,8 @@ import styles from '@/styles/pages/Search.module.scss';
 
 const SearchResults = ({ query }) => {
   const router = useRouter();
+  // URI 인코딩된 한글 쿼리를 디코딩
+  const decodeQuery = decodeURIComponent(query);
   const [page, setPage] = useState(1);
   const [videos, setVideos] = useState(null);
   const {
@@ -29,29 +32,29 @@ const SearchResults = ({ query }) => {
     page,
     size: 20,
     mode: VIDEO_MODE_OPTIONS.KEYWORD,
-    query,
-    enabled: query,
+    query: decodeQuery,
+    enabled: decodeQuery,
   });
 
   useEffect(() => {
-    if (!query) {
+    if (!decodeQuery) {
       return;
     }
     setPage(1);
     setVideos(null);
-  }, [query]);
+  }, [decodeQuery]);
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
       return;
     }
+
     if (!videosData.status) {
       if (videosData.code === 'C001') {
         // TODO: 고도화 필요
         if (page === 1) {
           return router.push(ENDPOINTS.ERROR);
         } else {
-          // showErrorToast(MESSAGES["C001"]);
           setPage((prev) => prev - 1);
           return;
         }
@@ -59,6 +62,7 @@ const SearchResults = ({ query }) => {
         return router.push(ENDPOINTS.ERROR);
       }
     }
+
     if (page === 1) {
       setVideos({ ...videosData.data });
     } else {
@@ -82,26 +86,33 @@ const SearchResults = ({ query }) => {
     return router.push(ENDPOINTS.ERROR);
   }
 
-  // if (isEmpty(videos)) {
-  //   return;
-  // }
+  if (isEmpty(videos)) {
+    return;
+  }
 
   return (
     <section className={styles.search__section}>
       {isEmpty(videos) || isEmpty(videos.data) ? (
         <div className={styles.no__search__content}>
-          <img className={styles.no__search__image} src={DEFAULT_IMAGES.searchNotFound} alt="검색 결과 없음" />
+          <Image
+            className={styles.no__search__image}
+            src={DEFAULT_IMAGES.searchNotFound}
+            alt="검색 결과 없음"
+            width={240}
+            height={240}
+            priority
+          />
           <p className={styles.no__search__title}>
-            "<em>{query}</em>"에 대한 검색 결과가 없어요.
+            "<em>{decodeQuery}</em>"에 대한 검색 결과가 없어요.
           </p>
           <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
         </div>
       ) : (
         <>
           <strong className={styles.search__title}>
-            "<em>{query}</em>"의 검색 결과가 {videos.total} 개 있어요
+            "<em>{decodeQuery}</em>"의 검색 결과가 {videos.total} 개 있어요
           </strong>
-          <VideosVertical videos={videos} handlePage={handlePage} />
+          <Videos videos={videos} handlePage={handlePage} />
         </>
       )}
     </section>

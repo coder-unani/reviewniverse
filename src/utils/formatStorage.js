@@ -1,3 +1,5 @@
+import { isEmpty } from 'lodash';
+
 import {
   getLocalStorage,
   setLocalStorage,
@@ -8,7 +10,6 @@ import {
   getCookie,
   removeCookie,
 } from '@/utils/storage';
-import { isEmpty } from 'lodash';
 
 // 스토리지 키
 const STORAGE_KEYS = {

@@ -26,7 +26,7 @@
 
 .notfound__image {
   width: 100%;
-  max-width: 320px;
+  max-width: 240px;
   object-fit: contain;
 }
 
@@ -47,4 +47,13 @@
   word-break: keep-all;
   white-space: pre-wrap;
   margin-top: 6px;
+}
+
+@media (max-width: 768px) {
+  .notfound__content {
+    position: relative;
+    top: unset;
+    left: unset;
+    transform: unset;
+  }
 }
