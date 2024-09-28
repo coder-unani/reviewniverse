@@ -28,82 +28,87 @@ const AuthGoogleCallback = () => {
   const [snsUser, setSnsUser] = useState(null);
   const [isAgree, setIsAgree] = useState(false);
   const [agreeValues, setAgreeValues] = useState({});
-  const [authProcessed, setAuthProcessed] = useState(false);
+  const [isProcessed, setIsProcessed] = useState(false);
 
   useEffect(() => {
+    // 구글 로그인
     const handleGoogleLogin = async () => {
       try {
-        const redirectState = getSessionStorage('redirect_in_progress');
-        if (redirectState === 'true') {
-          const result = await getRedirectResult(auth);
-          console.log('result', result);
-
-          if (result && result.user) {
-            const googleUser = result.user;
-            await processLogin(googleUser);
-            setAuthProcessed(true);
-            removeSessionStorage('redirect_in_progress');
-          }
-        } else if (!authProcessed && isMobile) {
-          setSessionStorage('redirect_in_progress', 'true');
+        // 모바일 구글 로그인 콜백 함수
+        const result = await getRedirectResult(auth);
+        if (result && result.user) {
+          // 모바일 구글 로그인 성공
+          const googleUser = result.user;
+          await processLogin(googleUser);
+          setIsProcessed(true);
+        } else if (!isProcessed && isMobile) {
+          // 모바일 구글 로그인
           await signInWithRedirect(auth, provider);
-        } else if (!authProcessed && !isMobile) {
+        } else if (!isProcessed && !isMobile) {
+          // PC 구글 로그인
           const result = await signInWithPopup(auth, provider);
           const googleUser = result.user;
           await processLogin(googleUser);
-          setAuthProcessed(true);
+          setIsProcessed(true);
         }
       } catch (error) {
         setSnsUser(null);
-        router.push(ENDPOINTS.USER_LOGIN);
         showErrorToast(error.message);
+        router.push(ENDPOINTS.USER_LOGIN);
       }
     };
 
+    // 사이트 로그인
     const processLogin = async (googleUser) => {
-      try {
-        const loginUser = {
-          code: fProviderCode('google'),
-          email: googleUser.email,
-          sns_id: googleUser.uid,
-        };
-        const res = await login(loginUser);
-        if (res.status) {
-          showSuccessToast(MESSAGES[res.code]);
-          router.push(ENDPOINTS.HOME);
+      // 로그인 유저 데이터 생성
+      const loginUser = {
+        code: fProviderCode('google'),
+        email: googleUser.email,
+        sns_id: googleUser.uid,
+      };
+
+      // 로그인 시도
+      const res = await login(loginUser);
+
+      if (res.status) {
+        // 로그인 성공
+        showSuccessToast(MESSAGES[res.code]);
+        router.push(ENDPOINTS.HOME);
+      } else {
+        // 로그인 실패
+        if (res.code === 'L003') {
+          // snsUser 데이터 생성해서 handleSocialJoin 함수 실행
+          setSnsUser({
+            code: loginUser.code,
+            email: googleUser.email,
+            sns_id: googleUser.uid,
+            nickname: googleUser.displayName,
+            profile_image: googleUser.photoURL,
+          });
         } else {
-          if (res.code === 'L003') {
-            setSnsUser({
-              code: loginUser.code,
-              email: googleUser.email,
-              sns_id: googleUser.uid,
-              nickname: googleUser.displayName,
-              profile_image: googleUser.photoURL,
-            });
-          } else {
-            // TODO: 이메일/닉네임 유효성 검사
-            throw new Error(MESSAGES[res.code]);
-          }
+          // 로그인 실패 (L002)
+          throw new Error(MESSAGES[res.code]);
         }
-      } catch (error) {
-        showErrorToast(MESSAGES['L002']);
       }
     };
 
-    if (!user && !authProcessed) {
+    if (!user && !isProcessed) {
+      // 사용자 정보 없고 로그인이 진행중이지 않을 때
       handleGoogleLogin();
     } else if (user) {
+      // 사용자 정보가 있을 때
       showErrorToast(MESSAGES['L002']);
       const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
       router.push(path);
     }
-  }, [user, authProcessed, isMobile, router]);
+  }, [user, isProcessed, isMobile, router]);
 
   useEffect(() => {
     if (!snsUser || !isAgree || isEmpty(agreeValues)) return;
     handleSocialJoin(snsUser, agreeValues);
   }, [snsUser, isAgree, agreeValues]);
 
+  // 사이트 회원가입
   const handleSocialJoin = async (snsUser, agreeValues) => {
     try {
       const joinUser = {
