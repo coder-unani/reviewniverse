@@ -74,6 +74,7 @@ const RootLayout = ({ children }) => {
     <html lang="ko">
       <head>
         <link rel="search" href="/opensearch.xml" title="리뷰니버스" type="application/opensearchdescription+xml" />
+        <meta name="facebook-domain-verification" content="mry8dumyqrjgqwxw1tl65loqb8kgy8" />
       </head>
       <GoogleTagManager gtmId="GTM-K6WX4N4H" />
       <GoogleAnalytics gaId="G-14KE5C52P1" />
