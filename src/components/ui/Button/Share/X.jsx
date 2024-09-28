@@ -9,12 +9,12 @@ import { DEFAULT_IMAGES } from '@/config/constants';
 import styles from '@/styles/components/ShareModal.module.scss';
 
 const XShareButton = ({ title, desc, link = null, image = null }) => {
-  useEffect(() => {}, []);
-
+  // X(트위터) 공유하기 버튼 클릭
   const handleClick = (e) => {
     e.preventDefault();
-
-    // X(트위터) 공유하기
+    const url = link || window.location.href;
+    const twitterIntent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${url}`;
+    window.open(twitterIntent, '_blank');
   };
 
   return (

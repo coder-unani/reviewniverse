@@ -7,7 +7,7 @@ import { showSuccessToast } from '@/components/ui/Toast';
 import CloseButton from '@/components/ui/Button/Close';
 import KakaoShareButton from '@/components/ui/Button/Share/Kakao';
 import FacebookShareButton from '@/components/ui/Button/Share/Facebook';
-// import XShareButton from '@/components/ui/Button/Share/X';
+import XShareButton from '@/components/ui/Button/Share/X';
 
 import styles from '@/styles/components/ShareModal.module.scss';
 
@@ -55,7 +55,7 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
           <div className={styles.share__button__wrapper}>
             <KakaoShareButton title={title} desc={desc} image={image} />
             <FacebookShareButton title={title} desc={desc} image={image} />
-            {/*<XShareButton title={title} desc={desc} image={image} /> */}
+            <XShareButton title={title} desc={desc} image={image} />
           </div>
           <div className={styles.share__link__wrapper}>
             <input type="text" className={styles.share__link} value={shareLinkUrl} readOnly />
