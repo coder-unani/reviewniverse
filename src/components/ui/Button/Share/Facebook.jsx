@@ -18,14 +18,11 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
     script.defer = true;
     script.crossOrigin = 'anonymous';
     script.onload = () => {
-      console.log('Facebook SDK loaded');
-      console.log(FB);
       window.fbAsyncInit = function () {
-        console.log('Facebook SDK initializing');
         window.FB.init({
           appId: '804111484996493',
           xfbml: true,
-          version: 'v13.0',
+          version: 'v20.0',
         });
       };
     };
@@ -44,15 +41,15 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
         {
           method: 'share',
           href: window.location.href,
-        },
-        function (response) {
-          if (response && !response.error_message) {
-            showSuccessToast('공유 완료되었습니다.');
-          } else {
-            console.log(response);
-            showErrorToast('공유 중 오류가 발생했습니다.');
-          }
         }
+        // function (response) {
+        //   if (response && !response.error_message) {
+        //     showSuccessToast('공유 완료되었습니다.');
+        //   } else {
+        //     console.log(response);
+        //     showErrorToast('공유 중 오류가 발생했습니다.');
+        //   }
+        // }
       );
     } else {
       showErrorToast('공유 중 오류가 발생했습니다.');
