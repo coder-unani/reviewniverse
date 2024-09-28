@@ -95,9 +95,13 @@ const AuthGoogleCallback = () => {
     if (!user && !isProcessed) {
       // 사용자 정보 없고 로그인이 진행중이지 않을 때
       handleGoogleLogin();
-    } else if (user) {
+    } else if (user && !isProcessed) {
       // 사용자 정보가 있을 때 (로그인 상태에서 주소치고 들어온 경우 홈으로 이동)
       router.push(ENDPOINTS.HOME);
+    } else if (user && isProcessed) {
+      // 사용자 정보가 있고 로그인이 진행중일 때 유저 왓치타입 페이지로 이동 (=회원가입 성공 후 로그인 성공)
+      showSuccessToast(MESSAGES['J001']);
+      router.push(ENDPOINTS.USER_WATCHTYPE);
     }
   }, [user, isProcessed, isMobile, router]);
 
@@ -136,13 +140,11 @@ const AuthGoogleCallback = () => {
 
         // 로그인 시도
         const loginRes = await login(loginUser);
-        if (loginRes.status) {
-          // 로그인 성공 시 회원 취향 등록 페이지로 이동
-          router.push(ENDPOINTS.USER_WATCHTYPE);
-        } else {
+        if (!loginRes.status) {
           // 로그인 실패
           throw new Error(MESSAGES[loginRes.code]);
         }
+        // 로그인이 성공한 경우 useEffect에서 로그인 성공 토스트 메시지 출력
       } else {
         // 회원가입 실패
         throw new Error(MESSAGES[res.code]);
