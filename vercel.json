@@ -3,6 +3,10 @@
     {
       "source": "/sitemap/sitemap.xml",
       "destination": "https://storage.reviewniverse.net/sitemap/sitemap.xml"
+    },
+    {
+      "source": "/__/auth/:path*",
+      "destination": "https://reviewniverse-899d2.firebaseapp.com/__/auth/:path*"
     }
   ],
   "headers": [
@@ -15,7 +19,7 @@
         },
         {
           "key": "X-Frame-Options",
-          "value": "DENY"
+          "value": "SAMEORIGIN"
         },
         {
           "key": "Referrer-Policy",

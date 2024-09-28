@@ -3,14 +3,13 @@
 import React, { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
 
 import styles from '@/styles/components/ShareModal.module.scss';
 
 const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
-  const fbAppId = 'your_facebook_app_id'; // 페이스북 앱 ID
-
   useEffect(() => {
     // Facebook SDK 스크립트 동적 로드
     const script = document.createElement('script');
@@ -19,16 +18,13 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
     script.defer = true;
     script.crossOrigin = 'anonymous';
     script.onload = () => {
-      if (!window.FB) {
-        window.fbAsyncInit = function () {
-          window.FB.init({
-            appId: fbAppId,
-            autoLogAppEvents: true,
-            xfbml: true,
-            version: 'v13.0',
-          });
-        };
-      }
+      window.fbAsyncInit = function () {
+        window.FB.init({
+          appId: '804111484996493',
+          xfbml: true,
+          version: 'v20.0',
+        });
+      };
     };
     document.body.appendChild(script);
 
@@ -37,34 +33,27 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
     };
   }, []);
 
+  // 공유 버튼 클릭
   const handleClick = (e) => {
     e.preventDefault();
-
-    // const shareTitle = title || '리뷰니버스';
-    // const shareDesc = desc || '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!';
-    // const shareLinkUrl = link ? String(link) : window.location.href;
-    // const shareImageUrl = image || 'https://www.your-domain.com/path/image.jpg'; // 기본 이미지 URL
-
-    // if (window.FB) {
-    //   window.FB.ui(
-    //     {
-    //       method: 'share',
-    //       href: shareLinkUrl, // 공유할 URL
-    //       quote: shareDesc, // 공유할 설명
-    //       hashtag: '#리뷰니버스',
-    //     },
-    //     function (response) {
-    //       if (response && !response.error_message) {
-    //         console.log('Posting completed.');
-    //       } else {
-    //         console.error('Error while posting.');
-    //       }
-    //     }
-    //   );
-    // } else {
-    //   console.error('Facebook SDK가 로드되지 않았습니다.');
-    // }
-    window.open('http://www.facebook.com/sharer/sharer.php?u=' + location.href);
+    if (window.FB) {
+      window.FB.ui(
+        {
+          method: 'share',
+          href: window.location.href,
+        }
+        // function (response) {
+        //   if (response && !response.error_message) {
+        //     showSuccessToast('공유 완료되었습니다.');
+        //   } else {
+        //     console.log(response);
+        //     showErrorToast('공유 중 오류가 발생했습니다.');
+        //   }
+        // }
+      );
+    } else {
+      showErrorToast('공유 중 오류가 발생했습니다.');
+    }
   };
 
   return (
