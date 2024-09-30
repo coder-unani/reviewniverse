@@ -28,7 +28,7 @@ const AuthGoogleCallback = () => {
   const [snsUser, setSnsUser] = useState(null);
   const [isAgree, setIsAgree] = useState(false);
   const [agreeValues, setAgreeValues] = useState({});
-  const [isProcessed, setIsProcessed] = useState(false);
+  const [isProcessed, setIsProcessed] = useState(getSessionStorage('isProcessed') || false);
   const [isCreated, setIsCreated] = useState(false);
 
   useEffect(() => {
@@ -40,8 +40,8 @@ const AuthGoogleCallback = () => {
         if (result && result.user) {
           // 모바일 구글 로그인 성공
           const googleUser = result.user;
+          setSessionStorage('isProcessed', true);
           await processLogin(googleUser);
-          setIsProcessed(true);
         } else if (!isProcessed && isMobile) {
           // 모바일 구글 로그인
           await signInWithRedirect(auth, provider);
@@ -49,10 +49,11 @@ const AuthGoogleCallback = () => {
           // PC 구글 로그인
           const result = await signInWithPopup(auth, provider);
           const googleUser = result.user;
+          setSessionStorage('isProcessed', true);
           await processLogin(googleUser);
-          setIsProcessed(true);
         }
       } catch (error) {
+        removeSessionStorage('isProcessed');
         setSnsUser(null);
         showErrorToast(error.message);
         router.push(ENDPOINTS.USER_LOGIN);
@@ -98,8 +99,10 @@ const AuthGoogleCallback = () => {
       handleGoogleLogin();
     } else if (user && !isProcessed) {
       // 사용자 정보가 있을 때 (로그인 상태에서 주소치고 들어온 경우 홈으로 이동)
+      removeSessionStorage('isProcessed');
       router.push(ENDPOINTS.HOME);
     } else if (user && isProcessed) {
+      removeSessionStorage('isProcessed');
       // 사용자 정보가 있고 로그인이 진행중일 때 유저 왓치타입 페이지로 이동 (=회원가입 성공 후 로그인 성공)
       if (isCreated) {
         showSuccessToast(MESSAGES['J001']);
