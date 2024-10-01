@@ -872,7 +872,7 @@ export const COUNTRY_CODE = {
   },
   TR: {
     name_en: 'Turkey',
-    name_ko: '터키',
+    name_ko: '튀르키예',
   },
   TM: {
     name_en: 'Turkmenistan',
