@@ -7,7 +7,7 @@ import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
 import { SETTINGS } from '@/config/settings';
-import { DEFAULT_IMAGES, VIDEO_REVALIDATE_SEC, SITE_KEYWORDS } from '@/config/constants';
+import { DEFAULT_IMAGES, VIDEO_REVALIDATE_SEC, SITE_KEYWORDS, VIDEO_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fYear, fDate, fUpperCase } from '@/utils/format';
 import {
@@ -93,7 +93,7 @@ export const generateMetadata = async ({ params }) => {
   const imageUrl = fBackgroundImage(content.thumbnail);
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
-  const keywords = content.tag ? `${SITE_KEYWORDS}, ${title}, ${content.tag}` : `${SITE_KEYWORDS}, ${title}`;
+  const keywords = `${SITE_KEYWORDS}, ${VIDEO_KEYWORDS}, ${title}${content.tag ? `, ${content.tag}` : ''}`;
 
   const metaTitle = `${title} (${releaseYear}) | 리뷰니버스`;
 
