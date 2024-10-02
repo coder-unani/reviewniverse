@@ -2,18 +2,17 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { isEmpty, set } from 'lodash';
+import { isEmpty } from 'lodash';
 import { signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { auth, provider } from '@/library/firebase';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { ENDPOINTS } from '@/config/endpoints';
 import { MESSAGES } from '@/config/messages';
 import { fProviderCode } from '@/utils/formatContent';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
-import { getSessionStorage, setSessionStorage, removeSessionStorage } from '@/utils/storage';
 import LoginLoading from '@/components/ui/LoginLoading';
 import JoinAgree from '@/components/ui/JoinAgree';
 import BackButton from '@/components/ui/Button/Back';
