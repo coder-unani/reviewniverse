@@ -41,7 +41,6 @@ import PlayIcon from '@/resources/icons/play.svg';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
-import Video from '@/components/ui/Video';
 
 const VideoSubInfoClient = dynamic(() => import('@/components/ui/Client/VideoSubInfo'), { ssr: false });
 const VideoTrailerClient = dynamic(() => import('@/components/ui/Client/VideoTrailer'), { ssr: false });

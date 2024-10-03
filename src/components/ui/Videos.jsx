@@ -52,7 +52,7 @@ const Videos = ({ children, videos, handlePage }) => {
     <section className={styles.vertical__videos__section}>
       {children}
       <div className={styles.vertical__videos__wrapper}>
-        {videos.data.map((video, index) => (
+        {videos.data.map((video) => (
           <Link
             href={EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id })}
             className={defStyles.default__video__item}

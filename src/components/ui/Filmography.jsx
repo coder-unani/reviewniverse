@@ -1,24 +1,18 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { DEFAULT_IMAGES, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
+import { PEOPLE_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
-import { fMakeImageUrl } from '@/utils/formatContent';
 import { useVideos } from '@/hooks/useVideos';
-import PeopleImage from '@/components/ui/Button/People/Image';
-import Videos from '@/components/ui/Videos';
+import VideosForPeople from '@/components/ui/VideosForPeople';
 
-import styles from '@/styles/pages/People.module.scss';
-
-const Filmography = ({ id }) => {
+const Filmography = ({ peopleId, enabled }) => {
   const router = useRouter();
-  const peopleId = fParseInt(id);
-  const [page, setPage] = useState(1);
-  const [videos, setVideos] = useState(null);
+  const [page, setPage] = useState(2);
+  const [videos, setVideos] = useState({});
   const {
     data: videosData,
     error: videosError,
@@ -30,20 +24,14 @@ const Filmography = ({ id }) => {
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PERSON,
     query: peopleId,
-    enabled: peopleId,
+    enabled: enabled,
   });
-
-  // peopleId가 숫자형이 아닐 경우 notFound 페이지로 이동
-  useEffect(() => {
-    if (peopleId === 0) {
-      notFound();
-    }
-  }, [peopleId]);
 
   useEffect(() => {
     if (videosIsLoading || !videosData) {
       return;
     }
+
     if (!videosData.status) {
       if (videosData.code === 'C001') {
         // TODO: 고도화 필요
@@ -56,17 +44,16 @@ const Filmography = ({ id }) => {
       } else {
         return router.push(ENDPOINTS.ERROR);
       }
-    }
-    if (page === 1) {
-      setVideos({ ...videosData.data });
     } else {
       setVideos((prev) => {
+        if (!prev) setVideos({ ...videosData.data });
         if (prev.page === videosData.data.page) return prev;
         return {
           ...prev,
+          total: videosData.data.total,
           count: videosData.data.count,
           page: videosData.data.page,
-          data: prev.data ? [...prev.data, ...videosData.data.data] : [],
+          data: prev.data ? [...prev.data, ...videosData.data.data] : [...videosData.data.data],
         };
       });
     }
@@ -84,21 +71,7 @@ const Filmography = ({ id }) => {
     return;
   }
 
-  const personName = videos.metadata.person.name;
-  const personPicture = videos.metadata.person.picture;
-  const personProfile = videos.metadata.person.profile;
-
-  return (
-    <>
-      <section className={styles.people__section}>
-        <div className={styles.people__info__wrapper}>
-          <PeopleImage image={fMakeImageUrl(personPicture, DEFAULT_IMAGES.noActor)} size={100} alt={personName} />
-          <h1 className={styles.people__name}>{personName}</h1>
-        </div>
-      </section>
-      <Videos videos={videos} handlePage={handlePage} />
-    </>
-  );
+  return <VideosForPeople videos={videos} handlePage={handlePage} pageSize={PEOPLE_PAGE_SIZE} />;
 };
 
 export default Filmography;

@@ -238,8 +238,8 @@ const Home = async () => {
             <h2 className={vvStyles.vertical__title}>{videosTitle}</h2>
           </div>
           <div className={vvStyles.vertical__videos__wrapper}>
-            {videos.map((video, index) => (
-              <Video key={index} video={video} />
+            {videos.map((video) => (
+              <Video key={video.id} video={video} />
             ))}
           </div>
         </section>

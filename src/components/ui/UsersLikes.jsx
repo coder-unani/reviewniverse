@@ -64,9 +64,10 @@ const UsersLikes = ({ id }) => {
         if (prev.page === videosData.data.page) return prev;
         return {
           ...prev,
+          total: videosData.data.total,
           count: videosData.data.count,
           page: videosData.data.page,
-          data: prev.data ? [...prev.data, ...videosData.data.data] : [],
+          data: prev.data ? [...prev.data, ...videosData.data.data] : [...videosData.data.data],
         };
       });
     }

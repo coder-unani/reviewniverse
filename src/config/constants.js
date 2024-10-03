@@ -1,33 +1,16 @@
 import { SETTINGS } from '@/config/settings';
 
-export const DEFAULT_IMAGES = {
-  logo: `${SETTINGS.CDN_BASE_URL}/assets/images/logo.svg`,
-  logoWhite: `${SETTINGS.CDN_BASE_URL}/assets/images/logo-white.svg`,
-  noActor: `${SETTINGS.CDN_BASE_URL}/assets/images/no-actor.png`,
-  noImage: `${SETTINGS.CDN_BASE_URL}/assets/images/no-image.png`,
-  loading: `${SETTINGS.CDN_BASE_URL}/assets/images/loading.png`,
-  userLogin: `${SETTINGS.CDN_BASE_URL}/assets/images/user-login.png`,
-  userDelete: `${SETTINGS.CDN_BASE_URL}/assets/images/user-delete.png`,
-  searchNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/search-not-found.png`,
-  pageNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/page-not-found.png`,
-  error: `${SETTINGS.CDN_BASE_URL}/assets/images/error.png`,
-  kakao: `${SETTINGS.CDN_BASE_URL}/assets/images/kakao.png`,
-  naver: `${SETTINGS.CDN_BASE_URL}/assets/images/naver.png`,
-  google: `${SETTINGS.CDN_BASE_URL}/assets/images/google.png`,
-  shareKakaoTalk: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/kakaotalk.png`,
-  shareFacebook: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/facebook.png`,
-  shareX: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/X.png`,
-  popup: `${SETTINGS.CDN_BASE_URL}/assets/images/popup.png`,
-};
+export const HOME_REVALIDATE_SEC = 300; // 5분
+export const VIDEO_REVALIDATE_SEC = 600; // 10분
+export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, 인기, 추천, 검색, 통합검색, OTT, 평점';
 export const VIDEO_KEYWORDS = '정보, 출연진, 등장인물, 공식영상, 보러가기, 후기, 평가';
-export const PEOPLE_KEYWORDS = '출연진, 배우, 성우, 가수, 감독, 작가, 제작진, 인물, 정보';
+export const PEOPLE_KEYWORDS =
+  '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 영화, 드라마, 인물, 정보';
 
-export const HOME_REVALIDATE_SEC = 300; // 5분
-export const VIDEO_REVALIDATE_SEC = 600; // 10분
-export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
+export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
 
 export const VIDEO_ORDER_OPTIONS = {
   VIEW_ASC: 'view_asc',
@@ -91,7 +74,25 @@ export const VIDEO_RATING_TEXT = [
 ];
 
 export const PROFILE_IMAGE_FILE_SIZE = 30;
-
 export const PROFILE_IMAGE_FILE_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
-
 export const PROFILE_TEXT_MAX_LENGTH = 200;
+
+export const DEFAULT_IMAGES = {
+  logo: `${SETTINGS.CDN_BASE_URL}/assets/images/logo.svg`,
+  logoWhite: `${SETTINGS.CDN_BASE_URL}/assets/images/logo-white.svg`,
+  noActor: `${SETTINGS.CDN_BASE_URL}/assets/images/no-actor.png`,
+  noImage: `${SETTINGS.CDN_BASE_URL}/assets/images/no-image.png`,
+  loading: `${SETTINGS.CDN_BASE_URL}/assets/images/loading.png`,
+  userLogin: `${SETTINGS.CDN_BASE_URL}/assets/images/user-login.png`,
+  userDelete: `${SETTINGS.CDN_BASE_URL}/assets/images/user-delete.png`,
+  searchNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/search-not-found.png`,
+  pageNotFound: `${SETTINGS.CDN_BASE_URL}/assets/images/page-not-found.png`,
+  error: `${SETTINGS.CDN_BASE_URL}/assets/images/error.png`,
+  kakao: `${SETTINGS.CDN_BASE_URL}/assets/images/kakao.png`,
+  naver: `${SETTINGS.CDN_BASE_URL}/assets/images/naver.png`,
+  google: `${SETTINGS.CDN_BASE_URL}/assets/images/google.png`,
+  shareKakaoTalk: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/kakaotalk.png`,
+  shareFacebook: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/facebook.png`,
+  shareX: `${SETTINGS.CDN_BASE_URL}/assets/images/sns/X.png`,
+  popup: `${SETTINGS.CDN_BASE_URL}/assets/images/popup.png`,
+};

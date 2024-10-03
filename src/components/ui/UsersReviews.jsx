@@ -58,9 +58,10 @@ const UsersReviews = ({ id }) => {
         if (prev.page === reviewsData.data.page) return prev;
         return {
           ...prev,
+          total: reviewsData.data.total,
           count: reviewsData.data.count,
           page: reviewsData.data.page,
-          data: prev.data ? [...prev.data, ...reviewsData.data.data] : [],
+          data: prev.data ? [...prev.data, ...reviewsData.data.data] : [...reviewsData.data.data],
         };
       });
     }
