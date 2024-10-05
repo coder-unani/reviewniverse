@@ -6,22 +6,23 @@ import { isEmpty } from 'lodash';
 import { SETTINGS } from '@/config/settings';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import {
-  DEFAULT_IMAGES,
   PEOPLE_REVALIDATE_SEC,
   SITE_KEYWORDS,
   PEOPLE_KEYWORDS,
+  PEOPLE_PAGE_SIZE,
   VIDEO_ORDER_OPTIONS,
   VIDEO_MODE_OPTIONS,
   VIDEO_BY_OPTIONS,
+  DEFAULT_IMAGES,
 } from '@/config/constants';
 import { fetchVideos } from '@/library/api/videos';
 import { fParseInt } from '@/utils/format';
 import { fMakeImageUrl } from '@/utils/formatContent';
 import PeopleImage from '@/components/ui/Button/People/Image';
+import Video from '@/components/ui/Video';
 
 import styles from '@/styles/pages/People.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
-import Video from '@/components/ui/Video';
 
 const Filmography = dynamic(() => import('@/components/ui/Filmography'), { ssr: false });
 
@@ -118,7 +119,9 @@ const People = async ({ params }) => {
   const personName = person.name;
   const personPicture = person.picture;
   const personProfile = person.profile;
-  const enabled = videos.total > 20;
+
+  // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
+  const enabled = videos.total > PEOPLE_PAGE_SIZE;
 
   return (
     <main className={styles.people__main}>

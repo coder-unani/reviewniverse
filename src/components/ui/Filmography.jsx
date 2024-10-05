@@ -24,11 +24,11 @@ const Filmography = ({ peopleId, enabled }) => {
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PERSON,
     query: peopleId,
-    enabled: enabled,
+    enabled: enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
 
   useEffect(() => {
-    if (videosIsLoading || !videosData) {
+    if (videosIsLoading || !videosData || !enabled) {
       return;
     }
 
@@ -57,7 +57,7 @@ const Filmography = ({ peopleId, enabled }) => {
         };
       });
     }
-  }, [videosIsLoading, videosData, page]);
+  }, [videosIsLoading, videosData, page, enabled]);
 
   const handlePage = (newPage) => {
     setPage(newPage);
