@@ -30,6 +30,7 @@ export default function robots() {
           'facebookexternalhit',
           'kakaotalk-scrap',
           'Daumoa',
+          'DuckDuckBot',
         ],
         allow: '/',
         disallow: '/users',
