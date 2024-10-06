@@ -15,9 +15,20 @@ const Contents = ({ content }) => {
   // 플랫폼 버튼 클릭 이벤트
   useEffect(() => {
     const platforms = document.querySelectorAll('li.platform-item');
+
+    const handleClick = (event) => {
+      handlePlatformClick(event.currentTarget);
+    };
+
     platforms.forEach((platform) => {
-      platform.addEventListener('click', () => handlePlatformClick(platform));
+      platform.addEventListener('click', handleClick);
     });
+
+    return () => {
+      platforms.forEach((platform) => {
+        platform.removeEventListener('click', handleClick);
+      });
+    };
   }, []);
 
   const handlePlatformClick = (platform) => {
