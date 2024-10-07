@@ -19,7 +19,7 @@ const Filmography = ({ peopleId, enabled }) => {
     isLoading: videosIsLoading,
   } = useVideos({
     page,
-    size: 20,
+    size: PEOPLE_PAGE_SIZE,
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PERSON,

@@ -15,9 +15,9 @@ import {
   VIDEO_BY_OPTIONS,
   DEFAULT_IMAGES,
 } from '@/config/constants';
-import { fetchVideos } from '@/library/api/videos';
 import { fParseInt } from '@/utils/format';
 import { fMakeImageUrl } from '@/utils/formatContent';
+import { fetchVideos } from '@/library/api/videos';
 import PeopleImage from '@/components/ui/Button/People/Image';
 import Video from '@/components/ui/Video';
 
@@ -29,17 +29,12 @@ const Filmography = dynamic(() => import('@/components/ui/Filmography'), { ssr: 
 // ISR 재생성 주기 설정
 export const revalidate = PEOPLE_REVALIDATE_SEC;
 
-/**
- * TODO:
- * - fallback 스켈레톤 UI 추가
- */
-
 // People
 const getPeopleVideos = async ({ peopleId }) => {
   // 인물 정보 조회 API 호출
   const options = {
     page: 1,
-    size: 20,
+    size: PEOPLE_PAGE_SIZE,
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PERSON,

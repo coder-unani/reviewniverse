@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback } from 'react';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { isEmpty } from 'lodash';
@@ -14,30 +14,26 @@ import styles from '@/styles/components/Videos.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
 
 const Videos = ({ children, videos, handlePage }) => {
-  const [hasMore, setHasMore] = useState(true);
+  const hasMore = videos.count === 20;
   const observer = useRef();
-
-  useEffect(() => {
-    if (videos.data && videos.total <= videos.data.length) {
-      setHasMore(false);
-    } else {
-      setHasMore(true);
-    }
-  }, [videos]);
 
   const lastItemRef = useCallback(
     (node) => {
       if (!hasMore) {
         cLog('마지막 페이지입니다.');
+        if (observer.current) observer.current.disconnect(); // 관찰 중지
         return;
       }
       if (observer.current) observer.current.disconnect();
 
-      observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          handlePage(videos.page + 1);
-        }
-      });
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasMore) {
+            handlePage(videos.page + 1);
+          }
+        },
+        { threshold: 0.5 } // 요소가 절반 이상 보일 때만 실행
+      );
 
       if (node) observer.current.observe(node);
     },
@@ -45,7 +41,7 @@ const Videos = ({ children, videos, handlePage }) => {
   );
 
   if (isEmpty(videos.data)) {
-    return;
+    return null;
   }
 
   return (

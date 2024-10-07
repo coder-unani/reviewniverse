@@ -1,47 +1,37 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
+import { PRODUCTIONS_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { useVideos } from '@/hooks/useVideos';
-import Videos from '@/components/ui/Videos';
+import VideosForPeople from '@/components/ui/VideosForPeople';
 
-import styles from '@/styles/pages/Productions.module.scss';
-
-const Productions = ({ id }) => {
+const Productions = ({ productionId, enabled }) => {
   const router = useRouter();
-  const productionId = fParseInt(id);
-  const [page, setPage] = useState(1);
-  const [videos, setVideos] = useState(null);
+  const [page, setPage] = useState(2);
+  const [videos, setVideos] = useState({});
   const {
     data: videosData,
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
     page,
-    size: 20,
+    size: PRODUCTIONS_PAGE_SIZE,
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PRODUCTION,
     query: productionId,
-    enabled: productionId,
+    enabled: enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
 
-  // productionId가 숫자형이 아닐 경우 notFound 페이지로 이동
   useEffect(() => {
-    if (productionId === 0) {
-      notFound();
-    }
-  }, [productionId]);
-
-  useEffect(() => {
-    if (videosIsLoading || !videosData) {
+    if (videosIsLoading || !videosData || !enabled) {
       return;
     }
+
     if (!videosData.status) {
       if (videosData.code === 'C001') {
         // TODO: 고도화 필요
@@ -54,11 +44,9 @@ const Productions = ({ id }) => {
       } else {
         return router.push(ENDPOINTS.ERROR);
       }
-    }
-    if (page === 1) {
-      setVideos({ ...videosData.data });
     } else {
       setVideos((prev) => {
+        if (!prev) setVideos({ ...videosData.data });
         if (prev.page === videosData.data.page) return prev;
         return {
           ...prev,
@@ -69,7 +57,7 @@ const Productions = ({ id }) => {
         };
       });
     }
-  }, [videosIsLoading, videosData, page]);
+  }, [videosIsLoading, videosData, page, enabled]);
 
   const handlePage = (newPage) => {
     setPage(newPage);
@@ -83,21 +71,7 @@ const Productions = ({ id }) => {
     return;
   }
 
-  const productionSubtitle = '제작사';
-  const productionName = videos.metadata.production.name;
-  const productionLogo = videos.metadata.production.logo;
-
-  return (
-    <>
-      <section className={styles.production__section}>
-        <div className={styles.production__title__wrapper}>
-          <p className={styles.production__subtitle}>{productionSubtitle}</p>
-          <h1 className={styles.production__title}>{productionName}</h1>
-        </div>
-      </section>
-      <Videos videos={videos} handlePage={handlePage} />
-    </>
-  );
+  return <VideosForPeople videos={videos} handlePage={handlePage} pageSize={PRODUCTIONS_PAGE_SIZE} />;
 };
 
 export default Productions;

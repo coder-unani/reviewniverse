@@ -26,7 +26,6 @@ import {
   fTrailerCode,
   fMakeThumbnailUrl,
 } from '@/utils/formatContent';
-import { cLog } from '@/utils/test';
 import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
