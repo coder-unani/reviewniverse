@@ -24,7 +24,6 @@
   grid-template-columns: repeat(6, minmax(0px, 1fr));
   gap: 56px 12px;
   width: 100%;
-  margin-bottom: 56px;
 }
 
 @media (max-width: 1024px) {
@@ -60,6 +59,5 @@
   .vertical__videos__wrapper {
     grid-template-columns: repeat(3, minmax(0px, 1fr));
     gap: 36px 8px;
-    margin-bottom: 36px;
   }
 }
