@@ -13,7 +13,7 @@ export const USER_WATCH_TYPE_CODE = {
   10: {
     title: '소름돋는 연기력',
     subtitle: '언빌리버블',
-    abbr: '연기력 🎭',
+    abbr: '연기력 🎩',
     image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
   },
   11: {
@@ -37,13 +37,13 @@ export const USER_WATCH_TYPE_CODE = {
   14: {
     title: '고막 녹는 OST',
     subtitle: '본격 귀호강',
-    abbr: 'OST 🎵',
+    abbr: 'OST 🎧',
     image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/5.png`,
   },
   15: {
     title: '초호화 캐스팅',
     subtitle: '걔도?쟤도?',
-    abbr: '캐스팅 🐰',
+    abbr: '캐스팅 🧑‍🤝‍🧑',
     image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/6.png`,
   },
 };

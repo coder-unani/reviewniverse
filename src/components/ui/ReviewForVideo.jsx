@@ -57,6 +57,7 @@ const ReviewForVideo = ({ videoId, review }) => {
 
           {review.rating && <RatingScore rating={review.rating} />}
 
+          {/* 시청타입 */}
           {!isEmpty(profileWatchType) && (
             <div className={styles.detail__review__watchtype__wrapper}>
               {profileWatchType.map((code) => (

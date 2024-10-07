@@ -33,8 +33,24 @@
 
 .review__nickname__wrapper {
   display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 4px 10px;
   margin-right: 24px;
+}
+
+.review__watchtype__wrapper {
+  display: flex;
+  gap: 4px;
+  flex: 0 0 auto;
+}
+
+.review__watchtype {
+  font-size: 12px;
+  color: $color-white-06;
+  line-height: 20px;
+  padding: 0 4px;
+  border: 1px solid $border-color-01;
+  border-radius: 10px;
 }
 
 .review__more__button {

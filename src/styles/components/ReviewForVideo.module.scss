@@ -35,7 +35,6 @@
 
 .detail__review__header {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
   gap: 4px 10px;
 }
@@ -47,6 +46,7 @@
 .detail__review__watchtype__wrapper {
   display: flex;
   gap: 4px;
+  flex: 0 0 auto;
 }
 
 .detail__review__watchtype {

@@ -2,9 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear, fDiffDate } from '@/utils/format';
+import { fUserWatchType } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
@@ -38,18 +40,33 @@ const Review = ({ videoId, review }) => {
       <div className={styles.review__profile__wrapper}>
         <Link href={userPath} className={styles.review__profile__link}>
           <ProfileImage image={data.user.profile_image} size={36} />
+
           <div className={styles.review__profile__info__wrapper}>
             <div className={styles.review__nickname__wrapper}>
               <span className={styles.review__nickname}>{data.user.nickname}</span>
+
               {data.rating && <RatingScore rating={data.rating} />}
+
+              {/* 시청타입 */}
+              {!isEmpty(data.user.watch_type) && (
+                <div className={styles.review__watchtype__wrapper}>
+                  {data.user.watch_type.map((code) => (
+                    <span key={code} data-code={code} className={styles.review__watchtype}>
+                      {fUserWatchType(code).abbr}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
             <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
           </div>
         </Link>
+
         {/* <button className={styles.review__more__button}>
           <MoreIcon />
         </button> */}
       </div>
+
       <div className={styles.review__video__wrapper}>
         <div className={styles.review__wrapper}>
           <div className={styles.review__content__wrapper}>
@@ -63,6 +80,7 @@ const Review = ({ videoId, review }) => {
               )}
             </div>
           </div>
+
           <div className={styles.review__more__wrapper}>
             <ReviewLikeButton videoId={videoId} review={data} setReview={setData} />
           </div>
