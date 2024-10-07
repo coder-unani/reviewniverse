@@ -7,6 +7,7 @@ import { isEmpty } from 'lodash';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDiffDate } from '@/utils/format';
+import { fUserWatchType } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
@@ -24,6 +25,7 @@ const ReviewForVideo = ({ videoId, review }) => {
   const profilePath = review.user ? EndpointManager.generateUrl(ENDPOINTS.USER, { userId: review.user.id }) : '';
   const profileImage = review.user ? review.user.profile_image : DEFAULT_IMAGES.noActor;
   const profileNickname = review.user ? review.user.nickname : '탈퇴한 회원 입니다.';
+  const profileWatchType = review.user ? review.user.watch_type : null;
 
   useEffect(() => {
     setActive(review.is_spoiler);
@@ -42,6 +44,7 @@ const ReviewForVideo = ({ videoId, review }) => {
           <ProfileImage image={profileImage} size={36} />
         </Link>
       </div>
+
       <div className={styles.detail__review__content__wrapper}>
         <div className={styles.detail__review__header}>
           <Link
@@ -51,8 +54,20 @@ const ReviewForVideo = ({ videoId, review }) => {
           >
             <p className={styles.detail__review__nickname}>{profileNickname}</p>
           </Link>
+
           {review.rating && <RatingScore rating={review.rating} />}
+
+          {!isEmpty(profileWatchType) && (
+            <div className={styles.detail__review__watchtype__wrapper}>
+              {profileWatchType.map((code) => (
+                <span key={code} data-code={code} className={styles.detail__review__watchtype}>
+                  {fUserWatchType(code).abbr}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
+
         <div className={styles.detail__review__body} data-spoiler={review.is_spoiler}>
           {review.is_spoiler ? (
             <p className={styles.detail__review__content} data-active={active} onClick={handleSpoiler}>
@@ -62,6 +77,7 @@ const ReviewForVideo = ({ videoId, review }) => {
             <p className={styles.detail__review__content}>{review.title}</p>
           )}
         </div>
+
         <div className={styles.detail__review__footer}>
           <span className={styles.detail__review__date}>{fDiffDate(review.created_at)}</span>
           <ReviewLikeButton videoId={videoId} review={review} />

@@ -2,6 +2,7 @@ import { isEmpty } from 'lodash';
 
 import {
   USER_CODE,
+  USER_WATCH_TYPE_CODE,
   SCREEN_MAIN_ID,
   VIDEO_ACTOR_CODE,
   VIDEO_STAFF_CODE,
@@ -15,6 +16,12 @@ import { SETTINGS } from '@/config/settings';
 export const fUserCode = (code) => {
   const userCode = USER_CODE[code];
   return userCode || '10';
+};
+
+// 유저 시청 타입 포맷
+export const fUserWatchType = (code) => {
+  const watchType = USER_WATCH_TYPE_CODE[code];
+  return watchType || {};
 };
 
 // 비디오 코드 포맷

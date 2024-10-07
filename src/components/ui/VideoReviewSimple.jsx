@@ -183,17 +183,6 @@ const VideoReviewSimple = ({ videoId }) => {
     return message ? renderNoReivew(message) : renderMyReview();
   };
 
-  const ReviewsWrapper = () => {
-    if (isEmpty(reviews.data)) return null;
-    return (
-      <article className={styles.detail__review__wrapper}>
-        {reviews.data.map((review) => (
-          <ReviewForVideo key={review.id} videoId={videoId} review={review} />
-        ))}
-      </article>
-    );
-  };
-
   return (
     <section className={styles.detail__review__section}>
       <div className={styles.detail__main__title__wrapper}>
@@ -209,8 +198,18 @@ const VideoReviewSimple = ({ videoId }) => {
           </Link>
         )}
       </div>
+
+      {/* 내 리뷰 */}
       <MyReviewWrapper />
-      <ReviewsWrapper />
+
+      {/* 비디오 리뷰 리스트 */}
+      {!isEmpty(reviews.data) && (
+        <article className={styles.detail__review__wrapper}>
+          {reviews.data.map((review) => (
+            <ReviewForVideo key={review.id} videoId={videoId} review={review} />
+          ))}
+        </article>
+      )}
     </section>
   );
 };

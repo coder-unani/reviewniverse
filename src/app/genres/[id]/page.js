@@ -145,7 +145,7 @@ const Genres = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video key={video.id} video={video} />
+            <Video video={video} key={video.id} />
           ))}
           <Suspense fallback={''}>
             <GenresComponent genreId={genreId} enabled={enabled} />

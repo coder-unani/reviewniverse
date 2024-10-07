@@ -9,7 +9,7 @@ import { isEmpty } from 'lodash';
 import { SETTINGS } from '@/config/settings';
 import { DEFAULT_IMAGES, VIDEO_REVALIDATE_SEC, SITE_KEYWORDS, VIDEO_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fParseInt, fYear, fDate, fUpperCase } from '@/utils/format';
+import { fParseInt, fYear, fDate, fUpperCase, fStringToArray } from '@/utils/format';
 import {
   fBackgroundImage,
   fThumbnail,
@@ -153,6 +153,7 @@ const Contents = async ({ params }) => {
   const runtime = content.runtime || '';
   const synopsisTitle = '작품 소개';
   const synopsis = content.synopsis || '';
+  const tags = fStringToArray(content.tag);
   const poster = fThumbnail(content.thumbnail, false);
   const posterAlt = `${titleKr} 포스터`;
   const myRatingTitle = '평가하기';
@@ -432,7 +433,7 @@ const Contents = async ({ params }) => {
         <div className={styles.detail__sub__wrapper}>
           <section className={styles.detail__sub__section}>
             {/* 작품 소개: 클라이언트 컴포넌트 */}
-            <VideoSynopsis synopsis={synopsis} title={synopsisTitle} />
+            <VideoSynopsis synopsis={synopsis} tags={tags} title={synopsisTitle} />
 
             {/* 포스터 */}
             {!isEmpty(poster) && (

@@ -69,3 +69,10 @@ export const fFileSize = (size) => {
   // MB를 바이트로 변경
   return size * 1024 * 1024;
 };
+
+// 배열 포맷: ,로 구분된 문자열을 배열로 변경
+
+export const fStringToArray = (string = '') => {
+  if (isEmpty(string)) return []; // null, undefined, 빈 문자열, 공백만 있는 문자열 처리
+  return string.replace(/\s+/g, '').split(','); // 공백 제거 후 쉼표로 분리
+};

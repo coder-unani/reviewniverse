@@ -343,6 +343,22 @@
   flex-direction: column;
 }
 
+.detail__tags__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-bottom: 7px;
+}
+
+.detail__tag {
+  font-size: 12px;
+  line-height: 24px;
+  color: $color-white-06;
+  border-radius: 12px;
+  background-color: $color-white-09;
+  padding: 0 6px;
+}
+
 .detail__synopsis {
   font-size: 14px;
   color: $color-white-03;

@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSynopsis = React.memo(({ synopsis, title }) => {
+const VideoSynopsis = React.memo(({ synopsis, tags, title }) => {
   if (isEmpty(synopsis)) {
     return null;
   }
@@ -34,9 +34,22 @@ const VideoSynopsis = React.memo(({ synopsis, title }) => {
   return (
     <section className={styles.detail__synopsis__section}>
       <div className={styles.detail__main__title}>{title}</div>
+
+      {/* 태그 */}
+      {!isEmpty(tags) && (
+        <div className={styles.detail__tags__wrapper}>
+          {tags.map((tag, index) => (
+            <span className={styles.detail__tag} key={index}>
+              #{tag}
+            </span>
+          ))}
+        </div>
+      )}
+
       <summary className={`${styles.detail__synopsis} ${isExpanded ? styles.expanded : ''}`} ref={synopsisRef}>
         {synopsis}
       </summary>
+
       {isOverflowing && !isExpanded && (
         <button onClick={toggleExpand} className={styles.synopsis__more__button}>
           {/* {isExpanded ? "접기" : "더보기"} */}
