@@ -123,6 +123,7 @@ const Productions = async ({ params }) => {
           <h1 className={styles.production__title}>{productionName}</h1>
         </div>
       </section>
+
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (

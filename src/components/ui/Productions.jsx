@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { PRODUCTIONS_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
-import VideosForPeople from '@/components/ui/VideosForPeople';
+import Videos from '@/components/ui/Videos';
 
 const Productions = ({ productionId, enabled }) => {
   const router = useRouter();
@@ -71,7 +71,7 @@ const Productions = ({ productionId, enabled }) => {
     return;
   }
 
-  return <VideosForPeople videos={videos} handlePage={handlePage} pageSize={PRODUCTIONS_PAGE_SIZE} />;
+  return <Videos videos={videos} handlePage={handlePage} pageSize={PRODUCTIONS_PAGE_SIZE} />;
 };
 
 export default Productions;

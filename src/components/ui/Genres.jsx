@@ -1,45 +1,34 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
+import { GENRES_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { useVideos } from '@/hooks/useVideos';
 import Videos from '@/components/ui/Videos';
 
-import styles from '@/styles/pages/Genres.module.scss';
-
-const Genres = ({ children, id }) => {
+const Genres = ({ genreId, enabled }) => {
   const router = useRouter();
-  const genreId = fParseInt(id);
-  const [page, setPage] = useState(1);
-  const [videos, setVideos] = useState(null);
+  const [page, setPage] = useState(2);
+  const [videos, setVideos] = useState({});
   const {
     data: videosData,
     error: videosError,
     isLoading: videosIsLoading,
   } = useVideos({
     page,
-    size: 20,
+    size: GENRES_PAGE_SIZE,
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.GENRE,
     query: genreId,
-    enabled: genreId,
+    enabled: enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
 
-  // genreId가 숫자형이 아닐 경우 notFound 페이지로 이동
   useEffect(() => {
-    if (genreId === 0) {
-      notFound();
-    }
-  }, [genreId]);
-
-  useEffect(() => {
-    if (videosIsLoading || !videosData) {
+    if (videosIsLoading || !videosData || !enabled) {
       return;
     }
 
@@ -55,12 +44,9 @@ const Genres = ({ children, id }) => {
       } else {
         return router.push(ENDPOINTS.ERROR);
       }
-    }
-
-    if (page === 1) {
-      setVideos({ ...videosData.data });
     } else {
       setVideos((prev) => {
+        if (!prev) setVideos({ ...videosData.data });
         if (prev.page === videosData.data.page) return prev;
         return {
           ...prev,
@@ -71,7 +57,7 @@ const Genres = ({ children, id }) => {
         };
       });
     }
-  }, [videosIsLoading, videosData, page]);
+  }, [videosIsLoading, videosData, page, enabled]);
 
   const handlePage = (newPage) => {
     setPage(newPage);
@@ -85,23 +71,7 @@ const Genres = ({ children, id }) => {
     return;
   }
 
-  // TODO: 고도화 필요
-  const genreSubtitle = '장르';
-  const genreName = videos.metadata.genre.name;
-  const genreImage = videos.metadata.genre.background;
-
-  return (
-    <>
-      <section className={styles.genre__section}>
-        <div className={styles.genre__title__wrapper}>
-          <p className={styles.genre__subtitle}>{genreSubtitle}</p>
-          <h1 className={styles.genre__title}>#{genreName}</h1>
-        </div>
-      </section>
-      {children}
-      <Videos videos={videos} handlePage={handlePage} />
-    </>
-  );
+  return <Videos videos={videos} handlePage={handlePage} pageSize={GENRES_PAGE_SIZE} />;
 };
 
 export default Genres;

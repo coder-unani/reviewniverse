@@ -131,6 +131,7 @@ const People = async ({ params }) => {
           <h1 className={styles.people__name}>{personName}</h1>
         </div>
       </section>
+
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (

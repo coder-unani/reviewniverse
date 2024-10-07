@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { isEmpty } from 'lodash';
 
-import { DEFAULT_IMAGES, VIDEO_MODE_OPTIONS } from '@/config/constants';
+import { SEARCH_PAGE_SIZE, VIDEO_MODE_OPTIONS, DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
-import Videos from '@/components/ui/Videos';
+import VideosForSearch from '@/components/ui/VideosForSearch';
 
 import styles from '@/styles/pages/Search.module.scss';
 
@@ -30,7 +30,7 @@ const SearchResults = ({ query }) => {
     isLoading: videosIsLoading,
   } = useVideos({
     page,
-    size: 20,
+    size: SEARCH_PAGE_SIZE,
     mode: VIDEO_MODE_OPTIONS.KEYWORD,
     query: decodeQuery,
     enabled: decodeQuery,
@@ -113,7 +113,7 @@ const SearchResults = ({ query }) => {
           <strong className={styles.search__title}>
             "<em>{decodeQuery}</em>"의 검색 결과가 {videos.total} 개 있어요
           </strong>
-          <Videos videos={videos} handlePage={handlePage} />
+          <VideosForSearch videos={videos} handlePage={handlePage} pageSize={SEARCH_PAGE_SIZE} />
         </>
       )}
     </section>
