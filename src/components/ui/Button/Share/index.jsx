@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import dynamic from 'next/dynamic';
 
 import styles from '@/styles/components/ControlButton.module.scss';
@@ -26,7 +26,9 @@ const ShareButton = ({ title, desc, image }) => {
         <span className={styles.detail__control__icon}></span>
       </button>
 
-      <ShareModal title={title} desc={desc} image={image} isOpen={isShareModal} onClose={toggleShareModal} />
+      <Suspense fallback={''}>
+        <ShareModal title={title} desc={desc} image={image} isOpen={isShareModal} onClose={toggleShareModal} />
+      </Suspense>
     </>
   );
 };

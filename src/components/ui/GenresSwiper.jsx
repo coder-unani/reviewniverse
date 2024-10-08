@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -71,8 +71,10 @@ const GenresSwiper = ({ children, genres }) => {
         </div>
       </section>
 
-      {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <GenresSwiperClient uniqueId={uniqueId} />
+      <Suspense fallback={''}>
+        {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
+        <GenresSwiperClient uniqueId={uniqueId} />
+      </Suspense>
     </>
   );
 };
