@@ -146,7 +146,7 @@ const Genres = async ({ params }) => {
         </div>
       </section>
 
-      <GenresSwiper genres={genres} />
+      {/* <GenresSwiper genres={genres} /> */}
 
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
