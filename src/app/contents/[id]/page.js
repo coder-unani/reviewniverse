@@ -312,7 +312,7 @@ const Contents = async ({ params }) => {
                 {/* 제목 */}
                 <article className={styles.detail__title__wrapper}>
                   <p className={styles.detail__title__og}>{titleOg}</p>
-                  <h2 className={styles.detail__title__kr}>{titleKr}</h2>
+                  <h1 className={styles.detail__title__kr}>{titleKr}</h1>
                 </article>
                 {/* 장르 */}
                 <ul className={styles.detail__genre__wrapper}>
