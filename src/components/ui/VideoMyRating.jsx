@@ -16,7 +16,7 @@ const VideoMyRating = ({ videoId, title }) => {
 
   return (
     <section className={styles.detail__my__rating__section}>
-      <div className={styles.detail__main__title}>{title}</div>
+      <h2 className={styles.detail__main__title}>{title}</h2>
       {/* <div className={styles.detail__my__rating}>
         <span className={`${styles.my__rating__text} ${styles.number}`} data-color={ratingColor}>
           {ratingText}

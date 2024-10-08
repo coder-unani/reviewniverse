@@ -194,7 +194,7 @@ const Contents = async ({ params }) => {
 
     return (
       <section className={styles.detail__platform__section}>
-        <div className={styles.detail__main__title}>{platformTitle}</div>
+        <h2 className={styles.detail__main__title}>{platformTitle}</h2>
         <ul className={styles.detail__platform__wrapper}>
           {updatedPlatforms.map((platform, index) => (
             <li
@@ -241,7 +241,7 @@ const Contents = async ({ params }) => {
     return (
       <>
         <section className={styles.detail__people__section}>
-          <div className={styles.detail__main__title}>{title}</div>
+          <h2 className={styles.detail__main__title}>{title}</h2>
           <article className={styles.detail__people__wrapper} data-length={people.length}>
             <div className={`swiper ${styles.detail__people}`} data-swiper-id={uniqueId}>
               <div className="swiper-wrapper people-template">
@@ -464,7 +464,7 @@ const Contents = async ({ params }) => {
           {!isEmpty(trailer) && (
             <>
               <section className={styles.detail__gallery__section}>
-                <div className={styles.detail__main__title}>{trailerTitle}</div>
+                <h2 className={styles.detail__main__title}>{trailerTitle}</h2>
                 <article className={styles.detail__gallery__wrapper}>
                   <div className={`swiper ${styles.detail__gallery}`} data-swiper-id={trailerUniqueId}>
                     <div className="swiper-wrapper">
@@ -516,7 +516,7 @@ const Contents = async ({ params }) => {
           {!isEmpty(gallery) && (
             <>
               <section className={styles.detail__gallery__section}>
-                <div className={styles.detail__main__title}>{galleryTitle}</div>
+                <h2 className={styles.detail__main__title}>{galleryTitle}</h2>
                 <article className={styles.detail__gallery__wrapper}>
                   <div className={`swiper ${styles.detail__gallery}`} data-swiper-id={galleryUniqueId}>
                     <div className="swiper-wrapper">

@@ -36,6 +36,6 @@ export default function robots() {
         disallow: '/users',
       },
     ],
-    sitemap: 'https://www.reviewniverse.net/sitemap/sitemap.xml',
+    sitemap: 'https://www.reviewniverse.net/sitemap.xml',
   };
 }

@@ -6,7 +6,6 @@ import { SETTINGS } from '@/config/settings';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
-// import { getImagePlaceholder } from '@/utils/getImagePlaceholder';
 
 import styles from '@/styles/components/VideoForRank.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
@@ -20,8 +19,6 @@ const VideoForRank = async ({ video, index }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
-  // blurDataURL을 생성하는 함수
-  // const base64 = await getImagePlaceholder(thumbnail);
   const code = video.code_string;
   const release = fYear(video.release);
   const country = fCountry(video.country);
@@ -60,8 +57,6 @@ const VideoForRank = async ({ video, index }) => {
             height={382}
             quality={100}
             loading="lazy"
-            // placeholder="blur"
-            // blurDataURL={base64}
           />
         </picture>
         <div className={defStyles.default__code__wrapper}>

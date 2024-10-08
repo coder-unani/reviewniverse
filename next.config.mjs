@@ -1,4 +1,3 @@
-import withPlaiceholder from '@plaiceholder/next';
 /** @type {import('next').NextConfig} */
 
 const nextConfig = {
@@ -8,7 +7,6 @@ const nextConfig = {
   // 외부 이미지 도메인 추가
   images: {
     unoptimized: true, // 최적화하지 않음
-    // domains: ['storage.reviewniverse.net'], // 도메인 전체 허용
     remotePatterns: [
       {
         protocol: 'https',
@@ -33,6 +31,9 @@ const nextConfig = {
 
   // ETag 사용 설정
   generateEtags: true, // ETag 헤더를 활성화
+
+  // X-powered-by 헤더 비활성화
+  poweredByHeader: false,
 };
 
-export default withPlaiceholder(nextConfig);
+export default nextConfig;

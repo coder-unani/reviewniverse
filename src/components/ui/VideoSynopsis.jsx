@@ -33,7 +33,7 @@ const VideoSynopsis = React.memo(({ synopsis, tags, title }) => {
 
   return (
     <section className={styles.detail__synopsis__section}>
-      <div className={styles.detail__main__title}>{title}</div>
+      <h2 className={styles.detail__main__title}>{title}</h2>
 
       {/* 태그 */}
       {!isEmpty(tags) && (
