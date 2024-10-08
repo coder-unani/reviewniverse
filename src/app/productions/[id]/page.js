@@ -20,6 +20,7 @@ import Video from '@/components/ui/Video';
 
 import styles from '@/styles/pages/Productions.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
+import robots from '@/app/robots';
 
 const ProductionsComponent = dynamic(() => import('@/components/ui/Productions'), { ssr: false });
 
@@ -72,6 +73,12 @@ export const generateMetadata = async ({ params }) => {
   const metaTitle = `${name} | 리뷰니버스`;
 
   return {
+    robots: {
+      index: true,
+      googleBot: {
+        index: true,
+      },
+    },
     alternates: {
       canonical: url,
     },

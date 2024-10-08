@@ -87,6 +87,12 @@ export const generateMetadata = async ({ params }) => {
   const metaTitle = `${name} | 리뷰니버스`;
 
   return {
+    robots: {
+      index: true,
+      googleBot: {
+        index: true,
+      },
+    },
     alternates: {
       canonical: url,
     },
