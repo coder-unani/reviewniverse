@@ -16,23 +16,22 @@
 .production__title__wrapper {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   border-bottom: 1px solid $border-color-01;
-  padding-bottom: 20px;
+  padding-bottom: 24px;
 }
 
 .production__title {
-  font-size: 30px;
+  font-size: 24px;
   font-weight: 700;
   color: $color-white-01;
+  line-height: 1.2;
 }
 
 .production__subtitle {
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
   color: $color-white-04;
+  line-height: 20px;
+  margin-bottom: 4px;
 }
 
 @media (max-width: 1024px) {
@@ -46,15 +45,7 @@
     padding: 0 $padding-small;
   }
 
-  .production__title__wrapper {
-    gap: 4px;
-  }
-
   .production__title {
     font-size: 20px;
-  }
-
-  .production__subtitle {
-    font-size: 14px;
   }
 }
