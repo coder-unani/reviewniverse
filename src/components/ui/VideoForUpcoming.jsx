@@ -16,7 +16,7 @@ import defStyles from '@/styles/components/Video.module.scss';
  * - 정적 이미지 생성
  */
 
-const VideoForUpcoming = async ({ video }) => {
+const VideoForUpcoming = ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);

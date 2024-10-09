@@ -8,7 +8,7 @@ import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatC
 
 import styles from '@/styles/components/Video.module.scss';
 
-const Video = async ({ video }) => {
+const Video = ({ video }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
