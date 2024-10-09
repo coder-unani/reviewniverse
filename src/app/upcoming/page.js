@@ -84,10 +84,10 @@ const Upcoming = async () => {
           {videos.data.map((video) => (
             <VideoForUpcoming video={video} key={video.id} />
           ))}
+          <Suspense fallback={''}>
+            <UpcomingComponent enabled={enabled} />
+          </Suspense>
         </div>
-        <Suspense fallback={''}>
-          <UpcomingComponent enabled={enabled} />
-        </Suspense>
       </section>
     </main>
   );

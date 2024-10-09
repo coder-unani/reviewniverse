@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { UPCOMING_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useUpcomingVideos } from '@/hooks/useUpcomingVideos';
-import Videos from '@/components/ui/Videos';
+import VideosForUpcoming from '@/components/ui/VideosForUpcoming';
 
 const Upcoming = ({ enabled }) => {
   const router = useRouter();
@@ -67,7 +67,7 @@ const Upcoming = ({ enabled }) => {
     return;
   }
 
-  return <Videos videos={videos} handlePage={handlePage} pageSize={UPCOMING_PAGE_SIZE} />;
+  return <VideosForUpcoming videos={videos} handlePage={handlePage} pageSize={UPCOMING_PAGE_SIZE} />;
 };
 
 export default Upcoming;
