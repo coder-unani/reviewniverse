@@ -7,7 +7,8 @@
 .vertical__title__wrapper {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  // justify-content: space-between;
+  gap: 4px;
   margin-bottom: 14px;
 }
 
@@ -15,7 +16,17 @@
   font-size: 20px;
   font-weight: 800;
   color: $color-white-01;
-  letter-spacing: -0.2px;
+}
+
+.vertical__subtitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-white-02;
+  line-height: 32px;
+  border-radius: 16px;
+  background-color: $color-white-08;
+  padding: 0 12px;
+  cursor: default;
 }
 
 .vertical__videos__wrapper {

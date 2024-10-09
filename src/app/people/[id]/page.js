@@ -156,12 +156,18 @@ const People = async ({ params }) => {
             alt={person.name}
             priority={true}
           />
-          <h1 className={styles.people__name}>{person.name}</h1>
-          {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
+          <div className={styles.people__name__wrapper}>
+            <h1 className={styles.people__name}>{person.name}</h1>
+            {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
+            {person.profile && <p className={styles.people__profile}>{person.profile}</p>}
+          </div>
         </div>
       </section>
 
       <section className={vStyles.vertical__videos__section}>
+        <div className={vStyles.vertical__title__wrapper}>
+          <h2 className={vStyles.vertical__subtitle}>필모그래피</h2>
+        </div>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
             <Video video={video} key={video.id} />
