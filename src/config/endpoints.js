@@ -16,6 +16,7 @@ export const ENDPOINTS = {
   PEOPLE: '/people/:peopleId',
   PRODUCTIONS: '/productions/:productionId',
   SEARCH: '/search',
+  UPCOMING: '/upcoming',
   USER_AUTH_KAKAO_CALLBACK: '/users/auth/kakao/callback',
   USER_AUTH_NAVER_CALLBACK: '/users/auth/naver/callback',
   USER_AUTH_GOOGLE_CALLBACK: '/users/auth/google/callback',

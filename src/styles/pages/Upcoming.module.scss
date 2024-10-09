@@ -1,0 +1,42 @@
+@use '@/styles/variables' as *;
+
+.upcoming__main {
+  max-width: 1440px;
+  min-height: calc(100vh - $footer-height);
+  padding: $header-height 0 60px;
+  margin: 0 auto;
+}
+
+.upcoming__section {
+  width: 100%;
+  padding: 0 $padding-large;
+  margin: 24px 0 4px;
+}
+
+.upcoming__title__wrapper {
+  border-bottom: 1px solid $border-color-01;
+  padding-bottom: 24px;
+}
+
+.upcoming__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: $color-white-01;
+  line-height: 1.2;
+}
+
+@media (max-width: 1024px) {
+  .upcoming__section {
+    padding: 0 $padding-medium;
+  }
+}
+
+@media (max-width: 576px) {
+  .upcoming__section {
+    padding: 0 $padding-small;
+  }
+
+  .upcoming__title {
+    font-size: 20px;
+  }
+}

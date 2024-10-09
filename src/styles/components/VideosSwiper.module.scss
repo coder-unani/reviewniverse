@@ -16,7 +16,7 @@
   font-size: 20px;
   font-weight: 800;
   color: $color-white-01;
-  letter-spacing: -0.2px;
+  line-height: 24px;
 
   &.genre {
     display: flex;
@@ -26,6 +26,24 @@
       margin-right: 4px;
     }
   }
+}
+
+.horizontal__more__wrapper {
+  display: flex;
+  align-items: center;
+  margin-right: -9px;
+
+  svg {
+    path {
+      fill: $color-white-04;
+    }
+  }
+}
+
+.horizontal__more {
+  font-size: 15px;
+  font-weight: 500;
+  color: $color-white-04;
 }
 
 .horizontal__videos__wrapper {

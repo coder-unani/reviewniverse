@@ -27,7 +27,7 @@ const VideosSwiper = ({ children, videos, template = 'default' }) => {
       case 'rank':
         // 랭킹 비디오 아이템 렌더링
         return <VideoForRank video={video} index={index} />;
-      case 'coming':
+      case 'upcoming':
         // 커밍순 아이템 렌더링
         return <VideoForUpcoming video={video} index={index} />;
       default:

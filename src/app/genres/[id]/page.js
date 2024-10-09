@@ -159,7 +159,6 @@ const Genres = async ({ params }) => {
 
   const genre = videos.metadata.genre;
   const subtitle = '장르';
-
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > GENRES_PAGE_SIZE;
 

@@ -23,6 +23,11 @@ export const fDate = (date) => {
   return date.replace(/-/g, '.');
 };
 
+// 날짜 포맷: YYYY-MM-DD를 YYYY년 MM월 DD일로 변경
+export const fDateToKorean = (date) => {
+  return date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1년 $2월 $3일');
+};
+
 // 날짜 포맷: {}일 전, {}시간 전, {}분 전, 방금 전으로 변경, 하루 이상이면 날짜로 변경
 export const fDiffDate = (date) => {
   const now = new Date();

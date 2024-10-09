@@ -1,8 +1,10 @@
 import React from 'react';
+import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
 import { SCREEN_MAIN_ID } from '@/config/codes';
 import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS, VIDEO_MODEL_OPTIONS } from '@/config/constants';
+import { ENDPOINTS } from '@/config/endpoints';
 import { fExportScreenDataByCode } from '@/utils/formatContent';
 import { fetchScreenVideos } from '@/library/api/screens';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
@@ -13,6 +15,7 @@ import GenresSwiper from '@/components/ui/GenresSwiper';
 import Video from '@/components/ui/Video';
 
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
+import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 import vvStyles from '@/styles/components/Videos.module.scss';
@@ -52,7 +55,7 @@ const getRankingVideos = async () => {
   }
 };
 
-// ComingSoon 컨텐츠
+// UpComing 컨텐츠
 const getUpcomingVideos = async () => {
   const options = {
     page: 1,
@@ -156,7 +159,7 @@ const Home = async () => {
   const rankingVideosTemplate = 'rank';
   const rankingVideosTitle = '🍿 리뷰니버스 TOP 20';
 
-  const upcomingVideosTemplate = 'coming';
+  const upcomingVideosTemplate = 'upcoming';
   const upcomingVideosTitle = '💖 두근두근 기대작';
 
   const monthlyVideosTemplate = 'monthly';
@@ -198,6 +201,10 @@ const Home = async () => {
         <VideosSwiper videos={monthlyVideos} template={monthlyVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>{monthlyVideosTitle}</h2>
+            <Link href={ENDPOINTS.UPCOMING} className={vhStyles.horizontal__more__wrapper}>
+              <span className={vhStyles.horizontal__more}>더보기</span>
+              <ArrowRightIcon width={24} height={24} />
+            </Link>
           </div>
         </VideosSwiper>
 

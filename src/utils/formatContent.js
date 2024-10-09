@@ -203,3 +203,15 @@ export const fReplaceImageOnError = (selector) => {
     images.forEach((img) => observer.unobserve(img));
   };
 };
+
+// upcoming videos를 release date로 그룹핑
+export const fGroupDataByRelease = (videosData) => {
+  return videosData.reduce((acc, video) => {
+    const release = video.upcoming[0].release;
+    if (!acc[release]) {
+      acc[release] = [];
+    }
+    acc[release].push(video);
+    return acc;
+  }, {});
+};

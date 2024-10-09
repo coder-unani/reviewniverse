@@ -2,9 +2,10 @@ import { SETTINGS } from '@/config/settings';
 
 export const HOME_REVALIDATE_SEC = 300; // 5분
 export const VIDEO_REVALIDATE_SEC = 600; // 10분
+export const GENRES_REVALIDATE_SEC = 3600; // 1시간
 export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
-export const GENRES_REVALIDATE_SEC = 3600; // 1시간
+export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
 
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, TV, 작품, 인기, 추천, 검색, 통합검색, OTT, 평점, 정보';
@@ -17,6 +18,7 @@ export const PRODUCTIONS_KEYWORDS = '제작, 제작사, production, productions,
 export const GENRES_PAGE_SIZE = 20; // 장르 페이지 사이즈
 export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
 export const PRODUCTIONS_PAGE_SIZE = 20; // 제작사 페이지 사이즈
+export const UPCOMING_PAGE_SIZE = 20; // Upcoming 페이지 사이즈
 export const SEARCH_PAGE_SIZE = 20; // 검색 페이지 사이즈
 
 export const VIDEO_ORDER_OPTIONS = {
