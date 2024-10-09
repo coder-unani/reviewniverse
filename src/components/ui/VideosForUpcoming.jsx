@@ -38,8 +38,8 @@ const VideosForUpcoming = ({ videos, handlePage, pageSize }) => {
 
   return (
     <>
-      {videos.data.map((video, index) => (
-        <VideoForUpcoming key={index} video={video} />
+      {videos.data.map((video) => (
+        <VideoForUpcoming video={video} key={video.id} />
       ))}
       {hasMore && <article ref={lastItemRef}></article>}
     </>
