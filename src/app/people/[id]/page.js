@@ -29,9 +29,47 @@ const Filmography = dynamic(() => import('@/components/ui/Filmography'), { ssr: 
 // ISR 재생성 주기 설정
 export const revalidate = PEOPLE_REVALIDATE_SEC;
 
-// People
+// 데이터 초기화
+const initPeopleVideos = (result) => {
+  const videos = {
+    total: 0,
+    count: 0,
+    page: 1,
+    data: [],
+    metadata: {
+      query: '',
+      by: '',
+      person: {
+        id: 0,
+        name: '',
+        name_og: '',
+        picture: '',
+        profile: '',
+      },
+    },
+  };
+
+  if (!isEmpty(result)) {
+    videos.total = result.total || 0;
+    videos.count = result.count || 0;
+    videos.page = result.page || 1;
+    videos.data = result.data || [];
+    videos.metadata.query = result.metadata?.query || '';
+    videos.metadata.by = result.metadata?.by || '';
+    videos.metadata.person = {
+      id: result.metadata?.person?.id || 0,
+      name: result.metadata?.person?.name || '',
+      name_og: result.metadata?.person?.name_og || '',
+      picture: result.metadata?.person?.picture || '',
+      profile: result.metadata?.person?.profile || '',
+    };
+  }
+
+  return videos;
+};
+
+// People API 호출
 const getPeopleVideos = async ({ peopleId }) => {
-  // 인물 정보 조회 API 호출
   const options = {
     page: 1,
     size: PEOPLE_PAGE_SIZE,
@@ -58,39 +96,35 @@ export const generateMetadata = async ({ params }) => {
     notFound();
   }
 
-  const videos = await getPeopleVideos({ peopleId });
-  if (isEmpty(videos)) {
-    return {};
-  }
+  const result = await getPeopleVideos({ peopleId });
+  const videos = initPeopleVideos(result);
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const person = videos.metadata.person;
-  const name = person.name;
-  const description = `${name}의 작품 목록`;
+  const title = `${person.name} 필모그래피 | 리뷰니버스`;
+  const description = `${person.name}의 작품들을 확인해보세요.`;
   const imageUrl = `${SETTINGS.CDN_BASE_URL}/${person.picture}`;
   const path = EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
-  const keywords = `${SITE_KEYWORDS}, ${PEOPLE_KEYWORDS}, ${name}, ${name}의 작품`;
-
-  const metaTitle = `${name} | 리뷰니버스`;
+  const keywords = `${SITE_KEYWORDS}, ${PEOPLE_KEYWORDS}, ${person.name}의 작품, ${person.name}${person.name_og ? `, ${person.name_og}` : ''}`;
 
   return {
     alternates: {
       canonical: url,
     },
-    title: metaTitle,
+    title: title,
     description: description,
     keywords: keywords,
     openGraph: {
       url: url,
-      title: metaTitle,
+      title: title,
       description: description,
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: metaTitle,
+          alt: title,
         },
       ],
     },
@@ -105,16 +139,10 @@ const People = async ({ params }) => {
     notFound();
   }
 
-  const videos = await getPeopleVideos({ peopleId });
-  if (isEmpty(videos)) {
-    return;
-  }
+  const result = await getPeopleVideos({ peopleId });
+  const videos = initPeopleVideos(result);
 
   const person = videos.metadata.person;
-  const personName = person.name;
-  const personPicture = person.picture;
-  const personProfile = person.profile;
-
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PEOPLE_PAGE_SIZE;
 
@@ -123,12 +151,13 @@ const People = async ({ params }) => {
       <section className={styles.people__section}>
         <div className={styles.people__info__wrapper}>
           <PeopleImage
-            image={fMakeImageUrl(personPicture, DEFAULT_IMAGES.noActor)}
+            image={fMakeImageUrl(person.picture, DEFAULT_IMAGES.noActor)}
             size={100}
-            alt={personName}
+            alt={person.name}
             priority={true}
           />
-          <h1 className={styles.people__name}>{personName}</h1>
+          <h1 className={styles.people__name}>{person.name}</h1>
+          {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
         </div>
       </section>
 

@@ -8,6 +8,7 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import {
   PRODUCTIONS_REVALIDATE_SEC,
   SITE_KEYWORDS,
+  PRODUCTIONS_KEYWORDS,
   PRODUCTIONS_PAGE_SIZE,
   VIDEO_ORDER_OPTIONS,
   VIDEO_MODE_OPTIONS,
@@ -20,16 +21,49 @@ import Video from '@/components/ui/Video';
 
 import styles from '@/styles/pages/Productions.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
-import robots from '@/app/robots';
 
 const ProductionsComponent = dynamic(() => import('@/components/ui/Productions'), { ssr: false });
 
 // ISR 재생성 주기 설정
 export const revalidate = PRODUCTIONS_REVALIDATE_SEC;
 
-// Productions
+// 데이터 초기화
+export const initProductionVideos = (result) => {
+  const videos = {
+    total: 0,
+    count: 0,
+    page: 1,
+    data: [],
+    metadata: {
+      query: '',
+      by: '',
+      production: {
+        id: 0,
+        name: '',
+        logo: '',
+      },
+    },
+  };
+
+  if (!isEmpty(result)) {
+    videos.total = result.total || 0;
+    videos.count = result.count || 0;
+    videos.page = result.page || 1;
+    videos.data = result.data || [];
+    videos.metadata.query = result.metadata?.query || '';
+    videos.metadata.by = result.metadata?.by || '';
+    videos.metadata.production = {
+      id: result.metadata?.production?.id || 0,
+      name: result.metadata?.production?.name || '',
+      logo: result.metadata?.production?.logo || '',
+    };
+  }
+
+  return videos;
+};
+
+// Productions API 호출
 const getProductionVideos = async ({ productionId }) => {
-  // 제작사 정보 조회 API 호출
   const options = {
     page: 1,
     size: PRODUCTIONS_PAGE_SIZE,
@@ -56,21 +90,17 @@ export const generateMetadata = async ({ params }) => {
     notFound();
   }
 
-  const videos = await getProductionVideos({ productionId });
-  if (isEmpty(videos)) {
-    return {};
-  }
+  const result = await getProductionVideos({ productionId });
+  const videos = initProductionVideos(result);
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const production = videos.metadata.production;
-  const name = production.name;
-  const description = `${name}의 작품 목록`;
+  const title = `${production.name} | 리뷰니버스`;
+  const description = `${production.name} 제작사의 작품들을 확인해보세요.`;
   const imageUrl = production.logo ? `${SETTINGS.CDN_BASE_URL}/${production.logo}` : DEFAULT_IMAGES.logo;
   const path = EndpointManager.generateUrl(ENDPOINTS.PRODUCTIONS, { productionId: production.id });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
-  const keywords = `${SITE_KEYWORDS}, ${name}, ${name}의 작품, 제작, 제작사`;
-
-  const metaTitle = `${name} | 리뷰니버스`;
+  const keywords = `${SITE_KEYWORDS}, ${PRODUCTIONS_KEYWORDS}, ${production.name}의 작품, ${production.name}`;
 
   return {
     robots: {
@@ -82,19 +112,19 @@ export const generateMetadata = async ({ params }) => {
     alternates: {
       canonical: url,
     },
-    title: metaTitle,
+    title: title,
     description: description,
     keywords: keywords,
     openGraph: {
       url: url,
-      title: metaTitle,
+      title: title,
       description: description,
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: metaTitle,
+          alt: title,
         },
       ],
     },
@@ -109,16 +139,11 @@ const Productions = async ({ params }) => {
     notFound();
   }
 
-  const videos = await getProductionVideos({ productionId });
-  if (isEmpty(videos)) {
-    return {};
-  }
+  const result = await getProductionVideos({ productionId });
+  const videos = initProductionVideos(result);
 
   const production = videos.metadata.production;
-  const productionSubtitle = '제작사';
-  const productionName = production.name;
-  const productionLogo = production.logo;
-
+  const subtitle = '제작사';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PRODUCTIONS_PAGE_SIZE;
 
@@ -126,8 +151,8 @@ const Productions = async ({ params }) => {
     <main className={styles.production__main}>
       <section className={styles.production__section}>
         <div className={styles.production__title__wrapper}>
-          <p className={styles.production__subtitle}>{productionSubtitle}</p>
-          <h1 className={styles.production__title}>{productionName}</h1>
+          <p className={styles.production__subtitle}>{subtitle}</p>
+          <h1 className={styles.production__title}>{production.name}</h1>
         </div>
       </section>
 

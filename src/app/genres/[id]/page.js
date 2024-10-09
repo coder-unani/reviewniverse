@@ -8,6 +8,7 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import {
   GENRES_REVALIDATE_SEC,
   SITE_KEYWORDS,
+  GENRES_KEYWORDS,
   GENRES_PAGE_SIZE,
   VIDEO_ORDER_OPTIONS,
   VIDEO_MODE_OPTIONS,
@@ -28,11 +29,45 @@ const GenresComponent = dynamic(() => import('@/components/ui/Genres'), { ssr: f
 // ISR 재생성 주기 설정
 export const revalidate = GENRES_REVALIDATE_SEC;
 
-// Ranking Genres
-const getGenres = async () => {
+// 데이터 초기화
+const initGenreVideos = (result) => {
+  const videos = {
+    total: 0,
+    count: 0,
+    page: 1,
+    data: [],
+    metadata: {
+      query: '',
+      by: '',
+      genre: {
+        id: 0,
+        name: '',
+        background: '',
+      },
+    },
+  };
+
+  if (!isEmpty(result)) {
+    videos.total = result.total || 0;
+    videos.count = result.count || 0;
+    videos.page = result.page || 1;
+    videos.data = result.data || [];
+    videos.metadata.query = result.metadata?.query || '';
+    videos.metadata.by = result.metadata?.by || '';
+    videos.metadata.genre = {
+      id: result.metadata?.genre?.id || 0,
+      name: result.metadata?.genre?.name || '',
+      background: result.metadata?.genre?.background || '',
+    };
+  }
+
+  return videos;
+};
+
+// Ranking Genres API 호출
+const getRankingGenres = async () => {
   const count = 50;
 
-  // Ranking Genres API 호출
   const res = await fetchRankingGenres({ count });
   if (res.status === 200) {
     return res.data.data;
@@ -41,9 +76,8 @@ const getGenres = async () => {
   }
 };
 
-// Genres
+// Genres API 호출
 const getGenreVideos = async ({ genreId }) => {
-  // 장르 정보 조회 API 호출
   const options = {
     page: 1,
     size: GENRES_PAGE_SIZE,
@@ -70,21 +104,17 @@ export const generateMetadata = async ({ params }) => {
     notFound();
   }
 
-  const videos = await getGenreVideos({ genreId });
-  if (isEmpty(videos)) {
-    return {};
-  }
+  const result = await getGenreVideos({ genreId });
+  const videos = initGenreVideos(result);
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const genre = videos.metadata.genre;
-  const name = genre.name;
-  const description = `${name} 장르의 작품 목록`;
+  const title = `${genre.name} 장르 | 리뷰니버스`;
+  const description = `${genre.name} 장르의 작품들을 확인해보세요.`;
   const imageUrl = genre.background ? `${SETTINGS.CDN_BASE_URL}/${genre.background}` : DEFAULT_IMAGES.logo;
   const path = EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId: genre.id });
   const url = `${SETTINGS.SITE_BASE_URL}${path}`;
-  const keywords = `${SITE_KEYWORDS}, ${name}, ${name} 장르의 작품, 장르`;
-
-  const metaTitle = `${name} | 리뷰니버스`;
+  const keywords = `${SITE_KEYWORDS}, ${GENRES_KEYWORDS}, ${genre.name}, ${genre.name} 장르의 작품`;
 
   return {
     robots: {
@@ -96,19 +126,19 @@ export const generateMetadata = async ({ params }) => {
     alternates: {
       canonical: url,
     },
-    title: metaTitle,
+    title: title,
     description: description,
     keywords: keywords,
     openGraph: {
       url: url,
-      title: metaTitle,
+      title: title,
       description: description,
       images: [
         {
           url: imageUrl,
           width: 1200,
           height: 630,
-          alt: metaTitle,
+          alt: title,
         },
       ],
     },
@@ -123,16 +153,12 @@ const Genres = async ({ params }) => {
     notFound();
   }
 
-  const genres = await getGenres();
-  const videos = await getGenreVideos({ genreId });
-  if (isEmpty(videos)) {
-    return {};
-  }
+  const rankingGenres = await getRankingGenres();
+  const result = await getGenreVideos({ genreId });
+  const videos = initGenreVideos(result);
 
   const genre = videos.metadata.genre;
-  const genreSubtitle = '장르';
-  const genreName = genre.name;
-  const genreImage = genre.background;
+  const subtitle = '장르';
 
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > GENRES_PAGE_SIZE;
@@ -141,12 +167,12 @@ const Genres = async ({ params }) => {
     <main className={styles.genre__main}>
       <section className={styles.genre__section}>
         <div className={styles.genre__title__wrapper}>
-          <p className={styles.genre__subtitle}>{genreSubtitle}</p>
-          <h1 className={styles.genre__title}>#{genreName}</h1>
+          <p className={styles.genre__subtitle}>{subtitle}</p>
+          <h1 className={styles.genre__title}>#{genre.name}</h1>
         </div>
       </section>
 
-      <GenresSwiper genres={genres} />
+      <GenresSwiper genres={rankingGenres} />
 
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>

@@ -7,10 +7,12 @@ export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
 export const GENRES_REVALIDATE_SEC = 3600; // 1시간
 
 export const SITE_KEYWORDS =
-  '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, TV, 인기, 추천, 검색, 통합검색, OTT, 평점';
-export const VIDEO_KEYWORDS = '정보, 출연진, 등장인물, 공식영상, 보러가기, 후기, 평가';
+  '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, TV, 작품, 인기, 추천, 검색, 통합검색, OTT, 평점, 정보';
+export const VIDEO_KEYWORDS = '출연진, 등장인물, 공식영상, 보러가기, 후기, 평가';
+export const GENRES_KEYWORDS = '장르, genre';
 export const PEOPLE_KEYWORDS =
-  '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 영화, 드라마, 인물, 정보';
+  '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 영화, 드라마, 인물';
+export const PRODUCTIONS_KEYWORDS = '제작, 제작사, production, productions, filmes, 참여작품';
 
 export const GENRES_PAGE_SIZE = 20; // 장르 페이지 사이즈
 export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
