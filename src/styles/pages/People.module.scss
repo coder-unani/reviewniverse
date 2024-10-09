@@ -29,6 +29,12 @@
   color: $color-white-01;
 }
 
+.people__name__og {
+  font-size: 16px;
+  font-weight: 500;
+  color: $color-white-04;
+}
+
 @media (max-width: 1024px) {
   .people__section {
     padding: 0 $padding-medium;
