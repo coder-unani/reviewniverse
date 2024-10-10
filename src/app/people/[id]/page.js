@@ -170,14 +170,14 @@ const People = async ({ params }) => {
   return (
     <main className={styles.people__main}>
       <section className={styles.people__section}>
-        <div className={styles.people__info__wrapper}>
+        <div className={styles.people__info__container}>
           <PeopleImage
             image={fMakeImageUrl(person.picture, DEFAULT_IMAGES.noActor)}
             size={100}
             alt={person.name}
             priority={true}
           />
-          <div className={styles.people__info__container}>
+          <div className={styles.people__info__wrapper}>
             <div className={styles.people__name__wrapper}>
               <h1 className={styles.people__name}>{person.name}</h1>
               {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
