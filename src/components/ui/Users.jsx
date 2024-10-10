@@ -17,7 +17,6 @@ import SettingButton from '@/components/ui/Button/Setting';
 import styles from '@/styles/pages/Users.module.scss';
 
 const Users = ({ id }) => {
-  // const location = useLocation();
   const router = useRouter();
   const pathname = usePathname();
   const userId = fParseInt(id);
@@ -35,22 +34,17 @@ const Users = ({ id }) => {
       notFound();
     }
 
-    // 유저 정보 수정 후 전달받는 state 값
-    // const { isUserUpdate } = location.state || false;
     // 유저 정보 조회
     const getUser = async () => {
       const res = await userFetch({ userId: userId });
       if (res.status) {
         setProfile(res.data);
 
-        // 유저 정보 수정 후 유저 정보 갱신
         // TODO: 고도화 필요
-        /*
-        if (isUserUpdate) {
+        // 로그인한 유저가 있다면 userId와 로그인한 유저 id가 같은지 확인 후 유저 정보 저장
+        if (user && user.id === userId) {
           handleSetUser({ user: res.data });
-          router.push(location.pathname, { replace: true, state: {} });
         }
-        */
       } else {
         if (user && user.id === userId) {
           handleRemoveUser();
