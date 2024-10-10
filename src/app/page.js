@@ -161,6 +161,9 @@ const Home = async () => {
 
   const upcomingVideosTemplate = 'upcoming';
   const upcomingVideosTitle = '💖 두근두근 기대작';
+  const upcomingMoreLink = ENDPOINTS.UPCOMING;
+  const upcomingMoreTitle = '더보기';
+  const upcomingMoreSubTitle = '공개 예정작 보러가기';
 
   const monthlyVideosTemplate = 'monthly';
   const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
@@ -195,16 +198,20 @@ const Home = async () => {
         <VideosSwiper videos={upcomingVideos} template={upcomingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>{upcomingVideosTitle}</h2>
+            <Link
+              href={upcomingMoreLink}
+              className={vhStyles.horizontal__more__wrapper}
+              aria-label={upcomingMoreSubTitle}
+            >
+              <span className={vhStyles.horizontal__more}>{upcomingMoreTitle}</span>
+              <ArrowRightIcon width={24} height={24} />
+            </Link>
           </div>
         </VideosSwiper>
 
         <VideosSwiper videos={monthlyVideos} template={monthlyVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>{monthlyVideosTitle}</h2>
-            <Link href={ENDPOINTS.UPCOMING} className={vhStyles.horizontal__more__wrapper}>
-              <span className={vhStyles.horizontal__more}>더보기</span>
-              <ArrowRightIcon width={24} height={24} />
-            </Link>
           </div>
         </VideosSwiper>
 
