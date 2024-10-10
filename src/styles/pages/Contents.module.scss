@@ -1013,40 +1013,40 @@
     grid-row: 1;
   }
 
-  // for test
-  .detail__platform__wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
+  // for test (list 타입)
+  // .detail__platform__wrapper {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 8px;
+  // }
 
-  .detail__platform {
-    flex: 1;
-    flex-direction: row;
-    gap: 8px;
-    background-color: $color-white-09;
-    border-radius: 12px;
-    padding: 10px 8px;
-  }
+  // .detail__platform {
+  //   flex: 1;
+  //   flex-direction: row;
+  //   gap: 8px;
+  //   background-color: $color-white-09;
+  //   border-radius: 12px;
+  //   padding: 10px 8px;
+  // }
 
-  .platform__image__wrapper {
-    border-radius: 8px;
-  }
+  // .platform__image__wrapper {
+  //   border-radius: 8px;
+  // }
 
-  .platform__image__overlay {
-    display: none;
-  }
+  // .platform__image__overlay {
+  //   display: none;
+  // }
 
-  .platform__image {
-    width: 30px;
-    height: 30px;
-  }
+  // .platform__image {
+  //   width: 30px;
+  //   height: 30px;
+  // }
 
-  .platform__info {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+  // .platform__info {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 4px;
+  // }
 
   .detail__photo {
     border-radius: 12px;
