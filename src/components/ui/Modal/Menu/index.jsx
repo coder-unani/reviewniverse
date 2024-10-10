@@ -69,6 +69,9 @@ const MenuModal = ({ onClose }) => {
                 <Link href={ENDPOINTS.HOME} className={styles.menu__body__link} onClick={onClose}>
                   홈
                 </Link>
+                <Link href={ENDPOINTS.UPCOMING} className={styles.menu__body__link} onClick={onClose}>
+                  공개 예정작
+                </Link>
               </li>
             </ul>
           </div>
