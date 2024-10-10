@@ -43,6 +43,10 @@ const initPeopleVideos = (result) => {
         id: 0,
         name: '',
         name_og: '',
+        sex: '',
+        birth: '',
+        country: '',
+        job: '',
         picture: '',
         profile: '',
       },
@@ -60,6 +64,10 @@ const initPeopleVideos = (result) => {
       id: result.metadata?.person?.id || 0,
       name: result.metadata?.person?.name || '',
       name_og: result.metadata?.person?.name_og || '',
+      sex: result.metadata?.person?.sex || '',
+      birth: result.metadata?.person?.birth || '',
+      country: result.metadata?.person?.country || '',
+      job: result.metadata?.person?.job || '',
       picture: result.metadata?.person?.picture || '',
       profile: result.metadata?.person?.profile || '',
     };
@@ -147,8 +155,17 @@ const People = async ({ params }) => {
   const videos = initPeopleVideos(result);
 
   const person = videos.metadata.person;
+  const subtitle = '필모그래피';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PEOPLE_PAGE_SIZE;
+
+  // 프로필 타일
+  const ProfileTile = ({ title, desc }) => (
+    <div className={styles.people__profile}>
+      <span className={styles.people__profile__title}>{title}</span>
+      <span className={styles.people__profile__desc}>{desc}</span>
+    </div>
+  );
 
   return (
     <main className={styles.people__main}>
@@ -160,17 +177,23 @@ const People = async ({ params }) => {
             alt={person.name}
             priority={true}
           />
-          <div className={styles.people__name__wrapper}>
-            <h1 className={styles.people__name}>{person.name}</h1>
-            {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
-            {person.profile && <p className={styles.people__profile}>{person.profile}</p>}
+          <div className={styles.people__info__container}>
+            <div className={styles.people__name__wrapper}>
+              <h1 className={styles.people__name}>{person.name}</h1>
+              {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
+            </div>
+            <div className={styles.people__profile__wrapper}>
+              {person.birth && <ProfileTile title="출생" desc={person.birth} />}
+              {person.country && <ProfileTile title="국적" desc={person.country} />}
+              {person.job && <ProfileTile title="직업" desc={person.job} />}
+            </div>
           </div>
         </div>
       </section>
 
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__title__wrapper}>
-          <h2 className={vStyles.vertical__subtitle}>필모그래피</h2>
+          <h2 className={vStyles.vertical__subtitle}>{subtitle}</h2>
         </div>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
