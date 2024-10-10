@@ -108,6 +108,7 @@ export const generateMetadata = async ({ params }) => {
   const videos = initGenreVideos(result);
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
+  const isIndex = videos.data.length > 0;
   const genre = videos.metadata.genre;
   const title = `${genre.name} 장르 | 리뷰니버스`;
   const description = `${genre.name} 장르의 작품들을 확인해보세요.`;
@@ -118,10 +119,7 @@ export const generateMetadata = async ({ params }) => {
 
   return {
     robots: {
-      index: true,
-      googleBot: {
-        index: true,
-      },
+      index: isIndex,
     },
     alternates: {
       canonical: url,

@@ -100,6 +100,7 @@ export const generateMetadata = async ({ params }) => {
   const videos = initPeopleVideos(result);
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
+  const isIndex = videos.data.length > 0;
   const person = videos.metadata.person;
   const title = `${person.name} 필모그래피 | 리뷰니버스`;
   const description = `${person.name}의 작품들을 확인해보세요.`;
@@ -109,6 +110,9 @@ export const generateMetadata = async ({ params }) => {
   const keywords = `${SITE_KEYWORDS}, ${PEOPLE_KEYWORDS}, ${person.name}의 작품, ${person.name}${person.name_og ? `, ${person.name_og}` : ''}`;
 
   return {
+    robots: {
+      index: isIndex,
+    },
     alternates: {
       canonical: url,
     },
