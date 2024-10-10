@@ -1,8 +1,8 @@
 import Script from 'next/script';
 import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
 
-import { SETTINGS } from '@/config/settings';
 import { DEFAULT_IMAGES, SITE_KEYWORDS } from '@/config/constants';
+import { SETTINGS } from '@/config/settings';
 import DefaultLayout from '@/components/layout/default';
 
 import 'swiper/css';

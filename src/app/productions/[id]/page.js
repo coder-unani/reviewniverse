@@ -3,8 +3,6 @@ import dynamic from 'next/dynamic';
 import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { SETTINGS } from '@/config/settings';
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import {
   PRODUCTIONS_REVALIDATE_SEC,
   SITE_KEYWORDS,
@@ -15,6 +13,8 @@ import {
   VIDEO_BY_OPTIONS,
   DEFAULT_IMAGES,
 } from '@/config/constants';
+import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 import { fParseInt } from '@/utils/format';
 import { fetchVideos } from '@/library/api/videos';
 import Video from '@/components/ui/Video';

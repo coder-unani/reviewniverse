@@ -2,11 +2,11 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fVideoCode, fThumbnail } from '@/utils/formatContent';
 import RatingScore from '@/components/ui/RatingScore';
+import VideoImage from '@/components/ui/VideoImage';
 
 import defStyles from '@/styles/components/Video.module.scss';
 
@@ -21,13 +21,7 @@ const VideoForRating = ({ video }) => {
     <Link href={path} className={defStyles.default__video__item} aria-label={title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
-          <LazyLoadImage
-            className={defStyles.default__thumbnail}
-            src={thumbnail}
-            srcSet={thumbnail}
-            alt={title}
-            effect="blur"
-          />
+          <VideoImage thumbnail={thumbnail} title={title} />
         </picture>
         <div className={defStyles.default__code__wrapper}>
           <div className={defStyles.default__code}>{code}</div>

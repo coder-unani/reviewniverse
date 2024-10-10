@@ -1,21 +1,24 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-import { SETTINGS } from '@/config/settings';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 
 import styles from '@/styles/components/VideoForRank.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
 
+const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
+
 /**
  * TODO:
  * - 정적 이미지 생성
  */
 
-const VideoForRank = ({ video, index }) => {
+const VideoForRank = ({ video, index, isClient = false }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
@@ -49,15 +52,19 @@ const VideoForRank = ({ video, index }) => {
     <Link href={path} className={defStyles.default__video__item} aria-label={title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={styles.rank__thumbnail__wrapper}>
-          <Image
-            className={defStyles.default__thumbnail}
-            src={thumbnail}
-            alt={title}
-            width={254}
-            height={382}
-            quality={100}
-            loading="lazy"
-          />
+          {isClient ? (
+            <ClientVideoImage thumbnail={thumbnail} title={title} />
+          ) : (
+            <Image
+              className={defStyles.default__thumbnail}
+              src={thumbnail}
+              alt={title}
+              width={254}
+              height={382}
+              quality={100}
+              loading="lazy"
+            />
+          )}
         </picture>
         <div className={defStyles.default__code__wrapper}>
           <div className={defStyles.default__code}>{code}</div>

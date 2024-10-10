@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { getStorageAccessToken } from '@/utils/formatStorage';
+
 import { SETTINGS } from '@/config/settings';
+import { getStorageAccessToken } from '@/utils/formatStorage';
 
 class FetchClient {
   token = null;

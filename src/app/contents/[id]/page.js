@@ -6,9 +6,9 @@ import { notFound } from 'next/navigation';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
-import { SETTINGS } from '@/config/settings';
 import { DEFAULT_IMAGES, VIDEO_REVALIDATE_SEC, SITE_KEYWORDS, VIDEO_KEYWORDS } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 import { fParseInt, fYear, fDate, fUpperCase, fStringToArray } from '@/utils/format';
 import {
   fBackgroundImage,

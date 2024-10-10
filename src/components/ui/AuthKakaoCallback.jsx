@@ -4,10 +4,10 @@ import React, { useEffect, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { SETTINGS } from '@/config/settings';
-import { MESSAGES } from '@/config/messages';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
+import { SETTINGS } from '@/config/settings';
 import { fProviderCode } from '@/utils/formatContent';
 import { AxiosClient } from '@/utils/HttpClient';
 import { useAuthContext } from '@/contexts/AuthContext';

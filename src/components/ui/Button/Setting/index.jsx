@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { MESSAGES } from '@/config/messages';
 import { ENDPOINTS } from '@/config/endpoints';
+import { MESSAGES } from '@/config/messages';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';

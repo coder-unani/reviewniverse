@@ -1,5 +1,5 @@
-import { SETTINGS } from '@/config/settings';
 import { ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 
 class LoginService {
   constructor() {

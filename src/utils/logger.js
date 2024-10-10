@@ -1,4 +1,5 @@
 import { Client } from '@elastic/elasticsearch';
+
 import { SETTINGS } from '@/config/settings';
 
 const client = new Client({

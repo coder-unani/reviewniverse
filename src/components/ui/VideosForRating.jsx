@@ -41,8 +41,8 @@ const VideosForRating = ({ children, videos, handlePage }) => {
     <section className={vvStyles.vertical__videos__section}>
       {children}
       <div className={vvStyles.vertical__videos__wrapper}>
-        {videos.data.map((video, index) => (
-          <VideoForRating key={index} video={video} />
+        {videos.data.map((video) => (
+          <VideoForRating video={video} key={video.id} />
         ))}
         {hasMore && <article ref={lastItemRef}></article>}
       </div>

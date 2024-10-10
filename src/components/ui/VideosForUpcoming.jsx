@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useRef, useCallback } from 'react';
 import { isEmpty } from 'lodash';
 
@@ -39,7 +41,7 @@ const VideosForUpcoming = ({ videos, handlePage, pageSize }) => {
   return (
     <>
       {videos.data.map((video) => (
-        <VideoForUpcoming video={video} key={video.id} />
+        <VideoForUpcoming video={video} isClient={true} key={video.id} />
       ))}
       {hasMore && <article ref={lastItemRef}></article>}
     </>

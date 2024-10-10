@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
@@ -8,7 +9,9 @@ import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatC
 
 import styles from '@/styles/components/Video.module.scss';
 
-const Video = ({ video }) => {
+const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
+
+const Video = ({ video, isClient = false }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const title = video.title;
   const thumbnail = fThumbnail(video.thumbnail);
@@ -22,15 +25,19 @@ const Video = ({ video }) => {
     <Link href={path} className={styles.default__video__item} aria-label={title}>
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
-          <Image
-            className={styles.default__thumbnail}
-            src={thumbnail}
-            alt={title}
-            width={254}
-            height={382}
-            quality={100}
-            loading="lazy"
-          />
+          {isClient ? (
+            <ClientVideoImage thumbnail={thumbnail} title={title} />
+          ) : (
+            <Image
+              className={styles.default__thumbnail}
+              src={thumbnail}
+              alt={title}
+              width={254}
+              height={382}
+              quality={100}
+              loading="lazy"
+            />
+          )}
         </picture>
         <div className={styles.default__code__wrapper}>
           <div className={styles.default__code}>{code}</div>

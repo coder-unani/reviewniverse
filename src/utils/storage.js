@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
-import { SETTINGS } from '@/config/settings';
+
 import { ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 
 const domain = SETTINGS.COOKIE_DOMAIN;
 const isLocalhost = domain.includes('localhost');

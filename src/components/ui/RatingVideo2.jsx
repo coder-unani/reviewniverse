@@ -5,8 +5,8 @@ import Image from 'next/image';
 import { Tooltip } from 'react-tooltip';
 import { isEmpty } from 'lodash';
 
-import { SETTINGS } from '@/config/settings';
 import { VIDEO_RATING_TEXT } from '@/config/constants';
+import { SETTINGS } from '@/config/settings';
 import { fRating, fRatingColor } from '@/utils/formatContent';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';

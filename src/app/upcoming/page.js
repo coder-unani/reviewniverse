@@ -2,7 +2,15 @@ import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
 import { isEmpty } from 'lodash';
 
-import { UPCOMING_REVALIDATE_SEC, UPCOMING_PAGE_SIZE } from '@/config/constants';
+import {
+  UPCOMING_REVALIDATE_SEC,
+  SITE_KEYWORDS,
+  UPCOMING_KEYWORDS,
+  UPCOMING_PAGE_SIZE,
+  DEFAULT_IMAGES,
+} from '@/config/constants';
+import { ENDPOINTS } from '@/config/endpoints';
+import { SETTINGS } from '@/config/settings';
 // import { fDateToKorean } from '@/utils/format';
 // import { fGroupDataByRelease } from '@/utils/formatContent';
 import { fetchUpcomingVideos } from '@/library/api/videos';
@@ -54,6 +62,40 @@ const getUpcomingVideos = async () => {
 };
 
 // TODO: 메타 태그 설정
+export const generateMetadata = async () => {
+  const result = await getUpcomingVideos();
+  const videos = initUpcomingVideos(result);
+
+  // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
+  const title = `공개 예정작 | 리뷰니버스`;
+  const description = `OTT 공개 예정작을 확인해보세요.`;
+  const imageUrl = DEFAULT_IMAGES.logo;
+  const path = ENDPOINTS.UPCOMING;
+  const url = `${SETTINGS.SITE_BASE_URL}${path}`;
+  const keywords = `${SITE_KEYWORDS}, ${UPCOMING_KEYWORDS}`;
+
+  return {
+    alternates: {
+      canonical: url,
+    },
+    title: title,
+    description: description,
+    keywords: keywords,
+    openGraph: {
+      url: url,
+      title: title,
+      description: description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+  };
+};
 
 const Upcoming = async () => {
   const result = await getUpcomingVideos();
