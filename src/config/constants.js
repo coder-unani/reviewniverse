@@ -20,7 +20,7 @@ export const UPCOMING_KEYWORDS =
 export const GENRES_PAGE_SIZE = 20; // 장르 페이지 사이즈
 export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
 export const PRODUCTIONS_PAGE_SIZE = 20; // 제작사 페이지 사이즈
-export const UPCOMING_PAGE_SIZE = 20; // Upcoming 페이지 사이즈
+export const UPCOMING_PAGE_SIZE = 50; // Upcoming 페이지 사이즈
 export const SEARCH_PAGE_SIZE = 20; // 검색 페이지 사이즈
 
 export const VIDEO_ORDER_OPTIONS = {

@@ -4,9 +4,9 @@ import { isEmpty } from 'lodash';
 
 import {
   UPCOMING_REVALIDATE_SEC,
+  UPCOMING_PAGE_SIZE,
   SITE_KEYWORDS,
   UPCOMING_KEYWORDS,
-  UPCOMING_PAGE_SIZE,
   DEFAULT_IMAGES,
 } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
@@ -100,7 +100,7 @@ export const generateMetadata = async () => {
 const Upcoming = async () => {
   const result = await getUpcomingVideos();
   const videos = initUpcomingVideos(result);
-  // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
+  // page 1의 데이터가 size(50)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > UPCOMING_PAGE_SIZE;
 
   // const releaseVideos = fGroupDataByRelease(videos.data);
