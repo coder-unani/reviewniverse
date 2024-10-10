@@ -12,7 +12,7 @@ export const SITE_KEYWORDS =
 export const VIDEO_KEYWORDS = '출연진, 등장인물, 공식영상, 보러가기, 후기, 평가';
 export const GENRES_KEYWORDS = '장르, genre';
 export const PEOPLE_KEYWORDS =
-  '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 영화, 드라마, 인물';
+  '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 인물';
 export const PRODUCTIONS_KEYWORDS = '제작, 제작사, production, productions, filmes, 참여작품';
 export const UPCOMING_KEYWORDS =
   '플랫폼, 넷플릭스, 디즈니플러스, 티빙, 웨이브, 쿠팡플레이, 왓챠, 애플TV, 라프텔, 공개예정, 신작, 업데이트, 소식, 캘린더';
