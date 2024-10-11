@@ -32,16 +32,7 @@
       ]
     },
     {
-      "source": "/",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "s-maxage=600, stale-while-revalidate=59"
-        }
-      ]
-    },
-    {
-      "source": "/contents/:id",
+      "source": "/users/:path*",
       "headers": [
         {
           "key": "Cache-Control",
