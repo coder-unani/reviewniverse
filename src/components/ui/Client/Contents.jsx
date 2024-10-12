@@ -9,8 +9,15 @@ import { useContentsContext } from '@/contexts/ContentsContext';
 import ReviewModal from '@/components/ui/Modal/Review';
 
 const Contents = ({ content }) => {
-  const { isReviewModal, openPlatformModal } = useModalContext();
+  const { isReviewModal, openInfoModal } = useModalContext();
   const { myInfo } = useContentsContext();
+
+  const message = () => (
+    <>
+      아직 준비 중이에요.
+      <br />곧 만나요! 🤗
+    </>
+  );
 
   // 플랫폼 버튼 클릭 이벤트
   useEffect(() => {
@@ -34,7 +41,7 @@ const Contents = ({ content }) => {
   const handlePlatformClick = (platform) => {
     const url = platform.dataset.url;
     if (isEmpty(url)) {
-      openPlatformModal();
+      openInfoModal(message);
     } else {
       window.open(url, '_blank');
     }

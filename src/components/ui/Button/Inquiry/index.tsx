@@ -4,10 +4,12 @@ import React from 'react';
 import { useRouter } from 'next/navigation';
 
 import { ENDPOINTS } from '@/config/endpoints';
+import { IInquiryProps } from '@/types/inquiry';
 
+import InfoIcon from '@/resources/icons/outline-info.svg';
 import styles from '@/styles/components/InquiryButton.module.scss';
 
-const InquiryButton = ({ children, videoId = null }) => {
+const InquiryButton = ({ videoId = null }: IInquiryProps) => {
   const router = useRouter();
 
   const handleInquiryClick = () => {
@@ -17,7 +19,8 @@ const InquiryButton = ({ children, videoId = null }) => {
 
   return (
     <button type="button" className={styles.inquiry__button} onClick={handleInquiryClick}>
-      {children}
+      <InfoIcon width={20} height={20} />
+      제보하기
     </button>
   );
 };

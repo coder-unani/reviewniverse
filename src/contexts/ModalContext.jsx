@@ -11,7 +11,7 @@ import ConfirmModal from '@/components/ui/Modal/Confirm';
 import TermsModal from '@/components/ui/Modal/Terms';
 import PrivacyModal from '@/components/ui/Modal/Privacy';
 import PrivacyCollectionModal from '@/components/ui/Modal/PrivacyCollection';
-import PlatformModal from '@/components/ui/Modal/Platform';
+import InfoMoal from '@/components/ui/Modal/Info';
 
 /**
  * TODO:
@@ -29,8 +29,6 @@ const ModalContextProvider = ({ children }) => {
   const [isEnjoyModal, setIsEnjoyModal] = useState(false);
   // 리뷰 모달
   const [isReviewModal, setIsReviewModal] = useState(false);
-  // 플랫폼 모달
-  const [isPlatformModal, setIsPlatformModal] = useState(false);
   // 약관 모달
   const [isTermsModal, setIsTermsModal] = useState(false);
   // 개인정보 처리방침 모달
@@ -43,6 +41,10 @@ const ModalContextProvider = ({ children }) => {
   const [confirmMessage, setConfirmMessage] = useState('');
   // 확인 모달 결과 처리 함수
   const [confirmResolve, setConfirmResolve] = useState(null);
+  // info 모달
+  const [isInfoModal, setIsInfoModal] = useState(false);
+  // info 모달 메세지
+  const [infoMessage, setInfoMessage] = useState('');
 
   /*
   // 팝업 배너
@@ -68,11 +70,11 @@ const ModalContextProvider = ({ children }) => {
     // 페이지 이동 시 모달창 닫기
     if (isEnjoyModal) setIsEnjoyModal(false);
     if (isReviewModal) setIsReviewModal(false);
-    if (isPlatformModal) setIsPlatformModal(false);
     if (isTermsModal) setIsTermsModal(false);
     if (isPrivacyModal) setIsPrivacyModal(false);
     if (isPrivcayCollectionModal) setIsPrivacyCollectionModal(false);
     if (isConfirmModal) setIsConfirmModal(false);
+    if (isInfoModal) setIsInfoModal(false);
   }, [pathname]);
 
   // 팝업 배너 토글
@@ -88,16 +90,6 @@ const ModalContextProvider = ({ children }) => {
   // 리뷰 모달창 토글
   const toggleReviewModal = () => {
     setIsReviewModal((prev) => !prev);
-  };
-
-  // 플랫폼 모달창 토글
-  // TODO: 토글로 구현했지만, 2번 실행되는 문제로 인해 open/close 함수로 변경
-  const openPlatformModal = () => {
-    setIsPlatformModal(true);
-  };
-
-  const closePlatformModal = () => {
-    setIsPlatformModal(false);
   };
 
   // 약관 모달창 토글
@@ -134,16 +126,27 @@ const ModalContextProvider = ({ children }) => {
     setIsConfirmModal(false);
   };
 
+  // info 모달창 토글
+  // TODO: 토글로 구현했지만, 2번 실행되는 문제로 인해 open/close 함수로 변경
+  const openInfoModal = (message) => {
+    setIsInfoModal(true);
+    setInfoMessage(message);
+  };
+
+  const closeInfoModal = () => {
+    setIsInfoModal(false);
+  };
+
   const values = useMemo(
     () => ({
       isReviewModal,
       toggleEnjoyModal,
       toggleReviewModal,
-      openPlatformModal,
       toggleTermsModal,
       togglePrivacyModal,
       togglePrivacyCollectionModal,
       toggleConfirmModal,
+      openInfoModal,
     }),
     [isReviewModal]
   );
@@ -153,13 +156,15 @@ const ModalContextProvider = ({ children }) => {
       {children}
       {isPopupBanner && <PopupBanner onClose={togglePopupBanner} />}
       {isEnjoyModal && <EnjoyModal onClose={toggleEnjoyModal} />}
-      <PlatformModal isOpen={isPlatformModal} onClose={closePlatformModal} />
       {isTermsModal && <TermsModal onClose={toggleTermsModal} />}
       {isPrivacyModal && <PrivacyModal onClose={togglePrivacyModal} />}
       {isPrivcayCollectionModal && <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />}
       <ConfirmModal isOpen={isConfirmModal} onClose={() => handleConfirm(false)} onConfirm={() => handleConfirm(true)}>
         {confirmMessage}
       </ConfirmModal>
+      <InfoMoal isOpen={isInfoModal} onClose={closeInfoModal}>
+        {infoMessage}
+      </InfoMoal>
     </ModalContext.Provider>
   );
 };

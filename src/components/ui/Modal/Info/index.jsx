@@ -3,9 +3,9 @@
 import React, { useEffect, useRef } from 'react';
 import Modal from 'react-modal';
 
-import styles from '@/styles/components/PlatformModal.module.scss';
+import styles from '@/styles/components/InfoModal.module.scss';
 
-const PlatformModal = React.memo(({ isOpen, onClose }) => {
+const InfoMoal = React.memo(({ children, isOpen, onClose }) => {
   const modalRef = useRef();
 
   // 클라이언트 사이드에서만 Modal.setAppElement 설정
@@ -30,21 +30,18 @@ const PlatformModal = React.memo(({ isOpen, onClose }) => {
       isOpen={isOpen}
       onRequestClose={onClose}
       bodyOpenClassName="modal__open"
-      className={styles.platform__modal__wrapper}
-      overlayClassName={styles.platform__modal__overlay}
+      className={styles.info__modal__wrapper}
+      overlayClassName={styles.info__modal__overlay}
     >
-      <main className={styles.platform__modal} ref={modalRef} onClick={handleModalClose}>
-        <section className={styles.platform__header}>
-          <h4 className={styles.platform__header__title}>알림</h4>
+      <main className={styles.info__modal} ref={modalRef} onClick={handleModalClose}>
+        <section className={styles.info__header}>
+          <h4 className={styles.info__header__title}>알림</h4>
         </section>
-        <section className={styles.platform__body}>
-          <p className={styles.platform__body__content}>
-            아직 OTT에서 준비 중이예요.
-            <br />곧 만나요! 🤗
-          </p>
+        <section className={styles.info__body}>
+          <p className={styles.info__body__content}>{children}</p>
         </section>
-        <section className={styles.platform__footer}>
-          <button type="button" className={styles.platform__button} onClick={onClose}>
+        <section className={styles.info__footer}>
+          <button type="button" className={styles.info__button} onClick={onClose}>
             확인
           </button>
         </section>
@@ -53,4 +50,4 @@ const PlatformModal = React.memo(({ isOpen, onClose }) => {
   );
 });
 
-export default PlatformModal;
+export default InfoMoal;

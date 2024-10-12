@@ -46,6 +46,7 @@ yarn add react-player
 yarn add --dev sass
 yarn add --dev @svgr/webpack
 yarn add --dev typescript @types/react @types/node
+yarn add --dev @types/lodash
 
 # 프로젝트 기본 구조
 

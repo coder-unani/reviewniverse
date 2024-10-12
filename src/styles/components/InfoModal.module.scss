@@ -1,6 +1,6 @@
 @use '@/styles/variables' as *;
 
-.platform__modal__overlay {
+.info__modal__overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -13,14 +13,14 @@
   z-index: 998;
 }
 
-.platform__modal__wrapper {
+.info__modal__wrapper {
   position: absolute;
-  width: 300px;
+  width: 340px;
   outline: none;
   z-index: 999;
 }
 
-.platform__modal {
+.info__modal {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -30,25 +30,31 @@
   padding: 20px 20px 0 20px;
 }
 
-.platform__header__title {
+.info__header__title {
   font-size: 16px;
   font-weight: 800;
   color: $color-white-01;
   text-align: center;
 }
 
-.platform__body {
+.info__body {
   padding: 24px 0;
 }
 
-.platform__body__content {
+.info__body__content {
   font-size: 14px;
   color: $color-white-01;
   line-height: 1.5;
   text-align: center;
+
+  span {
+    display: inline-block;
+    color: $color-white-04;
+    margin-top: 4px;
+  }
 }
 
-.platform__footer {
+.info__footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,7 +62,7 @@
   border-top: 1px solid $border-color-01;
 }
 
-.platform__button {
+.info__button {
   flex: 1;
   font-size: 14px;
   // color: $color-white-02;
