@@ -1,5 +1,10 @@
 'use client';
 
+import React from 'react';
+import Link from 'next/link';
+
+import { SETTINGS } from '@/config/settings';
+import { ENDPOINTS } from '@/config/endpoints';
 import { useModalContext } from '@/contexts/ModalContext';
 
 import styles from '@/styles/components/Footer.module.scss';
@@ -24,7 +29,9 @@ const Footer = () => {
           </ul>
           <ul className={styles.footer__contact__list}>
             <li>제휴 및 협력 문의</li>
-            <li>help@orbitcode.kr</li>
+            <li>
+              <Link href={ENDPOINTS.INQUIRY}>{`${SETTINGS.SITE_BASE_URL}${ENDPOINTS.INQUIRY}`}</Link>
+            </li>
           </ul>
         </div>
         <div>
