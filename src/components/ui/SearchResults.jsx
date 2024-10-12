@@ -8,6 +8,7 @@ import { isEmpty } from 'lodash';
 import { SEARCH_PAGE_SIZE, VIDEO_MODE_OPTIONS, DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
+import RequestButton from '@/components/ui/Button/Request';
 import VideosForSearch from '@/components/ui/VideosForSearch';
 
 import styles from '@/styles/pages/Search.module.scss';
@@ -93,7 +94,7 @@ const SearchResults = ({ query }) => {
 
   return (
     <section className={styles.search__section}>
-      {isEmpty(videos) || isEmpty(videos.data) ? (
+      {isEmpty(videos.data) ? (
         <div className={styles.no__search__content}>
           <Image
             className={styles.no__search__image}
@@ -107,6 +108,7 @@ const SearchResults = ({ query }) => {
             "<em>{decodeQuery}</em>"에 대한 검색 결과가 없어요.
           </p>
           <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
+          <RequestButton query={query} total={videos.total} />
         </div>
       ) : (
         <>
