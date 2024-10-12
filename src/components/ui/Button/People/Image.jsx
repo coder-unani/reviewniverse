@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 
 const PeopleImage = ({ image, size, alt, priority = false }) => {

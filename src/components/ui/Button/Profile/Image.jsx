@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from 'next/image';
 
 import { DEFAULT_IMAGES } from '@/config/constants';

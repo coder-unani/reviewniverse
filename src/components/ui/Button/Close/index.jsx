@@ -1,3 +1,5 @@
+import React from 'react';
+
 import CloseIcon from '@/resources/icons/close.svg';
 
 const CloseButton = ({ onClose }) => {

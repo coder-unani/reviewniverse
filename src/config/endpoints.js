@@ -30,6 +30,7 @@ export const ENDPOINTS = {
   USER_REVIEWS: '/users/:userId/contents/reviews',
   USER_LIKES: '/users/:userId/contents/likes',
   USER_DELETE: '/users/delete',
+  INQUIRY: '/support/inquiry',
   ERROR: '/error',
   // NOT_FOUND: '/_not-found',
   DENIED_ALL: '/*',

@@ -1,0 +1,17 @@
+@use '@/styles/variables' as *;
+
+.inquiry__button {
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-white-06;
+  line-height: 20px;
+
+  svg {
+    margin-right: 2px;
+
+    path {
+      fill: $color-white-06;
+    }
+  }
+}

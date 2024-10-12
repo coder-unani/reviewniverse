@@ -30,12 +30,14 @@ import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
 import ShareButton from '@/components/ui/Button/Share';
+import InquiryButton from '@/components/ui/Button/Inquiry';
 import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
 import PeopleImage from '@/components/ui/Button/People/Image';
 
 import MoreIcon from '@/resources/icons/more.svg';
+import InfoIcon from '@/resources/icons/outline-info.svg';
 import PlayIcon from '@/resources/icons/play.svg';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
@@ -431,6 +433,14 @@ const Contents = async ({ params }) => {
         </section>
 
         <div className={styles.detail__sub__wrapper}>
+          {/* 제보하기 */}
+          <section className={styles.detail__inquiry__section}>
+            <InquiryButton videoId={videoId}>
+              <InfoIcon width={20} height={20} />
+              제보하기
+            </InquiryButton>
+          </section>
+
           <section className={styles.detail__sub__section}>
             {/* 작품 소개: 클라이언트 컴포넌트 */}
             <VideoSynopsis synopsis={synopsis} tags={tags} title={synopsisTitle} />
