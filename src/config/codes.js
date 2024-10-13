@@ -26,73 +26,27 @@ export const USER_WATCH_TYPE_CODE = {
     title: '탄탄한 스토리',
     subtitle: '저게 저렇게 된다고?',
     abbr: '스토리 📖',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/3.png`,
+    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
   },
   13: {
     title: '감독연출',
     subtitle: '기가맥힘',
     abbr: '연출 🎬',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/4.png`,
+    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
   },
   14: {
     title: '고막 녹는 OST',
     subtitle: '본격 귀호강',
     abbr: 'OST 🎧',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/5.png`,
+    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
   },
   15: {
     title: '초호화 캐스팅',
     subtitle: '걔도?쟤도?',
     abbr: '캐스팅 🧑‍🤝‍🧑',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/6.png`,
+    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
   },
 };
-
-// TODO: object로 변경 필요
-export const USER_WATCH_TYPE = [
-  {
-    id: 10,
-    title: '소름돋는 연기력',
-    subtitle: '언빌리버블',
-    abbr: '연기력',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
-  },
-  {
-    id: 11,
-    title: '화려한 영상미',
-    subtitle: '본격 눈호강',
-    abbr: '영상미',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/2.png`,
-  },
-  {
-    id: 12,
-    title: '탄탄한 스토리',
-    subtitle: '저게 저렇게 된다고?',
-    abbr: '스토리',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
-  },
-  {
-    id: 13,
-    title: '감독연출',
-    subtitle: '기가맥힘',
-    abbr: '연출',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
-  },
-  {
-    id: 14,
-    title: '고막 녹는 OST',
-    subtitle: '본격 귀호강',
-    abbr: 'OST',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
-  },
-  {
-    id: 15,
-    title: '초호화 캐스팅',
-    subtitle: '걔도?쟤도?',
-    abbr: '캐스팅',
-    image: `${SETTINGS.CDN_BASE_URL}/assets/images/watchtype/1.png`,
-  },
-];
 
 export const SCREEN_MAIN_ID = 'MA01,MA02,MA03,MA04,MA05';
 export const SCREEN_MOVIE_ID = 'MA01,MA02,MA03,MA04,MA05';
