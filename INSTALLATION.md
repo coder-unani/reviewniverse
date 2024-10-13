@@ -12,6 +12,7 @@ yarn create next-app .
 # ESLint, Prettier 설정
 
 yarn add --dev eslint prettier eslint-config-airbnb eslint-plugin-import eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-jsx-a11y eslint-config-prettier eslint-plugin-prettier
+yarn add --dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-import-resolver-typescript
 
 yarn upgrade eslint ajv uri-js
 
@@ -47,6 +48,7 @@ yarn add --dev sass
 yarn add --dev @svgr/webpack
 yarn add --dev typescript @types/react @types/node
 yarn add --dev @types/lodash
+yarn add --dev @types/dompurify
 
 # 프로젝트 기본 구조
 
