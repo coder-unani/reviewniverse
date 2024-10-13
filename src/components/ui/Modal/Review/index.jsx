@@ -93,7 +93,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       return;
     }
 
-    // DOMPurify로 입력된 리뷰 내용을 정화 (XSS 방지)
+    // DOMPurify로 입력된 리뷰 내용 XSS 방지
     const sanitizedTitle = DOMPurify.sanitize(data.title);
 
     if (isEmpty(myReview)) {
