@@ -28,7 +28,7 @@ const ProductionsComponent = dynamic(() => import('@/components/ui/Productions')
 export const revalidate = PRODUCTIONS_REVALIDATE_SEC;
 
 // 데이터 초기화
-export const initProductionVideos = (result) => {
+const initProductionVideos = (result) => {
   const videos = {
     total: 0,
     count: 0,
