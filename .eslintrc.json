@@ -5,7 +5,7 @@
     "node": true
   },
   "extends": ["next/core-web-vitals", "airbnb", "plugin:prettier/recommended"],
-  "plugins": ["react", "react-hooks", "jsx-a11y", "import"],
+  "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],

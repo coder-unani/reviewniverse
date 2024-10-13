@@ -16,6 +16,11 @@ yarn add --dev @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint
 
 yarn upgrade eslint ajv uri-js
 
+yarn remove eslint
+yarn add --dev eslint@8.57.0
+
+yarn remove eslint-plugin-react-hooks
+
 # 라이브러리 설치
 
 yarn add axios
