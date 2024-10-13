@@ -27,7 +27,7 @@ const UpcomingComponent = dynamic(() => import('@/components/ui/Upcoming'), { ss
 export const revalidate = UPCOMING_REVALIDATE_SEC;
 
 // 데이터 초기화
-export const initUpcomingVideos = (result) => {
+const initUpcomingVideos = (result) => {
   const videos = {
     total: 0,
     count: 0,
