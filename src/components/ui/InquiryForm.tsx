@@ -1,15 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';
+import DOMPurify from 'dompurify';
 
 import { INQUIRY_CODE } from '@/config/codes';
 import { ReqInquiry } from '@/types/request';
-import { cLog } from '@/utils/test';
 import { IInquiryProps } from '@/types/inquiry';
-import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { fetchInquiry } from '@/library/api/inquiry';
 
@@ -21,8 +20,12 @@ import styles from '@/styles/pages/Inquiry.module.scss';
 // 유효성 검사 스키마
 const InquirySchema = Yup.object().shape({
   topic: Yup.string().required('문의/제보 유형을 선택해주세요.'),
-  title: Yup.string().required('문의/제보 제목을 입력해주세요.'),
-  content: Yup.string().required('문의/제보 내용을 입력해주세요.'),
+  title: Yup.string()
+    .required('문의/제보 제목을 입력해주세요.')
+    .max(200, '문의/제보 제목은 200자 이내로 입력해주세요.'),
+  content: Yup.string()
+    .required('문의/제보 내용을 입력해주세요.')
+    .max(1000, '문의/제보 내용은 1000자 이내로 입력해주세요.'),
   email: Yup.string().email('이메일 형식이 올바르지 않습니다.').required('이메일 주소를 입력해주세요.'),
   is_agree_provide_email: Yup.boolean()
     .oneOf([true], '이메일 정보 제공에 동의해주세요.')
@@ -30,7 +33,6 @@ const InquirySchema = Yup.object().shape({
 });
 
 const InquiryForm = ({ videoId }: IInquiryProps) => {
-  const { user } = useAuthContext();
   const { openInfoModal } = useModalContext();
 
   // 폼 기본값 설정
@@ -55,7 +57,16 @@ const InquiryForm = ({ videoId }: IInquiryProps) => {
 
   // 폼 제출
   const onSubmit = handleSubmit(async (data: ReqInquiry) => {
-    const res = await fetchInquiry({ inquiryData: data });
+    // DOMPurify로 제목, 내용 XSS 방지
+    const inquiryData: ReqInquiry = {
+      topic: data.topic,
+      title: DOMPurify.sanitize(data.title),
+      content: DOMPurify.sanitize(data.content),
+      email: data.email,
+      is_agree_provide_email: data.is_agree_provide_email,
+    };
+
+    const res = await fetchInquiry({ inquiryData });
     if (res.status === 201) {
       const message = () => (
         <>
@@ -71,15 +82,6 @@ const InquiryForm = ({ videoId }: IInquiryProps) => {
       openInfoModal(message);
     }
   });
-
-  // TODO: 유저 이메일 정보 세팅
-  // 쿠키 user 정보에 이메일이 없으므로 주석 처리
-  // useEffect(() => {
-  //   if (!user) {
-  //     return;
-  //   }
-  //   setValue('email', user.email);
-  // }, [user]);
 
   return (
     <section className={styles.inquiry__section}>
