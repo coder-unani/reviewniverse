@@ -43,7 +43,7 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store, max-age=0, must-revalidate', // 캐시를 사용하지 않도록 설정
+            value: 'public, max-age=60, stale-while-revalidate=600',
           },
         ],
       },
