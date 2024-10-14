@@ -10,6 +10,7 @@ import styles from '@/styles/components/PolicyModal.module.scss';
 const PrivacyCollectionModal = React.memo(({ onClose }) => {
   const modalRef = useRef();
 
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
     if (e.target === modalRef.current) onClose();
   };

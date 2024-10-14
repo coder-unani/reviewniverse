@@ -13,7 +13,7 @@ const AuthKakaoCallback = dynamic(() => import('@/components/ui/AuthKakaoCallbac
 const KakaoCallback = () => {
   return (
     <main className={styles.join__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <AuthKakaoCallback />
       </Suspense>
     </main>

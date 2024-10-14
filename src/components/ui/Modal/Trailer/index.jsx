@@ -17,11 +17,9 @@ const TrailerModal = React.memo(({ trailer, initialIndex = 0, alt, isOpen, onClo
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const modalRef = useRef();
 
-  // 모달 닫기
+  // 모달 클릭 이벤트
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      onClose();
-    }
+    if (e.target === modalRef.current) onClose();
   };
 
   // 슬라이드 변경
@@ -38,6 +36,28 @@ const TrailerModal = React.memo(({ trailer, initialIndex = 0, alt, isOpen, onClo
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
+  // 전역 키보드 이벤트 등록
+  useEffect(() => {
+    const handleKeydown = (e) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          handlePrevButton(); // 왼쪽 화살표 키 동작
+          break;
+        case 'ArrowRight':
+          handleNextButton(); // 오른쪽 화살표 키 동작
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeydown); // 이벤트 해제
+    };
+  }, [currentIndex, trailer, onClose]);
+
   return (
     <Modal
       isOpen={isOpen}
@@ -46,29 +66,37 @@ const TrailerModal = React.memo(({ trailer, initialIndex = 0, alt, isOpen, onClo
       className={styles.trailer__modal__wrapper}
       overlayClassName={styles.trailer__modal__overlay}
     >
-      <main className={styles.trailer__modal} ref={modalRef} onClick={handleModalClose}>
+      <div className={styles.trailer__modal} ref={modalRef} onClick={handleModalClose}>
         {isMobile && <CloseButton onClose={onClose} />}
-        <ReactPlayer
-          className={styles.trailer__player}
-          url={`${trailer[currentIndex].url}?rel=0`}
-          playing={true} // autoplay 활성화
-          controls={true} // 플레이어 제어 버튼 표시
-          muted={true} // 음소거 해제
-          width={'100%'}
-          height={'auto'}
-          aria-label={`${alt} ${fTrailerCode(trailer[currentIndex].code)}`}
-        />
-        <button className={styles.trailer__prev__button} onClick={handlePrevButton} disabled={currentIndex === 0}>
+        {trailer && trailer[currentIndex] && (
+          <ReactPlayer
+            className={styles.trailer__player}
+            url={`${trailer[currentIndex].url}?rel=0`}
+            playing // autoplay 활성화
+            controls // 플레이어 제어 버튼 표시
+            muted // 음소거 해제
+            width="100%"
+            height="auto"
+            aria-label={`${alt} ${fTrailerCode(trailer[currentIndex].code)}`}
+          />
+        )}
+        <button
+          type="button"
+          className={styles.trailer__prev__button}
+          onClick={handlePrevButton}
+          disabled={currentIndex === 0}
+        >
           <ArrowLeftIcon width={28} height={28} />
         </button>
         <button
+          type="button"
           className={styles.trailer__next__button}
           onClick={handleNextButton}
           disabled={currentIndex === trailer.length - 1}
         >
           <ArrowRightIcon width={28} height={28} />
         </button>
-      </main>
+      </div>
     </Modal>
   );
 });

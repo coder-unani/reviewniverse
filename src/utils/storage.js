@@ -18,18 +18,20 @@ export const setLocalStorage = (key, value) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return false;
   }
 };
 
 // 로컬 스토리지 가져오기
 export const getLocalStorage = (key) => {
   try {
-    let data = localStorage.getItem(key);
+    const data = localStorage.getItem(key);
     return data;
   } catch (e) {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return null;
   }
 };
 
@@ -42,6 +44,7 @@ export const removeLocalStorage = (key) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return false;
   }
 };
 
@@ -54,18 +57,20 @@ export const setSessionStorage = (key, value) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return false;
   }
 };
 
 // 세션 스토리지 가져오기
 export const getSessionStorage = (key) => {
   try {
-    let data = sessionStorage.getItem(key);
+    const data = sessionStorage.getItem(key);
     return data;
   } catch (e) {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return null;
   }
 };
 
@@ -78,6 +83,7 @@ export const removeSessionStorage = (key) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return false;
   }
 };
 
@@ -96,6 +102,7 @@ export const setCookie = (name, value, options = {}) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return false;
   }
 };
 
@@ -107,6 +114,7 @@ export const getCookie = (name) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return null;
   }
 };
 
@@ -119,5 +127,6 @@ export const removeCookie = (name, options = {}) => {
     if (isBrowser()) {
       window.location.href = ENDPOINTS.ERROR;
     }
+    return false;
   }
 };

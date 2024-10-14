@@ -93,8 +93,8 @@ const VideosSwiperForPreview = async ({ videos }) => {
         </div>
       </section>
 
-      <Suspense fallback={''}>
-        {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
+      {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
+      <Suspense fallback="">
         <PreviewSwiper />
       </Suspense>
     </>

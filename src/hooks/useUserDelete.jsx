@@ -5,8 +5,8 @@ import { fetchUserDelete } from '@/library/api/users';
 
 export const useUserDelete = () => {
   return useMutation({
-    mutationFn: async (variables) => await fetchUserDelete(variables),
-    onSuccess: (res, variables) => {
+    mutationFn: (variables) => fetchUserDelete(variables),
+    onSuccess: (res) => {
       if (res.status === 204) {
         cLog('회원 탈퇴가 완료되었습니다.');
       } else {

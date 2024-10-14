@@ -15,7 +15,7 @@ const ModalContainer = ({ children }) => {
 
   if (!mounted) return null;
 
-  return createPortal(<>{children}</>, document.getElementById('modal'));
+  return createPortal(children, document.getElementById('modal'));
 };
 
 export default ModalContainer;

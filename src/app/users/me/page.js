@@ -1,5 +1,5 @@
 const UserMe = () => {
-  return <></>;
+  return null;
 };
 
 export default UserMe;

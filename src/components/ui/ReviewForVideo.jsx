@@ -12,6 +12,7 @@ import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
+import defStyles from '@/styles/components/Review.module.scss';
 import styles from '@/styles/components/ReviewForVideo.module.scss';
 
 /**
@@ -60,8 +61,8 @@ const ReviewForVideo = ({ videoId, review }) => {
           {/* 시청타입 */}
           {!isEmpty(profileWatchType) && (
             <div className={styles.detail__review__watchtype__wrapper}>
-              {profileWatchType.map((code) => (
-                <span key={code} data-code={code} className={styles.detail__review__watchtype}>
+              {profileWatchType.map((code, index) => (
+                <span key={index} data-code={code} className={styles.detail__review__watchtype}>
                   {fUserWatchType(code).abbr}
                 </span>
               ))}
@@ -71,9 +72,14 @@ const ReviewForVideo = ({ videoId, review }) => {
 
         <div className={styles.detail__review__body} data-spoiler={review.is_spoiler}>
           {review.is_spoiler ? (
-            <p className={styles.detail__review__content} data-active={active} onClick={handleSpoiler}>
-              {review.title}
-            </p>
+            <button
+              type="button"
+              className={defStyles.review__comment__spoiler}
+              data-active={active}
+              onClick={handleSpoiler}
+            >
+              <p className={styles.detail__review__content}>{review.title}</p>
+            </button>
           ) : (
             <p className={styles.detail__review__content}>{review.title}</p>
           )}

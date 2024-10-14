@@ -40,7 +40,7 @@ export const useVideos = ({
      * cacheTime: 캐시 유지 시간 ex. 1000 * 60 * 5 (5분)
      * retry: 재시도 횟수 ex. 1 (1회)
      */
-    queryKey: queryKey,
+    queryKey,
     queryFn: async () => {
       const res = await fetchVideos({
         page,
@@ -62,21 +62,22 @@ export const useVideos = ({
           code: '',
           data: res.data,
         };
-      } else if (res.status === 204) {
+      }
+      if (res.status === 204) {
         return {
           status: true,
           code: '',
           data: [],
         };
-      } else if (res.status === 429) {
+      }
+      if (res.status === 429) {
         return {
           status: false,
           code: 'C001',
           data: [],
         };
-      } else {
-        throw new Error('C999');
       }
+      throw new Error('C999');
     },
     /**
      * .env 로 관리할 필요까지는 없고, config/settings.js 정도에서 관리

@@ -23,15 +23,15 @@ export const useVideoReviews = ({ videoId, page = null, pageSize = null, metadat
           code: '',
           data: res.data,
         };
-      } else if (res.status === 429) {
+      }
+      if (res.status === 429) {
         return {
           status: false,
           code: 'C001',
           data: [],
         };
-      } else {
-        throw new Error('C999');
       }
+      throw new Error('C999');
     },
     enabled: !!enabled,
     staleTime: 1000 * 60 * 5,

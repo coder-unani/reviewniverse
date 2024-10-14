@@ -25,33 +25,11 @@ const MenuModal = ({ onClose }) => {
   const { user } = useAuthContext();
   const modalRef = useRef();
 
-  // 메뉴 모달 바깥 영역 클릭시 모달 닫기
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      onClose();
-    }
+    if (e.target === modalRef.current) onClose();
   };
 
-  // 프로필 버튼 렌더링
-  const RenderProfileButton = () => <ProfileButton user={user} size={28} onClose={onClose} />;
-
-  // 로그인 버튼 렌더링
-  const RenderLoginButton = () => (
-    <Link href={ENDPOINTS.USER_LOGIN} className={styles.menu__header__login} onClick={onClose}>
-      <Image
-        className={styles.menu__profile__image}
-        src={DEFAULT_IMAGES.noActor}
-        alt="프로필 이미지"
-        width={28}
-        height={28}
-        loading="lazy"
-      />
-      로그인 해주세요
-      <ArrowRightIcon width={24} height={24} />
-    </Link>
-  );
-
-  // 로그인 여부에 따라 프로필 또는 로그인 버튼 렌더링
   return (
     <Modal>
       <div className={styles.menu__modal__wrapper} ref={modalRef} onClick={handleModalClose}>
@@ -59,7 +37,22 @@ const MenuModal = ({ onClose }) => {
           <div className={styles.menu__header}>
             <CloseButton onClose={onClose} />
             <div className={styles.menu__header__user}>
-              {isEmpty(user) ? <RenderLoginButton /> : <RenderProfileButton />}
+              {/* 로그인 여부에 따라 프로필 또는 로그인 버튼 렌더링 */}
+              {isEmpty(user) ? (
+                <Link href={ENDPOINTS.USER_LOGIN} className={styles.menu__header__login} onClick={onClose}>
+                  <Image
+                    className={styles.menu__profile__image}
+                    src={DEFAULT_IMAGES.noActor}
+                    alt="프로필 이미지"
+                    width={28}
+                    height={28}
+                  />
+                  로그인 해주세요
+                  <ArrowRightIcon width={24} height={24} />
+                </Link>
+              ) : (
+                <ProfileButton user={user} size={28} onClose={onClose} />
+              )}
             </div>
           </div>
           <div className={styles.menu__body}>

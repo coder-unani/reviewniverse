@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { cLog, cError } from '@/utils/test';
+import { cError } from '@/utils/test';
 import { fetchUser } from '@/library/api/users';
 
 export const useUser = () => {
@@ -14,27 +14,19 @@ export const useUser = () => {
             code: '',
             data: res.data.user,
           };
-        } else if (res.status === 404) {
-          if (res.message.detail === 'USER_NOT_FOUND') {
-            return {
-              status: false,
-              code: '회원정보를 찾을 수 없습니다.',
-              data: null,
-            };
-          } else {
-            return {
-              status: false,
-              code: '회원정보를 가져오는데 실패했습니다.',
-              data: null,
-            };
-          }
-        } else {
+        }
+        if (res.status === 404 && res.message.detail === 'USER_NOT_FOUND') {
           return {
             status: false,
-            code: '회원정보를 가져오는데 실패했습니다.',
+            code: '회원정보를 찾을 수 없습니다.',
             data: null,
           };
         }
+        return {
+          status: false,
+          code: '회원정보를 가져오는데 실패했습니다.',
+          data: null,
+        };
       } catch (error) {
         return {
           status: false,
@@ -43,7 +35,7 @@ export const useUser = () => {
         };
       }
     },
-    onSccess: (res, variables) => {
+    onSccess: () => {
       // const userId = variables.userId;
       // if (res.status) {
       //   queryClient.invalidateQueries({

@@ -7,23 +7,18 @@ export const useVideoRating = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (variables) => await fetchVideoRating(variables),
+    mutationFn: (variables) => fetchVideoRating(variables),
     onSuccess: (res, variables) => {
       if (res.status === 200) {
         cLog('비디오 평가 점수가 변경되었습니다.');
 
-        const rating = res.data.data.rating;
-        const ratingAvg = res.data.data.rating_avg;
-        const videoId = variables.videoId;
-        const userId = variables.userId;
+        const { rating, rating_avg: ratingAvg } = res.data.data;
+        const { videoId, userId } = variables;
 
         // videoDetail 쿼리 키의 데이터 업데이트
         queryClient.setQueryData(['videoDetail', videoId], (prevDetail) => {
           if (!prevDetail || prevDetail.data.rating === ratingAvg) return prevDetail;
-          return {
-            ...prevDetail,
-            data: { ...prevDetail.data, rating: ratingAvg },
-          };
+          return { ...prevDetail, data: { ...prevDetail.data, rating: ratingAvg } };
         });
 
         // videoMyInfo 쿼리 키의 데이터 업데이트
@@ -40,20 +35,14 @@ export const useVideoRating = () => {
               const updatedReviews = prevReviews.data.data.map((review) => {
                 if (review.id === prevMyInfo.review.id) {
                   isUpdated = true;
-                  return { ...review, rating: rating };
+                  return { ...review, rating };
                 }
                 return review;
               });
 
               if (!isUpdated) return prevReviews;
 
-              return {
-                ...prevReviews,
-                data: {
-                  ...prevReviews.data,
-                  data: updatedReviews,
-                },
-              };
+              return { ...prevReviews, data: { ...prevReviews.data, data: updatedReviews } };
             });
           }
 
@@ -63,10 +52,7 @@ export const useVideoRating = () => {
         });
 
         // userRatings 쿼리 키의 데이터 무효화
-        queryClient.invalidateQueries({
-          queryKey: ['userRatings', userId],
-          exact: false,
-        });
+        queryClient.invalidateQueries({ queryKey: ['userRatings', userId], exact: false });
       } else {
         throw new Error('비디오 평가 점수 변경에 실패했습니다.');
       }

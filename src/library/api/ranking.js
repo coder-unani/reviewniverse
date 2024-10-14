@@ -1,11 +1,11 @@
 import { SETTINGS } from '@/config/settings';
-import { FetchClient } from '@/utils/HttpClient';
-import { cLog, cError } from '@/utils/test';
+import FetchClient from '@/utils/FetchClient';
+import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
-  rankingVideos: baseURL + '/v1/ranking/videos',
-  rankingGenres: baseURL + '/v1/ranking/genres',
+  rankingVideos: `${baseURL}/v1/ranking/videos`,
+  rankingGenres: `${baseURL}/v1/ranking/genres`,
 };
 
 export const fetchRankingVideos = async ({ code, count }) => {
@@ -15,6 +15,7 @@ export const fetchRankingVideos = async ({ code, count }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -25,5 +26,6 @@ export const fetchRankingGenres = async ({ count }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };

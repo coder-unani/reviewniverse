@@ -5,9 +5,8 @@ import dynamic from 'next/dynamic';
 import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fYear, fDate } from '@/utils/format';
+import { fDate } from '@/utils/format';
 import { fPlatformNameByCode, fThumbnail } from '@/utils/formatContent';
-import { cLog } from '@/utils/test';
 
 import styles from '@/styles/components/VideoForUpcoming.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
@@ -21,21 +20,21 @@ const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { s
 
 const VideoForUpcoming = ({ video, isClient = false }) => {
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
-  const title = video.title;
+  const { title } = video;
   const thumbnail = fThumbnail(video.thumbnail);
   const code = video.code_string;
   let upcoming = {};
   if (isEmpty(video.upcoming)) {
     upcoming = {
-      platform: '',
-      url: '',
-      release: video.release,
       countdown: 0,
+      platform: '',
+      release: video.release,
+      url: '',
     };
   } else {
-    upcoming = video.upcoming[0];
+    upcoming = { ...video.upcoming[0] };
   }
-  const countdown = upcoming.countdown;
+  const { countdown } = upcoming;
   const release = fDate(upcoming.release);
   const platform = fPlatformNameByCode(upcoming.platform) || '공개 예정';
 

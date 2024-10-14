@@ -1,10 +1,10 @@
 import { SETTINGS } from '@/config/settings';
-import { FetchClient } from '@/utils/HttpClient';
-import { cLog, cError } from '@/utils/test';
+import FetchClient from '@/utils/FetchClient';
+import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
-  screens: baseURL + '/v1/screens',
+  screens: `${baseURL}/v1/screens`,
 };
 
 export const fetchScreenVideos = async ({ code, display = null }) => {
@@ -17,5 +17,6 @@ export const fetchScreenVideos = async ({ code, display = null }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };

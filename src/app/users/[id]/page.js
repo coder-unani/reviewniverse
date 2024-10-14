@@ -16,7 +16,7 @@ const Users = ({ params }) => {
 
   return (
     <main className={styles.user__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <UsersComponent id={id} />
       </Suspense>
     </main>

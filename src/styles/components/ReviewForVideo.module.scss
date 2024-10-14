@@ -61,33 +61,6 @@
 .detail__review__body {
   padding: 10px 0;
   cursor: pointer;
-
-  &[data-spoiler='true'] {
-    .detail__review__content {
-      position: relative;
-
-      &[data-active='true'] {
-        &:hover {
-          &::before {
-            background-color: $color-white-08;
-          }
-        }
-
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 6px;
-          background-color: $color-white-09;
-          z-index: 999;
-          cursor: pointer;
-        }
-      }
-    }
-  }
 }
 
 .detail__review__content {

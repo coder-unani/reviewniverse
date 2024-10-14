@@ -8,7 +8,7 @@ const CloseButton = ({ onClose }) => {
   };
 
   return (
-    <button className="modal__close__button" onClick={handleClose}>
+    <button type="button" className="modal__close__button" onClick={handleClose}>
       <CloseIcon width={32} height={32} />
     </button>
   );

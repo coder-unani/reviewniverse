@@ -16,7 +16,7 @@ const UsersRatings = ({ params }) => {
 
   return (
     <main className={styles.contents__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <UsersRatingsComponent id={id} />
       </Suspense>
     </main>

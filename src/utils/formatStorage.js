@@ -22,13 +22,15 @@ const STORAGE_KEYS = {
 // 유저 정보 설정
 export const setStorageUser = (user) => {
   if (isEmpty(user)) return;
+
   // user의 id, profile_image만 저장
-  user = {
+  const storageUser = {
     id: user.id,
-    profile_image: user.profile_image ? user.profile_image : null,
-    nickname: user.nickname ? user.nickname : null,
+    profile_image: user.profile_image || null,
+    nickname: user.nickname || null,
   };
-  setCookie(STORAGE_KEYS.USER, JSON.stringify(user), {
+
+  setCookie(STORAGE_KEYS.USER, JSON.stringify(storageUser), {
     path: '/',
     expires: 30,
     sameSite: 'Strict',
@@ -47,9 +49,9 @@ export const removeStorageUser = () => {
 };
 
 // 액세스 토큰 설정
-export const setStorageAccessToken = (access_token) => {
-  if (!access_token) return;
-  setCookie(STORAGE_KEYS.ACCESS_TOKEN, access_token, {
+export const setStorageAccessToken = (accessToken) => {
+  if (!accessToken) return;
+  setCookie(STORAGE_KEYS.ACCESS_TOKEN, accessToken, {
     path: '/',
     expires: 30,
     sameSite: 'Strict',
@@ -102,7 +104,7 @@ export const clearStorageKeyword = () => {
 export const removeStorageKeyword = (keyword) => {
   let data = getLocalStorage(STORAGE_KEYS.RECENT_KEYWORDS);
   data = data ? JSON.parse(data) : [];
-  data = data.filter((data) => data !== keyword);
+  data = data.filter((_data) => _data !== keyword);
   setLocalStorage(STORAGE_KEYS.RECENT_KEYWORDS, JSON.stringify(data));
   return data;
 };

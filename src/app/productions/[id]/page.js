@@ -76,9 +76,8 @@ const getProductionVideos = async ({ productionId }) => {
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data;
-  } else {
-    return {};
   }
+  return {};
 };
 
 // 메타 태그 설정
@@ -95,7 +94,7 @@ export const generateMetadata = async ({ params }) => {
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const isIndex = videos.data.length > 0;
-  const production = videos.metadata.production;
+  const { production } = videos.metadata;
   const title = `${production.name} | 리뷰니버스`;
   const description = `${production.name} 제작사의 작품들을 확인해보세요.`;
   const imageUrl = production.logo ? `${SETTINGS.CDN_BASE_URL}/${production.logo}` : DEFAULT_IMAGES.logo;
@@ -110,13 +109,13 @@ export const generateMetadata = async ({ params }) => {
     alternates: {
       canonical: url,
     },
-    title: title,
-    description: description,
-    keywords: keywords,
+    title,
+    description,
+    keywords,
     openGraph: {
-      url: url,
-      title: title,
-      description: description,
+      url,
+      title,
+      description,
       images: [
         {
           url: imageUrl,
@@ -140,7 +139,7 @@ const Productions = async ({ params }) => {
   const result = await getProductionVideos({ productionId });
   const videos = initProductionVideos(result);
 
-  const production = videos.metadata.production;
+  const { production } = videos.metadata;
   const subtitle = '제작사';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PRODUCTIONS_PAGE_SIZE;
@@ -159,7 +158,7 @@ const Productions = async ({ params }) => {
           {videos.data.map((video) => (
             <Video video={video} key={video.id} />
           ))}
-          <Suspense fallback={''}>
+          <Suspense fallback="">
             <ProductionsComponent productionId={productionId} enabled={enabled} />
           </Suspense>
         </div>

@@ -5,8 +5,8 @@ import { fetchValidateNickname } from '@/library/api/users';
 
 export const useValidateNickname = () => {
   return useMutation({
-    mutationFn: async (variables) => await fetchValidateNickname(variables),
-    onSuccess: (res, variables) => {
+    mutationFn: (variables) => fetchValidateNickname(variables),
+    onSuccess: (res) => {
       if (res.status === 200) {
         cLog('닉네임 중복검사가 완료되었습니다.');
       } else {

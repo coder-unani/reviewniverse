@@ -38,59 +38,56 @@ const SearchResults = ({ query }) => {
   });
 
   useEffect(() => {
-    if (!decodeQuery) {
-      return;
-    }
+    if (!decodeQuery) return;
     setPage(1);
     setVideos(null);
   }, [decodeQuery]);
 
   useEffect(() => {
-    if (videosIsLoading || !videosData) {
+    if (videosIsLoading || !videosData) return;
+
+    // API 호출 결과가 실패인 경우
+    if (!videosData.status) {
+      if (videosData.code === 'C001' && page > 1) {
+        // 429 에러이고, 첫 페이지가 아닌 경우 이전 페이지 번호로 변경
+        setPage((prev) => prev - 1);
+      } else {
+        // 그 외의 경우 에러 페이지로 이동
+        router.push(ENDPOINTS.ERROR);
+      }
       return;
     }
 
-    if (!videosData.status) {
-      if (videosData.code === 'C001') {
-        // TODO: 고도화 필요
-        if (page === 1) {
-          return router.push(ENDPOINTS.ERROR);
-        } else {
-          setPage((prev) => prev - 1);
-          return;
-        }
-      } else {
-        return router.push(ENDPOINTS.ERROR);
-      }
-    }
-
-    if (page === 1) {
-      setVideos({ ...videosData.data });
-    } else {
-      setVideos((prev) => {
-        if (prev.page === videosData.data.page) return prev;
-        return {
-          ...prev,
-          total: videosData.data.total,
-          count: videosData.data.count,
-          page: videosData.data.page,
-          data: prev.data ? [...prev.data, ...videosData.data.data] : [...videosData.data.data],
-        };
-      });
-    }
+    setVideos((prev) => {
+      const newData = videosData.data;
+      // 첫 페이지인 경우
+      if (!prev) return { ...newData };
+      // 같은 페이지인 경우
+      if (prev.page === newData.page) return prev;
+      // 첫 페이지가 아닌 경우 데이터 추가
+      return {
+        ...prev,
+        total: newData.total,
+        count: newData.count,
+        page: newData.page,
+        data: prev.data ? [...prev.data, ...newData.data] : [...newData.data],
+      };
+    });
   }, [videosIsLoading, videosData, page]);
 
+  // 페이지 변경
   const handlePage = (newPage) => {
     setPage(newPage);
   };
 
+  // 에러 발생 시 에러 페이지로 이동
   if (videosError) {
-    return router.push(ENDPOINTS.ERROR);
+    router.push(ENDPOINTS.ERROR);
+    return null;
   }
 
-  if (isEmpty(videos)) {
-    return;
-  }
+  // 평가 데이터가 없는 경우
+  if (isEmpty(videos)) return null;
 
   return (
     <section className={styles.search__section}>
@@ -105,7 +102,7 @@ const SearchResults = ({ query }) => {
             priority
           />
           <p className={styles.no__search__title}>
-            "<em>{decodeQuery}</em>"에 대한 검색 결과가 없어요.
+            &quot;<em>{decodeQuery}</em>&quot;에 대한 검색 결과가 없어요.
           </p>
           <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
           <RequestButton query={query} total={videos.total} />
@@ -113,7 +110,7 @@ const SearchResults = ({ query }) => {
       ) : (
         <>
           <strong className={styles.search__title}>
-            "<em>{decodeQuery}</em>"의 검색 결과가 {videos.total} 개 있어요
+            &quot;<em>{decodeQuery}</em>&quot;의 검색 결과가 {videos.total} 개 있어요
           </strong>
           <VideosForSearch videos={videos} handlePage={handlePage} pageSize={SEARCH_PAGE_SIZE} />
         </>

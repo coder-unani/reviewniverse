@@ -13,7 +13,7 @@ const UsersDeleteComponent = dynamic(() => import('@/components/ui/UsersDelete')
 const UsersDelete = () => {
   return (
     <main className={styles.delete__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <UsersDeleteComponent />
       </Suspense>
     </main>

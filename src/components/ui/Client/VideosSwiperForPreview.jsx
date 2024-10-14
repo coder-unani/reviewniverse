@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import SwiperCore from 'swiper';
 import { Thumbs, Autoplay, Parallax, EffectFade } from 'swiper/modules';
@@ -49,14 +49,13 @@ const VideosSwiperForPreview = () => {
     previewBackgroundImage.forEach((image) => {
       if (!isMobile) return;
       const imageUrl = image.dataset.url;
-      image.style.backgroundImage = `url(${fThumbnail(imageUrl, false)})`;
+      Object.assign(image.style, { backgroundImage: `url(${fThumbnail(imageUrl, false)})` }); // 기존 스타일과 새로운 스타일 병합
     });
   }, []);
 
   useEffect(() => {
-    if (!thumbsSwiper) {
-      return;
-    }
+    if (!thumbsSwiper) return;
+
     // 메인 슬라이더 설정
     const mainSwiperElement = document.querySelector('.main-swiper');
     if (mainSwiperElement) {
@@ -80,9 +79,7 @@ const VideosSwiperForPreview = () => {
         activeThumbIndexRef.current = swiper.realIndex;
 
         // 모바일에서 활성화된 슬라이드가 썸네일 슬라이더의 맨 앞으로 오도록 설정
-        if (!thumbsSwiper || !isMobile) {
-          return;
-        }
+        if (!thumbsSwiper || !isMobile) return;
         thumbsSwiper.slideToLoop(swiper.realIndex, 1000, false);
       });
     }

@@ -102,10 +102,10 @@
       "@/*": ["./src/*"]
     },
     "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
+    "allowJs": true, // JS 파일도 허용
     "noEmit": true,
     "incremental": true,
-    "moduleResolution": "node",
+    "moduleResolution": "node", // 모듈 해석을 Node 방식으로 설정
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",

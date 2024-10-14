@@ -36,14 +36,14 @@ const Users = ({ id }) => {
 
     // 유저 정보 조회
     const getUser = async () => {
-      const res = await userFetch({ userId: userId });
+      const res = await userFetch({ userId });
       if (res.status) {
         setProfile(res.data);
 
         // TODO: 고도화 필요
         // 로그인한 유저가 있다면 userId와 로그인한 유저 id가 같은지 확인 후 유저 정보 저장
         if (user && user.id === userId) {
-          handleSetUser({ user: res.data });
+          handleSetUser({ _user: res.data });
         }
       } else {
         if (user && user.id === userId) {

@@ -11,7 +11,7 @@ import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
-import MoreIcon from '@/resources/icons/more.svg';
+// import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/components/Review.module.scss';
 
 /**
@@ -80,9 +80,14 @@ const ReviewWithVideo = ({ user, review }) => {
             </div>
             <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
               {data.is_spoiler ? (
-                <p className={styles.review__comment} data-active={active} onClick={handleSpoiler}>
-                  {data.title}
-                </p>
+                <button
+                  type="button"
+                  className={styles.review__comment__spoiler}
+                  data-active={active}
+                  onClick={handleSpoiler}
+                >
+                  <p className={styles.review__comment}>{data.title}</p>
+                </button>
               ) : (
                 <p className={styles.review__comment}>{data.title}</p>
               )}

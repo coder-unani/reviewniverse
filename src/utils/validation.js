@@ -1,8 +1,14 @@
 import { USER_CODE } from '@/config/codes';
 import { fFileSize } from '@/utils/format';
 
+// 이메일 형식 검증 함수
+export const isValidEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
 export const validateUser = (user) => {
-  if (!USER_CODE.hasOwnProperty(user.code)) {
+  if (!Object.keys(USER_CODE).includes(user.code)) {
     return {
       status: false,
       code: 'U002',
@@ -23,13 +29,11 @@ export const validateUser = (user) => {
         code: 'U004',
       };
     }
-  } else {
-    if (!user.sns_id) {
-      return {
-        status: false,
-        code: 'U005',
-      };
-    }
+  } else if (!user.sns_id) {
+    return {
+      status: false,
+      code: 'U005',
+    };
   }
 
   return {
@@ -41,12 +45,6 @@ export const validateUser = (user) => {
 // provider value 유효성 검증 함수
 export const isValidProvider = (provider) => {
   return Object.values(USER_CODE).includes(provider);
-};
-
-// 이메일 형식 검증 함수
-export const isValidEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
 };
 
 // 파일 사이즈 유효성 검증 함수

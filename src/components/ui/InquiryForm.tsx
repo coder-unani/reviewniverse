@@ -8,14 +8,17 @@ import DOMPurify from 'dompurify';
 
 import { INQUIRY_CODE } from '@/config/codes';
 import { ReqInquiry } from '@/types/request';
-import { IInquiryProps } from '@/types/inquiry';
+// import { IInquiryProps } from '@/types/inquiry';
 import { useModalContext } from '@/contexts/ModalContext';
 import { fetchInquiry } from '@/library/api/inquiry';
 
 import styles from '@/styles/pages/Inquiry.module.scss';
 
-// TODO:
-// 제목 기본값 설정
+// TODO: 제목 기본값 설정
+
+// 이 파일에서만 아래 속성들의 eslint-disable를 적용
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
 
 // 유효성 검사 스키마
 const InquirySchema = Yup.object().shape({
@@ -32,7 +35,8 @@ const InquirySchema = Yup.object().shape({
     .required('이메일 정보 제공에 동의해주세요.'),
 });
 
-const InquiryForm = ({ videoId }: IInquiryProps) => {
+// const InquiryForm = ({ videoId }: IInquiryProps) => {
+const InquiryForm = () => {
   const { openInfoModal } = useModalContext();
 
   // 폼 기본값 설정
@@ -51,7 +55,7 @@ const InquiryForm = ({ videoId }: IInquiryProps) => {
     formState: { errors, isDirty, isValid },
   } = useForm<ReqInquiry>({
     resolver: yupResolver(InquirySchema),
-    defaultValues: defaultValues,
+    defaultValues,
     mode: 'onChange',
   });
 

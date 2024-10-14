@@ -27,7 +27,7 @@ const ReviewButton = () => {
       aria-label="리뷰 작성하기"
       onClick={handleReviewCreate}
     >
-      <span className={styles.detail__control__icon}></span>
+      <span className={styles.detail__control__icon} />
     </button>
   );
 };

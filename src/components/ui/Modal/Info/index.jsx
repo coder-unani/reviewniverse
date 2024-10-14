@@ -18,11 +18,9 @@ const InfoMoal = React.memo(({ children, isOpen, onClose }) => {
     }
   }, []);
 
-  // 모달창 닫기
+  /// 모달창 클릭 이벤트
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      onClose();
-    }
+    if (e.target === modalRef.current) onClose();
   };
 
   return (
@@ -33,7 +31,7 @@ const InfoMoal = React.memo(({ children, isOpen, onClose }) => {
       className={styles.info__modal__wrapper}
       overlayClassName={styles.info__modal__overlay}
     >
-      <main className={styles.info__modal} ref={modalRef} onClick={handleModalClose}>
+      <div className={styles.info__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.info__header}>
           <h4 className={styles.info__header__title}>알림</h4>
         </section>
@@ -45,7 +43,7 @@ const InfoMoal = React.memo(({ children, isOpen, onClose }) => {
             확인
           </button>
         </section>
-      </main>
+      </div>
     </Modal>
   );
 });

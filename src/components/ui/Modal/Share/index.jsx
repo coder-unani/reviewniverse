@@ -25,11 +25,9 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
     }
   }, []);
 
-  // 모달창 닫기
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      onClose();
-    }
+    if (e.target === modalRef.current) onClose();
   };
 
   // 링크 복사
@@ -46,7 +44,7 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
       className={styles.share__modal__wrapper}
       overlayClassName={styles.share__modal__overlay}
     >
-      <main className={styles.share__modal} ref={modalRef} onClick={handleModalClose}>
+      <div className={styles.share__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.share__header}>
           <h4 className={styles.share__header__title}>공유</h4>
           <CloseButton onClose={onClose} />
@@ -65,7 +63,7 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
           </div>
         </section>
         {/* <section className={styles.share__footer}></section> */}
-      </main>
+      </div>
     </Modal>
   );
 });

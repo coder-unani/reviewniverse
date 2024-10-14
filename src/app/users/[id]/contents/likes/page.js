@@ -16,7 +16,7 @@ const UsersLikes = ({ params }) => {
 
   return (
     <main className={styles.contents__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <UsersLikesComponent id={id} />
       </Suspense>
     </main>

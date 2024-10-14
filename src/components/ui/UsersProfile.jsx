@@ -31,12 +31,16 @@ import styles from '@/styles/pages/UsersProfile.module.scss';
  * 이메일 인증 기능 추가
  */
 
+// 이 파일에서만 아래 속성들의 eslint-disable를 적용
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
+
 const UsersProfile = () => {
   const router = useRouter();
   const { user } = useAuthContext();
   const [profile, setProfile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const { mutateAsync: userMe, isPending: isUserPending, isSuccess: isUserSuccess, isError: isUserError } = useUserMe();
+  const { mutateAsync: userMe, isPending: isUserPending, isError: isUserError } = useUserMe();
   const { mutateAsync: validateNickname, isPending: isValidatePending } = useValidateNickname();
   const { mutate: userUpdate, isPending: isUpdatePending } = useUserUpdate();
 
@@ -200,7 +204,7 @@ const UsersProfile = () => {
     };
 
     fetchData();
-  }, [userMe]);
+  }, [userMe, user.id]);
 
   // 유저 정보 세팅
   useEffect(() => {

@@ -5,13 +5,13 @@ import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fYear, fDiffDate } from '@/utils/format';
+import { fDiffDate } from '@/utils/format';
 import { fUserWatchType } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
-import MoreIcon from '@/resources/icons/more.svg';
+// import MoreIcon from '@/resources/icons/more.svg';
 import styles from '@/styles/components/Review.module.scss';
 
 /**
@@ -72,9 +72,14 @@ const Review = ({ videoId, review }) => {
           <div className={styles.review__content__wrapper}>
             <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
               {data.is_spoiler ? (
-                <p className={styles.review__comment} data-active={active} onClick={handleSpoiler}>
-                  {data.title}
-                </p>
+                <button
+                  type="button"
+                  className={styles.review__comment__spoiler}
+                  data-active={active}
+                  onClick={handleSpoiler}
+                >
+                  <p className={styles.review__comment}>{data.title}</p>
+                </button>
               ) : (
                 <p className={styles.review__comment}>{data.title}</p>
               )}

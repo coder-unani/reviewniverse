@@ -16,7 +16,7 @@ const Search = ({ params }) => {
 
   return (
     <main className={styles.search__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <SearchResults query={query} />
       </Suspense>
     </main>

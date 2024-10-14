@@ -10,6 +10,7 @@ import styles from '@/styles/components/PolicyModal.module.scss';
 const PrivacyModal = React.memo(({ onClose }) => {
   const modalRef = useRef();
 
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
     if (e.target === modalRef.current) onClose();
   };
@@ -52,8 +53,8 @@ const PrivacyModal = React.memo(({ onClose }) => {
                 <h4 className={styles.policy__content__title}>1. 개인정보의 수집 및 이용 목적/항목</h4>
                 <p>
                   회사는 다음과 같이 서비스 이용계약의 성립 및 이행에 필요한 최소한의 개인정보를 수집하며, 회원가입 시
-                  개인정보 수집 · 이용 동의에 대한 내용을 제공하고 회원이 '동의' 버튼을 클릭하면 개인정보 수집 · 이용에
-                  대해 동의한 것으로 봅니다.
+                  개인정보 수집 · 이용 동의에 대한 내용을 제공하고 회원이 &apos;동의&apos; 버튼을 클릭하면 개인정보 수집
+                  · 이용에 대해 동의한 것으로 봅니다.
                 </p>
               </div>
               <div className={styles.policy__content__wrapper}>
@@ -323,10 +324,10 @@ const PrivacyModal = React.memo(({ onClose }) => {
                 <p>1) 쿠키(Cookie)란?</p>
                 <ul>
                   <li>
-                    회사는 서비스 제공 시, "쿠키(Cookie)"를 사용합니다. 쿠키는 서비스를 제공하는 서버가 고객님의 PC
-                    웹브라우저에게 전송하는 정보이며, 고객님의 PC 내 하드디스크에 암호화되어 저장됩니다. 고객님은 쿠키에
-                    대한 선택권을 가지고 있습니다. 고객님이 쿠키에 의한 정보수집을 거부하실 경우에는 웹브라우저 보안
-                    정책을 통해 허용 여부를 결정하실 수 있습니다.
+                    회사는 서비스 제공 시, &quot;쿠키(Cookie)&quot;를 사용합니다. 쿠키는 서비스를 제공하는 서버가
+                    고객님의 PC 웹브라우저에게 전송하는 정보이며, 고객님의 PC 내 하드디스크에 암호화되어 저장됩니다.
+                    고객님은 쿠키에 대한 선택권을 가지고 있습니다. 고객님이 쿠키에 의한 정보수집을 거부하실 경우에는
+                    웹브라우저 보안 정책을 통해 허용 여부를 결정하실 수 있습니다.
                   </li>
                 </ul>
                 <br />

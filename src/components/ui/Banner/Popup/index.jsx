@@ -33,7 +33,7 @@ const PopupBanner = React.memo(({ onClose }) => {
 
   return (
     <Modal>
-      <div className={styles.popup__modal__wrapper} ref={modalRef}>
+      <div className={styles.popup__modal__wrapper} ref={modalRef} onClick={handleModalClose}>
         <main className={styles.popup__modal}>
           <section className={styles.popup__section}>
             <CloseButton onClose={onClose} />
@@ -42,8 +42,10 @@ const PopupBanner = React.memo(({ onClose }) => {
               <p className={styles.popup__content}>🤪 팝업 광고 입니다 🤪</p>
             </div>
             <section className={styles.popup__footer}>
-              <input type="checkbox" id="popupHideCheck" onChange={(e) => handleHidePopupBanner(e)} />
-              <label htmlFor="popupHideCheck">오늘 하루 그만 보기</label>
+              <label htmlFor="popupHideCheck">
+                <input type="checkbox" id="popupHideCheck" onChange={(e) => handleHidePopupBanner(e)} />
+                오늘 하루 그만 보기
+              </label>
             </section>
           </section>
         </main>

@@ -2,12 +2,10 @@
 
 import React, { useRef, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Tooltip } from 'react-tooltip';
 import { isEmpty } from 'lodash';
 
 import { VIDEO_RATING_TEXT } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
-import { fRating, fRatingColor } from '@/utils/formatContent';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoRating } from '@/hooks/useVideoRating';
@@ -29,33 +27,67 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   const ratingImgRef = useRef(null);
   const ratingTextRef = useRef(null);
 
-  useEffect(() => {
-    const emptyRating = emptyRatingRef.current;
+  // 평점 이미지 및 텍스트 설정
+  const handleRatingSet = (rating) => {
     const fillRating = fillRatingRef.current;
-    if (!emptyRating || !fillRating) return;
+    const ratingText = ratingTextRef.current;
 
-    // 로그인이 되어 있고, myInfo가 있을 경우 평가하기 이미지 및 텍스트 설정
-    if (!isEmpty(user) && myInfo) {
-      handleRatingSet(myInfo.rating || 0);
+    if (fillRating && ratingText) {
+      fillRating.dataset.rating = rating;
+      fillRating.style.width = `${rating * 10}%`;
+      ratingText.innerText = VIDEO_RATING_TEXT[rating];
     }
 
-    // 비디오 평가하기 이벤트 설정
-    emptyRating.addEventListener('mouseover', handleMouseOver);
-    emptyRating.addEventListener('mouseout', handleMouseOut);
-    emptyRating.addEventListener('click', handleClick);
-    emptyRating.addEventListener('touchstart', handleTouchStart, { passive: true });
-    emptyRating.addEventListener('touchmove', handleTouchMove, { passive: false });
-    emptyRating.addEventListener('touchend', handleTouchEnd);
+    setImgSrc(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/${rating}.png`);
+  };
 
-    return () => {
-      emptyRating.removeEventListener('mouseover', handleMouseOver);
-      emptyRating.removeEventListener('mouseout', handleMouseOut);
-      emptyRating.removeEventListener('click', handleClick);
-      emptyRating.removeEventListener('touchstart', handleTouchStart);
-      emptyRating.removeEventListener('touchmove', handleTouchMove);
-      emptyRating.removeEventListener('touchend', handleTouchEnd);
-    };
-  }, [user, myInfo, isRatingPending, isDragging]);
+  // 평점 너비 설정
+  const handleRatingMove = (positionX) => {
+    // 빈 별점 영역
+    const emptyRating = emptyRatingRef.current;
+    // 빈 별점 영역의 전체 너비
+    const { width } = emptyRating.getBoundingClientRect();
+    // 별점의 왼쪽에서부터 터치 위치까지의 거리
+    const offsetX = positionX - emptyRating.getBoundingClientRect().left;
+    // 0과 1 사이의 비율로 변환
+    const ratio = Math.max(0, Math.min(offsetX / width, 1));
+    // 비율을 별점으로 변환 (0에서 10까지)
+    const rating = Math.ceil(ratio * 10);
+
+    // 계산된 별점으로 너비 설정
+    handleRatingSet(rating);
+  };
+
+  // 평점 저장
+  const saveRating = async () => {
+    // 로그인이 되어 있지 않을 경우
+    if (isEmpty(user)) {
+      toggleEnjoyModal();
+      return;
+    }
+
+    // API 호출 중일 경우 리턴
+    if (isRatingPending) return;
+
+    const rating = fillRatingRef?.current.dataset.rating;
+    if (!rating || rating === '0') return;
+
+    await videoRating(
+      { videoId, rating, userId: user.id },
+      {
+        onSuccess: (res) => {
+          if (res.status === 200) {
+            const resRating = res.data.data.rating;
+            if (resRating) {
+              showSuccessToast(`평점 ${resRating / 2}점이 입력되었습니다.`);
+            } else {
+              showSuccessToast('입력된 평점이 삭제되었습니다.');
+            }
+          }
+        },
+      }
+    );
+  };
 
   // 마우스 올렸을 때 이벤트
   const handleMouseOver = (e) => {
@@ -73,10 +105,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   // 클릭 이벤트
   const handleClick = async () => {
-    if (isDragging) {
-      return;
-    }
-
+    if (isDragging) return;
     await saveRating();
   };
 
@@ -84,7 +113,6 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   const handleTouchStart = (e) => {
     // 드래그 시작
     setIsDragging(true);
-
     // 터치 시작 위치 저장
     setStartX(e.touches[0].clientX);
     setStartY(e.touches[0].clientY);
@@ -117,99 +145,49 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
     if (isDragging) {
       e.preventDefault();
 
-      // 로그인이 되어 있지 않을 경우
       if (isEmpty(user)) {
+        // 로그인이 되어 있지 않을 경우
         handleRatingSet(0);
       } else {
-        // 터치가 끝난 위치로 최종 별점 갱신
+        // 로그인이 되어 있을 경우 터치가 끝난 위치로 최종 별점 갱신
         const touchX = e.changedTouches[0].clientX;
         handleRatingMove(touchX);
       }
 
       // 드래그 종료
       setIsDragging(false);
-
       await saveRating();
     }
   };
 
-  // 평점 이미지 및 텍스트 설정
-  const handleRatingSet = (rating) => {
-    const fillRating = fillRatingRef.current;
-    const ratingText = ratingTextRef.current;
-
-    if (fillRating && ratingText) {
-      fillRating.dataset.rating = rating;
-      fillRating.style.width = `${rating * 10}%`;
-      ratingText.innerText = VIDEO_RATING_TEXT[rating];
-    }
-
-    setImgSrc(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/${rating}.png`);
-  };
-
-  // 평점 너비 설정
-  const handleRatingMove = (positionX) => {
-    // 빈 별점 영역
+  useEffect(() => {
     const emptyRating = emptyRatingRef.current;
-    // 빈 별점 영역의 전체 너비
-    const width = emptyRating.getBoundingClientRect().width;
-    // 별점의 왼쪽에서부터 터치 위치까지의 거리
-    const offsetX = positionX - emptyRating.getBoundingClientRect().left;
-    // 0과 1 사이의 비율로 변환
-    const ratio = Math.max(0, Math.min(offsetX / width, 1));
-    // 비율을 별점으로 변환 (0에서 10까지)
-    const rating = Math.ceil(ratio * 10);
+    const fillRating = fillRatingRef.current;
+    if (!emptyRating || !fillRating) return undefined;
 
-    // 계산된 별점으로 너비 설정
-    handleRatingSet(rating);
-  };
-
-  // 평점 저장
-  const saveRating = async () => {
-    // 로그인이 되어 있지 않을 경우
-    if (isEmpty(user)) {
-      toggleEnjoyModal();
-      return;
+    // 로그인이 되어 있고, myInfo가 있을 경우 평가하기 이미지 및 텍스트 설정
+    if (!isEmpty(user) && myInfo) {
+      handleRatingSet(myInfo.rating || 0);
     }
 
-    // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
+    // 비디오 평가하기 이벤트 설정
+    emptyRating.addEventListener('mouseover', handleMouseOver);
+    emptyRating.addEventListener('mouseout', handleMouseOut);
+    emptyRating.addEventListener('click', handleClick);
+    emptyRating.addEventListener('touchstart', handleTouchStart, { passive: true });
+    emptyRating.addEventListener('touchmove', handleTouchMove, { passive: false });
+    emptyRating.addEventListener('touchend', handleTouchEnd);
 
-    const rating = fillRatingRef?.current.dataset.rating;
-    if (!rating || rating === '0') {
-      return;
-    }
-
-    await videoRating(
-      { videoId, rating: rating, userId: user.id },
-      {
-        onSuccess: (res) => {
-          if (res.status === 200) {
-            const resRating = res.data.data.rating;
-            if (resRating) {
-              showSuccessToast(`평점 ${resRating / 2}점이 입력되었습니다.`);
-            } else {
-              showSuccessToast('입력된 평점이 삭제되었습니다.');
-            }
-          }
-        },
-      }
-    );
-  };
-
-  /*
-  // 툴팁 코멘트 설정
-  const handleTooltipContent = (tRating) => {
-    // myInfo가 있고, myInfo.rating이 마우스 오버한 rating과 같을 경우 취소하기 표시
-    if (myInfo && myInfo.rating === tRating) {
-      return '취소하기';
-    } else {
-      return `${fRating(tRating)}점`;
-    }
-  };
-  */
+    // clean up
+    return () => {
+      emptyRating.removeEventListener('mouseover', handleMouseOver);
+      emptyRating.removeEventListener('mouseout', handleMouseOut);
+      emptyRating.removeEventListener('click', handleClick);
+      emptyRating.removeEventListener('touchstart', handleTouchStart);
+      emptyRating.removeEventListener('touchmove', handleTouchMove);
+      emptyRating.removeEventListener('touchend', handleTouchEnd);
+    };
+  }, [user, myInfo, isRatingPending, isDragging]);
 
   return (
     <article className={styles.rating__container}>
@@ -246,16 +224,6 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
                 ))}
             </div>
           </div>
-
-          {/* {Array.from({ length: 5 }, (_, i) => (
-            <Tooltip
-              className={styles.rating__tooltip}
-              anchorSelect={`#videoRating${i + 1}`}
-              content={handleTooltipContent(i + 1)}
-              place="bottom"
-              key={i}
-            />
-          ))} */}
         </div>
       </div>
     </article>

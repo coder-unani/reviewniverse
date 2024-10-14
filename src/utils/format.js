@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 // 숫자인지 확인
 export const fParseInt = (value) => {
   const value2Int = Number(value);
-  return isNaN(value2Int) ? 0 : value2Int;
+  return Number.isNaN(value2Int) ? 0 : value2Int;
 };
 
 // 숫자 포맷: 1000단위 콤마 추가
@@ -43,13 +43,14 @@ export const fDiffDate = (date) => {
     const targetMonth = String(target.getMonth() + 1).padStart(2, '0');
     const targetDate = String(target.getDate()).padStart(2, '0');
     return `${targetYear}.${targetMonth}.${targetDate}`;
-  } else if (hour > 0) {
-    return `${hour}시간 전`;
-  } else if (min > 0) {
-    return `${min}분 전`;
-  } else {
-    return '방금 전';
   }
+  if (hour > 0) {
+    return `${hour}시간 전`;
+  }
+  if (min > 0) {
+    return `${min}분 전`;
+  }
+  return '방금 전';
 };
 
 // 문자 포맷: 대문자로 변경
@@ -59,7 +60,7 @@ export const fUpperCase = (text) => {
 
 // 문자 포맷: 주어진 자릿수만큼 문자열 자르기
 export const fTruncateText = (text, length) => {
-  return text.length > length ? text.slice(0, length) + '...' : text;
+  return text.length > length ? `${text.slice(0, length)}...` : text;
 };
 
 // 배열의 랜덤 요소 가져오기

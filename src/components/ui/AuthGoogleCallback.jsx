@@ -1,12 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 import { signInWithPopup, signInWithRedirect, getRedirectResult } from 'firebase/auth';
 import { auth, provider } from '@/library/firebase';
 
-import { DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { MESSAGES } from '@/config/messages';
 import { fProviderCode } from '@/utils/formatContent';
@@ -21,7 +20,6 @@ import styles from '@/styles/pages/UserAuth.module.scss';
 
 const AuthGoogleCallback = () => {
   const router = useRouter();
-  const pathname = usePathname();
   const { user, login, join } = useAuthContext();
   const { isMobile } = useThemeContext();
   const [snsUser, setSnsUser] = useState(null);
@@ -30,34 +28,52 @@ const AuthGoogleCallback = () => {
   const [isProcessed, setIsProcessed] = useState(false);
   const [isCreated, setIsCreated] = useState(false);
 
-  useEffect(() => {
-    // 구글 로그인
-    const handleGoogleLogin = async () => {
-      try {
-        // 모바일 구글 로그인 콜백 함수
-        const result = await getRedirectResult(auth);
-        if (result && result.user) {
-          // 모바일 구글 로그인 성공
-          const googleUser = result.user;
-          await processLogin(googleUser);
-          setIsProcessed(true);
-        } else if (!isProcessed && isMobile) {
-          // 모바일 구글 로그인
-          await signInWithRedirect(auth, provider);
-        } else if (!isProcessed && !isMobile) {
-          // PC 구글 로그인
-          const result = await signInWithPopup(auth, provider);
-          const googleUser = result.user;
-          await processLogin(googleUser);
-          setIsProcessed(true);
-        }
-      } catch (error) {
-        setSnsUser(null);
-        showErrorToast(error.message);
-        router.push(ENDPOINTS.USER_LOGIN);
-      }
+  // 사이트 회원가입
+  const handleSocialJoin = async (_snsUser, _agreeValues) => {
+    const joinUser = {
+      code: _snsUser.code,
+      email: _snsUser.email,
+      sns_id: _snsUser.sns_id,
+      nickname: _snsUser.nickname,
+      profile_image: _snsUser.profile_image,
+      is_privacy_agree: _agreeValues.privacy,
+      is_terms_agree: _agreeValues.terms,
+      is_age_agree: _agreeValues.age,
+      is_marketing_agree: _agreeValues.marketing,
     };
 
+    try {
+      const resJoin = await join(joinUser);
+
+      if (resJoin.status) {
+        // 회원가입 성공
+        setIsCreated(true);
+        const loginUser = {
+          code: joinUser.code,
+          email: joinUser.email,
+          sns_id: joinUser.sns_id,
+        };
+
+        // 로그인 시도
+        const resLogin = await login(loginUser);
+        if (!resLogin.status) {
+          // 로그인 실패
+          throw new Error(MESSAGES[resLogin.code]);
+        }
+        // 로그인이 성공한 경우 useEffect에서 로그인 성공 토스트 메시지 출력
+      } else {
+        // 회원가입 실패
+        throw new Error(MESSAGES[resJoin.code]);
+      }
+    } catch (error) {
+      showErrorToast(error.message);
+      router.push(ENDPOINTS.USER_LOGIN);
+    } finally {
+      setSnsUser(null);
+    }
+  };
+
+  useEffect(() => {
     // 사이트 로그인
     const processLogin = async (googleUser) => {
       // 로그인 유저 데이터 생성
@@ -75,20 +91,45 @@ const AuthGoogleCallback = () => {
         showSuccessToast(MESSAGES[res.code]);
         router.push(ENDPOINTS.HOME);
       } else {
-        // 로그인 실패
-        if (res.code === 'L003') {
-          // snsUser 데이터 생성해서 handleSocialJoin 함수 실행
-          setSnsUser({
-            code: loginUser.code,
-            email: googleUser.email,
-            sns_id: googleUser.uid,
-            nickname: googleUser.displayName,
-            profile_image: googleUser.photoURL,
-          });
-        } else {
-          // 로그인 실패 (L002)
+        if (res.code !== 'L003') {
           throw new Error(MESSAGES[res.code]);
         }
+        // 로그인 실패
+        // snsUser 데이터 생성해서 handleSocialJoin 함수 실행
+        setSnsUser({
+          code: loginUser.code,
+          email: googleUser.email,
+          sns_id: googleUser.uid,
+          nickname: googleUser.displayName,
+          profile_image: googleUser.photoURL,
+        });
+      }
+    };
+
+    // 구글 로그인
+    const handleGoogleLogin = async () => {
+      try {
+        // 모바일 구글 로그인 콜백 함수
+        const result = await getRedirectResult(auth);
+        if (result && result.user) {
+          // 모바일 구글 로그인 성공
+          const googleUser = result.user;
+          await processLogin(googleUser);
+          setIsProcessed(true);
+        } else if (!isProcessed && isMobile) {
+          // 모바일 구글 로그인
+          await signInWithRedirect(auth, provider);
+        } else if (!isProcessed && !isMobile) {
+          // PC 구글 로그인
+          const resPopup = await signInWithPopup(auth, provider);
+          const googleUser = resPopup.user;
+          await processLogin(googleUser);
+          setIsProcessed(true);
+        }
+      } catch (error) {
+        setSnsUser(null);
+        showErrorToast(error.message);
+        router.push(ENDPOINTS.USER_LOGIN);
       }
     };
 
@@ -101,7 +142,7 @@ const AuthGoogleCallback = () => {
     } else if (user && isProcessed) {
       // 사용자 정보가 있고 로그인이 진행중일 때 유저 왓치타입 페이지로 이동 (=회원가입 성공 후 로그인 성공)
       if (isCreated) {
-        showSuccessToast(MESSAGES['J001']);
+        showSuccessToast(MESSAGES.J001);
         router.push(ENDPOINTS.USER_WATCHTYPE);
       } else {
         router.push(ENDPOINTS.HOME);
@@ -117,63 +158,17 @@ const AuthGoogleCallback = () => {
     handleSocialJoin(snsUser, agreeValues);
   }, [snsUser, isAgree, agreeValues]);
 
-  // 사이트 회원가입
-  const handleSocialJoin = async (snsUser, agreeValues) => {
-    const joinUser = {
-      code: snsUser.code,
-      email: snsUser.email,
-      sns_id: snsUser.sns_id,
-      nickname: snsUser.nickname,
-      profile_image: snsUser.profile_image,
-      is_privacy_agree: agreeValues.privacy,
-      is_terms_agree: agreeValues.terms,
-      is_age_agree: agreeValues.age,
-      is_marketing_agree: agreeValues.marketing,
-    };
-
-    try {
-      const res = await join(joinUser);
-
-      if (res.status) {
-        setIsCreated(true);
-        // 회원가입 성공
-        const loginUser = {
-          code: joinUser.code,
-          email: joinUser.email,
-          sns_id: joinUser.sns_id,
-        };
-
-        // 로그인 시도
-        const loginRes = await login(loginUser);
-        if (!loginRes.status) {
-          // 로그인 실패
-          throw new Error(MESSAGES[loginRes.code]);
-        }
-        // 로그인이 성공한 경우 useEffect에서 로그인 성공 토스트 메시지 출력
-      } else {
-        // 회원가입 실패
-        throw new Error(MESSAGES[res.code]);
-      }
-    } catch (error) {
-      showErrorToast(error.message);
-      router.push(ENDPOINTS.USER_LOGIN);
-    } finally {
-      setSnsUser(null);
-    }
-  };
-
-  const Join = () => (
+  return snsUser ? (
     <>
       {isMobile && <BackButton />}
       <div className={styles.join__header}>
-        {/* <img className={styles.join__header__logo} src={DEFAULT_IMAGES.logoWhite} alt="logo" /> */}
         <h2 className={styles.join__header__title}>SNS 간편 로그인</h2>
       </div>
       <JoinAgree setIsAgree={setIsAgree} setAgreeValues={setAgreeValues} />
     </>
+  ) : (
+    <LoginLoading />
   );
-
-  return snsUser ? <Join /> : <LoginLoading />;
 };
 
 export default AuthGoogleCallback;

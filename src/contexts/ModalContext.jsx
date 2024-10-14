@@ -1,10 +1,8 @@
 'use client';
 
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 
-import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { setStorageHasVisited, getStorageHasVisited, getStorageHidePopupBanner } from '@/utils/formatStorage';
 import PopupBanner from '@/components/ui/Banner/Popup';
 import EnjoyModal from '@/components/ui/Modal/Enjoy';
 import ConfirmModal from '@/components/ui/Modal/Confirm';
@@ -21,7 +19,6 @@ import InfoMoal from '@/components/ui/Modal/Info';
 const ModalContext = createContext();
 
 const ModalContextProvider = ({ children }) => {
-  const router = useRouter();
   const pathname = usePathname();
   // 팝업 모달
   const [isPopupBanner, setIsPopupBanner] = useState(false);

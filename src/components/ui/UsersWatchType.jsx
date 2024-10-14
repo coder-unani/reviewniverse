@@ -8,11 +8,11 @@ import { isEmpty } from 'lodash';
 import { USER_WATCH_TYPE_CODE } from '@/config/codes';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { useWatchTypeCreate } from '@/hooks/useWatchTypeCreate';
+import { useWatchtypeCreate } from '@/hooks/useWatchtypeCreate';
 import { showSuccessToast, showInfoToast } from '@/components/ui/Toast';
 
 import CheckIcon from '@/resources/icons/check.svg';
-import styles from '@/styles/pages/UsersWatchType.module.scss';
+import styles from '@/styles/pages/UsersWatchtype.module.scss';
 
 /**
  * TODO:
@@ -20,11 +20,11 @@ import styles from '@/styles/pages/UsersWatchType.module.scss';
  * - 크기 줄이기
  */
 
-const UsersWatchType = () => {
+const UsersWatchtype = () => {
   const router = useRouter();
   const { user } = useAuthContext();
   const [selectedFavorites, setSelectedFavorites] = useState([]);
-  const { mutate: watchTypeCreate, isPending } = useWatchTypeCreate();
+  const { mutate: watchtypeCreate, isPending } = useWatchtypeCreate();
 
   const handleFavorite = (id) => {
     if (selectedFavorites.length >= 3 && !selectedFavorites.includes(id)) {
@@ -45,18 +45,13 @@ const UsersWatchType = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isPending) {
-      return;
-    }
 
-    if (isEmpty(selectedFavorites)) {
-      // showErrorToast("1개 이상 선택해주세요.");
-      return;
-    }
+    if (isPending) return;
+    if (isEmpty(selectedFavorites)) return;
 
-    const watchType = selectedFavorites.join(',');
-    await watchTypeCreate(
-      { userId: user.id, watchType },
+    const watchtype = selectedFavorites.join(',');
+    await watchtypeCreate(
+      { userId: user.id, watchtype },
       {
         onSuccess: (res) => {
           if (res.status === 201) {
@@ -81,6 +76,7 @@ const UsersWatchType = () => {
               key={key}
               className={`${styles.favorite__card} ${selectedFavorites.includes(key) ? styles.active : ''}`}
               onClick={() => handleFavorite(key)}
+              role="presentation"
             >
               <div className={styles.favorite__content}>
                 <picture className={styles.favorite__image__wrapper}>
@@ -121,4 +117,4 @@ const UsersWatchType = () => {
   );
 };
 
-export default UsersWatchType;
+export default UsersWatchtype;

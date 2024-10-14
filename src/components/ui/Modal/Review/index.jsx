@@ -27,6 +27,9 @@ import styles from '@/styles/components/ReviewModal.module.scss';
  * - 아이콘 넓이, 높이 명시적으로 지정
  */
 
+// 이 파일에서만 아래 속성들의 eslint-disable를 적용
+/* eslint-disable react/jsx-props-no-spreading */
+
 const ReviewModal = React.memo(({ content, myReview }) => {
   const modalRef = useRef();
   const { user } = useAuthContext();
@@ -36,9 +39,14 @@ const ReviewModal = React.memo(({ content, myReview }) => {
   const [isSpoiler, setIsSpoiler] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
 
-  // 모달 바깥 클릭 시 모달 닫기
+  // 모달 클릭 이벤트
   const handleModalClose = (e) => {
     if (e.target === modalRef.current) toggleReviewModal();
+  };
+
+  // 텍스트 영역에 포커스를 설정하는 함수
+  const handleFocus = (element) => {
+    if (element) element.focus(); // 요소에 포커스 설정
   };
 
   // 리뷰 붙여넣기 방지
@@ -65,7 +73,6 @@ const ReviewModal = React.memo(({ content, myReview }) => {
 
   // 리뷰 폼 메소드
   const {
-    register,
     handleSubmit,
     control,
     formState: { isDirty, isValid },
@@ -89,9 +96,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
   // 리뷰 폼 submit
   const onSubmit = handleSubmit(async (data) => {
     // 리뷰 등록 또는 수정 중일 경우 submit 방지
-    if (isCreatePending || isUpdatePending) {
-      return;
-    }
+    if (isCreatePending || isUpdatePending) return;
 
     // DOMPurify로 입력된 리뷰 내용 XSS 방지
     const sanitizedTitle = DOMPurify.sanitize(data.title);
@@ -102,8 +107,8 @@ const ReviewModal = React.memo(({ content, myReview }) => {
         {
           videoId: content.id,
           title: sanitizedTitle,
-          is_spoiler: isSpoiler,
-          is_private: isPrivate,
+          isSpoiler,
+          isPrivate,
           userId: user.id,
         },
         {
@@ -122,13 +127,14 @@ const ReviewModal = React.memo(({ content, myReview }) => {
         toggleReviewModal();
         return;
       }
+
       await reviewUpdate(
         {
           videoId: content.id,
           reviewId: myReview.id,
           title: sanitizedTitle,
-          is_spoiler: isSpoiler,
-          is_private: isPrivate,
+          isSpoiler,
+          isPrivate,
           userId: user.id,
         },
         {
@@ -168,12 +174,12 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                 render={({ field }) => (
                   <textarea
                     {...field}
-                    autoFocus // 리뷰 모달 열릴 때 textarea에 포커스
                     id="title"
                     className={styles.review__textarea}
                     placeholder="이 작품에 대한 리뷰를 남겨보세요."
                     spellCheck="false"
                     onPaste={handlePaste}
+                    ref={handleFocus}
                   />
                 )}
               />

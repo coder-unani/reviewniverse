@@ -16,11 +16,9 @@ const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const modalRef = useRef();
 
-  // 모달 닫기
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      onClose();
-    }
+    if (e.target === modalRef.current) onClose();
   };
 
   // 슬라이드 변경
@@ -37,15 +35,44 @@ const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
+  // 전역 키보드 이벤트 등록
+  useEffect(() => {
+    const handleKeydown = (e) => {
+      switch (e.key) {
+        case 'ArrowLeft':
+          handlePrevButton(); // 왼쪽 화살표 키 동작
+          break;
+        case 'ArrowRight':
+          handleNextButton(); // 오른쪽 화살표 키 동작
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeydown); // 이벤트 해제
+    };
+  }, [currentIndex, gallery, onClose]);
+
   return (
     <Modal>
       <div className={styles.photo__modal} ref={modalRef} onClick={handleModalClose}>
         {isMobile && <CloseButton onClose={onClose} />}
+        {/* 이미지 스타일 때문에 next Image 컴포넌트를 사용하지 않음 */}
         <img className={styles.photo__image} src={fMakeImageUrl(gallery[currentIndex])} alt={alt} loading="lazy" />
-        <button className={styles.photo__prev__button} onClick={handlePrevButton} disabled={currentIndex === 0}>
+        <button
+          type="button"
+          className={styles.photo__prev__button}
+          onClick={handlePrevButton}
+          disabled={currentIndex === 0}
+        >
           <ArrowLeftIcon width={28} height={28} />
         </button>
         <button
+          type="button"
           className={styles.photo__next__button}
           onClick={handleNextButton}
           disabled={currentIndex === gallery.length - 1}

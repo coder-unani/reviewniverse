@@ -1,10 +1,10 @@
 import { SETTINGS } from '@/config/settings';
-import { AxiosClient } from '@/utils/HttpClient';
-import { cLog, cError } from '@/utils/test';
+import AxiosClient from '@/utils/AxiosClient';
+import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
-  token: baseURL + '/v1/token',
+  token: `${baseURL}/v1/token`,
 };
 
 export const fetchToken = async () => {
@@ -14,5 +14,6 @@ export const fetchToken = async () => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };

@@ -14,10 +14,17 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
   const [photoModal, setPhotoModal] = useState({ isOpen: false, initialIndex: 0 });
   const swiperRef = useRef(null);
 
+  const togglePhotoModal = (index) => {
+    setPhotoModal({ isOpen: !photoModal.isOpen, initialIndex: index });
+  };
+
   useEffect(() => {
     const gallerySwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
+
+    let gallerySwiperInstance;
+    let cleanUpImage;
 
     if (gallerySwiper) {
       // 스와이퍼 설정
@@ -57,7 +64,7 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
         },
       };
 
-      const gallerySwiperInstance = new SwiperCore(gallerySwiper, gallerySwiperConfig);
+      gallerySwiperInstance = new SwiperCore(gallerySwiper, gallerySwiperConfig);
       swiperRef.current = gallerySwiperInstance;
 
       const gallerySwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
@@ -73,31 +80,23 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
       });
 
       // 이미지에 대한 onError 처리
-      const cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
-
-      // 컴포넌트 언마운트 시 스와이퍼 인스턴스, 이미지 에러 처리 함수 제거
-      return () => {
-        gallerySwiperInstance.destroy();
-        cleanUpImage();
-      };
+      cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
     }
+
+    // clean up
+    return () => {
+      gallerySwiperInstance?.destroy();
+      cleanUpImage?.();
+    };
   }, [uniqueId]);
 
   useEffect(() => {
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (prevButton) {
-      prevButton.disabled = isBeginning;
-    }
-    if (nextButton) {
-      nextButton.disabled = isEnd;
-    }
+    if (prevButton) prevButton.disabled = isBeginning;
+    if (nextButton) nextButton.disabled = isEnd;
   }, [isBeginning, isEnd, uniqueId]);
-
-  const togglePhotoModal = (index) => {
-    setPhotoModal({ isOpen: !photoModal.isOpen, initialIndex: index });
-  };
 
   return (
     photoModal.isOpen && (

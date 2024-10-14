@@ -22,7 +22,7 @@ const DefaultLayout = ({ children }) => {
         <AuthContextProvider>
           <ModalContextProvider>
             <div id="wrapper" className="wrapper">
-              <Suspense fallback={''}>
+              <Suspense fallback="">
                 <Header />
               </Suspense>
               {children}

@@ -23,10 +23,10 @@ const ShareButton = ({ title, desc, image }) => {
         aria-label="공유하기"
         onClick={toggleShareModal}
       >
-        <span className={styles.detail__control__icon}></span>
+        <span className={styles.detail__control__icon} />
       </button>
 
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <ShareModal title={title} desc={desc} image={image} isOpen={isShareModal} onClose={toggleShareModal} />
       </Suspense>
     </>

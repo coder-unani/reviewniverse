@@ -14,7 +14,7 @@ const EnjoyModal = React.memo(({ onClose }) => {
   const router = useRouter();
   const modalRef = useRef();
 
-  // 모달창 바깥 클릭 시 닫기
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
     if (e.target === modalRef.current) onClose();
   };
@@ -31,6 +31,7 @@ const EnjoyModal = React.memo(({ onClose }) => {
           <section className={styles.enjoy__section}>
             <CloseButton onClose={onClose} />
             <div className={styles.enjoy__image__wrapper}>
+              {/* 이미지 스타일 때문에 next Image 컴포넌트를 사용하지 않음 */}
               <img
                 className={styles.enjoy__image}
                 src={DEFAULT_IMAGES.userLogin}
@@ -40,7 +41,7 @@ const EnjoyModal = React.memo(({ onClose }) => {
               <p className={styles.enjoy__content}>로그인 후 이용할 수 있어요!</p>
             </div>
             <div className={styles.enjoy__button__wrapper}>
-              <button className={styles.login__button} onClick={handleLoginButton}>
+              <button type="button" className={styles.login__button} onClick={handleLoginButton}>
                 로그인
               </button>
             </div>

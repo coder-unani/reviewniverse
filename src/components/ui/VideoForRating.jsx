@@ -11,20 +11,20 @@ import VideoImage from '@/components/ui/VideoImage';
 import defStyles from '@/styles/components/Video.module.scss';
 
 const VideoForRating = ({ video }) => {
-  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.video.id });
-  const title = video.video.title;
-  const thumbnail = fThumbnail(video.video.thumbnail);
-  const code = fVideoCode(video.video.code);
-  const rating = video.rating;
+  const { id, title, thumbnail, code } = video.video;
+  const { rating } = video;
+  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
+  const videoThumbnail = fThumbnail(thumbnail);
+  const videoCode = fVideoCode(code);
 
   return (
     <Link href={path} className={defStyles.default__video__item} aria-label={title}>
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
-          <VideoImage thumbnail={thumbnail} title={title} />
+          <VideoImage thumbnail={videoThumbnail} title={title} />
         </picture>
         <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{code}</div>
+          <div className={defStyles.default__code}>{videoCode}</div>
         </div>
       </div>
       <div className={defStyles.default__info__container}>

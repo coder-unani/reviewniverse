@@ -24,29 +24,6 @@ const RatingVideo = ({ videoId, myInfo }) => {
   const ratingImgRef = useRef(null);
   const ratingTextRef = useRef(null);
 
-  // 비디오 평가하기 이벤트 설정
-  useEffect(() => {
-    const barRating = ratingRef.current;
-    if (!barRating) {
-      return;
-    }
-
-    // 로그인이 되어 있고, myInfo가 있을 경우 평가하기 이미지 및 텍스트 설정
-    if (!isEmpty(user) && myInfo) {
-      handleRatingSet(myInfo.rating || 0);
-    }
-
-    barRating.addEventListener('mouseover', handleRatingMouseOver);
-    barRating.addEventListener('mouseout', handleRatingMouseOut);
-    barRating.addEventListener('click', handleRatingClick);
-
-    return () => {
-      barRating.removeEventListener('mouseover', handleRatingMouseOver);
-      barRating.removeEventListener('mouseout', handleRatingMouseOut);
-      barRating.removeEventListener('click', handleRatingClick);
-    };
-  }, [user, myInfo, isRatingPending]);
-
   // 비디오 평가하기 이미지 및 텍스트 설정
   const handleRatingSet = (rating) => {
     if (ratingRef.current && ratingTextRef.current) {
@@ -59,14 +36,11 @@ const RatingVideo = ({ videoId, myInfo }) => {
   // 비디오 평가하기 마우스 올렸을 때 이벤트
   const handleRatingMouseOver = (e) => {
     // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
+    if (isRatingPending) return;
 
-    const rating = e.target.dataset.rating;
-    if (!rating) {
-      return;
-    }
+    // rating이 없을 경우 리턴
+    const { rating } = e.target.dataset;
+    if (!rating) return;
 
     handleRatingSet(rating);
   };
@@ -74,9 +48,7 @@ const RatingVideo = ({ videoId, myInfo }) => {
   // 비디오 평가하기 마우스 벗어났을 때 이벤트
   const handleRatingMouseOut = (e) => {
     // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
+    if (isRatingPending) return;
 
     if (ratingRef.current && !ratingRef.current.contains(e.relatedTarget)) {
       handleRatingSet(myInfo && myInfo.rating ? myInfo.rating : 0);
@@ -92,18 +64,15 @@ const RatingVideo = ({ videoId, myInfo }) => {
     }
 
     // API 호출 중일 경우 리턴
-    if (isRatingPending) {
-      return;
-    }
+    if (isRatingPending) return;
 
-    const rating = e.target.dataset.rating;
-    if (!rating) {
-      return;
-    }
+    // rating이 없을 경우 리턴
+    const { rating } = e.target.dataset;
+    if (!rating) return;
 
     // 평가하기 API 호출
     await videoRating(
-      { videoId, rating: rating, userId: user.id },
+      { videoId, rating, userId: user.id },
       {
         onSuccess: (res) => {
           if (res.status === 200) {
@@ -124,10 +93,31 @@ const RatingVideo = ({ videoId, myInfo }) => {
     // myInfo가 있고, myInfo.rating이 마우스 오버한 rating과 같을 경우 취소하기 표시
     if (myInfo && myInfo.rating === tRating) {
       return '취소하기';
-    } else {
-      return `${fRating(tRating)}점`;
     }
+    return `${fRating(tRating)}점`;
   };
+
+  // 비디오 평가하기 이벤트 설정
+  useEffect(() => {
+    const barRating = ratingRef.current;
+    if (!barRating) return undefined;
+
+    // 로그인이 되어 있고, myInfo가 있을 경우 평가하기 이미지 및 텍스트 설정
+    if (!isEmpty(user) && myInfo) {
+      handleRatingSet(myInfo.rating || 0);
+    }
+
+    barRating.addEventListener('mouseover', handleRatingMouseOver);
+    barRating.addEventListener('mouseout', handleRatingMouseOut);
+    barRating.addEventListener('click', handleRatingClick);
+
+    // clean up
+    return () => {
+      barRating.removeEventListener('mouseover', handleRatingMouseOver);
+      barRating.removeEventListener('mouseout', handleRatingMouseOut);
+      barRating.removeEventListener('click', handleRatingClick);
+    };
+  }, [user, myInfo, isRatingPending]);
 
   return (
     <article className={styles.rating__container}>
@@ -154,7 +144,7 @@ const RatingVideo = ({ videoId, myInfo }) => {
               data-rating={i + 1}
               data-color={fRatingColor(i + 1)}
               key={i}
-            ></div>
+            />
           ))}
         </div>
         {Array.from({ length: 10 }, (_, i) => (

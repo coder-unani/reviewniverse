@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
@@ -73,12 +73,8 @@ const VideosSwiper = ({ uniqueId }) => {
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (prevButton) {
-      prevButton.disabled = isBeginning;
-    }
-    if (nextButton) {
-      nextButton.disabled = isEnd;
-    }
+    if (prevButton) prevButton.disabled = isBeginning;
+    if (nextButton) nextButton.disabled = isEnd;
   }, [isBeginning, isEnd, uniqueId]);
 
   return null;

@@ -11,14 +11,7 @@ const ProfileImage = ({ image, size }) => {
 
   return (
     <div className={styles.profile__image__wrapper} style={style}>
-      <Image
-        className={styles.profile__image}
-        src={profileImage}
-        alt="프로필 이미지"
-        width={size}
-        height={size}
-        loading="lazy"
-      />
+      <Image className={styles.profile__image} src={profileImage} alt="프로필 이미지" width={size} height={size} />
     </div>
   );
 };

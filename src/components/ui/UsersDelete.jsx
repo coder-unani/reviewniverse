@@ -20,9 +20,7 @@ const UsersDelete = () => {
   const { mutate: userDelete, isPending: isDeletePending } = useUserDelete();
 
   useEffect(() => {
-    if (isEmpty(user)) {
-      router.push(ENDPOINTS.HOME);
-    }
+    if (isEmpty(user)) router.push(ENDPOINTS.HOME);
   }, []);
 
   // 회원탈퇴 취소
@@ -32,9 +30,8 @@ const UsersDelete = () => {
 
   // 회원탈퇴 확인
   const handleDelete = async () => {
-    if (isDeletePending) {
-      return;
-    }
+    if (isDeletePending) return;
+
     await userDelete(
       { userId: user.id },
       {

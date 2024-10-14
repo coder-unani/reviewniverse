@@ -1,15 +1,15 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
-import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
+import { showErrorToast } from '@/components/ui/Toast';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
 
 import styles from '@/styles/components/ShareModal.module.scss';
 
-const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
+// const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
+const FacebookShareButton = () => {
   useEffect(() => {
     // Facebook SDK 스크립트 동적 로드
     const script = document.createElement('script');
@@ -34,8 +34,7 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
   }, []);
 
   // 공유 버튼 클릭
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
     if (window.FB) {
       window.FB.ui(
         {
@@ -57,7 +56,7 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
   };
 
   return (
-    <Link id="btn-facebook-share" className={styles.share__button} href="#" onClick={handleClick}>
+    <button type="button" id="btn-facebook-share" className={styles.share__button} onClick={handleClick}>
       <picture className={styles.share__button__image__wrapper}>
         <Image
           className={styles.share__button__image}
@@ -69,7 +68,7 @@ const FacebookShareButton = ({ title, desc, link = null, image = null }) => {
         />
       </picture>
       <p className={styles.share__button__name}>Facebook</p>
-    </Link>
+    </button>
   );
 };
 

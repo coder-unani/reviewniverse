@@ -2,29 +2,22 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { SETTINGS } from '@/config/settings';
 
 class LoginService {
-  constructor() {
-    this.kakaoApiKey = SETTINGS.KAKAO_API_KEY;
-    this.kakaoCallbackUrl = SETTINGS.KAKAO_CALLBACK_URL;
-    this.naverClientId = SETTINGS.NAVER_CLIENT_ID;
-    this.naverCallbackUrl = SETTINGS.NAVER_CALLBACK_URL;
-  }
-
-  handleKakaoLogin() {
+  static handleKakaoLogin() {
     const kakaoAuthUrl = `https://kauth.kakao.com/oauth/authorize?client_id=${
-      this.kakaoApiKey
-    }&redirect_uri=${encodeURIComponent(this.kakaoCallbackUrl)}&response_type=code`;
+      SETTINGS.KAKAO_API_KEY
+    }&redirect_uri=${encodeURIComponent(SETTINGS.KAKAO_CALLBACK_URL)}&response_type=code`;
     window.location.href = kakaoAuthUrl;
   }
 
-  handleGoogleLogin(router) {
+  static handleGoogleLogin(router) {
     router.push(ENDPOINTS.USER_AUTH_GOOGLE_CALLBACK);
   }
 
-  handleNaverLogin() {
+  static handleNaverLogin() {
     const { naver } = window;
     const naverLogin = new naver.LoginWithNaverId({
-      clientId: this.naverClientId,
-      callbackUrl: this.naverCallbackUrl,
+      clientId: SETTINGS.NAVER_CLIENT_ID,
+      callbackUrl: SETTINGS.NAVER_CALLBACK_URL,
       isPopup: false,
       loginButton: { color: 'white', type: 1, height: 60 },
     });
@@ -41,11 +34,11 @@ class LoginService {
     // CSRF 방지를 위한 상태 코드
     const state = Math.random().toString(36).substr(2, 11);
     const naverAuthUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
-      this.naverClientId
-    }&redirect_uri=${encodeURIComponent(this.naverCallbackUrl)}&state=${state}`;
+      SETTINGS.NAVER_CLIENT_ID
+    }&redirect_uri=${encodeURIComponent(SETTINGS.NAVER_CALLBACK_URL)}&state=${state}`;
     window.location.href = naverAuthUrl;
     */
   }
 }
 
-export default new LoginService();
+export default LoginService;

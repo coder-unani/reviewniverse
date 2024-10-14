@@ -145,31 +145,32 @@
 
 .review__comment__wrapper {
   display: flex;
+}
 
-  &[data-spoiler='true'] {
-    .review__comment {
-      position: relative;
+.review__comment__spoiler {
+  position: relative;
+  text-align: left;
+  cursor: text;
 
-      &[data-active='true'] {
-        &:hover {
-          &::before {
-            background-color: $color-white-08;
-          }
-        }
+  &[data-active='true'] {
+    cursor: pointer;
 
-        &::before {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 6px;
-          background-color: $color-white-09;
-          z-index: 999;
-          cursor: pointer;
-        }
+    &:hover {
+      &::before {
+        background-color: $color-white-08;
       }
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      background-color: $color-white-09;
+      z-index: 999;
     }
   }
 }

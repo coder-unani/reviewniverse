@@ -1,16 +1,17 @@
 import { SETTINGS } from '@/config/settings';
-import { FetchClient, AxiosClient } from '@/utils/HttpClient';
-import { cLog, cError } from '@/utils/test';
+import FetchClient from '@/utils/FetchClient';
+import AxiosClient from '@/utils/AxiosClient';
+import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
-  videos: baseURL + '/v1/videos',
-  videosUpcoming: baseURL + '/v1/videos/upcoming',
-  videoDetail: baseURL + '/v1/videos/:videoId',
-  videoReviews: baseURL + '/v1/videos/:videoId/reviews',
-  videoMyInfo: baseURL + '/v1/videos/:videoId/myinfo',
-  videoLike: baseURL + '/v1/videos/:videoId/like',
-  videoRating: baseURL + '/v1/videos/:videoId/rating',
+  videos: `${baseURL}/v1/videos`,
+  videosUpcoming: `${baseURL}/v1/videos/upcoming`,
+  videoDetail: `${baseURL}/v1/videos/:videoId`,
+  videoReviews: `${baseURL}/v1/videos/:videoId/reviews`,
+  videoMyInfo: `${baseURL}/v1/videos/:videoId/myinfo`,
+  videoLike: `${baseURL}/v1/videos/:videoId/like`,
+  videoRating: `${baseURL}/v1/videos/:videoId/rating`,
 };
 
 // Video List API
@@ -45,7 +46,7 @@ export const fetchVideos = async ({
       ...(orderBy && { ob: orderBy }),
       ...(mode && { m: mode }),
       ...(code && { cd: code }),
-      ...(by && { by: by }),
+      ...(by && { by }),
       ...(terms && { tm: terms }),
       ...(model && { md: model }),
       ...(query && { q: query }),
@@ -53,6 +54,7 @@ export const fetchVideos = async ({
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -66,6 +68,7 @@ export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -76,6 +79,7 @@ export const fetchVideoDetail = async ({ videoId }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -85,11 +89,12 @@ export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null,
     const res = await client.get(endpoints.videoReviews.replace(':videoId', videoId), {
       ...(page && { p: page }),
       ...(pageSize && { ps: pageSize }),
-      ...(metadata && { metadata: metadata }),
+      ...(metadata && { metadata }),
     });
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -100,6 +105,7 @@ export const fetchVideoMyInfo = async ({ videoId }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -110,6 +116,7 @@ export const fetchVideoLike = async ({ videoId }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -120,5 +127,6 @@ export const fetchVideoRating = async ({ videoId, rating }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };

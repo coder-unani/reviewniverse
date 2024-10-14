@@ -18,7 +18,7 @@ export const ContentsProvider = ({ children, id }) => {
     error: myInfoError,
     isLoading: myInfoIsLoading,
   } = useVideoMyInfo({
-    videoId: videoId,
+    videoId,
     userId: isEmpty(user) ? null : user.id,
     enabled: !isEmpty(user) && videoId,
   });

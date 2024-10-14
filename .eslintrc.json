@@ -7,7 +7,12 @@
   "extends": ["next/core-web-vitals", "airbnb", "plugin:prettier/recommended"],
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
-    "no-console": "off",
+    "no-console": "off", // console 사용 경고 비활성화
+    "react/prop-types": "off", // 타입스크립트 변경시 주석해제
+    "react/no-array-index-key": "off", // key값으로 index 사용 가능
+    "jsx-a11y/click-events-have-key-events": "off", // 클릭 이벤트에 키 이벤트를 추가할 필요 없음
+    "jsx-a11y/no-noninteractive-element-interactions": "off", // 비대화형 요소에 상호작용 이벤트를 추가할 필요 없음
+    "jsx-a11y/no-static-element-interactions": "off", // 정적 요소에 상호작용 이벤트를 추가할 필요 없음
     "prettier/prettier": ["error", { "singleQuote": true }],
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
     "import/prefer-default-export": "off",
@@ -17,6 +22,16 @@
       {
         "namedComponents": "arrow-function",
         "unnamedComponents": "arrow-function"
+      }
+    ],
+    "import/extensions": [
+      "error", // 확장자 규칙 위배시 에러
+      "ignorePackages", // 패키지(module) 경로는 검사하지 않음
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never"
       }
     ]
   }

@@ -1,20 +1,20 @@
 import { SETTINGS } from '@/config/settings';
-import { AxiosClient } from '@/utils/HttpClient';
-import { cLog, cError } from '@/utils/test';
+import AxiosClient from '@/utils/AxiosClient';
+import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
-  login: baseURL + '/v1/users/login',
-  join: baseURL + '/v1/users',
-  watchType: baseURL + '/v1/users/:userId/watchtype',
-  user: baseURL + '/v1/users/:userId',
-  userMe: baseURL + '/v1/users/me',
-  validateEmail: baseURL + '/v1/users/validate/email',
-  validateNickname: baseURL + '/v1/users/validate/nickname',
-  userReviews: baseURL + '/v1/users/:userId/reviews',
-  userReviewLikes: baseURL + '/v1/users/:userId/reviews/likes',
-  userRatings: baseURL + '/v1/users/:userId/videos/ratings',
-  userLikes: baseURL + '/v1/users/:userId/videos/likes',
+  login: `${baseURL}/v1/users/login`,
+  join: `${baseURL}/v1/users`,
+  watchType: `${baseURL}/v1/users/:userId/watchtype`,
+  user: `${baseURL}/v1/users/:userId`,
+  userMe: `${baseURL}/v1/users/me`,
+  validateEmail: `${baseURL}/v1/users/validate/email`,
+  validateNickname: `${baseURL}/v1/users/validate/nickname`,
+  userReviews: `${baseURL}/v1/users/:userId/reviews`,
+  userReviewLikes: `${baseURL}/v1/users/:userId/reviews/likes`,
+  userRatings: `${baseURL}/v1/users/:userId/videos/ratings`,
+  userLikes: `${baseURL}/v1/users/:userId/videos/likes`,
 };
 
 // 로그인
@@ -30,6 +30,7 @@ export const fetchLogin = async ({ user }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -41,17 +42,19 @@ export const fetchJoin = async (user) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
 // 회원성향 등록
-export const fetchWatchType = async ({ userId, watchType }) => {
+export const fetchWatchType = async ({ userId, watchtype }) => {
   try {
     const client = new AxiosClient();
-    const res = await client.post(endpoints.watchType.replace(':userId', userId), {}, { watch_type: watchType });
+    const res = await client.post(endpoints.watchType.replace(':userId', userId), {}, { watch_type: watchtype });
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -63,6 +66,7 @@ export const fetchUser = async ({ userId }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -74,6 +78,7 @@ export const fetchUserMe = async () => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -86,6 +91,7 @@ export const fetchUserUpdate = async ({ userId, updateData }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -97,6 +103,7 @@ export const fetchUserDelete = async ({ userId }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -108,6 +115,7 @@ export const fetchValidateEmail = async ({ email }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -119,6 +127,7 @@ export const fetchValidateNickname = async ({ nickname }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -127,13 +136,14 @@ export const fetchUserReviews = async ({ userId, page = null, pageSize = null, o
   try {
     const client = new AxiosClient();
     const res = await client.get(endpoints.userReviews.replace(':userId', userId), {
-      ...(page && { page: page }),
+      ...(page && { page }),
       ...(pageSize && { page_size: pageSize }),
       ...(orderBy && { order_by: orderBy }),
     });
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -142,13 +152,14 @@ export const fetchUserReviewLikes = async ({ userId, page = null, pageSize = nul
   try {
     const client = new AxiosClient();
     const res = await client.get(endpoints.userReviewLikes.replace(':userId', userId), {
-      ...(page && { page: page }),
+      ...(page && { page }),
       ...(pageSize && { page_size: pageSize }),
       ...(orderBy && { order_by: orderBy }),
     });
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -157,13 +168,14 @@ export const fetchUserLikes = async ({ userId, page = null, pageSize = null, ord
   try {
     const client = new AxiosClient();
     const res = await client.get(endpoints.userLikes.replace(':userId', userId), {
-      ...(page && { page: page }),
+      ...(page && { page }),
       ...(pageSize && { page_size: pageSize }),
       ...(orderBy && { order_by: orderBy }),
     });
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };
 
@@ -172,12 +184,13 @@ export const fetchUserRatings = async ({ userId, page = null, pageSize = null, o
   try {
     const client = new AxiosClient();
     const res = await client.get(endpoints.userRatings.replace(':userId', userId), {
-      ...(page && { page: page }),
+      ...(page && { page }),
       ...(pageSize && { page_size: pageSize }),
       ...(orderBy && { order_by: orderBy }),
     });
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };

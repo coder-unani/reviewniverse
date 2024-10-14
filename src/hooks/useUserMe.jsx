@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { cLog, cError } from '@/utils/test';
+import { cError } from '@/utils/test';
 import { fetchUserMe } from '@/library/api/users';
 
 export const useUserMe = () => {
@@ -14,14 +14,13 @@ export const useUserMe = () => {
             code: '',
             data: res.data.user,
           };
-        } else {
-          throw new Error('회원정보를 가져오는데 실패했습니다.');
         }
+        throw new Error('회원정보를 가져오는데 실패했습니다.');
       } catch (error) {
         throw new Error('회원정보를 가져오는데 실패했습니다.');
       }
     },
-    onSuccess: (res, variables) => {},
+    onSuccess: () => {},
     onError: (error) => {
       cError(error.message);
     },

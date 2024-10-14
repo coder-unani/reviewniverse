@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import SwiperCore from 'swiper';
 import { Navigation } from 'swiper/modules';
 
@@ -15,6 +15,9 @@ const GenresSwiper = ({ uniqueId }) => {
     const genreSwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
+
+    let genreSwiperInstance;
+    let cleanUpImage;
 
     if (genreSwiper) {
       // 스와이퍼 설정
@@ -66,7 +69,7 @@ const GenresSwiper = ({ uniqueId }) => {
         },
       };
 
-      const genreSwiperInstance = new SwiperCore(genreSwiper, genreSwiperConfig);
+      genreSwiperInstance = new SwiperCore(genreSwiper, genreSwiperConfig);
       swiperRef.current = genreSwiperInstance;
 
       const genreSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
@@ -75,26 +78,22 @@ const GenresSwiper = ({ uniqueId }) => {
       });
 
       // 이미지에 대한 onError 처리
-      const cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
-
-      // 컴포넌트 언마운트 시 스와이퍼 인스턴스, 이미지 에러 처리 함수 제거
-      return () => {
-        genreSwiperInstance.destroy();
-        cleanUpImage();
-      };
+      cleanUpImage = fReplaceImageOnError(`.swiper[data-swiper-id="${uniqueId}"] img`);
     }
+
+    // clean up
+    return () => {
+      genreSwiperInstance?.destroy();
+      cleanUpImage?.();
+    };
   }, [uniqueId]);
 
   useEffect(() => {
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (prevButton) {
-      prevButton.disabled = isBeginning;
-    }
-    if (nextButton) {
-      nextButton.disabled = isEnd;
-    }
+    if (prevButton) prevButton.disabled = isBeginning;
+    if (nextButton) nextButton.disabled = isEnd;
   }, [isBeginning, isEnd, uniqueId]);
 
   return null;

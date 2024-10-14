@@ -13,7 +13,7 @@ const UsersProfileComponent = dynamic(() => import('@/components/ui/UsersProfile
 const UsersProfile = () => {
   return (
     <main className={styles.edit__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <UsersProfileComponent />
       </Suspense>
     </main>

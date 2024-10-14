@@ -25,22 +25,20 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
       return;
     }
 
-    if (isLikePending) {
-      return;
-    }
+    // 좋아요 중복 요청 방지
+    if (isLikePending) return;
 
     await reviewLike(
       { videoId, reviewId: review.id, userId: user.id },
       {
         onSuccess: (res) => {
           if (res.status === 200 && setReview) {
-            const likeCount = res.data.data.like_count;
-            const isLike = res.data.data.is_like;
+            const { like_count: resLikeCount, is_like: resIsLike } = res.data.data;
             setReview((prev) => {
               return {
                 ...prev,
-                like_count: likeCount,
-                my_info: { is_like: isLike },
+                like_count: resLikeCount,
+                my_info: { is_like: resIsLike },
               };
             });
           }

@@ -47,25 +47,18 @@ const initUpcomingVideos = (result) => {
 
 // UpComing 컨텐츠
 const getUpcomingVideos = async () => {
-  const options = {
-    page: 1,
-    size: UPCOMING_PAGE_SIZE,
-  };
+  const options = { page: 1, size: UPCOMING_PAGE_SIZE };
 
   // Coming Videos API 호출
   const res = await fetchUpcomingVideos({ ...options });
   if (res.status === 200) {
     return res.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // TODO: 메타 태그 설정
 export const generateMetadata = async () => {
-  const result = await getUpcomingVideos();
-  const videos = initUpcomingVideos(result);
-
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const title = `공개 예정작 | 리뷰니버스`;
   const description = `OTT 공개 예정작을 확인해보세요.`;
@@ -78,13 +71,13 @@ export const generateMetadata = async () => {
     alternates: {
       canonical: url,
     },
-    title: title,
-    description: description,
-    keywords: keywords,
+    title,
+    description,
+    keywords,
     openGraph: {
-      url: url,
-      title: title,
-      description: description,
+      url,
+      title,
+      description,
       images: [
         {
           url: imageUrl,
@@ -126,7 +119,7 @@ const Upcoming = async () => {
           {videos.data.map((video) => (
             <VideoForUpcoming video={video} key={video.id} />
           ))}
-          <Suspense fallback={''}>
+          <Suspense fallback="">
             <UpcomingComponent enabled={enabled} />
           </Suspense>
         </div>

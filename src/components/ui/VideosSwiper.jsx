@@ -13,28 +13,28 @@ import styles from '@/styles/components/VideosSwiper.module.scss';
 
 const VideosSwiperClient = dynamic(() => import('@/components/ui/Client/VideosSwiper'), { ssr: false });
 
+// 템플릿에 따른 비디오 아이템 렌더링
+const RenderVideoItems = ({ video, template, index }) => {
+  switch (template) {
+    case 'rank':
+      // 랭킹 비디오 아이템 렌더링
+      return <VideoForRank video={video} index={index} />;
+    case 'upcoming':
+      // 커밍순 아이템 렌더링
+      return <VideoForUpcoming video={video} index={index} />;
+    default:
+      // 기본 비디오 아이템 렌더링
+      return <Video video={video} index={index} />;
+  }
+};
+
 const VideosSwiper = ({ children, videos, template = 'default' }) => {
   if (isEmpty(videos)) {
     return null;
   }
 
-  // 서버에서 최소한의 슬라이드를 렌더링
+  // 고유 아이디 생성
   const uniqueId = nanoid();
-
-  // 템플릿에 따른 비디오 아이템 렌더링
-  const RenderVideoItems = ({ video, template, index }) => {
-    switch (template) {
-      case 'rank':
-        // 랭킹 비디오 아이템 렌더링
-        return <VideoForRank video={video} index={index} />;
-      case 'upcoming':
-        // 커밍순 아이템 렌더링
-        return <VideoForUpcoming video={video} index={index} />;
-      default:
-        // 기본 비디오 아이템 렌더링
-        return <Video video={video} index={index} />;
-    }
-  };
 
   return (
     <>
@@ -71,8 +71,8 @@ const VideosSwiper = ({ children, videos, template = 'default' }) => {
         </div>
       </section>
 
-      <Suspense fallback={''}>
-        {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
+      {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
+      <Suspense fallback="">
         <VideosSwiperClient uniqueId={uniqueId} />
       </Suspense>
     </>

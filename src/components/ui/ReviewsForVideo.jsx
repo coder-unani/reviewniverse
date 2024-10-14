@@ -1,25 +1,20 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { isEmpty } from 'lodash';
 
 import Review from '@/components/ui/Review';
 
-const ReviewsForVideo = ({ children, videoId, reviews, handlePage }) => {
-  const [hasMore, setHasMore] = useState(true);
+const ReviewsForVideo = ({ videoId, reviews, handlePage }) => {
+  const hasMore = reviews.data && reviews.total > reviews.data.length;
   const observer = useRef();
-
-  // hasMore 상태 변경
-  useEffect(() => {
-    if (reviews.data && reviews.total <= reviews.data.length) {
-      setHasMore(false);
-    } else {
-      setHasMore(true);
-    }
-  }, [reviews]);
 
   // 무한 스크롤 처리
   const lastItemRef = useCallback(
     (node) => {
-      if (!hasMore) return;
+      if (!hasMore) {
+        if (observer.current) observer.current.disconnect();
+        return;
+      }
+
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
@@ -30,20 +25,17 @@ const ReviewsForVideo = ({ children, videoId, reviews, handlePage }) => {
 
       if (node) observer.current.observe(node);
     },
-    [hasMore, reviews]
+    [hasMore, reviews, handlePage]
   );
 
-  // 리뷰 데이터가 없는 경우
-  if (isEmpty(reviews.data)) {
-    return;
-  }
+  if (isEmpty(reviews.data)) return null;
 
   return (
     <>
       {reviews.data.map((review) => (
         <Review videoId={videoId} review={review} key={review.id} />
       ))}
-      {hasMore && <article ref={lastItemRef}></article>}
+      {hasMore && <article ref={lastItemRef} />}
     </>
   );
 };

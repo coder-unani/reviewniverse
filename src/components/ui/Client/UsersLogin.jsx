@@ -1,19 +1,16 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import { ENDPOINTS } from '@/config/endpoints';
 import { useAuthContext } from '@/contexts/AuthContext';
-import { useThemeContext } from '@/contexts/ThemeContext';
 import LoginService from '@/services/LoginService';
-import BackButton from '@/components/ui/Button/Back';
 
 const UsersLogin = () => {
   const router = useRouter();
   const { user } = useAuthContext();
-  const { isMobile } = useThemeContext();
 
   useEffect(() => {
     if (!isEmpty(user)) {
@@ -31,26 +28,24 @@ const UsersLogin = () => {
     // 스크립트를 head에 추가
     document.head.appendChild(script);
 
+    const naverButton = document.querySelector('.login-naver-button');
     script.onload = () => {
-      const naverButton = document.querySelector('.login-naver-button');
-      naverButton.addEventListener('click', () => {
-        LoginService.handleNaverLogin();
-      });
+      naverButton.addEventListener('click', LoginService.handleNaverLogin);
     };
 
     const kakaoButton = document.querySelector('.login-kakao-button');
-    kakaoButton.addEventListener('click', () => {
-      LoginService.handleKakaoLogin();
-    });
+    kakaoButton.addEventListener('click', LoginService.handleKakaoLogin);
 
     const googleButton = document.querySelector('.login-google-button');
-    googleButton.addEventListener('click', () => {
-      LoginService.handleGoogleLogin(router);
-    });
+    googleButton.addEventListener('click', () => LoginService.handleGoogleLogin(router));
 
     // 컴포넌트가 언마운트될 때 스크립트 제거
     return () => {
       document.head.removeChild(script);
+
+      naverButton.removeEventListener('click', LoginService.handleNaverLogin);
+      kakaoButton.removeEventListener('click', LoginService.handleKakaoLogin);
+      googleButton.removeEventListener('click', LoginService.handleGoogleLogin);
     };
   }, []);
 

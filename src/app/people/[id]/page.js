@@ -90,9 +90,8 @@ const getPeopleVideos = async ({ peopleId }) => {
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data;
-  } else {
-    return {};
   }
+  return {};
 };
 
 // 메타 태그 설정
@@ -109,7 +108,7 @@ export const generateMetadata = async ({ params }) => {
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const isIndex = videos.data.length > 0;
-  const person = videos.metadata.person;
+  const { person } = videos.metadata;
   const title = `${person.name} 필모그래피 | 리뷰니버스`;
   const description = `${person.name}의 작품들을 확인해보세요.`;
   const imageUrl = `${SETTINGS.CDN_BASE_URL}/${person.picture}`;
@@ -124,13 +123,13 @@ export const generateMetadata = async ({ params }) => {
     alternates: {
       canonical: url,
     },
-    title: title,
-    description: description,
-    keywords: keywords,
+    title,
+    description,
+    keywords,
     openGraph: {
-      url: url,
-      title: title,
-      description: description,
+      url,
+      title,
+      description,
       images: [
         {
           url: imageUrl,
@@ -143,6 +142,14 @@ export const generateMetadata = async ({ params }) => {
   };
 };
 
+// 프로필 타일
+const ProfileTile = ({ title, desc }) => (
+  <div className={styles.people__profile}>
+    <span className={styles.people__profile__title}>{title}</span>
+    <span className={styles.people__profile__desc}>{desc}</span>
+  </div>
+);
+
 const People = async ({ params }) => {
   const { id } = params;
   const peopleId = fParseInt(id);
@@ -154,18 +161,10 @@ const People = async ({ params }) => {
   const result = await getPeopleVideos({ peopleId });
   const videos = initPeopleVideos(result);
 
-  const person = videos.metadata.person;
+  const { person } = videos.metadata;
   const subtitle = '필모그래피';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PEOPLE_PAGE_SIZE;
-
-  // 프로필 타일
-  const ProfileTile = ({ title, desc }) => (
-    <div className={styles.people__profile}>
-      <span className={styles.people__profile__title}>{title}</span>
-      <span className={styles.people__profile__desc}>{desc}</span>
-    </div>
-  );
 
   return (
     <main className={styles.people__main}>
@@ -175,7 +174,7 @@ const People = async ({ params }) => {
             image={fMakeImageUrl(person.picture, DEFAULT_IMAGES.noActor)}
             size={100}
             alt={person.name}
-            priority={true}
+            priority
           />
           <div className={styles.people__info__wrapper}>
             <div className={styles.people__name__wrapper}>
@@ -199,7 +198,7 @@ const People = async ({ params }) => {
           {videos.data.map((video) => (
             <Video video={video} key={video.id} />
           ))}
-          <Suspense fallback={''}>
+          <Suspense fallback="">
             <Filmography peopleId={peopleId} enabled={enabled} />
           </Suspense>
         </div>

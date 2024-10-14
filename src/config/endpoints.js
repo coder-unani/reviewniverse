@@ -1,9 +1,11 @@
 export class EndpointManager {
   static generateUrl(endpoint, params = {}) {
     let url = endpoint;
-    for (const key in params) {
-      url = url.replace(`:${key}`, params[key]);
-    }
+
+    Object.entries(params).forEach(([key, value]) => {
+      url = url.replace(`:${key}`, value);
+    });
+
     return url;
   }
 }

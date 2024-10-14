@@ -10,15 +10,6 @@ const SkeletonVideoDetail = () => {
   const [peopleCount, setPeopleCount] = useState(4);
   const [galleryCount, setGalleryCount] = useState(4);
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
   const handleResize = () => {
     const width = window.innerWidth;
 
@@ -36,6 +27,15 @@ const SkeletonVideoDetail = () => {
       setGalleryCount(4);
     }
   };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   return (
     <SkeletonTheme baseColor="#12222b" highlightColor="#263d4b">

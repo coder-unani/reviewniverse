@@ -3,10 +3,10 @@ import { useMutation } from '@tanstack/react-query';
 import { cLog, cError } from '@/utils/test';
 import { fetchWatchType } from '@/library/api/users';
 
-export const useWatchTypeCreate = () => {
+export const useWatchtypeCreate = () => {
   return useMutation({
-    mutationFn: async (variables) => await fetchWatchType(variables),
-    onSuccess: (res, variables) => {
+    mutationFn: (variables) => fetchWatchType(variables),
+    onSuccess: (res) => {
       if (res.status === 201) {
         cLog('회원성향이 등록되었습니다.');
       } else {

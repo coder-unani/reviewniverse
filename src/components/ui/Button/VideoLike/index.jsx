@@ -22,9 +22,9 @@ const VideoLikeButton = ({ videoId }) => {
       toggleEnjoyModal();
       return;
     }
-    if (isLikePending) {
-      return;
-    }
+
+    if (isLikePending) return;
+
     await videoLike(
       { videoId, userId: user.id },
       {
@@ -50,7 +50,7 @@ const VideoLikeButton = ({ videoId }) => {
       onClick={handleLikeButton}
       disabled={isLikePending}
     >
-      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.is_like ? styles.active : ''}`}></span>
+      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.is_like ? styles.active : ''}`} />
     </button>
   );
 };

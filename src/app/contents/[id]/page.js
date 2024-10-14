@@ -30,7 +30,7 @@ import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
 import ShareButton from '@/components/ui/Button/Share';
-import InquiryButton from '@/components/ui/Button/Inquiry';
+// import InquiryButton from '@/components/ui/Button/Inquiry';
 import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
@@ -64,9 +64,8 @@ const getContent = async ({ videoId }) => {
   const res = await fetchVideoDetail({ videoId });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return {};
   }
+  return {};
 };
 
 // 메타 태그 설정
@@ -85,7 +84,7 @@ export const generateMetadata = async ({ params }) => {
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   // TODO: og태그 이미지 사이즈 고려, 이미지 사이즈 1200x630px 권장으로 인해 background 이미지 사용
-  const title = content.title;
+  const { title } = content;
   const releaseYear = fYear(content.release);
   const synopsis = content.synopsis || '';
   // const imageUrl = fThumbnail(content.thumbnail);
@@ -102,9 +101,9 @@ export const generateMetadata = async ({ params }) => {
     },
     title: metaTitle,
     description: synopsis,
-    keywords: keywords,
+    keywords,
     openGraph: {
-      url: url,
+      url,
       title: metaTitle,
       description: synopsis,
       images: [
@@ -117,6 +116,130 @@ export const generateMetadata = async ({ params }) => {
       ],
     },
   };
+};
+
+// 플랫폼 보러가기
+const VideoPlatform = ({ platformTitle, platforms, upcoming }) => {
+  if (isEmpty(platforms)) {
+    return null;
+  }
+
+  // platforms.code 와 upcoming.code 가 같은 upcoming 데이터를 찾아서 platforms에 upcoming.release 추가
+  const updatedPlatforms = platforms.map((platform) => {
+    const upcomingPlatform = upcoming.find((uc) => uc.platform === platform.code);
+    if (upcomingPlatform) {
+      return {
+        ...platform,
+        release: upcomingPlatform.release,
+      };
+    }
+    return platform;
+  });
+
+  return (
+    <section className={styles.detail__platform__section}>
+      <h2 className={styles.detail__main__title}>{platformTitle}</h2>
+      <ul className={styles.detail__platform__wrapper}>
+        {updatedPlatforms.map((platform, index) => (
+          <li
+            className={`platform-item ${styles.detail__platform}`}
+            aria-label={`${fPlatformNameByCode(platform.code)} 보러가기`}
+            data-url={platform.url}
+            key={index}
+          >
+            <div className={styles.platform__image__wrapper}>
+              {platform.release && (
+                <div className={styles.platform__image__overlay}>
+                  <span className={styles.platform__release__overlay}>{fYear(platform.release)}</span>
+                  <span className={styles.platform__release__overlay}>{fReleaseDate(platform.release)}</span>
+                </div>
+              )}
+              <Image
+                className={styles.platform__image}
+                src={`${SETTINGS.CDN_BASE_URL}/assets/images/platform/${platform.code}.png`}
+                alt={fPlatformNameByCode(platform.code)}
+                width={60}
+                height={60}
+                loading="lazy"
+              />
+            </div>
+            <div className={styles.platform__info}>
+              <p className={styles.platform__name}>{fPlatformNameByCode(platform.code)}</p>
+              {platform.release && <p className={styles.platform__release}>공개예정일: {fDate(platform.release)}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+};
+
+// 출연진/제작진 컴포넌트
+const VideoPeople = ({ title, people, formatCode }) => {
+  if (isEmpty(people)) {
+    return null;
+  }
+
+  const uniqueId = nanoid();
+
+  return (
+    <>
+      <section className={styles.detail__people__section}>
+        <h2 className={styles.detail__main__title}>{title}</h2>
+        <article className={styles.detail__people__wrapper} data-length={people.length}>
+          <div className={`swiper ${styles.detail__people}`} data-swiper-id={uniqueId}>
+            <div className="swiper-wrapper people-template">
+              {people.map((person, index) => (
+                <div className="swiper-slide" key={index}>
+                  <Link
+                    href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id })}
+                    className={styles.detail__people__link}
+                    aria-label={`${person.name} 작품 보러가기`}
+                  >
+                    <PeopleImage
+                      image={fMakeImageUrl(person.picture, DEFAULT_IMAGES.noActor)}
+                      size={60}
+                      alt={person.name}
+                    />
+                    <div className={styles.detail__people__info__wrapper}>
+                      <p className={styles.detail__people__name}>{person.name}</p>
+                      <div className={styles.detail__people__role__wrapper}>
+                        <span className={styles.detail__people__role}>{formatCode(person.code)}</span>
+                        {person.role && (
+                          <>
+                            <span className={styles.detail__people__role}>|</span>
+                            <span className={styles.detail__people__role}>{person.role}</span>
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+          <button
+            type="button"
+            className={`swiper-prev-button ${styles.people__prev__button}`}
+            data-swiper-id={uniqueId}
+            disabled // 초기 비활성화
+          >
+            <ArrowLeftIcon width={28} height={28} />
+          </button>
+          <button
+            type="button"
+            className={`swiper-next-button ${styles.people__next__button}`}
+            data-swiper-id={uniqueId}
+          >
+            <ArrowRightIcon width={28} height={28} />
+          </button>
+        </article>
+      </section>
+
+      {/* 출연진/제작진 swiper 제어: 클라이언트 컴포넌트 */}
+      <VideoPeopleClient uniqueId={uniqueId} />
+    </>
+  );
 };
 
 const Contents = async ({ params }) => {
@@ -174,130 +297,6 @@ const Contents = async ({ params }) => {
   const galleryTitle = '갤러리';
   const gallery = content.thumbnail || [];
   const galleryAlt = `${titleKr} 스틸컷`;
-
-  // 플랫폼 보러가기
-  const VideoPlatform = ({ platforms, upcoming }) => {
-    if (isEmpty(platforms)) {
-      return null;
-    }
-
-    // platforms.code 와 upcoming.code 가 같은 upcoming 데이터를 찾아서 platforms에 upcoming.release 추가
-    const updatedPlatforms = platforms.map((platform) => {
-      const upcomingPlatform = upcoming.find((upcoming) => upcoming.platform === platform.code);
-      if (upcomingPlatform) {
-        return {
-          ...platform,
-          release: upcomingPlatform.release,
-        };
-      }
-      return platform;
-    });
-
-    return (
-      <section className={styles.detail__platform__section}>
-        <h2 className={styles.detail__main__title}>{platformTitle}</h2>
-        <ul className={styles.detail__platform__wrapper}>
-          {updatedPlatforms.map((platform, index) => (
-            <li
-              className={`platform-item ${styles.detail__platform}`}
-              aria-label={`${fPlatformNameByCode(platform.code)} 보러가기`}
-              data-url={platform.url}
-              key={index}
-            >
-              <div className={styles.platform__image__wrapper}>
-                {platform.release && (
-                  <div className={styles.platform__image__overlay}>
-                    <span className={styles.platform__release__overlay}>{fYear(platform.release)}</span>
-                    <span className={styles.platform__release__overlay}>{fReleaseDate(platform.release)}</span>
-                  </div>
-                )}
-                <Image
-                  className={styles.platform__image}
-                  src={`${SETTINGS.CDN_BASE_URL}/assets/images/platform/${platform.code}.png`}
-                  alt={fPlatformNameByCode(platform.code)}
-                  width={60}
-                  height={60}
-                  loading="lazy"
-                />
-              </div>
-              <div className={styles.platform__info}>
-                <p className={styles.platform__name}>{fPlatformNameByCode(platform.code)}</p>
-                {platform.release && <p className={styles.platform__release}>공개예정일: {fDate(platform.release)}</p>}
-              </div>
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  };
-
-  // 출연진/제작진 컴포넌트
-  const VideoPeople = ({ people, title, formatCode }) => {
-    if (isEmpty(people)) {
-      return null;
-    }
-
-    const uniqueId = nanoid();
-
-    return (
-      <>
-        <section className={styles.detail__people__section}>
-          <h2 className={styles.detail__main__title}>{title}</h2>
-          <article className={styles.detail__people__wrapper} data-length={people.length}>
-            <div className={`swiper ${styles.detail__people}`} data-swiper-id={uniqueId}>
-              <div className="swiper-wrapper people-template">
-                {people.map((person, index) => (
-                  <div className="swiper-slide" key={index}>
-                    <Link
-                      href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id })}
-                      className={styles.detail__people__link}
-                      aria-label={`${person.name} 작품 보러가기`}
-                    >
-                      <PeopleImage
-                        image={fMakeImageUrl(person.picture, DEFAULT_IMAGES.noActor)}
-                        size={60}
-                        alt={person.name}
-                      />
-                      <div className={styles.detail__people__info__wrapper}>
-                        <p className={styles.detail__people__name}>{person.name}</p>
-                        <div className={styles.detail__people__role__wrapper}>
-                          <span className={styles.detail__people__role}>{formatCode(person.code)}</span>
-                          {person.role && (
-                            <>
-                              <span className={styles.detail__people__role}>|</span>
-                              <span className={styles.detail__people__role}>{person.role}</span>
-                            </>
-                          )}
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <button
-              type="button"
-              className={`swiper-prev-button ${styles.people__prev__button}`}
-              data-swiper-id={uniqueId}
-              disabled // 초기 비활성화
-            >
-              <ArrowLeftIcon width={28} height={28} />
-            </button>
-            <button
-              type="button"
-              className={`swiper-next-button ${styles.people__next__button}`}
-              data-swiper-id={uniqueId}
-            >
-              <ArrowRightIcon width={28} height={28} />
-            </button>
-          </article>
-        </section>
-
-        {/* 출연진/제작진 swiper 제어: 클라이언트 컴포넌트 */}
-        <VideoPeopleClient uniqueId={uniqueId} />
-      </>
-    );
-  };
 
   return (
     <>
@@ -455,7 +454,7 @@ const Contents = async ({ params }) => {
               <VideoMyRating videoId={videoId} title={myRatingTitle} />
 
               {/* 플랫폼 보러가기 */}
-              <VideoPlatform platforms={platforms} upcoming={upcoming} />
+              <VideoPlatform platformTitle={platformTitle} platforms={platforms} upcoming={upcoming} />
             </div>
           </section>
 
@@ -463,8 +462,8 @@ const Contents = async ({ params }) => {
           <VideoReviewSimple videoId={videoId} />
 
           {/* 출연진/제작진 */}
-          <VideoPeople people={actors} title={actorTitle} formatCode={actorFormatCode} />
-          <VideoPeople people={staffs} title={staffTitle} formatCode={staffFormatCode} />
+          <VideoPeople title={actorTitle} people={actors} formatCode={actorFormatCode} />
+          <VideoPeople title={staffTitle} people={staffs} formatCode={staffFormatCode} />
 
           {/* 트레일러 */}
           {!isEmpty(trailer) && (

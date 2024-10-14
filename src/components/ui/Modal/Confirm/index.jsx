@@ -18,11 +18,9 @@ const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
     }
   }, []);
 
-  // 모달창 닫기
+  // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      onClose();
-    }
+    if (e.target === modalRef.current) onClose();
   };
 
   // 확인 버튼 클릭
@@ -43,7 +41,7 @@ const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
       className={styles.confirm__modal__wrapper}
       overlayClassName={styles.confirm__modal__overlay}
     >
-      <main className={styles.confirm__modal} ref={modalRef} onClick={handleModalClose}>
+      <div className={styles.confirm__modal} ref={modalRef} onClick={handleModalClose}>
         <section className={styles.confirm__header}>
           <h4 className={styles.confirm__header__title}>알림</h4>
         </section>
@@ -59,7 +57,7 @@ const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
             확인
           </button>
         </section>
-      </main>
+      </div>
     </Modal>
   );
 });

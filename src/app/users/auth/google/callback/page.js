@@ -13,7 +13,7 @@ const AuthGoogleCallback = dynamic(() => import('@/components/ui/AuthGoogleCallb
 const GoogleCallback = () => {
   return (
     <main className={styles.join__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <AuthGoogleCallback />
       </Suspense>
     </main>

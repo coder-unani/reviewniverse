@@ -13,6 +13,10 @@ const VideoTrailer = ({ uniqueId, trailer, alt }) => {
   const [trailerModal, setTrailerModal] = useState({ isOpen: false, initialIndex: 0 });
   const swiperRef = useRef(null);
 
+  const toggleTrailerModal = (index) => {
+    setTrailerModal({ isOpen: !trailerModal.isOpen, initialIndex: index });
+  };
+
   useEffect(() => {
     const trailerSwiper = document.querySelector(`.swiper[data-swiper-id="${uniqueId}"]`);
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
@@ -77,17 +81,9 @@ const VideoTrailer = ({ uniqueId, trailer, alt }) => {
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (prevButton) {
-      prevButton.disabled = isBeginning;
-    }
-    if (nextButton) {
-      nextButton.disabled = isEnd;
-    }
+    if (prevButton) prevButton.disabled = isBeginning;
+    if (nextButton) nextButton.disabled = isEnd;
   }, [isBeginning, isEnd, uniqueId]);
-
-  const toggleTrailerModal = (index) => {
-    setTrailerModal({ isOpen: !trailerModal.isOpen, initialIndex: index });
-  };
 
   return (
     <TrailerModal

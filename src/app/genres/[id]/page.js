@@ -71,9 +71,8 @@ const getRankingGenres = async () => {
   const res = await fetchRankingGenres({ count });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // Genres API 호출
@@ -90,9 +89,8 @@ const getGenreVideos = async ({ genreId }) => {
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data;
-  } else {
-    return {};
   }
+  return {};
 };
 
 // 메타 태그 설정
@@ -109,7 +107,7 @@ export const generateMetadata = async ({ params }) => {
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const isIndex = videos.data.length > 0;
-  const genre = videos.metadata.genre;
+  const { genre } = videos.metadata;
   const title = `${genre.name} 장르 | 리뷰니버스`;
   const description = `${genre.name} 장르의 작품들을 확인해보세요.`;
   const imageUrl = genre.background ? `${SETTINGS.CDN_BASE_URL}/${genre.background}` : DEFAULT_IMAGES.logo;
@@ -124,13 +122,13 @@ export const generateMetadata = async ({ params }) => {
     alternates: {
       canonical: url,
     },
-    title: title,
-    description: description,
-    keywords: keywords,
+    title,
+    description,
+    keywords,
     openGraph: {
-      url: url,
-      title: title,
-      description: description,
+      url,
+      title,
+      description,
       images: [
         {
           url: imageUrl,
@@ -155,7 +153,7 @@ const Genres = async ({ params }) => {
   const result = await getGenreVideos({ genreId });
   const videos = initGenreVideos(result);
 
-  const genre = videos.metadata.genre;
+  const { genre } = videos.metadata;
   const subtitle = '장르';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > GENRES_PAGE_SIZE;
@@ -176,7 +174,7 @@ const Genres = async ({ params }) => {
           {videos.data.map((video) => (
             <Video video={video} key={video.id} />
           ))}
-          <Suspense fallback={''}>
+          <Suspense fallback="">
             <GenresComponent genreId={genreId} enabled={enabled} />
           </Suspense>
         </div>

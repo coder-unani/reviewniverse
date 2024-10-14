@@ -5,8 +5,8 @@ import { fetchUserUpdate } from '@/library/api/users';
 
 export const useUserUpdate = () => {
   return useMutation({
-    mutationFn: async (variables) => await fetchUserUpdate(variables),
-    onSuccess: (res, variables) => {
+    mutationFn: (variables) => fetchUserUpdate(variables),
+    onSuccess: (res) => {
       if (res.status === 204) {
         cLog('프로필이 수정되었습니다.');
       } else {

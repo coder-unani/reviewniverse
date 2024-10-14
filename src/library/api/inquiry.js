@@ -1,11 +1,10 @@
 import { SETTINGS } from '@/config/settings';
-import { AxiosClient } from '@/utils/HttpClient';
-import { cLog, cError } from '@/utils/test';
-import { ReqInquiry } from '@/types/request';
+import AxiosClient from '@/utils/AxiosClient';
+import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
-  inquiry: baseURL + '/v1/support/inquiry',
+  inquiry: `${baseURL}/v1/support/inquiry`,
 };
 
 // 문의/제보 보내기
@@ -16,5 +15,6 @@ export const fetchInquiry = async ({ inquiryData }) => {
     return res;
   } catch (error) {
     cError(error);
+    return null;
   }
 };

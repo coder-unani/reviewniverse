@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import Link from 'next/link';
 import Image from 'next/image';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
@@ -14,10 +13,10 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
   //   const kakaoAppKey = '9a3a161ac1ce4723485924eba0ef8342';
 
   // 디바이스 구분 함수
-  const isMobile = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
-  };
+  // const isMobile = () => {
+  //   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  //   return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
+  // };
 
   useEffect(() => {
     // Kakao SDK 스크립트 동적 로드
@@ -38,9 +37,7 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
     };
   }, []);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-
+  const handleClick = () => {
     const shareTitle = title || '리뷰니버스';
     const shareDesc = desc || '리뷰니버스와 함께라면 보는 즐거움이 2배로, 생생한 리뷰를 확인해보세요!';
     const shareImageUrl = fMakeImageUrl(image);
@@ -77,7 +74,7 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
   };
 
   return (
-    <Link id="btn-kakaotalk-share-feed" className={styles.share__button} href="#" onClick={handleClick}>
+    <button type="button" id="btn-kakaotalk-share-feed" className={styles.share__button} onClick={handleClick}>
       <picture className={styles.share__button__image__wrapper}>
         <Image
           className={styles.share__button__image}
@@ -89,7 +86,7 @@ const KakaoShareButton = ({ title, desc, link = null, image = null }) => {
         />
       </picture>
       <p className={styles.share__button__name}>카카오톡</p>
-    </Link>
+    </button>
   );
 };
 

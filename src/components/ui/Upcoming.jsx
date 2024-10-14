@@ -20,52 +20,54 @@ const Upcoming = ({ enabled }) => {
   } = useUpcomingVideos({
     page,
     size: UPCOMING_PAGE_SIZE,
-    enabled: enabled, // enabled가 false인 경우 데이터 호출하지 않음
+    enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
 
   useEffect(() => {
-    if (videosIsLoading || !videosData || !enabled) {
+    if (videosIsLoading || !videosData || !enabled) return;
+
+    // API 호출 결과가 실패인 경우
+    if (!videosData.status) {
+      if (videosData.code === 'C001' && page > 1) {
+        // 429 에러이고, 첫 페이지가 아닌 경우 이전 페이지 번호로 변경
+        setPage((prev) => prev - 1);
+      } else {
+        // 그 외의 경우 에러 페이지로 이동
+        router.push(ENDPOINTS.ERROR);
+      }
       return;
     }
 
-    if (!videosData.status) {
-      if (videosData.code === 'C001') {
-        // TODO: 고도화 필요
-        if (page === 1) {
-          return router.push(ENDPOINTS.ERROR);
-        } else {
-          setPage((prev) => prev - 1);
-          return;
-        }
-      } else {
-        return router.push(ENDPOINTS.ERROR);
-      }
-    } else {
-      setVideos((prev) => {
-        if (!prev) setVideos({ ...videosData.data });
-        if (prev.page === videosData.data.page) return prev;
-        return {
-          ...prev,
-          total: videosData.data.total,
-          count: videosData.data.count,
-          page: videosData.data.page,
-          data: prev.data ? [...prev.data, ...videosData.data.data] : [...videosData.data.data],
-        };
-      });
-    }
+    setVideos((prev) => {
+      const newData = videosData.data;
+      // 첫 페이지인 경우
+      if (!prev) return { ...newData };
+      // 같은 페이지인 경우
+      if (prev.page === newData.page) return prev;
+      // 첫 페이지가 아닌 경우 데이터 추가
+      return {
+        ...prev,
+        total: newData.total,
+        count: newData.count,
+        page: newData.page,
+        data: prev.data ? [...prev.data, ...newData.data] : [...newData.data],
+      };
+    });
   }, [videosIsLoading, videosData, page, enabled]);
 
+  // 페이지 변경
   const handlePage = (newPage) => {
     setPage(newPage);
   };
 
+  // 에러 발생 시 에러 페이지로 이동
   if (videosError) {
-    return router.push(ENDPOINTS.ERROR);
+    router.push(ENDPOINTS.ERROR);
+    return null;
   }
 
-  if (isEmpty(videos)) {
-    return;
-  }
+  // 평가 데이터가 없는 경우
+  if (isEmpty(videos)) return null;
 
   return <VideosForUpcoming videos={videos} handlePage={handlePage} pageSize={UPCOMING_PAGE_SIZE} />;
 };

@@ -7,20 +7,15 @@ export const useReviewDelete = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (variables) => await fetchReviewDelete(variables),
+    mutationFn: (variables) => fetchReviewDelete(variables),
     onSuccess: (res, variables) => {
       if (res.status === 204) {
         cLog('리뷰가 삭제되었습니다.');
 
-        const videoId = variables.videoId;
-        const userId = variables.userId;
-        const reviewId = variables.reviewId;
+        const { videoId, userId } = variables;
 
         // videoMyInfo 쿼리 키의 데이터 업데이트
-        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prev) => ({
-          ...prev,
-          review: {},
-        }));
+        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prev) => ({ ...prev, review: {} }));
 
         // videoReviews 쿼리 키의 데이터 업데이트
         // queryClient.setQueriesData({ queryKey: ['videoReviews', videoId], exact: false }, (prev) => {
@@ -31,27 +26,14 @@ export const useReviewDelete = () => {
 
         //   if (filteredReviews.length === data.length) return prev;
 
-        //   return {
-        //     ...prev,
-        //     data: {
-        //       ...prev.data,
-        //       total: total > 0 ? total - 1 : 0,
-        //       data: filteredReviews,
-        //     },
-        //   };
+        //   return { ...prev, data: { ...prev.data, total: total > 0 ? total - 1 : 0, data: filteredReviews } };
         // });
 
         // videoReviews 쿼리 키의 데이터 무효화
-        queryClient.invalidateQueries({
-          queryKey: ['videoReviews', videoId],
-          exact: false,
-        });
+        queryClient.invalidateQueries({ queryKey: ['videoReviews', videoId], exact: false });
 
         // userReviews 쿼리 키의 데이터 무효화
-        queryClient.invalidateQueries({
-          queryKey: ['userReviews', userId],
-          exact: false,
-        });
+        queryClient.invalidateQueries({ queryKey: ['userReviews', userId], exact: false });
       } else {
         throw new Error('리뷰 삭제에 실패했습니다.');
       }

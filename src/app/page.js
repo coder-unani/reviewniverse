@@ -34,9 +34,8 @@ const getScreenVideos = async () => {
   const res = await fetchScreenVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // Ranking 컨텐츠
@@ -50,9 +49,8 @@ const getRankingVideos = async () => {
   const res = await fetchRankingVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // UpComing 컨텐츠
@@ -66,9 +64,8 @@ const getUpcomingVideos = async () => {
   const res = await fetchUpcomingVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // Current Monthly 컨텐츠
@@ -84,9 +81,8 @@ const getCurrentVideos = async () => {
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // 기본 컨텐츠
@@ -102,9 +98,8 @@ const getDefaultVideos = async () => {
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 // Genres
@@ -117,9 +112,8 @@ const getGenres = async () => {
   const res = await fetchRankingGenres({ ...options });
   if (res.status === 200) {
     return res.data.data;
-  } else {
-    return [];
   }
+  return [];
 };
 
 const Home = async () => {
@@ -168,7 +162,7 @@ const Home = async () => {
   const monthlyVideosTemplate = 'monthly';
   const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
 
-  const videosTemplate = 'default';
+  // const videosTemplate = 'default';
   const videosTitle = '🍟 이건 어때요?';
 
   const genresTitle = '장르';

@@ -6,30 +6,27 @@ import { isEmpty } from 'lodash';
 import styles from '@/styles/pages/Contents.module.scss';
 
 const VideoSynopsis = React.memo(({ synopsis, tags, title }) => {
-  if (isEmpty(synopsis)) {
-    return null;
-  }
-
   const [isOverflowing, setIsOverflowing] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const synopsisRef = useRef(null);
 
   // 작품 소개가 5줄 이상일 경우 더보기 버튼 표시
   useEffect(() => {
+    if (!synopsisRef.current) return;
     const lineHeight = parseFloat(getComputedStyle(synopsisRef.current).lineHeight);
     const height = synopsisRef.current.scrollHeight;
     const maxLines = 5;
     const maxHeight = lineHeight * maxLines;
 
-    if (height > maxHeight) {
-      setIsOverflowing(true);
-    }
-  }, []);
+    setIsOverflowing(height > maxHeight);
+  }, [synopsis]);
 
   // 더보기 버튼 클릭 시 펼치기/접기
   const toggleExpand = () => {
     setIsExpanded((prev) => !prev);
   };
+
+  if (isEmpty(synopsis)) return null;
 
   return (
     <section className={styles.detail__synopsis__section}>
@@ -38,8 +35,8 @@ const VideoSynopsis = React.memo(({ synopsis, tags, title }) => {
       {/* 태그 */}
       {!isEmpty(tags) && (
         <div className={styles.detail__tags__wrapper}>
-          {tags.map((tag, index) => (
-            <span className={styles.detail__tag} key={index}>
+          {tags.map((tag) => (
+            <span className={styles.detail__tag} key={tag}>
               #{tag}
             </span>
           ))}
@@ -51,7 +48,7 @@ const VideoSynopsis = React.memo(({ synopsis, tags, title }) => {
       </summary>
 
       {isOverflowing && !isExpanded && (
-        <button onClick={toggleExpand} className={styles.synopsis__more__button}>
+        <button type="button" onClick={toggleExpand} className={styles.synopsis__more__button}>
           {/* {isExpanded ? "접기" : "더보기"} */}
           더보기
         </button>

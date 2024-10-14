@@ -1,4 +1,4 @@
-import { ToastContainer, toast, Slide } from "react-toastify";
+import { ToastContainer, toast, Slide } from 'react-toastify';
 
 export const showToast = (message) => {
   toast(message);
@@ -25,7 +25,7 @@ export const ToastWrapper = () => (
     // position="top-center"
     position="bottom-center"
     autoClose={2000}
-    hideProgressBar={true}
+    hideProgressBar
     pauseOnFocusLoss={false}
     theme="light"
     // theme="colored"

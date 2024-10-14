@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback } from 'react';
 import { isEmpty } from 'lodash';
 
 import VideoForLike from '@/components/ui/VideoForLike';
@@ -6,20 +6,16 @@ import VideoForLike from '@/components/ui/VideoForLike';
 import vvStyles from '@/styles/components/Videos.module.scss';
 
 const VideosForLike = ({ children, videos, handlePage }) => {
-  const [hasMore, setHasMore] = useState(true);
+  const hasMore = videos.data && videos.total > videos.data.length;
   const observer = useRef();
-
-  useEffect(() => {
-    if (videos.data && videos.total <= videos.data.length) {
-      setHasMore(false);
-    } else {
-      setHasMore(true);
-    }
-  }, [videos]);
 
   const lastItemRef = useCallback(
     (node) => {
-      if (!hasMore) return;
+      if (!hasMore) {
+        if (observer.current) observer.current.disconnect();
+        return;
+      }
+
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
@@ -30,12 +26,10 @@ const VideosForLike = ({ children, videos, handlePage }) => {
 
       if (node) observer.current.observe(node);
     },
-    [hasMore, videos]
+    [hasMore, videos, handlePage]
   );
 
-  if (isEmpty(videos.data)) {
-    return;
-  }
+  if (isEmpty(videos.data)) return null;
 
   return (
     <section className={vvStyles.vertical__videos__section}>
@@ -44,7 +38,7 @@ const VideosForLike = ({ children, videos, handlePage }) => {
         {videos.data.map((video) => (
           <VideoForLike video={video} key={video.id} />
         ))}
-        {hasMore && <article ref={lastItemRef}></article>}
+        {hasMore && <article ref={lastItemRef} />}
       </div>
     </section>
   );

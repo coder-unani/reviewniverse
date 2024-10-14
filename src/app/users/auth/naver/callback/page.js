@@ -13,7 +13,7 @@ const AuthNaverCallback = dynamic(() => import('@/components/ui/AuthNaverCallbac
 const NaverCallback = () => {
   return (
     <main className={styles.join__main}>
-      <Suspense fallback={''}>
+      <Suspense fallback="">
         <AuthNaverCallback />
       </Suspense>
     </main>

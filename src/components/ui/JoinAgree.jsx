@@ -8,14 +8,9 @@ import { useModalContext } from '@/contexts/ModalContext';
 
 import styles from '@/styles/components/JoinAgree.module.scss';
 
-/**
- * TODO:
- * 1. 모두 동의하기 기능 추가
- * 1-1. onChange로 했을 경우, 체크 해제시 버튼이 disabled 되지 않음
- * 1-2. onClick으로 변경함
- * 1-3. 동의 항목 중 하나라도 체크 해제 시, 모두 동의하기 체크 해제
- * 2. 선택한 약관 동의 전달
- */
+// 이 파일에서만 아래 속성들의 eslint-disable를 적용
+/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable react/jsx-props-no-spreading */
 
 const JoinAgree = ({ setIsAgree, setAgreeValues }) => {
   const { toggleTermsModal, togglePrivacyCollectionModal } = useModalContext();
@@ -27,7 +22,7 @@ const JoinAgree = ({ setIsAgree, setAgreeValues }) => {
     setValue,
     getValues,
     watch,
-    formState: { errors, isValid },
+    formState: { isValid },
   } = useForm();
 
   const onSubmit = handleSubmit(() => {
