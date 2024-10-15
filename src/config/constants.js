@@ -93,6 +93,7 @@ export const DEFAULT_IMAGES = {
   logoWhite: `${SETTINGS.CDN_BASE_URL}/assets/images/logo-white.svg`,
   noActor: `${SETTINGS.CDN_BASE_URL}/assets/images/no-actor.png`,
   noImage: `${SETTINGS.CDN_BASE_URL}/assets/images/no-image.png`,
+  noPreview: `${SETTINGS.CDN_BASE_URL}/assets/images/no-preview.png`,
   loading: `${SETTINGS.CDN_BASE_URL}/assets/images/loading.png`,
   userLogin: `${SETTINGS.CDN_BASE_URL}/assets/images/user-login.png`,
   userDelete: `${SETTINGS.CDN_BASE_URL}/assets/images/user-delete.png`,

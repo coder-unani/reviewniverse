@@ -90,7 +90,7 @@ export const fMakeThumbnailUrl = (image) => {
 
 // 프리뷰 썸네일 포맷
 export const fPreviewThumbnail = (images, isThumb = false) => {
-  let result = DEFAULT_IMAGES.noImage;
+  let result = DEFAULT_IMAGES.noPreview;
   if (isEmpty(images)) return result;
   if (Array.isArray(images)) {
     if (images[2]) {
