@@ -75,17 +75,18 @@
   -webkit-box-orient: vertical;
 }
 
-.default__subtitle__wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 6px;
-}
+// .default__subtitle__wrapper {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   margin-top: 6px;
+// }
 
 .default__subtitle {
   font-size: 13px;
   font-weight: 600;
   color: $color-white-04;
+  margin-top: 6px;
 
   // 1줄 이상일 경우 생략 부분 처리
   display: -webkit-box;
@@ -98,12 +99,28 @@
   }
 }
 
-.default__rating__wrapper {
+.default__more__wrapper {
+  display: flex;
+  align-items: center;
+  // justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.default__rating__wrapper,
+.default__review__wrapper,
+.default__like__wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 4px;
-  margin-left: 8px;
+  // margin-left: 8px;
+}
+
+.default__rating__wrapper {
+  // background-color: $color-white-08;
+  // border-radius: 4px;
+  // padding: 4px;
 
   &[data-color='red'] {
     .default__rating__icon {
@@ -143,11 +160,26 @@
   }
 }
 
+.default__review__icon,
+.default__like__icon {
+  path {
+    fill: $color-white-06;
+  }
+}
+
 .default__rating {
+  min-width: 25px;
   font-size: 15px;
   font-weight: 700;
   color: $color-white-08;
-  // line-height: 1;
+  line-height: 16px;
+}
+
+.default__review,
+.default__like {
+  font-size: 15px;
+  font-weight: 700;
+  color: $color-white-06;
   line-height: 16px;
 }
 
@@ -170,10 +202,6 @@
     margin-top: 8px;
   }
 
-  .default__subtitle__wrapper {
-    margin-top: 4px;
-  }
-
   .default__code__wrapper {
     top: 4px;
     left: 4px;
@@ -186,13 +214,22 @@
     padding: 0 7px;
   }
 
-  .default__subtitle__wrapper {
-    flex-direction: column;
-    align-items: flex-start;
+  // .default__subtitle__wrapper {
+  //   flex-direction: column;
+  //   align-items: flex-start;
+  //   margin-top: 4px;
+  // }
+
+  .default__subtitle {
+    margin-top: 4px;
   }
 
-  .default__rating__wrapper {
+  // .default__rating__wrapper {
+  //   margin-top: 4px;
+  //   margin-left: 0;
+  // }
+
+  .default__more__wrapper {
     margin-top: 4px;
-    margin-left: 0;
   }
 }

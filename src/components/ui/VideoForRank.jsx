@@ -9,6 +9,7 @@ import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 
 import StarIcon from '@/resources/icons/fill-star.svg';
+import ReviewIcon from '@/resources/icons/fill-comment.svg';
 import styles from '@/styles/components/VideoForRank.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
 
@@ -40,7 +41,7 @@ const RankingNumber = ({ number }) => {
 };
 
 const VideoForRank = ({ video, index, isClient = false }) => {
-  const { id, title, thumbnail, code_string: code, release, country, rating } = video;
+  const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
   const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
   const videoRelease = fYear(release);
@@ -75,20 +76,28 @@ const VideoForRank = ({ video, index, isClient = false }) => {
       </div>
       <div className={defStyles.default__info__container}>
         <p className={defStyles.default__title}>{title}</p>
-        <div className={defStyles.default__subtitle__wrapper}>
-          <div className={defStyles.default__subtitle}>
-            <span>{videoRelease}</span>
-            {videoCountry && (
-              <>
-                <span>|</span>
-                <span>{videoCountry}</span>
-              </>
-            )}
-          </div>
+        {/* <div className={defStyles.default__subtitle__wrapper}> */}
+        <div className={defStyles.default__subtitle}>
+          <span>{videoRelease}</span>
+          {videoCountry && (
+            <>
+              <span>|</span>
+              <span>{videoCountry}</span>
+            </>
+          )}
+        </div>
+        {/* </div> */}
+        <div className={defStyles.default__more__wrapper}>
           <div className={defStyles.default__rating__wrapper} data-color={ratingColor}>
             <StarIcon className={defStyles.default__rating__icon} width={16} height={16} />
             <span className={defStyles.default__rating}>{ratingText}</span>
           </div>
+          {reviewCount > 0 && (
+            <div className={defStyles.default__review__wrapper}>
+              <ReviewIcon className={defStyles.default__review__icon} width={14} height={14} />
+              <span className={defStyles.default__review}>{reviewCount}</span>
+            </div>
+          )}
         </div>
       </div>
     </Link>
