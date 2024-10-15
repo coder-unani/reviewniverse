@@ -19,7 +19,7 @@ export const fUserCode = (code) => {
 };
 
 // 유저 시청 타입 포맷
-export const fUserWatchType = (code) => {
+export const fUserWatchtype = (code) => {
   const watchType = USER_WATCH_TYPE_CODE[code];
   return watchType || {};
 };

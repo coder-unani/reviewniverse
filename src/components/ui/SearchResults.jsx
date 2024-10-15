@@ -8,7 +8,7 @@ import { isEmpty } from 'lodash';
 import { SEARCH_PAGE_SIZE, VIDEO_MODE_OPTIONS, DEFAULT_IMAGES } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
-import RequestButton from '@/components/ui/Button/Request';
+// import RequestButton from '@/components/ui/Button/Request';
 import VideosForSearch from '@/components/ui/VideosForSearch';
 
 import styles from '@/styles/pages/Search.module.scss';
@@ -105,7 +105,7 @@ const SearchResults = ({ query }) => {
             &quot;<em>{decodeQuery}</em>&quot;에 대한 검색 결과가 없어요.
           </p>
           <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
-          <RequestButton query={query} total={videos.total} />
+          {/* <RequestButton query={query} total={videos.total} /> */}
         </div>
       ) : (
         <>

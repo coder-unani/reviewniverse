@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDiffDate } from '@/utils/format';
-import { fUserWatchType } from '@/utils/formatContent';
+import { fUserWatchtype } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
@@ -26,7 +26,7 @@ const ReviewForVideo = ({ videoId, review }) => {
   const profilePath = review.user ? EndpointManager.generateUrl(ENDPOINTS.USER, { userId: review.user.id }) : '';
   const profileImage = review.user ? review.user.profile_image : DEFAULT_IMAGES.noActor;
   const profileNickname = review.user ? review.user.nickname : '탈퇴한 회원 입니다.';
-  const profileWatchType = review.user ? review.user.watch_type : null;
+  const profileWatchtype = review.user ? review.user.watch_type : null;
 
   useEffect(() => {
     setActive(review.is_spoiler);
@@ -59,11 +59,11 @@ const ReviewForVideo = ({ videoId, review }) => {
           {review.rating && <RatingScore rating={review.rating} />}
 
           {/* 시청타입 */}
-          {!isEmpty(profileWatchType) && (
+          {!isEmpty(profileWatchtype) && (
             <div className={styles.detail__review__watchtype__wrapper}>
-              {profileWatchType.map((code, index) => (
+              {profileWatchtype.map((code, index) => (
                 <span key={index} data-code={code} className={styles.detail__review__watchtype}>
-                  {fUserWatchType(code).abbr}
+                  {fUserWatchtype(code).abbr}
                 </span>
               ))}
             </div>

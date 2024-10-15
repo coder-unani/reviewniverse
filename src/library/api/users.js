@@ -47,7 +47,7 @@ export const fetchJoin = async (user) => {
 };
 
 // 회원성향 등록
-export const fetchWatchType = async ({ userId, watchtype }) => {
+export const fetchWatchtype = async ({ userId, watchtype }) => {
   try {
     const client = new AxiosClient();
     const res = await client.post(endpoints.watchType.replace(':userId', userId), {}, { watch_type: watchtype });

@@ -6,7 +6,7 @@ import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDiffDate } from '@/utils/format';
-import { fUserWatchType } from '@/utils/formatContent';
+import { fUserWatchtype } from '@/utils/formatContent';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
@@ -52,7 +52,7 @@ const Review = ({ videoId, review }) => {
                 <div className={styles.review__watchtype__wrapper}>
                   {data.user.watch_type.map((code) => (
                     <span key={code} data-code={code} className={styles.review__watchtype}>
-                      {fUserWatchType(code).abbr}
+                      {fUserWatchtype(code).abbr}
                     </span>
                   ))}
                 </div>
