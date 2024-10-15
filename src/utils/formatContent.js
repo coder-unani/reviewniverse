@@ -90,7 +90,7 @@ export const fMakeThumbnailUrl = (image) => {
 
 // 프리뷰 썸네일 포맷
 export const fPreviewThumbnail = (images, isThumb = false) => {
-  let result = DEFAULT_IMAGES.noPreview;
+  let result = DEFAULT_IMAGES.noImage;
   if (isEmpty(images)) return result;
   if (Array.isArray(images)) {
     if (images[2]) {
@@ -120,12 +120,12 @@ export const fThumbnail = (images, isThumb = true) => {
 
 // 배경 이미지 포맷
 export const fBackgroundImage = (images, isThumb = false) => {
-  let result = DEFAULT_IMAGES.noImage;
+  let result = isThumb ? DEFAULT_IMAGES.noImage : DEFAULT_IMAGES.noPreview;
   if (isEmpty(images)) return result;
   if (Array.isArray(images)) {
-    result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1]);
+    result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1], DEFAULT_IMAGES.noPreview);
   } else {
-    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images);
+    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images, DEFAULT_IMAGES.noPreview);
   }
   return result;
 };
