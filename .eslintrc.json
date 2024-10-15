@@ -7,7 +7,6 @@
   "extends": ["next/core-web-vitals", "airbnb", "plugin:prettier/recommended"],
   "plugins": ["react", "jsx-a11y", "import"],
   "rules": {
-    "no-console": "off", // console 사용 경고 비활성화
     "react/prop-types": "off", // 타입스크립트 변경시 주석해제
     "react/no-array-index-key": "off", // key값으로 index 사용 가능
     "jsx-a11y/click-events-have-key-events": "off", // 클릭 이벤트에 키 이벤트를 추가할 필요 없음
