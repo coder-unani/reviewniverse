@@ -24,14 +24,14 @@ const ReviewsSwiper = ({ uniqueId }) => {
       const reviewSwiperConfig = {
         modules: [Navigation],
         spaceBetween: 8,
-        slidesPerView: 1.2,
+        slidesPerView: 1.1,
         slidesPerGroup: 1,
         speed: 1000,
         allowTouchMove: true,
         breakpoints: {
           577: {
             spaceBetween: 8,
-            slidesPerView: 1.2,
+            slidesPerView: 1.1,
             slidesPerGroup: 1,
             allowTouchMove: false,
           },
@@ -67,9 +67,9 @@ const ReviewsSwiper = ({ uniqueId }) => {
       reviewSwiperInstance = new SwiperCore(reviewSwiper, reviewSwiperConfig);
       swiperRef.current = reviewSwiperInstance;
 
-      const genreSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
-      genreSwiperSlide.forEach((slide) => {
-        slide.classList.remove('genre-margin-right');
+      const reviewSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
+      reviewSwiperSlide.forEach((slide) => {
+        slide.classList.remove('review-margin-right');
       });
 
       // 이미지에 대한 onError 처리
