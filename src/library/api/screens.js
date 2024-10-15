@@ -7,6 +7,7 @@ const endpoints = {
   screens: `${baseURL}/v1/screens`,
 };
 
+// Screen 콘텐츠 리스트
 export const fetchScreenVideos = async ({ code, display = null }) => {
   try {
     const client = new FetchClient();

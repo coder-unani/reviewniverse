@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
@@ -20,12 +21,14 @@ import styles from '@/styles/components/Review.module.scss';
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
-const ReviewWithVideo = ({ user, review }) => {
+const ReviewWithVideo = ({ user, review, isDate = true, isShort = false }) => {
+  const router = useRouter();
   const [data, setData] = useState(review);
   const [active, setActive] = useState(review.is_spoiler);
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
-  const videoPath = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
+  // const videoPath = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
   const userPath = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
+  const reviewPath = EndpointManager.generateUrl(ENDPOINTS.CONTENTS_REVIEWS, { videoId: review.video.id });
 
   // 리뷰 데이터 state 설정
   useEffect(() => {
@@ -39,8 +42,13 @@ const ReviewWithVideo = ({ user, review }) => {
     setActive((prev) => !prev);
   };
 
+  // TODO: Link 컴포넌트로 변경
+  const handleReviewClick = () => {
+    router.push(reviewPath);
+  };
+
   return (
-    <div className={styles.review__item}>
+    <div className={`${styles.review__item}${isShort && ` ${styles.all}`}`} onClick={handleReviewClick}>
       <div className={styles.review__profile__wrapper}>
         <Link href={userPath} className={styles.review__profile__link}>
           <ProfileImage image={user.profile_image} size={36} />
@@ -49,7 +57,7 @@ const ReviewWithVideo = ({ user, review }) => {
               <span className={styles.review__nickname}>{user.nickname}</span>
               {data.rating && <RatingScore rating={data.rating} />}
             </div>
-            <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>
+            {isDate && <span className={styles.review__date}>{fDiffDate(data.created_at)}</span>}
           </div>
         </Link>
         {/* <button className={styles.review__more__button}>
@@ -57,17 +65,17 @@ const ReviewWithVideo = ({ user, review }) => {
         </button> */}
       </div>
       <div className={styles.review__video__wrapper}>
-        <Link href={videoPath} className={styles.review__video__link}>
-          <picture className={styles.review__thumbnail__wrapper}>
-            <LazyLoadImage
-              className={styles.review__thumbnail}
-              src={fThumbnail(data.video.thumbnail)}
-              srcSet={fThumbnail(data.video.thumbnail)}
-              alt={data.video.title}
-              effect="blur"
-            />
-          </picture>
-        </Link>
+        {/* <Link href={videoPath} className={styles.review__video__link}> */}
+        <picture className={styles.review__thumbnail__wrapper}>
+          <LazyLoadImage
+            className={styles.review__thumbnail}
+            src={fThumbnail(data.video.thumbnail)}
+            srcSet={fThumbnail(data.video.thumbnail)}
+            alt={data.video.title}
+            effect="blur"
+          />
+        </picture>
+        {/* </Link> */}
         <div className={styles.review__wrapper}>
           <div className={styles.review__content__wrapper}>
             <div className={styles.review__video__info__wrapper}>
@@ -78,7 +86,7 @@ const ReviewWithVideo = ({ user, review }) => {
                 <span>{fYear(data.video.release)}</span>
               </span>
             </div>
-            <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
+            <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler} data-short={isShort}>
               {data.is_spoiler ? (
                 <button
                   type="button"

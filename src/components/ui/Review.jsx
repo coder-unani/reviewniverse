@@ -36,7 +36,7 @@ const Review = ({ videoId, review }) => {
   };
 
   return (
-    <div className={styles.review__item}>
+    <div className={styles.review__item} data-id={review.id}>
       <div className={styles.review__profile__wrapper}>
         <Link href={userPath} className={styles.review__profile__link}>
           <ProfileImage image={data.user.profile_image} size={36} />

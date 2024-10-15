@@ -29,9 +29,7 @@ const RenderVideoItems = ({ video, template, index }) => {
 };
 
 const VideosSwiper = ({ children, videos, template = 'default' }) => {
-  if (isEmpty(videos)) {
-    return null;
-  }
+  if (isEmpty(videos)) return null;
 
   // 고유 아이디 생성
   const uniqueId = nanoid();

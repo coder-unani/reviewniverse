@@ -14,7 +14,7 @@ const endpoints = {
   videoRating: `${baseURL}/v1/videos/:videoId/rating`,
 };
 
-// Video List API
+// 기본 콘텐츠 리스트
 /**
  * PARAMS:
  * - page: 페이지 번호
@@ -58,6 +58,7 @@ export const fetchVideos = async ({
   }
 };
 
+// Upcoming 콘텐츠 리스트
 export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
   try {
     const client = new FetchClient();
@@ -72,6 +73,7 @@ export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
   }
 };
 
+// 콘텐츠 상세 정보
 export const fetchVideoDetail = async ({ videoId }) => {
   try {
     const client = new FetchClient();
@@ -83,6 +85,7 @@ export const fetchVideoDetail = async ({ videoId }) => {
   }
 };
 
+// 콘텐츠 리뷰 리스트
 export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null, metadata = null }) => {
   try {
     const client = new AxiosClient();
@@ -98,6 +101,7 @@ export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null,
   }
 };
 
+// 콘텐츠 내 정보
 export const fetchVideoMyInfo = async ({ videoId }) => {
   try {
     const client = new AxiosClient();
@@ -109,6 +113,7 @@ export const fetchVideoMyInfo = async ({ videoId }) => {
   }
 };
 
+// 콘텐츠 좋아요
 export const fetchVideoLike = async ({ videoId }) => {
   try {
     const client = new AxiosClient();
@@ -120,6 +125,7 @@ export const fetchVideoLike = async ({ videoId }) => {
   }
 };
 
+// 콘텐츠 평점
 export const fetchVideoRating = async ({ videoId, rating }) => {
   try {
     const client = new AxiosClient();

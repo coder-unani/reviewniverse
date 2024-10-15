@@ -13,9 +13,7 @@ import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
 const PreviewSwiper = dynamic(() => import('@/components/ui/Client/VideosSwiperForPreview'), { ssr: false });
 
 const VideosSwiperForPreview = async ({ videos }) => {
-  if (isEmpty(videos)) {
-    return null;
-  }
+  if (isEmpty(videos)) return null;
 
   return (
     <>

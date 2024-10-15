@@ -8,6 +8,7 @@ const endpoints = {
   rankingGenres: `${baseURL}/v1/ranking/genres`,
 };
 
+// 랭킹 콘텐츠 리스트
 export const fetchRankingVideos = async ({ code, count }) => {
   try {
     const client = new FetchClient();
@@ -19,6 +20,7 @@ export const fetchRankingVideos = async ({ code, count }) => {
   }
 };
 
+// 랭킹 장르 리스트
 export const fetchRankingGenres = async ({ count }) => {
   try {
     const client = new FetchClient();

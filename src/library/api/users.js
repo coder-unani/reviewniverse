@@ -131,7 +131,7 @@ export const fetchValidateNickname = async ({ nickname }) => {
   }
 };
 
-// 사용자 리뷰 리스트
+// 회원 리뷰 리스트
 export const fetchUserReviews = async ({ userId, page = null, pageSize = null, orderBy = null }) => {
   try {
     const client = new AxiosClient();
@@ -147,7 +147,7 @@ export const fetchUserReviews = async ({ userId, page = null, pageSize = null, o
   }
 };
 
-// 사용자 리뷰 좋아요 리스트
+// 회원 리뷰 좋아요 리스트
 export const fetchUserReviewLikes = async ({ userId, page = null, pageSize = null, orderBy = null }) => {
   try {
     const client = new AxiosClient();
@@ -163,7 +163,7 @@ export const fetchUserReviewLikes = async ({ userId, page = null, pageSize = nul
   }
 };
 
-// 사용자 비디오 좋아요 리스트
+// 회원 좋아요 콘텐츠 리스트
 export const fetchUserLikes = async ({ userId, page = null, pageSize = null, orderBy = null }) => {
   try {
     const client = new AxiosClient();
@@ -179,7 +179,7 @@ export const fetchUserLikes = async ({ userId, page = null, pageSize = null, ord
   }
 };
 
-// 사용자 비디오 평점 리스트
+// 회원 평점 콘텐츠 리스트
 export const fetchUserRatings = async ({ userId, page = null, pageSize = null, orderBy = null }) => {
   try {
     const client = new AxiosClient();

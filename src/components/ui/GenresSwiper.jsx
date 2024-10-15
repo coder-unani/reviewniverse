@@ -16,9 +16,7 @@ import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 const GenresSwiperClient = dynamic(() => import('@/components/ui/Client/GenresSwiper'), { ssr: false });
 
 const GenresSwiper = ({ children, genres }) => {
-  if (isEmpty(genres)) {
-    return null;
-  }
+  if (isEmpty(genres)) return null;
 
   const uniqueId = nanoid();
 

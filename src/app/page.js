@@ -9,9 +9,11 @@ import { fExportScreenDataByCode } from '@/utils/formatContent';
 import { fetchScreenVideos } from '@/library/api/screens';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
 import { fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
+import { fetchReviews } from '@/library/api/reviews';
 import VideosSwiperForPreview from '@/components/ui/VideosSwiperForPreview';
 import VideosSwiper from '@/components/ui/VideosSwiper';
 import GenresSwiper from '@/components/ui/GenresSwiper';
+import ReviewsSwiper from '@/components/ui/ReviewsSwiper';
 import Video from '@/components/ui/Video';
 
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
@@ -53,7 +55,7 @@ const getRankingVideos = async () => {
   return [];
 };
 
-// UpComing 컨텐츠
+// Upcoming 컨텐츠
 const getUpcomingVideos = async () => {
   const options = {
     page: 1,
@@ -116,15 +118,31 @@ const getGenres = async () => {
   return [];
 };
 
+// Reviews
+const getReviews = async () => {
+  const options = {
+    page: 1,
+    size: 20,
+  };
+
+  // Reviews API 호출
+  const res = await fetchReviews({ ...options });
+  if (res.status === 200) {
+    return res.data.data;
+  }
+  return [];
+};
+
 const Home = async () => {
   // 데이터 페칭
-  const [screenVideos, rankingVideos, upcomingVideos, monthlyVideos, videos, genres] = await Promise.all([
+  const [screenVideos, rankingVideos, upcomingVideos, monthlyVideos, videos, genres, reviews] = await Promise.all([
     getScreenVideos(),
     getRankingVideos(),
     getUpcomingVideos(),
     getCurrentVideos(),
     getDefaultVideos(),
     getGenres(),
+    getReviews(),
   ]);
 
   const previewData = fExportScreenDataByCode(screenVideos, 'MA01');
@@ -152,50 +170,69 @@ const Home = async () => {
 
   const rankingVideosTemplate = 'rank';
   const rankingVideosTitle = '🍿 리뷰니버스 TOP 20';
+  const rankingVideosSubtitle = 'REVIEWNIVERSE TOP 20';
 
   const upcomingVideosTemplate = 'upcoming';
   const upcomingVideosTitle = '💖 두근두근 기대작';
+  const upcomingVideosSubtitle = 'COMING SOON';
   const upcomingMoreLink = ENDPOINTS.UPCOMING;
   const upcomingMoreTitle = '더보기';
-  const upcomingMoreSubTitle = '공개 예정작 보러가기';
+  const upcomingMoreSubtitle = '공개 예정작 보러가기';
 
   const monthlyVideosTemplate = 'monthly';
   const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
+  const monthlyVideosSubtitle = 'NEW RELEASE';
 
   // const videosTemplate = 'default';
   const videosTitle = '🍟 이건 어때요?';
+  const videosSubtitle = 'RECOMMEND';
 
   const genresTitle = '장르';
+  const genresSubtitle = 'GENRE';
+
+  const reviewsTitle = '👀 최근 리뷰';
+  const reviewsSubtitle = 'NEW REVIEW';
 
   return (
     <main className={styles.home__main}>
+      {/* 콘텐츠 프리뷰 */}
       <section className={styles.home__preview__section}>
         <VideosSwiperForPreview videos={previewVideos} />
       </section>
 
       <section className={styles.home__main__section}>
+        {/* 랭킹 콘텐츠 리스트 */}
         <VideosSwiper videos={rankingVideos} template={rankingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>{rankingVideosTitle}</h2>
+            <h2 className={vhStyles.horizontal__title}>
+              {rankingVideosTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {rankingVideosSubtitle}</span>
+            </h2>
           </div>
         </VideosSwiper>
 
+        {/* 장르 리스트 */}
         <GenresSwiper genres={genres}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={`${vhStyles.horizontal__title} ${vhStyles.genre}`}>
               <LayoutIcon width={24} height={25} />
               {genresTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {genresSubtitle}</span>
             </h2>
           </div>
         </GenresSwiper>
 
+        {/* upcoming 콘텐츠 리스트 */}
         <VideosSwiper videos={upcomingVideos} template={upcomingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>{upcomingVideosTitle}</h2>
+            <h2 className={vhStyles.horizontal__title}>
+              {upcomingVideosTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {upcomingVideosSubtitle}</span>
+            </h2>
             <Link
               href={upcomingMoreLink}
               className={vhStyles.horizontal__more__wrapper}
-              aria-label={upcomingMoreSubTitle}
+              aria-label={upcomingMoreSubtitle}
             >
               <span className={vhStyles.horizontal__more}>{upcomingMoreTitle}</span>
               <ArrowRightIcon width={24} height={24} />
@@ -203,16 +240,34 @@ const Home = async () => {
           </div>
         </VideosSwiper>
 
+        {/* 리뷰 리스트 */}
+        <ReviewsSwiper reviews={reviews}>
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={vhStyles.horizontal__title}>
+              {reviewsTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {reviewsSubtitle}</span>
+            </h2>
+          </div>
+        </ReviewsSwiper>
+
+        {/* monthly 콘텐츠 리스트 */}
         <VideosSwiper videos={monthlyVideos} template={monthlyVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>{monthlyVideosTitle}</h2>
+            <h2 className={vhStyles.horizontal__title}>
+              {monthlyVideosTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {monthlyVideosSubtitle}</span>
+            </h2>
           </div>
         </VideosSwiper>
 
+        {/* screen 콘텐츠 리스트 */}
         {!isEmpty(screenMA02Videos) && (
           <VideosSwiper videos={screenMA02Videos} template={screenMA02Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
-              <h2 className={vhStyles.horizontal__title}>{screenMA02Title}</h2>
+              <h2 className={vhStyles.horizontal__title}>
+                {screenMA02Title}
+                <span className={vhStyles.horizontal__subtitle}>| {videosSubtitle}</span>
+              </h2>
             </div>
           </VideosSwiper>
         )}
@@ -220,7 +275,10 @@ const Home = async () => {
         {!isEmpty(screenMA03Videos) && (
           <VideosSwiper videos={screenMA03Videos} template={screenMA03Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
-              <h2 className={vhStyles.horizontal__title}>{screenMA03Title}</h2>
+              <h2 className={vhStyles.horizontal__title}>
+                {screenMA03Title}
+                <span className={vhStyles.horizontal__subtitle}>| {videosSubtitle}</span>
+              </h2>
             </div>
           </VideosSwiper>
         )}
@@ -228,7 +286,10 @@ const Home = async () => {
         {!isEmpty(screenMA04Videos) && (
           <VideosSwiper videos={screenMA04Videos} template={screenMA04Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
-              <h2 className={vhStyles.horizontal__title}>{screenMA04Title}</h2>
+              <h2 className={vhStyles.horizontal__title}>
+                {screenMA04Title}
+                <span className={vhStyles.horizontal__subtitle}>| {videosSubtitle}</span>
+              </h2>
             </div>
           </VideosSwiper>
         )}
@@ -236,14 +297,21 @@ const Home = async () => {
         {!isEmpty(screenMA05Videos) && (
           <VideosSwiper videos={screenMA05Videos} template={screenMA05Template}>
             <div className={vhStyles.horizontal__title__wrapper}>
-              <h2 className={vhStyles.horizontal__title}>{screenMA05Title}</h2>
+              <h2 className={vhStyles.horizontal__title}>
+                {screenMA05Title}
+                <span className={vhStyles.horizontal__subtitle}>| {videosSubtitle}</span>
+              </h2>
             </div>
           </VideosSwiper>
         )}
 
+        {/* 기본 콘텐츠 리스트 */}
         <section className={vvStyles.vertical__videos__section}>
           <div className={vvStyles.vertical__title__wrapper}>
-            <h2 className={vvStyles.vertical__title}>{videosTitle}</h2>
+            <h2 className={vvStyles.vertical__title}>
+              {videosTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {videosSubtitle}</span>
+            </h2>
           </div>
           <div className={vvStyles.vertical__videos__wrapper}>
             {videos.map((video) => (

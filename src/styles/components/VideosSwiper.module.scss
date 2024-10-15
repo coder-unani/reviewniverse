@@ -28,6 +28,13 @@
   }
 }
 
+.horizontal__subtitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: $color-white-06;
+  margin-left: 8px;
+}
+
 .horizontal__more__wrapper {
   display: flex;
   align-items: center;

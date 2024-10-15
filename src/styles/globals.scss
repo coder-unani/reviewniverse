@@ -159,6 +159,11 @@ header {
   margin-right: 12px;
 }
 
+.review-margin-right {
+  width: calc((100% - 24px) / 3);
+  margin-right: 12px;
+}
+
 .sub-margin-right {
   &:not(:last-child) {
     margin-right: 12px;
@@ -312,6 +317,11 @@ header {
     margin-right: 10px;
   }
 
+  .review-margin-right {
+    width: calc((100% - 10px) / 2);
+    margin-right: 10px;
+  }
+
   .sub-margin-right {
     &:not(:last-child) {
       margin-right: 10px;
@@ -337,6 +347,11 @@ header {
 
   .genre-margin-right {
     width: calc((100% - 21px) / 4);
+    margin-right: 8px;
+  }
+
+  .review-margin-right {
+    width: 80%;
     margin-right: 8px;
   }
 

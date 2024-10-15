@@ -7,6 +7,7 @@ const endpoints = {
   token: `${baseURL}/v1/token`,
 };
 
+// 토큰
 export const fetchToken = async () => {
   try {
     const client = new AxiosClient();

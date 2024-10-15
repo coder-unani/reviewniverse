@@ -11,6 +11,8 @@ import ReviewsForVideo from '@/components/ui/ReviewsForVideo';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
+// TODO: 해당 리뷰 아이디로 포커스 이동
+
 const VideoReviews = ({ id }) => {
   const router = useRouter();
   const videoId = fParseInt(id);
