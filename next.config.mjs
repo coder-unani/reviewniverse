@@ -34,6 +34,21 @@ const nextConfig = {
 
   // X-powered-by 헤더 비활성화
   poweredByHeader: false,
+
+  // Cache-Control 헤더 설정 추가
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=600, must-revalidate',
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default nextConfig;
