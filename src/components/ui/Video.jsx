@@ -7,6 +7,7 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 
+import StarIcon from '@/resources/icons/fill-star.svg';
 import styles from '@/styles/components/Video.module.scss';
 
 const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
@@ -55,7 +56,7 @@ const Video = ({ video, isClient = false }) => {
             )}
           </div>
           <div className={styles.default__rating__wrapper} data-color={ratingColor}>
-            <div className={styles.default__rating__square} />
+            <StarIcon className={styles.default__rating__icon} width={16} height={16} />
             <span className={styles.default__rating}>{ratingText}</span>
           </div>
         </div>

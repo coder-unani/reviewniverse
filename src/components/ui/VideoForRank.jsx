@@ -8,6 +8,7 @@ import { SETTINGS } from '@/config/settings';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
 
+import StarIcon from '@/resources/icons/fill-star.svg';
 import styles from '@/styles/components/VideoForRank.module.scss';
 import defStyles from '@/styles/components/Video.module.scss';
 
@@ -85,7 +86,7 @@ const VideoForRank = ({ video, index, isClient = false }) => {
             )}
           </div>
           <div className={defStyles.default__rating__wrapper} data-color={ratingColor}>
-            <div className={defStyles.default__rating__square} />
+            <StarIcon className={defStyles.default__rating__icon} width={16} height={16} />
             <span className={defStyles.default__rating}>{ratingText}</span>
           </div>
         </div>

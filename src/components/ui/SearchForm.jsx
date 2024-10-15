@@ -196,6 +196,9 @@ const SearchForm = () => {
   }, []);
 
   useEffect(() => {
+    // 드롭다운 초기화
+    setIsDropdown(false);
+
     // 최근 검색어 로컬 스토리지에서 불러오기
     const recent = getStorageKeyword();
     setRecentKeywords(recent);

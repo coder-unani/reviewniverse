@@ -12,29 +12,38 @@
 
   &[data-color='red'] {
     .review__rating__fill {
-      background-color: $color-red;
+      path {
+        fill: $color-red;
+      }
     }
   }
   &[data-color='yellow'] {
     .review__rating__fill {
-      background-color: $color-yellow;
+      path {
+        fill: $color-yellow;
+      }
     }
   }
   &[data-color='green'] {
     .review__rating__fill {
-      background-color: $color-green;
+      path {
+        fill: $color-green;
+      }
     }
   }
 }
 
 .review__rating__fill {
-  width: 12px;
-  height: 12px;
-  border-radius: 3px;
+  svg {
+    path {
+      fill: $color-white-08;
+    }
+  }
 }
 
 .review__rating__count {
   font-size: 14px;
   color: $color-white-02;
-  margin-left: 6px;
+  line-height: 16px;
+  margin-left: 4px;
 }
