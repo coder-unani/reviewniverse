@@ -29,10 +29,10 @@ const UsersDelete = () => {
   };
 
   // 회원탈퇴 확인
-  const handleDelete = async () => {
+  const handleDelete = () => {
+    // API 호출 중일 경우 리턴
     if (isDeletePending) return;
-
-    await userDelete(
+    userDelete(
       { userId: user.id },
       {
         onSuccess: (res) => {

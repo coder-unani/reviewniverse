@@ -17,15 +17,15 @@ const VideoLikeButton = ({ videoId }) => {
   const { toggleEnjoyModal } = useModalContext();
   const { mutate: videoLike, isPending: isLikePending } = useVideoLike();
 
-  const handleLikeButton = async () => {
+  const handleLikeButton = () => {
+    // 유저가 없을 경우 Enjoy 모달 띄우기
     if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
-
+    // API 호출 중일 경우 리턴
     if (isLikePending) return;
-
-    await videoLike(
+    videoLike(
       { videoId, userId: user.id },
       {
         onSuccess: (res) => {

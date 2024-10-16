@@ -19,16 +19,15 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
   const { mutate: reviewLike, isPending: isLikePending } = useReviewLike();
   const isLike = !isEmpty(user) && review.my_info ? review.my_info.is_like : false;
 
-  const handleReviewLike = async () => {
+  const handleReviewLike = () => {
+    // 유저가 없을 경우 Enjoy 모달 띄우기
     if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
-
-    // 좋아요 중복 요청 방지
+    // API 호출 중일 경우 리턴
     if (isLikePending) return;
-
-    await reviewLike(
+    reviewLike(
       { videoId, reviewId: review.id, userId: user.id },
       {
         onSuccess: (res) => {

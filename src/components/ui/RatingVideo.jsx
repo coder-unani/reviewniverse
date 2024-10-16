@@ -56,13 +56,12 @@ const RatingVideo = ({ videoId, myInfo }) => {
   };
 
   // 비디오 평가하기 클릭 이벤트
-  const handleRatingClick = async (e) => {
+  const handleRatingClick = (e) => {
     // 로그인 안했을 경우 Enjoy 모달 띄우기
     if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
-
     // API 호출 중일 경우 리턴
     if (isRatingPending) return;
 
@@ -71,7 +70,7 @@ const RatingVideo = ({ videoId, myInfo }) => {
     if (!rating) return;
 
     // 평가하기 API 호출
-    await videoRating(
+    videoRating(
       { videoId, rating, userId: user.id },
       {
         onSuccess: (res) => {

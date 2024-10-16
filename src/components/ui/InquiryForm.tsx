@@ -10,7 +10,7 @@ import { INQUIRY_CODE } from '@/config/codes';
 import { ReqInquiry } from '@/types/request';
 // import { IInquiryProps } from '@/types/inquiry';
 import { useModalContext } from '@/contexts/ModalContext';
-import { fetchInquiry } from '@/library/api/inquiry';
+import { fetchInquiry } from '@/library/api/support';
 
 import styles from '@/styles/pages/Inquiry.module.scss';
 
@@ -70,8 +70,8 @@ const InquiryForm = () => {
       is_agree_provide_email: data.is_agree_provide_email,
     };
 
-    const res = await fetchInquiry({ inquiryData });
-    if (res.status === 201) {
+    const resInquiry = await fetchInquiry({ inquiryData });
+    if (resInquiry?.status === 201) {
       const message = () => (
         <>
           문의/제보가 정상적으로 접수되었습니다.

@@ -67,7 +67,6 @@ const initGenreVideos = (result) => {
 // Ranking Genres API 호출
 const getRankingGenres = async () => {
   const count = 50;
-
   const res = await fetchRankingGenres({ count });
   if (res.status === 200) {
     return res.data.data;
@@ -85,7 +84,6 @@ const getGenreVideos = async ({ genreId }) => {
     by: VIDEO_BY_OPTIONS.GENRE,
     query: genreId,
   };
-
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data;
@@ -97,10 +95,9 @@ const getGenreVideos = async ({ genreId }) => {
 export const generateMetadata = async ({ params }) => {
   const { id } = params;
   const genreId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (genreId === 0) {
-    notFound();
-  }
+  if (genreId === 0) notFound();
 
   const result = await getGenreVideos({ genreId });
   const videos = initGenreVideos(result);
@@ -144,10 +141,9 @@ export const generateMetadata = async ({ params }) => {
 const Genres = async ({ params }) => {
   const { id } = params;
   const genreId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (genreId === 0) {
-    notFound();
-  }
+  if (genreId === 0) notFound();
 
   const rankingGenres = await getRankingGenres();
   const result = await getGenreVideos({ genreId });

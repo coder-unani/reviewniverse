@@ -1,6 +1,7 @@
-// variables
+// variables, mixins
 // '*'를 사용하면 네임스페이스 없이 변수 사용 가능
 @use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
 
 // normalize.css
 @import '~normalize.css';
@@ -126,9 +127,7 @@ em {
 // 헤더 투명 스타일
 header {
   &.transparent {
-    background: transparent;
-    background: -webkit-linear-gradient(to bottom, rgba($color-background, 0.6), rgba($color-background, 0));
-    background: linear-gradient(to bottom, rgba($color-background, 0.6), rgba($color-background, 0));
+    @include header-gradient;
     transition: all 0.2s ease-in-out;
   }
 }

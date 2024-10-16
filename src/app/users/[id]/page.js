@@ -13,7 +13,6 @@ const UsersComponent = dynamic(() => import('@/components/ui/Users'), { ssr: fal
 
 const Users = ({ params }) => {
   const { id } = params;
-
   return (
     <main className={styles.user__main}>
       <Suspense fallback="">

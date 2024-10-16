@@ -56,6 +56,7 @@ const VideoReviewSimple = ({ videoId }) => {
 
   // 리뷰 작성
   const handleReviewCreate = () => {
+    // 유저가 없을 경우 Enjoy 모달 띄우기
     if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
@@ -70,15 +71,16 @@ const VideoReviewSimple = ({ videoId }) => {
 
   // 리뷰 삭제
   const handleReviewDelete = async () => {
+    // API 호출 중일 경우 리턴
     if (isDeletePending) return;
-
+    // 확인 모달 띄우기
     const confirmed = await new Promise((resolve) => {
       toggleConfirmModal('리뷰를 삭제하시겠어요?', resolve);
       deleteButtonRef.current.blur();
     });
-
+    // 확인 시 리뷰 삭제
     if (confirmed) {
-      await reviewDelete(
+      reviewDelete(
         { videoId, reviewId: myInfo.review.id, userId: user.id },
         {
           onSuccess: (res) => {
@@ -94,7 +96,6 @@ const VideoReviewSimple = ({ videoId }) => {
   // 리뷰 없을 때 메시지
   const getMessage = () => {
     if (!myInfo) return '로그인 후 리뷰를 기록할 수 있어요!';
-
     if (isEmpty(reviews.data)) {
       return (
         <>
@@ -104,9 +105,7 @@ const VideoReviewSimple = ({ videoId }) => {
         </>
       );
     }
-
     if (isEmpty(myInfo.review)) return '기록된 리뷰가 없습니다. 리뷰를 남겨보세요!';
-
     return '';
   };
 

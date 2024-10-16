@@ -48,7 +48,6 @@ const initUpcomingVideos = (result) => {
 // UpComing 컨텐츠
 const getUpcomingVideos = async () => {
   const options = { page: 1, size: UPCOMING_PAGE_SIZE };
-
   // Coming Videos API 호출
   const res = await fetchUpcomingVideos({ ...options });
   if (res.status === 200) {
@@ -93,10 +92,9 @@ export const generateMetadata = async () => {
 const Upcoming = async () => {
   const result = await getUpcomingVideos();
   const videos = initUpcomingVideos(result);
+  // const releaseVideos = fGroupDataByRelease(videos.data);
   // page 1의 데이터가 size(50)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > UPCOMING_PAGE_SIZE;
-
-  // const releaseVideos = fGroupDataByRelease(videos.data);
 
   return (
     <main className={styles.upcoming__main}>

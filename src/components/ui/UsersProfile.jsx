@@ -40,7 +40,7 @@ const UsersProfile = () => {
   const { user } = useAuthContext();
   const [profile, setProfile] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
-  const { mutateAsync: userMe, isPending: isUserPending, isError: isUserError } = useUserMe();
+  const { mutate: userMe, isPending: isUserPending, isError: isUserError } = useUserMe();
   const { mutateAsync: validateNickname, isPending: isValidatePending } = useValidateNickname();
   const { mutate: userUpdate, isPending: isUpdatePending } = useUserUpdate();
 
@@ -94,9 +94,8 @@ const UsersProfile = () => {
   // 유저 정보 수정 요청
   // TODO: 프로필 소개 길이 확인 필요
   const onSubmit = handleSubmit(async (data) => {
-    if (isValidatePending || isUpdatePending) {
-      return;
-    }
+    // API 호출 중일 경우 리턴
+    if (isValidatePending || isUpdatePending) return;
 
     const nicknameValid = await trigger('nickname');
     if (nicknameValid && profile.nickname !== data.nickname) {
@@ -134,13 +133,13 @@ const UsersProfile = () => {
       return;
     }
 
-    await userUpdate(
+    userUpdate(
       { userId: profile.id, updateData },
       {
         onSuccess: (res) => {
           if (res.status === 204) {
             const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: profile.id });
-            router.push(path, { state: { isUserUpdate: true } });
+            router.push(path);
             showSuccessToast('프로필이 수정되었습니다.');
           } else {
             showErrorToast('프로필을 수정하지 못했습니다.');
@@ -190,27 +189,26 @@ const UsersProfile = () => {
 
   // 유저 정보 가져오기
   useEffect(() => {
-    const fetchData = async () => {
-      const me = await userMe();
-      if (me.status) {
-        // 요청한 유저 아이디와 로그인한 유저 아이디가 다르다면 404페이지로 이동
-        if (me.data.id !== user.id) {
-          notFound();
-        }
+    userMe(
+      {},
+      {
+        onSuccess: (res) => {
+          if (res.status === 200) {
+            const me = res.data.user;
+            // 로그인한 유저와 조회한 유저가 다르다면 404페이지로 이동
+            if (me.id !== user.id) notFound();
 
-        setProfile(me.data);
-        setPreviewImage(me.data.profile_image || DEFAULT_IMAGES.noActor);
+            setProfile(me);
+            setPreviewImage(me.profile_image || DEFAULT_IMAGES.noActor);
+          }
+        },
       }
-    };
-
-    fetchData();
+    );
   }, [userMe, user.id]);
 
   // 유저 정보 세팅
   useEffect(() => {
-    if (!profile) {
-      return;
-    }
+    if (!profile) return;
 
     setValue('profile_image', profile.profile_image);
     setValue('nickname', profile.nickname);
@@ -234,23 +232,21 @@ const UsersProfile = () => {
 
   // 로그인한 유저가 없다면 로그인 페이지로 이동
   if (isEmpty(user)) {
-    return router.push(ENDPOINTS.USER_LOGIN);
+    router.push(ENDPOINTS.USER_LOGIN);
+    return null;
   }
 
   // 유저 정보 조회 중이라면 null 반환
-  if (isUserPending) {
-    return null;
-  }
+  if (isUserPending) return null;
 
   // 유저 정보 조회 실패 시 에러 페이지로 이동
   if (isUserError) {
-    return router.push(ENDPOINTS.ERROR);
+    router.push(ENDPOINTS.ERROR);
+    return null;
   }
 
   // 유저 정보가 없다면 null 반환
-  if (isEmpty(profile) || isUserPending) {
-    return null;
-  }
+  if (isEmpty(profile) || isUserPending) return null;
 
   return (
     <section className={styles.edit__section}>

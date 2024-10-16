@@ -31,7 +31,6 @@ const getScreenVideos = async () => {
     code: SCREEN_MAIN_ID,
     display: VIDEO_MODEL_OPTIONS.DETAIL,
   };
-
   // Screen Videos API 호출
   const res = await fetchScreenVideos({ ...options });
   if (res.status === 200) {
@@ -46,7 +45,6 @@ const getRankingVideos = async () => {
     code: new Date().toISOString().slice(0, 10).replace(/-/g, ''),
     count: 20,
   };
-
   // Ranking Videos API 호출
   const res = await fetchRankingVideos({ ...options });
   if (res.status === 200) {
@@ -61,7 +59,6 @@ const getUpcomingVideos = async () => {
     page: 1,
     size: 20,
   };
-
   // Coming Videos API 호출
   const res = await fetchUpcomingVideos({ ...options });
   if (res.status === 200) {
@@ -78,7 +75,6 @@ const getCurrentVideos = async () => {
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
     terms: VIDEO_TERMS_OPTIONS.CURRENT,
   };
-
   // Monthly Videos API 호출
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
@@ -95,7 +91,6 @@ const getDefaultVideos = async () => {
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
     terms: VIDEO_TERMS_OPTIONS.RELEASED,
   };
-
   // Videos API 호출
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
@@ -109,7 +104,6 @@ const getGenres = async () => {
   const options = {
     count: 50,
   };
-
   // Ranking Genres API 호출
   const res = await fetchRankingGenres({ ...options });
   if (res.status === 200) {
@@ -124,7 +118,6 @@ const getReviews = async () => {
     page: 1,
     size: 20,
   };
-
   // Reviews API 호출
   const res = await fetchReviews({ ...options });
   if (res.status === 200) {

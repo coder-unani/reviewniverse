@@ -1,0 +1,16 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.suggest__button {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-01;
+  line-height: 34px;
+  text-align: center;
+  border-radius: 8px;
+  @include orb-gradient(to right, 0.75);
+  padding: 0 16px;
+  margin-top: 20px;
+  cursor: pointer;
+}

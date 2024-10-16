@@ -25,7 +25,11 @@ const ReviewsSwiper = ({ children, reviews }) => {
           <div className={`swiper ${vhStyles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {reviews.map((review) => (
-                <div className={`swiper-slide review-margin-right ${vhStyles.horizontal__video__item}`} key={review.id}>
+                <div
+                  className={`swiper-slide review-margin-right ${vhStyles.horizontal__video__item}`}
+                  data-v-id={review.video.id}
+                  key={review.id}
+                >
                   <ReviewWithVideo user={review.user} review={review} isDate={false} isShort />
                 </div>
               ))}

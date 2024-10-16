@@ -1,0 +1,15 @@
+@use '@/styles/variables' as *;
+
+// 오르빗코드 아이덴티티 그라디언트
+@mixin orb-gradient($direction: to right, $opacity: 1) {
+  background: $color-magenta;
+  background: -webkit-linear-gradient($direction, rgba($color-cyan, $opacity), rgba($color-magenta, $opacity));
+  background: linear-gradient($direction, rgba($color-cyan, $opacity), rgba($color-magenta, $opacity));
+}
+
+// 헤더 그라디언트
+@mixin header-gradient() {
+  background: transparent;
+  background: -webkit-linear-gradient(to bottom, rgba($color-background, 0.6), rgba($color-background, 0));
+  background: linear-gradient(to bottom, rgba($color-background, 0.6), rgba($color-background, 0));
+}

@@ -55,7 +55,6 @@ export const revalidate = VIDEO_REVALIDATE_SEC;
  * TODO:
  * - 반응형 레이아웃
  * - react modal 라이브러리 사용하기 (갤러리 등)
- * - react tooltip 라이브러리 사용하기 (ex.평점 취소하기)
  */
 
 // Content
@@ -72,15 +71,12 @@ const getContent = async ({ videoId }) => {
 export const generateMetadata = async ({ params }) => {
   const { id } = params;
   const videoId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (videoId === 0) {
-    notFound();
-  }
+  if (videoId === 0) notFound();
 
   const content = await getContent({ videoId });
-  if (isEmpty(content)) {
-    return {};
-  }
+  if (isEmpty(content)) return {};
 
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   // TODO: og태그 이미지 사이즈 고려, 이미지 사이즈 1200x630px 권장으로 인해 background 이미지 사용
@@ -120,9 +116,7 @@ export const generateMetadata = async ({ params }) => {
 
 // 플랫폼 보러가기
 const VideoPlatform = ({ platformTitle, platforms, upcoming }) => {
-  if (isEmpty(platforms)) {
-    return null;
-  }
+  if (isEmpty(platforms)) return null;
 
   // platforms.code 와 upcoming.code 가 같은 upcoming 데이터를 찾아서 platforms에 upcoming.release 추가
   const updatedPlatforms = platforms.map((platform) => {
@@ -176,9 +170,7 @@ const VideoPlatform = ({ platformTitle, platforms, upcoming }) => {
 
 // 출연진/제작진 컴포넌트
 const VideoPeople = ({ title, people, formatCode }) => {
-  if (isEmpty(people)) {
-    return null;
-  }
+  if (isEmpty(people)) return null;
 
   const uniqueId = nanoid();
 
@@ -245,16 +237,13 @@ const VideoPeople = ({ title, people, formatCode }) => {
 const Contents = async ({ params }) => {
   const { id } = params;
   const videoId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (videoId === 0) {
-    notFound();
-  }
+  if (videoId === 0) notFound();
 
   const content = await getContent({ videoId });
   // 비디오 정보가 없는 경우 notFound 페이지로 이동
-  if (isEmpty(content)) {
-    notFound();
-  }
+  if (isEmpty(content)) notFound();
 
   const subInfoUniqueId = nanoid();
   const backgroundImageUrl = fBackgroundImage(content.thumbnail);

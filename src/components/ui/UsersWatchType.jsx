@@ -34,23 +34,22 @@ const UsersWatchtype = () => {
 
     setSelectedFavorites((prev) => {
       const isSelected = prev.includes(id);
-
       if (isSelected) {
         return prev.filter((favoriteId) => favoriteId !== id);
       }
-
       return [...prev, id];
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-
+    // API 호출 중일 경우 리턴
     if (isPending) return;
+    // 선택된 취향이 없을 경우 리턴
     if (isEmpty(selectedFavorites)) return;
 
     const watchtype = selectedFavorites.join(',');
-    await watchtypeCreate(
+    watchtypeCreate(
       { userId: user.id, watchtype },
       {
         onSuccess: (res) => {

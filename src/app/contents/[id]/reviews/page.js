@@ -13,7 +13,6 @@ const VideoReviewsComponent = dynamic(() => import('@/components/ui/VideoReviews
 
 const ContentsReviews = ({ params }) => {
   const { id } = params;
-
   return (
     <main className={styles.reviews__main}>
       <Suspense fallback="">

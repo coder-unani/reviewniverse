@@ -40,34 +40,37 @@ const ReviewModal = React.memo(({ content, myReview }) => {
   const [isPrivate, setIsPrivate] = useState(false);
   const textareaRef = useRef(null);
 
+  // 리뷰 닫기 전 확인 메시지
+  const reviewCloseMessage = () => (
+    <>
+      작성중인 리뷰가 있어요.
+      <br />
+      정말 닫으시겠어요?
+    </>
+  );
+
   // 리뷰 닫기 전 확인 모달 띄우는 함수
   const confirmReviewClose = async () => {
     if (textareaRef.current.value) {
       const confirmed = await new Promise((resolve) => {
-        const message = () => (
-          <>
-            작성중인 리뷰가 있어요.
-            <br />
-            정말 닫으시겠어요?
-          </>
-        );
-        toggleConfirmModal(message, resolve);
+        toggleConfirmModal(reviewCloseMessage, resolve);
       });
-      if (!confirmed) return;
+      if (!confirmed) return false;
     }
     toggleReviewModal();
+    return true;
   };
 
   // 모달 클릭 이벤트
-  const handleModalClose = async (e) => {
+  const handleModalClose = (e) => {
     if (e.target === modalRef.current) {
-      await confirmReviewClose();
+      confirmReviewClose();
     }
   };
 
   // 리뷰 모달 닫기
-  const handleClose = async () => {
-    await confirmReviewClose();
+  const handleClose = () => {
+    confirmReviewClose();
   };
 
   // 텍스트 영역에 포커스를 설정하는 함수
@@ -130,7 +133,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
 
     if (isEmpty(myReview)) {
       // 내 리뷰가 없을 경우 리뷰 등록
-      await reviewCreate(
+      reviewCreate(
         {
           videoId: content.id,
           title: sanitizedTitle,
@@ -149,13 +152,14 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       );
     } else {
       // 내 리뷰가 있을 경우 리뷰 수정
+      // 리뷰 내용이 변경되지 않았을 경우 리뷰 수정하지 않음
       if (myReview.title === sanitizedTitle && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
         showSuccessToast('리뷰가 수정되었습니다.');
         toggleReviewModal();
         return;
       }
 
-      await reviewUpdate(
+      reviewUpdate(
         {
           videoId: content.id,
           reviewId: myReview.id,

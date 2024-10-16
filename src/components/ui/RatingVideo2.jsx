@@ -59,20 +59,19 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   };
 
   // 평점 저장
-  const saveRating = async () => {
-    // 로그인이 되어 있지 않을 경우
+  const saveRating = () => {
+    // 유저가 없을 경우 Enjoy 모달 띄우기
     if (isEmpty(user)) {
       toggleEnjoyModal();
       return;
     }
-
     // API 호출 중일 경우 리턴
     if (isRatingPending) return;
 
     const rating = fillRatingRef?.current.dataset.rating;
     if (!rating || rating === '0') return;
 
-    await videoRating(
+    videoRating(
       { videoId, rating, userId: user.id },
       {
         onSuccess: (res) => {
@@ -104,9 +103,9 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   };
 
   // 클릭 이벤트
-  const handleClick = async () => {
+  const handleClick = () => {
     if (isDragging) return;
-    await saveRating();
+    saveRating();
   };
 
   // 터치 시작 이벤트
@@ -141,7 +140,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   };
 
   // 터치 종료 이벤트
-  const handleTouchEnd = async (e) => {
+  const handleTouchEnd = (e) => {
     if (isDragging) {
       e.preventDefault();
 
@@ -156,7 +155,7 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
       // 드래그 종료
       setIsDragging(false);
-      await saveRating();
+      saveRating();
     }
   };
 

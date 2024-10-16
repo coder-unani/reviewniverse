@@ -1,4 +1,5 @@
 @use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
 
 .enjoy__modal__wrapper {
   position: fixed;
@@ -65,9 +66,7 @@
   color: $color-white-01;
   line-height: 48px;
   text-align: center;
-  background: $color-magenta;
-  background: -webkit-linear-gradient(to right, $color-cyan, $color-magenta);
-  background: linear-gradient(to right, $color-cyan, $color-magenta);
+  @include orb-gradient(to right, 1);
   border-radius: 12px;
   margin-top: 20px;
 }

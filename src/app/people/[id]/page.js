@@ -86,7 +86,6 @@ const getPeopleVideos = async ({ peopleId }) => {
     by: VIDEO_BY_OPTIONS.PERSON,
     query: peopleId,
   };
-
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data;
@@ -98,10 +97,9 @@ const getPeopleVideos = async ({ peopleId }) => {
 export const generateMetadata = async ({ params }) => {
   const { id } = params;
   const peopleId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (peopleId === 0) {
-    notFound();
-  }
+  if (peopleId === 0) notFound();
 
   const result = await getPeopleVideos({ peopleId });
   const videos = initPeopleVideos(result);
@@ -153,10 +151,9 @@ const ProfileTile = ({ title, desc }) => (
 const People = async ({ params }) => {
   const { id } = params;
   const peopleId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (peopleId === 0) {
-    notFound();
-  }
+  if (peopleId === 0) notFound();
 
   const result = await getPeopleVideos({ peopleId });
   const videos = initPeopleVideos(result);

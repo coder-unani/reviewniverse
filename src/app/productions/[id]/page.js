@@ -72,7 +72,6 @@ const getProductionVideos = async ({ productionId }) => {
     by: VIDEO_BY_OPTIONS.PRODUCTION,
     query: productionId,
   };
-
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data;
@@ -84,10 +83,9 @@ const getProductionVideos = async ({ productionId }) => {
 export const generateMetadata = async ({ params }) => {
   const { id } = params;
   const productionId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (productionId === 0) {
-    notFound();
-  }
+  if (productionId === 0) notFound();
 
   const result = await getProductionVideos({ productionId });
   const videos = initProductionVideos(result);
@@ -131,10 +129,9 @@ export const generateMetadata = async ({ params }) => {
 const Productions = async ({ params }) => {
   const { id } = params;
   const productionId = fParseInt(id);
+
   // 숫자가 아닌 경우 notFound 페이지로 이동
-  if (productionId === 0) {
-    notFound();
-  }
+  if (productionId === 0) notFound();
 
   const result = await getProductionVideos({ productionId });
   const videos = initProductionVideos(result);

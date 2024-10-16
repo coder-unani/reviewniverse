@@ -13,7 +13,6 @@ const UsersLikesComponent = dynamic(() => import('@/components/ui/UsersLikes'), 
 
 const UsersLikes = ({ params }) => {
   const { id } = params;
-
   return (
     <main className={styles.contents__main}>
       <Suspense fallback="">
