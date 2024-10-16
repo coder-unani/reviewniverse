@@ -79,6 +79,11 @@
   font-weight: 800;
   color: $color-white-01;
   word-break: keep-all;
+  word-wrap: break-word;
+
+  &[data-small='true'] {
+    font-size: 36px;
+  }
 }
 
 .detail__genre__wrapper {
@@ -933,6 +938,10 @@
 
   .detail__title__kr {
     font-size: 40px;
+
+    &[data-small='true'] {
+      font-size: 32px;
+    }
   }
 
   .detail__sub__info__item {
@@ -1093,7 +1102,11 @@
   }
 
   .detail__title__kr {
-    font-size: 36px;
+    font-size: 32px;
+
+    &[data-small='true'] {
+      font-size: 24px;
+    }
   }
 
   .detail__genre__link {
