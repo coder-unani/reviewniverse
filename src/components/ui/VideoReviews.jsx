@@ -83,13 +83,13 @@ const VideoReviews = ({ id }) => {
   return (
     <>
       <section className={styles.reviews__title__section}>
-        <strong className={styles.reviews__title}>
+        <h1 className={styles.reviews__title}>
           {reviews.metadata && (
             <>
               <em>{reviews.metadata.video.title}</em> 의 모든 리뷰
             </>
           )}
-        </strong>
+        </h1>
       </section>
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>

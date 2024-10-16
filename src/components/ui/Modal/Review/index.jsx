@@ -33,19 +33,37 @@ import styles from '@/styles/components/ReviewModal.module.scss';
 const ReviewModal = React.memo(({ content, myReview }) => {
   const modalRef = useRef();
   const { user } = useAuthContext();
-  const { toggleReviewModal } = useModalContext();
+  const { toggleReviewModal, toggleConfirmModal } = useModalContext();
   const { mutate: reviewCreate, isPending: isCreatePending } = useReviewCreate();
   const { mutate: reviewUpdate, isPending: isUpdatePending } = useReviewUpdate();
   const [isSpoiler, setIsSpoiler] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
+  const textareaRef = useRef(null);
 
   // 모달 클릭 이벤트
-  const handleModalClose = (e) => {
-    if (e.target === modalRef.current) toggleReviewModal();
+  const handleModalClose = async (e) => {
+    if (e.target === modalRef.current) {
+      if (textareaRef.current.value) {
+        const confirmed = await new Promise((resolve) => {
+          const message = () => (
+            <>
+              작성중인 리뷰가 있어요.
+              <br />
+              정말 닫으시겠어요?
+            </>
+          );
+          toggleConfirmModal(message, resolve);
+        });
+
+        if (!confirmed) return;
+      }
+      toggleReviewModal();
+    }
   };
 
   // 텍스트 영역에 포커스를 설정하는 함수
   const handleFocus = (element) => {
+    textareaRef.current = element; // ref에 요소 저장
     if (element) element.focus(); // 요소에 포커스 설정
   };
 
