@@ -58,7 +58,6 @@
 .default__info__container {
   display: flex;
   flex-direction: column;
-  // margin-top: 16px;
   margin-top: 10px;
 }
 
@@ -102,7 +101,6 @@
 .default__more__wrapper {
   display: flex;
   align-items: center;
-  // justify-content: space-between;
   gap: 12px;
   margin-top: 6px;
 }
@@ -118,10 +116,6 @@
 }
 
 .default__rating__wrapper {
-  // background-color: $color-white-08;
-  // border-radius: 4px;
-  // padding: 4px;
-
   &[data-color='red'] {
     .default__rating__icon {
       path {

@@ -22,6 +22,9 @@ const RenderVideoItems = ({ video, template, index }) => {
     case 'upcoming':
       // 커밍순 아이템 렌더링
       return <VideoForUpcoming video={video} index={index} />;
+    case 'default':
+      // 기본 비디오 아이템 렌더링
+      return <Video video={video} index={index} />;
     default:
       // 기본 비디오 아이템 렌더링
       return <Video video={video} index={index} />;
@@ -38,7 +41,7 @@ const VideosSwiper = ({ children, videos, template = 'default' }) => {
     <>
       <section className={styles.horizontal__videos__section}>
         {children}
-        <div className={`${styles.horizontal__videos__wrapper} ${template}`}>
+        <div className={`${styles.horizontal__videos__wrapper} ${styles[template]}`}>
           <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {videos.map((video, index) => (

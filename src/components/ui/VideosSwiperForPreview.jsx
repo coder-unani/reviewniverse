@@ -6,8 +6,10 @@ import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
-import { fPreviewThumbnail, fBackgroundImage, fReleaseText } from '@/utils/formatContent';
+import { fPreviewThumbnail, fBackgroundImage, fReleaseText, fRatingColor, fRatingText } from '@/utils/formatContent';
 
+import StarIcon from '@/resources/icons/fill-star.svg';
+import styles from '@/styles/components/Video.module.scss';
 import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
 
 const PreviewSwiper = dynamic(() => import('@/components/ui/Client/VideosSwiperForPreview'), { ssr: false });
@@ -29,17 +31,20 @@ const VideosSwiperForPreview = async ({ videos }) => {
                   data-url={video.thumbnail[0]}
                 />
               </picture>
-
               <section className={vpStyles.preview__info__section}>
                 <div className={vpStyles.preview__info__wrapper}>
                   <div className={vpStyles.preview__title__wrapper}>
-                    <div>
-                      <p className={vpStyles.preview__title__og} data-swiper-parallax="-150">
-                        {video.title_og || video.title_en || video.title}
-                      </p>
-                      <h2 className={vpStyles.preview__title__kr} data-swiper-parallax="-250">
-                        {video.title}
-                      </h2>
+                    <p className={vpStyles.preview__title__og} data-swiper-parallax="-150">
+                      {video.title_og || video.title_en || video.title}
+                    </p>
+                    <div className={vpStyles.preview__title} data-swiper-parallax="-250">
+                      <h2 className={vpStyles.preview__title__kr}>{video.title}</h2>
+                      {video.rating > 0 && (
+                        <div className={styles.default__rating__wrapper} data-color={fRatingColor(video.rating)}>
+                          <StarIcon className={styles.default__rating__icon} width={16} height={16} />
+                          <span className={styles.default__rating}>{fRatingText(video.rating)}</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   <div className={vpStyles.preview__release__wrapper}>

@@ -61,7 +61,21 @@
   &.rank {
     .horizontal__prev__button,
     .horizontal__next__button {
-      top: calc((100% - 65px) * 0.5);
+      top: calc((100% - 73px) * 0.5);
+    }
+  }
+
+  &.upcoming {
+    .horizontal__prev__button,
+    .horizontal__next__button {
+      top: calc((100% - 51px) * 0.5);
+    }
+  }
+
+  &.default {
+    .horizontal__prev__button,
+    .horizontal__next__button {
+      top: calc((100% - 73px) * 0.5);
     }
   }
 }
@@ -73,7 +87,7 @@
 .horizontal__prev__button,
 .horizontal__next__button {
   position: absolute;
-  top: calc((100% - 57px) * 0.5);
+  top: 50%;
   transform: translateY(-50%);
   display: flex;
   align-items: center;
@@ -92,10 +106,6 @@
   &:hover {
     border: 1px solid $border-color-03;
     background-color: $color-white-09;
-  }
-
-  &.genre {
-    top: 50%;
   }
 
   svg {

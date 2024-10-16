@@ -179,7 +179,7 @@ const Home = async () => {
   const upcomingMoreTitle = '더보기';
   const upcomingMoreSubtitle = '공개 예정작 보러가기';
 
-  const monthlyVideosTemplate = 'monthly';
+  const monthlyVideosTemplate = 'default';
   const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
   const monthlyVideosSubtitle = 'NEW RELEASE';
 

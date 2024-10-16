@@ -53,7 +53,7 @@ const GenresSwiper = ({ children, genres }) => {
           </div>
           <button
             type="button"
-            className={`swiper-prev-button ${vhStyles.horizontal__prev__button} ${vhStyles.genre}`}
+            className={`swiper-prev-button ${vhStyles.horizontal__prev__button}`}
             data-swiper-id={uniqueId}
             disabled // 초기 비활성화
           >
@@ -61,7 +61,7 @@ const GenresSwiper = ({ children, genres }) => {
           </button>
           <button
             type="button"
-            className={`swiper-next-button ${vhStyles.horizontal__next__button} ${vhStyles.genre}`}
+            className={`swiper-next-button ${vhStyles.horizontal__next__button}`}
             data-swiper-id={uniqueId}
           >
             <ArrowRightIcon width={28} height={28} />
