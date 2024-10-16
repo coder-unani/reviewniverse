@@ -3,7 +3,6 @@
 import React from 'react';
 import Link from 'next/link';
 
-import { SETTINGS } from '@/config/settings';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useModalContext } from '@/contexts/ModalContext';
 
@@ -28,9 +27,8 @@ const Footer = () => {
             <li>help@orbitcode.kr</li>
           </ul>
           <ul className={styles.footer__contact__list}>
-            <li>제휴 및 협력 문의</li>
             <li>
-              <Link href={ENDPOINTS.INQUIRY}>{`${SETTINGS.SITE_BASE_URL}${ENDPOINTS.INQUIRY}`}</Link>
+              <Link href={ENDPOINTS.INQUIRY}>제휴 및 협력 문의 &#8599;</Link>
             </li>
           </ul>
         </div>

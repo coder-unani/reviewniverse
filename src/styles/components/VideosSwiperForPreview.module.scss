@@ -78,6 +78,10 @@
   font-weight: 800;
   color: $color-white-01;
   word-break: keep-all;
+
+  &[data-small='true'] {
+    font-size: 36px;
+  }
 }
 
 .preview__release {
@@ -210,6 +214,10 @@
 
   .preview__title__kr {
     font-size: 40px;
+
+    &[data-small='true'] {
+      font-size: 32px;
+    }
   }
 
   .preview__release__wrapper {
@@ -248,7 +256,11 @@
   }
 
   .preview__title__kr {
-    font-size: 36px;
+    font-size: 32px;
+
+    &[data-small='true'] {
+      font-size: 24px;
+    }
   }
 
   .preview__thumbnails__wrapper {

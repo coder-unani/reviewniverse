@@ -9,7 +9,7 @@ import { fDate } from '@/utils/format';
 import { fPreviewThumbnail, fBackgroundImage, fReleaseText, fRatingColor, fRatingText } from '@/utils/formatContent';
 
 import StarIcon from '@/resources/icons/fill-star.svg';
-import styles from '@/styles/components/Video.module.scss';
+import vStyles from '@/styles/components/Video.module.scss';
 import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
 
 const PreviewSwiper = dynamic(() => import('@/components/ui/Client/VideosSwiperForPreview'), { ssr: false });
@@ -38,11 +38,13 @@ const VideosSwiperForPreview = async ({ videos }) => {
                       {video.title_og || video.title_en || video.title}
                     </p>
                     <div className={vpStyles.preview__title} data-swiper-parallax="-250">
-                      <h2 className={vpStyles.preview__title__kr}>{video.title}</h2>
+                      <h2 className={vpStyles.preview__title__kr} data-small={video.title.length > 20}>
+                        {video.title}
+                      </h2>
                       {video.rating > 0 && (
-                        <div className={styles.default__rating__wrapper} data-color={fRatingColor(video.rating)}>
-                          <StarIcon className={styles.default__rating__icon} width={16} height={16} />
-                          <span className={styles.default__rating}>{fRatingText(video.rating)}</span>
+                        <div className={vStyles.default__rating__wrapper} data-color={fRatingColor(video.rating)}>
+                          <StarIcon className={vStyles.default__rating__icon} width={16} height={16} />
+                          <span className={vStyles.default__rating}>{fRatingText(video.rating)}</span>
                         </div>
                       )}
                     </div>

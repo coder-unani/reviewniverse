@@ -120,12 +120,13 @@ export const fThumbnail = (images, isThumb = true) => {
 
 // 배경 이미지 포맷
 export const fBackgroundImage = (images, isThumb = false) => {
-  let result = isThumb ? DEFAULT_IMAGES.noImage : DEFAULT_IMAGES.noPreview;
+  const defaultImage = DEFAULT_IMAGES.noPreview;
+  let result = defaultImage;
   if (isEmpty(images)) return result;
   if (Array.isArray(images)) {
-    result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1], DEFAULT_IMAGES.noPreview);
+    result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1], defaultImage);
   } else {
-    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images, DEFAULT_IMAGES.noPreview);
+    result = isThumb ? fMakeThumbnailUrl(images[0]) : fMakeImageUrl(images[0], defaultImage);
   }
   return result;
 };
