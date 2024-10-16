@@ -40,7 +40,7 @@ const ReviewWithVideo = ({ user, review, isDate = true, isShort = false }) => {
   };
 
   return (
-    <div className={`${styles.review__item}${isShort ? '' : ` ${styles.all}`}`}>
+    <div className={`${styles.review__item}${isShort ? ` ${styles.all}` : ''}`}>
       <div className={styles.review__profile__wrapper}>
         <Link href={userPath} className={styles.review__profile__link}>
           <ProfileImage image={user.profile_image} size={36} />
