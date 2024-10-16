@@ -40,25 +40,34 @@ const ReviewModal = React.memo(({ content, myReview }) => {
   const [isPrivate, setIsPrivate] = useState(false);
   const textareaRef = useRef(null);
 
+  // 리뷰 닫기 전 확인 모달 띄우는 함수
+  const confirmReviewClose = async () => {
+    if (textareaRef.current.value) {
+      const confirmed = await new Promise((resolve) => {
+        const message = () => (
+          <>
+            작성중인 리뷰가 있어요.
+            <br />
+            정말 닫으시겠어요?
+          </>
+        );
+        toggleConfirmModal(message, resolve);
+      });
+      if (!confirmed) return;
+    }
+    toggleReviewModal();
+  };
+
   // 모달 클릭 이벤트
   const handleModalClose = async (e) => {
     if (e.target === modalRef.current) {
-      if (textareaRef.current.value) {
-        const confirmed = await new Promise((resolve) => {
-          const message = () => (
-            <>
-              작성중인 리뷰가 있어요.
-              <br />
-              정말 닫으시겠어요?
-            </>
-          );
-          toggleConfirmModal(message, resolve);
-        });
-
-        if (!confirmed) return;
-      }
-      toggleReviewModal();
+      await confirmReviewClose();
     }
+  };
+
+  // 리뷰 모달 닫기
+  const handleClose = async () => {
+    await confirmReviewClose();
   };
 
   // 텍스트 영역에 포커스를 설정하는 함수
@@ -184,7 +193,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
         <main className={styles.review__modal}>
           <section className={styles.review__section}>
             <h2 className={styles.review__title}>{content.title}</h2>
-            <CloseButton onClose={toggleReviewModal} />
+            <CloseButton onClose={handleClose} />
             <form method={methods} onSubmit={onSubmit} className={styles.review__form}>
               <Controller
                 name="title"
