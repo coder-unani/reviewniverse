@@ -71,6 +71,7 @@ const ReviewsSwiper = ({ uniqueId }) => {
     // 슬라이드 클릭 이벤트
     const handleClick = (e) => {
       e.preventDefault();
+      e.stopPropagation();
       const target = e.target.closest('.swiper-slide');
       const { vId } = target.dataset;
       const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS_REVIEWS, { videoId: vId });

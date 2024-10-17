@@ -93,9 +93,11 @@ const ReviewWithVideo = ({ user, review, isDate = true, isShort = false }) => {
               )}
             </div>
           </div>
-          <div className={styles.review__more__wrapper}>
-            <ReviewLikeButton videoId={data.video.id} review={data} setReview={setData} />
-          </div>
+          {!isShort && (
+            <div className={styles.review__more__wrapper}>
+              <ReviewLikeButton videoId={data.video.id} review={data} setReview={setData} />
+            </div>
+          )}
         </div>
       </div>
     </div>
