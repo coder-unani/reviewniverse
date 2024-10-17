@@ -143,9 +143,9 @@ const VideoReviewSimple = ({ videoId }) => {
         <article className={styles.detail__my__review__wrapper}>
           <div className={styles.my__review__title__wrapper}>
             <ProfileImage image={user.profile_image} size={36} />
-            <button type="button" className={styles.my__review__title} onClick={handleReviewCreate}>
+            <p className={styles.my__review__title} onClick={handleReviewCreate}>
               {myInfo.review.title}
-            </button>
+            </p>
             {/* <div className={styles.my__review__content__wrapper}>
             <p className={styles.my__review__title} onClick={handleReviewCreate}>
               {myInfo.review.title}

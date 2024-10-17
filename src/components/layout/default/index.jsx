@@ -1,7 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
@@ -9,9 +8,8 @@ import { ThemeContextProvider } from '@/contexts/ThemeContext';
 import { AuthContextProvider } from '@/contexts/AuthContext';
 import { ModalContextProvider } from '@/contexts/ModalContext';
 import { ToastWrapper } from '@/components/ui/Toast';
+import Header from '@/components/layout/default/header';
 import Footer from '@/components/layout/default/footer';
-
-const Header = dynamic(() => import('@/components/layout/default/header'), { ssr: false });
 
 const queryClient = new QueryClient();
 
@@ -22,9 +20,7 @@ const DefaultLayout = ({ children }) => {
         <AuthContextProvider>
           <ModalContextProvider>
             <div id="wrapper" className="wrapper">
-              <Suspense fallback="">
-                <Header />
-              </Suspense>
+              <Header />
               {children}
               <Footer />
             </div>

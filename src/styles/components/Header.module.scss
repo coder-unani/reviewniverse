@@ -22,6 +22,14 @@
   max-width: 1440px;
   padding: 10px $padding-large;
   margin: 0 auto;
+
+  &.mobile {
+    padding: 10px $padding-medium;
+
+    .toolbar__container {
+      gap: 12px;
+    }
+  }
 }
 
 .header__logo {
@@ -102,20 +110,6 @@
   }
 }
 
-.header__mobile__wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding: 10px $padding-medium;
-  margin: 0 auto;
-
-  .toolbar__container {
-    gap: 12px;
-  }
-}
-
 @media (max-width: 1024px) {
   .header__wrapper {
     padding: 10px $padding-medium;
@@ -125,9 +119,9 @@
 @media (max-width: 576px) {
   .header__wrapper {
     padding: 10px $padding-small;
-  }
 
-  .header__mobile__wrapper {
-    padding: 10px $padding-small;
+    &.mobile {
+      padding: 10px $padding-small;
+    }
   }
 }

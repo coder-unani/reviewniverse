@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useMemo, useState } from '
 import { usePathname } from 'next/navigation';
 
 import PopupBanner from '@/components/ui/Banner/Popup';
+import MenuModal from '@/components/ui/Modal/Menu';
 import EnjoyModal from '@/components/ui/Modal/Enjoy';
 import ConfirmModal from '@/components/ui/Modal/Confirm';
 import TermsModal from '@/components/ui/Modal/Terms';
@@ -22,6 +23,8 @@ const ModalContextProvider = ({ children }) => {
   const pathname = usePathname();
   // 팝업 모달
   const [isPopupBanner, setIsPopupBanner] = useState(false);
+  // 메뉴 모달
+  const [isMenuModal, setIsMenuModal] = useState(false);
   // 로그인 모달
   const [isEnjoyModal, setIsEnjoyModal] = useState(false);
   // 리뷰 모달
@@ -65,6 +68,7 @@ const ModalContextProvider = ({ children }) => {
 
   useEffect(() => {
     // 페이지 이동 시 모달창 닫기
+    if (isMenuModal) setIsMenuModal(false);
     if (isEnjoyModal) setIsEnjoyModal(false);
     if (isReviewModal) setIsReviewModal(false);
     if (isTermsModal) setIsTermsModal(false);
@@ -77,6 +81,11 @@ const ModalContextProvider = ({ children }) => {
   // 팝업 배너 토글
   const togglePopupBanner = () => {
     setIsPopupBanner((prev) => !prev);
+  };
+
+  // 메뉴 모달창 토글
+  const toggleMenuModal = () => {
+    setIsMenuModal((prev) => !prev);
   };
 
   // 로그인 모달창 토글
@@ -137,6 +146,7 @@ const ModalContextProvider = ({ children }) => {
   const values = useMemo(
     () => ({
       isReviewModal,
+      toggleMenuModal,
       toggleEnjoyModal,
       toggleReviewModal,
       toggleTermsModal,
@@ -151,6 +161,7 @@ const ModalContextProvider = ({ children }) => {
   return (
     <ModalContext.Provider value={values}>
       {children}
+      {isMenuModal && <MenuModal onClose={toggleMenuModal} />}
       {isPopupBanner && <PopupBanner onClose={togglePopupBanner} />}
       {isEnjoyModal && <EnjoyModal onClose={toggleEnjoyModal} />}
       {isTermsModal && <TermsModal onClose={toggleTermsModal} />}

@@ -19,7 +19,7 @@ const ReviewsSwiper = ({ uniqueId }) => {
     const prevButton = document.querySelector(`.swiper-prev-button[data-swiper-id="${uniqueId}"]`);
     const nextButton = document.querySelector(`.swiper-next-button[data-swiper-id="${uniqueId}"]`);
 
-    if (!reviewSwiper) return null;
+    if (!reviewSwiper) return undefined;
 
     // 스와이퍼 설정
     const reviewSwiperConfig = {
