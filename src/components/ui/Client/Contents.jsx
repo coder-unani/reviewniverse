@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { isEmpty } from 'lodash';
 
 import { useModalContext } from '@/contexts/ModalContext';
@@ -10,13 +10,13 @@ import ReviewModal from '@/components/ui/Modal/Review';
 const Contents = ({ content }) => {
   const { isReviewModal, toggleReviewModal, openInfoModal } = useModalContext();
   const { myInfo } = useContentsContext();
-  let myReview = {
+  const [myReview, setMyReview] = useState({
     id: 0,
     title: '',
     content: '',
     is_spoiler: false,
     is_private: false,
-  };
+  });
 
   const handlePlatformClick = (platform) => {
     const { url } = platform.dataset;
@@ -54,8 +54,10 @@ const Contents = ({ content }) => {
 
   // myInfo review
   useEffect(() => {
-    if (myInfo && myInfo.review) myReview = { ...myInfo.review };
+    if (myInfo && myInfo.review) setMyReview({ ...myInfo.review });
   }, [myInfo]);
+
+  if (isEmpty(myInfo)) return null;
 
   return <ReviewModal content={content} myReview={myReview} isOpen={isReviewModal} onClose={toggleReviewModal} />;
 };

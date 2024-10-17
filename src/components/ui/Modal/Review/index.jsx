@@ -131,7 +131,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
     // DOMPurify로 입력된 리뷰 내용 XSS 방지
     const sanitizedTitle = DOMPurify.sanitize(data.title);
 
-    if (isEmpty(myReview) || isEmpty(myReview.id)) {
+    if (isEmpty(myReview) || !myReview.id) {
       // 내 리뷰가 없을 경우 리뷰 등록
       reviewCreate(
         {
@@ -182,8 +182,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
 
   // 내 리뷰가 있을 경우 폼에 내용 채우기
   useEffect(() => {
-    if (isEmpty(myReview) || isEmpty(myReview.id)) return;
-
+    if (isEmpty(myReview) || !myReview.id) return;
     setValue('title', myReview.title, { shouldDirty: true });
     setIsSpoiler(myReview.is_spoiler);
     setIsPrivate(myReview.is_private);
@@ -277,7 +276,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
                     className={styles.review__save__button}
                     disabled={!isDirty || !isValid || isCreatePending || isUpdatePending}
                   >
-                    {isEmpty(myReview) || isEmpty(myReview.id) ? '등록' : '수정'}
+                    {isEmpty(myReview) || !myReview.id ? '등록' : '수정'}
                   </button>
                 </div>
               </div>
