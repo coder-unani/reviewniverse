@@ -99,9 +99,13 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
   }, [isBeginning, isEnd, uniqueId]);
 
   return (
-    photoModal.isOpen && (
-      <PhotoModal gallery={gallery} initialIndex={photoModal.initialIndex} alt={alt} onClose={togglePhotoModal} />
-    )
+    <PhotoModal
+      gallery={gallery}
+      initialIndex={photoModal.initialIndex}
+      alt={alt}
+      isOpen={photoModal.isOpen}
+      onClose={togglePhotoModal}
+    />
   );
 };
 

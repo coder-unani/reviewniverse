@@ -36,6 +36,16 @@ const TrailerModal = React.memo(({ trailer, initialIndex = 0, alt, isOpen, onClo
     setCurrentIndex(initialIndex);
   }, [initialIndex]);
 
+  // 클라이언트 사이드에서만 Modal.setAppElement 설정
+  useEffect(() => {
+    // window 객체가 존재할 때만 실행
+    if (typeof window !== 'undefined') {
+      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
+      // Modal.setAppElement(document.getElementById('__next'));
+      Modal.setAppElement(document.getElementById('wrapper'));
+    }
+  }, []);
+
   // 전역 키보드 이벤트 등록
   useEffect(() => {
     const handleKeydown = (e) => {

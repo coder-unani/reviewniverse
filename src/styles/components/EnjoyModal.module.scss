@@ -1,37 +1,44 @@
 @use '@/styles/variables' as *;
 @use '@/styles/mixins' as *;
 
-.enjoy__modal__wrapper {
+.enjoy__modal__overlay {
   position: fixed;
   top: 0;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: 0;
-  transform: translateX(-50%);
-  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.56);
+  z-index: 998;
+}
+
+.enjoy__modal__wrapper {
+  position: absolute;
+  width: 360px;
+  height: 540px;
+  outline: none;
   z-index: 999;
 }
 
 .enjoy__modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 375px;
-  height: 540px;
-  background-color: $color-background;
-  border-radius: 16px;
-}
-
-.enjoy__section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
   height: 100%;
-  background-color: rgba($color-white-09, 0.3);
+  background-color: $color-white-09;
   border-radius: 16px;
-  padding: 40px 20px;
+  padding: 20px;
+}
+
+.enjoy__body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 20px 0;
 }
 
 .enjoy__image__wrapper {
@@ -45,7 +52,7 @@
 
 .enjoy__image {
   width: 100%;
-  max-width: 280px;
+  max-width: 320px;
   object-fit: contain;
   padding: 0 20px;
   margin-bottom: 20px;
@@ -58,8 +65,11 @@
   text-align: center;
 }
 
-.login__button {
-  display: block;
+.enjoy__footer {
+  margin: 20px 0;
+}
+
+.enjoy__button {
   width: 100%;
   font-size: 14px;
   font-weight: 600;
@@ -68,23 +78,22 @@
   text-align: center;
   @include orb-gradient(to right, 1);
   border-radius: 12px;
-  margin-top: 20px;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {
-  .enjoy__modal {
+  .enjoy__modal__wrapper {
     width: 100%;
     height: 100%;
-    border-radius: unset;
   }
 
-  .enjoy__section {
+  .enjoy__modal {
     border-radius: unset;
   }
 }
 
 @media (max-width: 576px) {
-  .enjoy__section {
-    padding: 40px $padding-small;
+  .enjoy__modal {
+    padding: 20px $padding-small;
   }
 }

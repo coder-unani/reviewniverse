@@ -8,16 +8,6 @@ import styles from '@/styles/components/ConfirmModal.module.scss';
 const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
   const modalRef = useRef();
 
-  // 클라이언트 사이드에서만 Modal.setAppElement 설정
-  useEffect(() => {
-    // window 객체가 존재할 때만 실행
-    if (typeof window !== 'undefined') {
-      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
-      // Modal.setAppElement(document.getElementById('__next'));
-      Modal.setAppElement(document.getElementById('wrapper'));
-    }
-  }, []);
-
   // 모달창 클릭 이벤트
   const handleModalClose = (e) => {
     if (e.target === modalRef.current) onClose();
@@ -32,6 +22,16 @@ const ConfirmModal = React.memo(({ children, isOpen, onClose, onConfirm }) => {
   const handleCancelClick = () => {
     onClose();
   };
+
+  // 클라이언트 사이드에서만 Modal.setAppElement 설정
+  useEffect(() => {
+    // window 객체가 존재할 때만 실행
+    if (typeof window !== 'undefined') {
+      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
+      // Modal.setAppElement(document.getElementById('__next'));
+      Modal.setAppElement(document.getElementById('wrapper'));
+    }
+  }, []);
 
   return (
     <Modal

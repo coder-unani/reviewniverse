@@ -8,6 +8,11 @@ import styles from '@/styles/components/InfoModal.module.scss';
 const InfoMoal = React.memo(({ children, isOpen, onClose }) => {
   const modalRef = useRef();
 
+  /// 모달창 클릭 이벤트
+  const handleModalClose = (e) => {
+    if (e.target === modalRef.current) onClose();
+  };
+
   // 클라이언트 사이드에서만 Modal.setAppElement 설정
   useEffect(() => {
     // window 객체가 존재할 때만 실행
@@ -17,11 +22,6 @@ const InfoMoal = React.memo(({ children, isOpen, onClose }) => {
       Modal.setAppElement(document.getElementById('wrapper'));
     }
   }, []);
-
-  /// 모달창 클릭 이벤트
-  const handleModalClose = (e) => {
-    if (e.target === modalRef.current) onClose();
-  };
 
   return (
     <Modal

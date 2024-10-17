@@ -1,17 +1,17 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Modal from 'react-modal';
 
 import { fMakeImageUrl } from '@/utils/formatContent';
 import { useThemeContext } from '@/contexts/ThemeContext';
-import Modal from '@/components/ui/Modal';
 import CloseButton from '@/components/ui/Button/Close';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/PhotoModal.module.scss';
 
-const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
+const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, isOpen, onClose }) => {
   const { isMobile } = useThemeContext();
   const [currentIndex, setCurrentIndex] = useState(initialIndex);
   const modalRef = useRef();
@@ -57,8 +57,24 @@ const PhotoModal = React.memo(({ gallery, initialIndex = 0, alt, onClose }) => {
     };
   }, [currentIndex, gallery, onClose]);
 
+  // 클라이언트 사이드에서만 Modal.setAppElement 설정
+  useEffect(() => {
+    // window 객체가 존재할 때만 실행
+    if (typeof window !== 'undefined') {
+      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
+      // Modal.setAppElement(document.getElementById('__next'));
+      Modal.setAppElement(document.getElementById('wrapper'));
+    }
+  }, []);
+
   return (
-    <Modal>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      bodyOpenClassName="modal__open"
+      className={styles.photo__modal__wrapper}
+      overlayClassName={styles.photo__modal__overlay}
+    >
       <div className={styles.photo__modal} ref={modalRef} onClick={handleModalClose}>
         {isMobile && <CloseButton onClose={onClose} />}
         {/* 이미지 스타일 때문에 next Image 컴포넌트를 사용하지 않음 */}

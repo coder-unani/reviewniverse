@@ -161,12 +161,12 @@ const ModalContextProvider = ({ children }) => {
   return (
     <ModalContext.Provider value={values}>
       {children}
-      {isMenuModal && <MenuModal onClose={toggleMenuModal} />}
-      {isPopupBanner && <PopupBanner onClose={togglePopupBanner} />}
-      {isEnjoyModal && <EnjoyModal onClose={toggleEnjoyModal} />}
-      {isTermsModal && <TermsModal onClose={toggleTermsModal} />}
-      {isPrivacyModal && <PrivacyModal onClose={togglePrivacyModal} />}
-      {isPrivcayCollectionModal && <PrivacyCollectionModal onClose={togglePrivacyCollectionModal} />}
+      <MenuModal isOpen={isMenuModal} onClose={toggleMenuModal} />
+      <PopupBanner isOpen={isPopupBanner} onClose={togglePopupBanner} />
+      <EnjoyModal isOpen={isEnjoyModal} onClose={toggleEnjoyModal} />
+      <TermsModal isOpen={isTermsModal} onClose={toggleTermsModal} />
+      <PrivacyModal isOpen={isPrivacyModal} onClose={togglePrivacyModal} />
+      <PrivacyCollectionModal isOpen={isPrivcayCollectionModal} onClose={togglePrivacyCollectionModal} />
       <ConfirmModal isOpen={isConfirmModal} onClose={() => handleConfirm(false)} onConfirm={() => handleConfirm(true)}>
         {confirmMessage}
       </ConfirmModal>

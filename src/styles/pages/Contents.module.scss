@@ -767,9 +767,9 @@
 }
 
 .my__review__title__wrapper {
+  flex: 1;
   display: flex;
   align-items: flex-start;
-  width: 100%;
 }
 
 .my__review__title {
@@ -779,6 +779,8 @@
   line-height: 20px;
   text-align: left;
   white-space: pre-wrap;
+  word-break: break-all;
+  word-wrap: break-word;
   padding-top: 4px;
   margin: 0 10px;
   cursor: pointer;

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
+import Modal from 'react-modal';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useWatch } from 'react-hook-form';
@@ -13,7 +14,6 @@ import { useModalContext } from '@/contexts/ModalContext';
 import { showSuccessToast } from '@/components/ui/Toast';
 import { useReviewCreate } from '@/hooks/useReviewCreate';
 import { useReviewUpdate } from '@/hooks/useReviewUpdate';
-import Modal from '@/components/ui/Modal';
 import CloseButton from '@/components/ui/Button/Close';
 
 import SpoilerActivateIcon from '@/resources/icons/spoiler-activate.svg';
@@ -30,10 +30,10 @@ import styles from '@/styles/components/ReviewModal.module.scss';
 // 이 파일에서만 아래 속성들의 eslint-disable를 적용
 /* eslint-disable react/jsx-props-no-spreading */
 
-const ReviewModal = React.memo(({ content, myReview }) => {
+const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
   const modalRef = useRef();
   const { user } = useAuthContext();
-  const { toggleReviewModal, toggleConfirmModal } = useModalContext();
+  const { toggleConfirmModal } = useModalContext();
   const { mutate: reviewCreate, isPending: isCreatePending } = useReviewCreate();
   const { mutate: reviewUpdate, isPending: isUpdatePending } = useReviewUpdate();
   const [isSpoiler, setIsSpoiler] = useState(false);
@@ -57,7 +57,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       });
       if (!confirmed) return false;
     }
-    toggleReviewModal();
+    onClose();
     return true;
   };
 
@@ -105,7 +105,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
   const {
     handleSubmit,
     control,
-    formState: { isDirty, isValid },
+    formState: { errors, isDirty, isValid },
     setValue,
     trigger,
   } = methods;
@@ -131,7 +131,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
     // DOMPurify로 입력된 리뷰 내용 XSS 방지
     const sanitizedTitle = DOMPurify.sanitize(data.title);
 
-    if (isEmpty(myReview)) {
+    if (isEmpty(myReview) || isEmpty(myReview.id)) {
       // 내 리뷰가 없을 경우 리뷰 등록
       reviewCreate(
         {
@@ -145,7 +145,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
           onSuccess: (res) => {
             if (res.status === 201) {
               showSuccessToast('리뷰가 등록되었습니다.');
-              toggleReviewModal();
+              onClose();
             }
           },
         }
@@ -155,7 +155,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
       // 리뷰 내용이 변경되지 않았을 경우 리뷰 수정하지 않음
       if (myReview.title === sanitizedTitle && myReview.is_spoiler === isSpoiler && myReview.is_private === isPrivate) {
         showSuccessToast('리뷰가 수정되었습니다.');
-        toggleReviewModal();
+        onClose();
         return;
       }
 
@@ -172,7 +172,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
           onSuccess: (res) => {
             if (res.status === 204) {
               showSuccessToast('리뷰가 수정되었습니다.');
-              toggleReviewModal();
+              onClose();
             }
           },
         }
@@ -182,7 +182,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
 
   // 내 리뷰가 있을 경우 폼에 내용 채우기
   useEffect(() => {
-    if (isEmpty(myReview)) return;
+    if (isEmpty(myReview) || isEmpty(myReview.id)) return;
 
     setValue('title', myReview.title, { shouldDirty: true });
     setIsSpoiler(myReview.is_spoiler);
@@ -191,13 +191,31 @@ const ReviewModal = React.memo(({ content, myReview }) => {
     trigger();
   }, [myReview, setValue, trigger]);
 
+  // 클라이언트 사이드에서만 Modal.setAppElement 설정
+  useEffect(() => {
+    // window 객체가 존재할 때만 실행
+    if (typeof window !== 'undefined') {
+      // Next.js에서는 #__next가 최상위 요소, #__next 인식하지 못해 대신 wrapper로 변경
+      // Modal.setAppElement(document.getElementById('__next'));
+      Modal.setAppElement(document.getElementById('wrapper'));
+    }
+  }, []);
+
   return (
-    <Modal>
-      <div className={styles.review__modal__wrapper} ref={modalRef} onClick={handleModalClose}>
-        <main className={styles.review__modal}>
-          <section className={styles.review__section}>
-            <h2 className={styles.review__title}>{content.title}</h2>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={handleClose}
+      bodyOpenClassName="modal__open"
+      className={styles.review__modal__wrapper}
+      overlayClassName={styles.review__modal__overlay}
+    >
+      <div className={styles.review__modal} ref={modalRef} onClick={handleModalClose}>
+        <section className={styles.review__section}>
+          <section className={styles.review__header}>
             <CloseButton onClose={handleClose} />
+            <h2 className={styles.review__title}>{content.title}</h2>
+          </section>
+          <section className={styles.review__body}>
             <form method={methods} onSubmit={onSubmit} className={styles.review__form}>
               <Controller
                 name="title"
@@ -214,6 +232,7 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                   />
                 )}
               />
+              {errors.title && <p className={styles.review__error}>{errors.title.message}</p>}
               <div className={styles.review__more__wrapper}>
                 <div className={styles.review__check__wrapper}>
                   <button
@@ -251,20 +270,20 @@ const ReviewModal = React.memo(({ content, myReview }) => {
                 </div>
                 <div className={styles.review__button__wrapper}>
                   <p className={styles.review__text__count}>
-                    <span>{watchedTitle.length}</span> / 100
+                    <span>{watchedTitle.length}</span> / 200
                   </p>
                   <button
                     type="submit"
                     className={styles.review__save__button}
                     disabled={!isDirty || !isValid || isCreatePending || isUpdatePending}
                   >
-                    {isEmpty(myReview) ? '등록' : '수정'}
+                    {isEmpty(myReview) || isEmpty(myReview.id) ? '등록' : '수정'}
                   </button>
                 </div>
               </div>
             </form>
           </section>
-        </main>
+        </section>
       </div>
     </Modal>
   );
