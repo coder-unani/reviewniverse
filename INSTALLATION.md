@@ -55,6 +55,7 @@ yarn add --dev @svgr/webpack
 yarn add --dev typescript @types/react @types/node
 yarn add --dev @types/lodash
 yarn add --dev @types/dompurify
+yarn add --dev @types/react-modal
 
 # 프로젝트 기본 구조
 
