@@ -33,5 +33,8 @@
         "jsx": "never"
       }
     ]
+  },
+  "globals": {
+    "RequestInit": true // fetch api 사용시 RequestInit 타입을 사용하기 위해 추가
   }
 }

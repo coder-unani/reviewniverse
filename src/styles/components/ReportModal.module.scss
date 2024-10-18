@@ -1,0 +1,158 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.report__modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.56);
+  z-index: 998;
+}
+
+.report__modal__wrapper {
+  position: absolute;
+  width: 450px;
+  max-width: 90%;
+  max-height: 90%;
+  outline: none;
+  z-index: 999;
+}
+
+.report__modal {
+  width: 100%;
+  height: 100%;
+  background-color: $color-background;
+  border-radius: 16px;
+}
+
+.report__section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-white-09, 0.3);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.report__header {
+  margin-bottom: 20px;
+}
+
+.report__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: $color-white-02;
+}
+
+.report__subtitle {
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-white-04;
+  border-bottom: 1px solid $border-color-01;
+  padding-bottom: 20px;
+
+  & span {
+    color: $color-white-02;
+    margin-left: 32px;
+  }
+}
+
+.report__reason {
+  font-size: 14px;
+  font-weight: 700;
+  color: $color-white-04;
+  padding: 20px 0;
+
+  & span {
+    color: $color-white-06;
+    margin-left: 9px;
+  }
+}
+
+.report__input__wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.report__label {
+  flex: 1 0 50%;
+  width: 50%;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: $color-white-02;
+  line-height: 21px;
+  margin-bottom: 12px;
+  cursor: pointer;
+}
+
+.report__input {
+  -webkit-appearance: none;
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border: none;
+  border-radius: 5px;
+  background: $color-white-08;
+  background-image: url('#{$cdn-base-url}/assets/images/button/check.svg');
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 0;
+  margin-right: 6px;
+  cursor: pointer;
+  opacity: 0.3;
+
+  &:checked {
+    @include orb-gradient(to right, 0.75);
+    opacity: 1;
+
+    &::before {
+      display: block;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    width: 100%;
+    height: 100%;
+    background-image: url('#{$cdn-base-url}/assets/images/button/check.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: none;
+  }
+}
+
+.report__button__wrppaer {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0;
+}
+
+.report__submit__button {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 34px;
+  color: $color-background;
+  background-color: $color-white-02;
+  border-radius: 8px;
+  padding: 0 16px;
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+    pointer-events: none;
+  }
+}

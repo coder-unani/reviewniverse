@@ -2,12 +2,13 @@
 
 import React from 'react';
 
+import { ISuggestProps } from '@/types/support';
 import { useSuggest } from '@/hooks/useSuggest';
 import { showSuccessToast } from '@/components/ui/Toast';
 
 import styles from '@/styles/components/SuggestButton.module.scss';
 
-const SuggestButton = ({ query, total }) => {
+const SuggestButton = ({ query, total }: ISuggestProps) => {
   const { mutate: suggest, isPending: isSuggestPending } = useSuggest();
 
   const handleSuggestClick = () => {
@@ -18,7 +19,7 @@ const SuggestButton = ({ query, total }) => {
       { query: decodeQuery, total },
       {
         onSuccess: (res) => {
-          if (res.status === 201) {
+          if (res && res.status === 201) {
             showSuccessToast(`[${decodeQuery}] 작품이 요청되었습니다.`);
           }
         },

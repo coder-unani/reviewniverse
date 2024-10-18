@@ -8,9 +8,8 @@ import DOMPurify from 'dompurify';
 
 import { INQUIRY_CODE } from '@/config/codes';
 import { ReqInquiry } from '@/types/request';
-// import { IInquiryProps } from '@/types/inquiry';
 import { useModalContext } from '@/contexts/ModalContext';
-import { fetchInquiry } from '@/library/api/support';
+import { useInquiry } from '@/hooks/useInquiry';
 
 import styles from '@/styles/pages/Inquiry.module.scss';
 
@@ -35,9 +34,9 @@ const InquirySchema = Yup.object().shape({
     .required('이메일 정보 제공에 동의해주세요.'),
 });
 
-// const InquiryForm = ({ videoId }: IInquiryProps) => {
 const InquiryForm = () => {
   const { openInfoModal } = useModalContext();
+  const { mutate: inquiry, isPending: isInquiryPending } = useInquiry();
 
   // 폼 기본값 설정
   const defaultValues: ReqInquiry = {
@@ -61,6 +60,9 @@ const InquiryForm = () => {
 
   // 폼 제출
   const onSubmit = handleSubmit(async (data: ReqInquiry) => {
+    // API 호출 중일 경우 리턴
+    if (isInquiryPending) return;
+
     // DOMPurify로 제목, 내용 XSS 방지
     const inquiryData: ReqInquiry = {
       topic: data.topic,
@@ -70,22 +72,28 @@ const InquiryForm = () => {
       is_agree_provide_email: data.is_agree_provide_email,
     };
 
-    const resInquiry = await fetchInquiry({ inquiryData });
-    if (resInquiry?.status === 201) {
-      const message = () => (
-        <>
-          문의/제보가 정상적으로 접수되었습니다.
-          <br />
-          <span>
-            문의하신 내용에 대한 답변은 담당자가 확인 후 기재하신 이메일로 빠른 시간내에 답변 드리겠습니다.
-            <br />
-            감사합니다.
-          </span>
-        </>
-      );
-      openInfoModal(message);
-    }
+    inquiry(inquiryData, {
+      onSuccess: (res) => {
+        if (res && res.status === 201) {
+          const message = () => (
+            <>
+              문의/제보가 정상적으로 접수되었습니다.
+              <br />
+              <span>
+                문의하신 내용에 대한 답변은 담당자가 확인 후 기재하신 이메일로 빠른 시간내에 답변 드리겠습니다.
+                <br />
+                감사합니다.
+              </span>
+            </>
+          );
+          openInfoModal(message);
+        }
+      },
+    });
   });
+
+  // TODO: API 호출 중일 경우 로딩 스피너 표시
+  // if (isInquiryPending) { }
 
   return (
     <section className={styles.inquiry__section}>

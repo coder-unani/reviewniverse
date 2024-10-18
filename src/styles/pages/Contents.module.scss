@@ -280,7 +280,7 @@
   margin: 0 auto;
 }
 
-.detail__inquiry__section {
+.detail__report__section {
   display: flex;
   justify-content: flex-end;
   padding: 0 $padding-large;
@@ -767,9 +767,9 @@
 }
 
 .my__review__title__wrapper {
-  flex: 1;
   display: flex;
   align-items: flex-start;
+  width: 100%;
 }
 
 .my__review__title {
@@ -874,7 +874,7 @@
     padding: 0 $padding-medium;
   }
 
-  .detail__inquiry__section {
+  .detail__report__section {
     padding: 0 $padding-medium;
   }
 
@@ -1184,7 +1184,7 @@
     padding-top: 57px;
   }
 
-  .detail__inquiry__section {
+  .detail__report__section {
     padding: 0 $padding-small;
   }
 

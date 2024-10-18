@@ -30,7 +30,7 @@ import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/VideoLike';
 import ReviewButton from '@/components/ui/Button/Review';
 import ShareButton from '@/components/ui/Button/Share';
-// import InquiryButton from '@/components/ui/Button/Inquiry';
+import ReportButton from '@/components/ui/Button/Report';
 import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
@@ -423,9 +423,9 @@ const Contents = async ({ params }) => {
 
         <div className={styles.detail__sub__wrapper}>
           {/* 제보하기 */}
-          {/* <section className={styles.detail__inquiry__section}>
-            <InquiryButton videoId={videoId} />
-          </section> */}
+          <section className={styles.detail__report__section}>
+            <ReportButton id={videoId} title={titleKr} />
+          </section>
 
           <section className={styles.detail__sub__section}>
             {/* 작품 소개: 클라이언트 컴포넌트 */}

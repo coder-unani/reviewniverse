@@ -6,10 +6,10 @@ import { usePathname } from 'next/navigation';
 import PopupBanner from '@/components/ui/Banner/Popup';
 import MenuModal from '@/components/ui/Modal/Menu';
 import EnjoyModal from '@/components/ui/Modal/Enjoy';
-import ConfirmModal from '@/components/ui/Modal/Confirm';
 import TermsModal from '@/components/ui/Modal/Terms';
 import PrivacyModal from '@/components/ui/Modal/Privacy';
 import PrivacyCollectionModal from '@/components/ui/Modal/PrivacyCollection';
+import ConfirmModal from '@/components/ui/Modal/Confirm';
 import InfoMoal from '@/components/ui/Modal/Info';
 
 /**
@@ -21,30 +21,18 @@ const ModalContext = createContext();
 
 const ModalContextProvider = ({ children }) => {
   const pathname = usePathname();
-  // 팝업 모달
-  const [isPopupBanner, setIsPopupBanner] = useState(false);
-  // 메뉴 모달
-  const [isMenuModal, setIsMenuModal] = useState(false);
-  // 로그인 모달
-  const [isEnjoyModal, setIsEnjoyModal] = useState(false);
-  // 리뷰 모달
-  const [isReviewModal, setIsReviewModal] = useState(false);
-  // 약관 모달
-  const [isTermsModal, setIsTermsModal] = useState(false);
-  // 개인정보 처리방침 모달
-  const [isPrivacyModal, setIsPrivacyModal] = useState(false);
-  // 개인정보 수집 및 이용 동의 모달
-  const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] = useState(false);
-  // 확인 모달
-  const [isConfirmModal, setIsConfirmModal] = useState(false);
-  // 확인 모달 메세지
-  const [confirmMessage, setConfirmMessage] = useState('');
-  // 확인 모달 결과 처리 함수
-  const [confirmResolve, setConfirmResolve] = useState(null);
-  // info 모달
-  const [isInfoModal, setIsInfoModal] = useState(false);
-  // info 모달 메세지
-  const [infoMessage, setInfoMessage] = useState('');
+  const [isPopupBanner, setIsPopupBanner] = useState(false); // 팝업 모달
+  const [isMenuModal, setIsMenuModal] = useState(false); // 메뉴 모달
+  const [isEnjoyModal, setIsEnjoyModal] = useState(false); // 로그인 모달
+  const [isReviewModal, setIsReviewModal] = useState(false); // 리뷰 모달
+  const [isTermsModal, setIsTermsModal] = useState(false); // 약관 모달
+  const [isPrivacyModal, setIsPrivacyModal] = useState(false); // 개인정보 처리방침 모달
+  const [isPrivcayCollectionModal, setIsPrivacyCollectionModal] = useState(false); // 개인정보 수집 및 이용 동의 모달
+  const [isConfirmModal, setIsConfirmModal] = useState(false); // 확인 모달
+  const [confirmMessage, setConfirmMessage] = useState(''); // 확인 모달 메세지
+  const [confirmResolve, setConfirmResolve] = useState(null); // 확인 모달 결과 처리 함수
+  const [isInfoModal, setIsInfoModal] = useState(false); // info 모달
+  const [infoMessage, setInfoMessage] = useState(''); // info 모달 메세지
 
   /*
   // 팝업 배너
@@ -133,7 +121,7 @@ const ModalContextProvider = ({ children }) => {
   };
 
   // info 모달창 토글
-  // TODO: 토글로 구현했지만, 2번 실행되는 문제로 인해 open/close 함수로 변경
+  // 토글로 구현했지만, 2번 실행되는 문제로 인해 open/close 함수로 변경
   const openInfoModal = (message) => {
     setIsInfoModal(true);
     setInfoMessage(message);

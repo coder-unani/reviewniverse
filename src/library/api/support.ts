@@ -1,15 +1,17 @@
 import { SETTINGS } from '@/config/settings';
-import FetchClient from '@/utils/FetchClient';
+import { ReqInquiry, ReqSuggest } from '@/types/request';
+import { ResInquiry, ResSuggest } from '@/types/response';
+import FetchClient from '@/utils/FetchClientTS';
 import { cError } from '@/utils/test';
 
-const baseURL = SETTINGS.API_BASE_URL;
-const endpoints = {
+const baseURL: string = SETTINGS.API_BASE_URL;
+const endpoints: Record<string, string> = {
   inquiry: `${baseURL}/v1/support/inquiry`,
   suggest: `${baseURL}/v1/support/suggest`,
 };
 
 // 문의/제보 보내기
-export const fetchInquiry = async ({ inquiryData }) => {
+export const fetchInquiry = async (inquiryData: ReqInquiry): Promise<ResInquiry> => {
   try {
     const client = new FetchClient();
     const res = await client.post(endpoints.inquiry, inquiryData);
@@ -21,7 +23,7 @@ export const fetchInquiry = async ({ inquiryData }) => {
 };
 
 // 작품 요청
-export const fetchSuggest = async ({ query = null, total = null }) => {
+export const fetchSuggest = async ({ query, total }: ReqSuggest): Promise<ResSuggest> => {
   try {
     const client = new FetchClient();
     const res = await client.post(endpoints.suggest, { query, total });

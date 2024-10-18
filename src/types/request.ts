@@ -5,3 +5,8 @@ export interface ReqInquiry {
   email: string;
   is_agree_provide_email: boolean;
 }
+
+export interface ReqSuggest {
+  query: string;
+  total: number;
+}
