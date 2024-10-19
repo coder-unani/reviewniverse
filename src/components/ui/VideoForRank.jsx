@@ -40,9 +40,9 @@ const RankingNumber = ({ number }) => {
   ));
 };
 
-const VideoForRank = ({ video, index, isClient = false }) => {
+const VideoForRank = ({ video, index, isClient = false, referrer = null, referrerKey = null }) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
-  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
   const videoRelease = fYear(release);
   const videoCountry = fCountry(country);
@@ -50,7 +50,17 @@ const VideoForRank = ({ video, index, isClient = false }) => {
   const ratingText = fRatingText(rating);
 
   return (
-    <Link href={path} className={defStyles.default__video__item} aria-label={title}>
+    <Link
+      href={{
+        pathname,
+        query: {
+          ...(referrer && { ref: referrer }),
+          ...(referrerKey && { ref_key: referrerKey }),
+        },
+      }}
+      className={defStyles.default__video__item}
+      aria-label={title}
+    >
       <div className={defStyles.default__thumbnail__container}>
         <picture className={styles.rank__thumbnail__wrapper}>
           {isClient ? (

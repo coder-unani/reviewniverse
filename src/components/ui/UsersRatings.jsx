@@ -1,19 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { useUserRatings } from '@/hooks/useUserRatings';
 import VideosForRating from '@/components/ui/VideosForRating';
 
 import styles from '@/styles/pages/UsersContents.module.scss';
 
-const UsersRatings = ({ id }) => {
+const UsersRatings = ({ userId, referrer }) => {
   const router = useRouter();
-  const userId = fParseInt(id);
   const [videos, setVideos] = useState(null);
   const [page, setPage] = useState(1);
   const pageSize = 20;
@@ -28,11 +26,6 @@ const UsersRatings = ({ id }) => {
     orderBy: 'rating_desc',
     enabled: userId,
   });
-
-  // 숫자가 아닌 경우 notFound 페이지로 이동
-  useEffect(() => {
-    if (userId === 0) notFound();
-  }, [userId]);
 
   // 평가 데이터 처리
   useEffect(() => {
@@ -89,7 +82,9 @@ const UsersRatings = ({ id }) => {
         </strong>
       </section>
       <section className={styles.contents__content__section}>
-        {!isEmpty(videos.data) && <VideosForRating videos={videos} handlePage={handlePage} />}
+        {!isEmpty(videos.data) && (
+          <VideosForRating videos={videos} handlePage={handlePage} referrer={referrer} referrerKey={userId} />
+        )}
       </section>
     </>
   );

@@ -172,8 +172,8 @@ const SearchForm = () => {
     if (!inputValue || !inputValue.trim()) return;
     handleSearchDropdownClose();
     saveRecentKeywords(inputValue);
-    const path = `${ENDPOINTS.SEARCH}/${encodeURIComponent(inputValue)}`;
-    router.push(path);
+    const pathname = `${ENDPOINTS.SEARCH}/${encodeURIComponent(inputValue)}`;
+    router.push(pathname);
   };
 
   useEffect(() => {

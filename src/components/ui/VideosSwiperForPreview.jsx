@@ -14,7 +14,7 @@ import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
 
 const PreviewSwiper = dynamic(() => import('@/components/ui/Client/VideosSwiperForPreview'), { ssr: false });
 
-const VideosSwiperForPreview = async ({ videos }) => {
+const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = null }) => {
   if (isEmpty(videos)) return null;
 
   return (
@@ -74,7 +74,13 @@ const VideosSwiperForPreview = async ({ videos }) => {
                   key={video.id}
                 >
                   <Link
-                    href={EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id })}
+                    href={{
+                      pathname: EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id }),
+                      query: {
+                        ...(referrer && { ref: referrer }),
+                        ...(referrerKey && { ref_key: referrerKey }),
+                      },
+                    }}
                     className={vpStyles.preview__thumbnail__link}
                     aria-label={video.title}
                     data-index={index}

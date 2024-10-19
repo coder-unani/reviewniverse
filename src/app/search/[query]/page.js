@@ -13,10 +13,11 @@ const SearchResults = dynamic(() => import('@/components/ui/SearchResults'), { s
 
 const Search = ({ params }) => {
   const { query } = params;
+  const referrer = 'search';
   return (
     <main className={styles.search__main}>
       <Suspense fallback="">
-        <SearchResults query={query} />
+        <SearchResults query={query} referrer={referrer} />
       </Suspense>
     </main>
   );

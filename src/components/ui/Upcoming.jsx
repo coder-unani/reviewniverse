@@ -9,10 +9,10 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { useUpcomingVideos } from '@/hooks/useUpcomingVideos';
 import VideosForUpcoming from '@/components/ui/VideosForUpcoming';
 
-const Upcoming = ({ enabled }) => {
+const Upcoming = ({ enabled, referrer, referrerKey }) => {
   const router = useRouter();
-  const [page, setPage] = useState(2);
   const [videos, setVideos] = useState({});
+  const [page, setPage] = useState(2);
   const {
     data: videosData,
     error: videosError,
@@ -69,7 +69,15 @@ const Upcoming = ({ enabled }) => {
   // 평가 데이터가 없는 경우
   if (isEmpty(videos)) return null;
 
-  return <VideosForUpcoming videos={videos} handlePage={handlePage} pageSize={UPCOMING_PAGE_SIZE} />;
+  return (
+    <VideosForUpcoming
+      videos={videos}
+      handlePage={handlePage}
+      pageSize={UPCOMING_PAGE_SIZE}
+      referrer={referrer}
+      referrerKey={referrerKey}
+    />
+  );
 };
 
 export default Upcoming;

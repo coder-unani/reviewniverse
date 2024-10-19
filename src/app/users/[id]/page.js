@@ -1,5 +1,8 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
+
+import { fParseInt } from '@/utils/format';
 
 import styles from '@/styles/pages/Users.module.scss';
 
@@ -13,10 +16,15 @@ const UsersComponent = dynamic(() => import('@/components/ui/Users'), { ssr: fal
 
 const Users = ({ params }) => {
   const { id } = params;
+  const userId = fParseInt(id);
+
+  // 숫자가 아닌 경우 notFound 페이지로 이동
+  if (userId === 0) notFound();
+
   return (
     <main className={styles.user__main}>
       <Suspense fallback="">
-        <UsersComponent id={id} />
+        <UsersComponent userId={userId} />
       </Suspense>
     </main>
   );

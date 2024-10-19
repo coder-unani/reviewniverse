@@ -110,8 +110,8 @@ export const generateMetadata = async ({ params }) => {
   const title = `${person.name} 필모그래피 | 리뷰니버스`;
   const description = `${person.name}의 작품들을 확인해보세요.`;
   const imageUrl = `${SETTINGS.CDN_BASE_URL}/${person.picture}`;
-  const path = EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id });
-  const url = `${SETTINGS.SITE_BASE_URL}${path}`;
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: person.id });
+  const url = `${SETTINGS.SITE_BASE_URL}${pathname}`;
   const keywords = `${SITE_KEYWORDS}, ${PEOPLE_KEYWORDS}, ${person.name}의 작품, ${person.name}${person.name_og ? `, ${person.name_og}` : ''}`;
 
   return {
@@ -160,6 +160,7 @@ const People = async ({ params }) => {
 
   const { person } = videos.metadata;
   const subtitle = '필모그래피';
+  const referrer = 'people';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PEOPLE_PAGE_SIZE;
 
@@ -193,10 +194,10 @@ const People = async ({ params }) => {
         </div>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video video={video} key={video.id} />
+            <Video video={video} referrer={referrer} referrerKey={peopleId} key={video.id} />
           ))}
           <Suspense fallback="">
-            <Filmography peopleId={peopleId} enabled={enabled} />
+            <Filmography peopleId={peopleId} enabled={enabled} referrer={referrer} />
           </Suspense>
         </div>
       </section>

@@ -5,7 +5,7 @@ import VideoForRating from '@/components/ui/VideoForRating';
 
 import vvStyles from '@/styles/components/Videos.module.scss';
 
-const VideosForRating = ({ children, videos, handlePage }) => {
+const VideosForRating = ({ children, videos, handlePage, referrer = null, referrerKey = null }) => {
   const hasMore = videos.data && videos.total > videos.data.length;
   const observer = useRef();
 
@@ -36,7 +36,7 @@ const VideosForRating = ({ children, videos, handlePage }) => {
       {children}
       <div className={vvStyles.vertical__videos__wrapper}>
         {videos.data.map((video) => (
-          <VideoForRating video={video} key={video.id} />
+          <VideoForRating video={video} referrer={referrer} referrerKey={referrerKey} key={video.id} />
         ))}
         {hasMore && <article ref={lastItemRef} />}
       </div>

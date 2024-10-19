@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash';
 
 import VideoForUpcoming from '@/components/ui/VideoForUpcoming';
 
-const VideosForUpcoming = ({ videos, handlePage, pageSize }) => {
+const VideosForUpcoming = ({ videos, handlePage, pageSize, referrer = null, referrerKey = null }) => {
   const hasMore = videos.count === pageSize;
   const observer = useRef();
 
@@ -34,7 +34,7 @@ const VideosForUpcoming = ({ videos, handlePage, pageSize }) => {
   return (
     <>
       {videos.data.map((video) => (
-        <VideoForUpcoming video={video} isClient key={video.id} />
+        <VideoForUpcoming video={video} isClient referrer={referrer} referrerKey={referrerKey} key={video.id} />
       ))}
       {hasMore && <article ref={lastItemRef} />}
     </>

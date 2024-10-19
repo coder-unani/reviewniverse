@@ -96,8 +96,8 @@ export const generateMetadata = async ({ params }) => {
   const title = `${production.name} | 리뷰니버스`;
   const description = `${production.name} 제작사의 작품들을 확인해보세요.`;
   const imageUrl = production.logo ? `${SETTINGS.CDN_BASE_URL}/${production.logo}` : DEFAULT_IMAGES.logo;
-  const path = EndpointManager.generateUrl(ENDPOINTS.PRODUCTIONS, { productionId: production.id });
-  const url = `${SETTINGS.SITE_BASE_URL}${path}`;
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.PRODUCTIONS, { productionId: production.id });
+  const url = `${SETTINGS.SITE_BASE_URL}${pathname}`;
   const keywords = `${SITE_KEYWORDS}, ${PRODUCTIONS_KEYWORDS}, ${production.name}의 작품, ${production.name}`;
 
   return {
@@ -138,6 +138,7 @@ const Productions = async ({ params }) => {
 
   const { production } = videos.metadata;
   const subtitle = '제작사';
+  const referrer = 'productions';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PRODUCTIONS_PAGE_SIZE;
 
@@ -153,10 +154,10 @@ const Productions = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video video={video} key={video.id} />
+            <Video video={video} referrer={referrer} referrerKey={productionId} key={video.id} />
           ))}
           <Suspense fallback="">
-            <ProductionsComponent productionId={productionId} enabled={enabled} />
+            <ProductionsComponent productionId={productionId} enabled={enabled} referrer={referrer} />
           </Suspense>
         </div>
       </section>

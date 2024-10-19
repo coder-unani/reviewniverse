@@ -128,8 +128,8 @@ const AuthKakaoCallback = () => {
   useEffect(() => {
     if (user) {
       showErrorToast(MESSAGES.L002);
-      const path = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
-      router.push(path);
+      const pathname = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
+      router.push(pathname);
     }
     handleKakaoLogin();
   }, []);

@@ -7,7 +7,7 @@ import Video from '@/components/ui/Video';
 
 import styles from '@/styles/components/Videos.module.scss';
 
-const VideosForSearch = ({ videos, handlePage, pageSize }) => {
+const VideosForSearch = ({ videos, handlePage, pageSize, referrer = null, referrerKey = null }) => {
   const hasMore = videos.count === pageSize;
   const observer = useRef();
 
@@ -37,7 +37,7 @@ const VideosForSearch = ({ videos, handlePage, pageSize }) => {
     <section className={styles.vertical__videos__section}>
       <div className={styles.vertical__videos__wrapper}>
         {videos.data.map((video) => (
-          <Video video={video} isClient key={video.id} />
+          <Video video={video} isClient referrer={referrer} referrerKey={referrerKey} key={video.id} />
         ))}
         {hasMore && <article ref={lastItemRef} />}
       </div>

@@ -1,19 +1,17 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter, notFound } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import { ENDPOINTS } from '@/config/endpoints';
-import { fParseInt } from '@/utils/format';
 import { useUserReviews } from '@/hooks/useUserReviews';
 import ReviewsForUser from '@/components/ui/ReviewsForUser';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
-const UsersReviews = ({ id }) => {
+const UsersReviews = ({ userId, referrer }) => {
   const router = useRouter();
-  const userId = fParseInt(id);
   const [reviews, setReviews] = useState(null);
   const [page, setPage] = useState(1);
   const pageSize = 20;
@@ -22,11 +20,6 @@ const UsersReviews = ({ id }) => {
     error: reviewsError,
     isLoading: reviewsIsLoading,
   } = useUserReviews({ userId, page, pageSize, enabled: userId });
-
-  // 숫자가 아닌 경우 notFound 페이지로 이동
-  useEffect(() => {
-    if (userId === 0) notFound();
-  }, [userId]);
 
   // 리뷰 데이터 처리
   useEffect(() => {
@@ -85,7 +78,9 @@ const UsersReviews = ({ id }) => {
       </section>
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>
-          {!isEmpty(reviews.data) && <ReviewsForUser reviews={reviews} handlePage={handlePage} />}
+          {!isEmpty(reviews.data) && (
+            <ReviewsForUser reviews={reviews} handlePage={handlePage} referrer={referrer} referrerKey={userId} />
+          )}
         </div>
       </section>
     </>

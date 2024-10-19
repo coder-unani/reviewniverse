@@ -18,8 +18,8 @@ const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { s
  * - 정적 이미지 생성
  */
 
-const VideoForUpcoming = ({ video, isClient = false }) => {
-  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
+const VideoForUpcoming = ({ video, isClient = false, referrer = null, referrerKey = null }) => {
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const { title } = video;
   const thumbnail = fThumbnail(video.thumbnail);
   const code = video.code_string;
@@ -39,7 +39,17 @@ const VideoForUpcoming = ({ video, isClient = false }) => {
   const platform = fPlatformNameByCode(upcoming.platform) || '공개 예정';
 
   return (
-    <Link href={path} className={defStyles.default__video__item} aria-label={title}>
+    <Link
+      href={{
+        pathname,
+        query: {
+          ...(referrer && { ref: referrer }),
+          ...(referrerKey && { ref_key: referrerKey }),
+        },
+      }}
+      className={defStyles.default__video__item}
+      aria-label={title}
+    >
       <div className={defStyles.default__thumbnail__container}>
         <picture className={defStyles.default__thumbnail__wrapper}>
           {isClient ? (

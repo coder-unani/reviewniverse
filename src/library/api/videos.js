@@ -74,10 +74,13 @@ export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
 };
 
 // 콘텐츠 상세 정보
-export const fetchVideoDetail = async ({ videoId }) => {
+export const fetchVideoDetail = async ({ videoId, ref = null, refKey = null }) => {
   try {
     const client = new FetchClient();
-    const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId));
+    const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId), {
+      ...(ref && { ref }),
+      ...(refKey && { ref_key: refKey }),
+    });
     return res;
   } catch (error) {
     cError(error);

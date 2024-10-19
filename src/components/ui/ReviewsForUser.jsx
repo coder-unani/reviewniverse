@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 
 import ReviewWithVideo from '@/components/ui/ReviewWithVideo';
 
-const ReviewsForUser = ({ reviews, handlePage }) => {
+const ReviewsForUser = ({ reviews, handlePage, referrer = null, referrerKey = null }) => {
   const hasMore = reviews.data && reviews.total > reviews.data.length;
   const observer = useRef();
 
@@ -33,7 +33,13 @@ const ReviewsForUser = ({ reviews, handlePage }) => {
   return (
     <>
       {reviews.data.map((review) => (
-        <ReviewWithVideo user={reviews.user} review={review} key={review.id} />
+        <ReviewWithVideo
+          user={reviews.user}
+          review={review}
+          referrer={referrer}
+          referrerKey={referrerKey}
+          key={review.id}
+        />
       ))}
       {hasMore && <article ref={lastItemRef} />}
     </>

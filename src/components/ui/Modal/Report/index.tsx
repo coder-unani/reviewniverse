@@ -56,10 +56,12 @@ const ReportModal = React.memo(({ id, title, isOpen, onClose }: IReportModalProp
     // API 호출 중일 경우 리턴
     if (isInquiryPending) return;
 
+    const content = `${reportTitle} - ${selectedValues.join(', ')}`;
+
     const inquiryData: ReqInquiry = {
       topic: '16',
       title: reportTitle,
-      content: selectedValues.join(', '),
+      content,
       email: '',
       is_agree_provide_email: false,
     };
@@ -109,10 +111,7 @@ const ReportModal = React.memo(({ id, title, isOpen, onClose }: IReportModalProp
           <section className={styles.report__body}>
             <form className={styles.report__form} onSubmit={handleSubmit}>
               <p className={styles.report__subtitle}>
-                제목:<span>{reportTitle}</span>
-              </p>
-              <p className={styles.report__reason}>
-                제보사유 <span>해당하는 사유를 모두 선택해주세요.</span>
+                제보사유 <span>여러 개 선택 가능해요.</span>
               </p>
               <div className={styles.report__input__wrapper}>
                 {Object.entries(reportOptions).map(([key, value]) => (

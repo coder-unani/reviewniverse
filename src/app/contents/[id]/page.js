@@ -58,9 +58,13 @@ export const revalidate = VIDEO_REVALIDATE_SEC;
  */
 
 // Content
-const getContent = async ({ videoId }) => {
+const getContent = async ({ videoId, ref = null, refKey = null }) => {
   // 비디오 상세 API 호출
-  const res = await fetchVideoDetail({ videoId });
+  const res = await fetchVideoDetail({
+    videoId,
+    ...(ref && { ref }),
+    ...(refKey && { refKey }),
+  });
   if (res.status === 200) {
     return res.data.data;
   }
@@ -85,8 +89,8 @@ export const generateMetadata = async ({ params }) => {
   const synopsis = content.synopsis || '';
   // const imageUrl = fThumbnail(content.thumbnail);
   const imageUrl = fBackgroundImage(content.thumbnail);
-  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId });
-  const url = `${SETTINGS.SITE_BASE_URL}${path}`;
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId });
+  const url = `${SETTINGS.SITE_BASE_URL}${pathname}`;
   const keywords = `${SITE_KEYWORDS}, ${VIDEO_KEYWORDS}, ${title}${content.tag ? `, ${content.tag}` : ''}`;
 
   const metaTitle = `${title} (${releaseYear}) | 리뷰니버스`;
@@ -234,14 +238,19 @@ const VideoPeople = ({ title, people, formatCode }) => {
   );
 };
 
-const Contents = async ({ params }) => {
+const Contents = async ({ params, searchParams }) => {
   const { id } = params;
+  const { ref, ref_key: refKey } = searchParams || {};
   const videoId = fParseInt(id);
 
   // 숫자가 아닌 경우 notFound 페이지로 이동
   if (videoId === 0) notFound();
 
-  const content = await getContent({ videoId });
+  const content = await getContent({
+    videoId,
+    ...(ref && { ref }),
+    ...(refKey && { refKey }),
+  });
   // 비디오 정보가 없는 경우 notFound 페이지로 이동
   if (isEmpty(content)) notFound();
 

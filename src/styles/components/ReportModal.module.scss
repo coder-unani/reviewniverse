@@ -54,22 +54,10 @@
   font-size: 14px;
   font-weight: 700;
   color: $color-white-04;
-  border-bottom: 1px solid $border-color-01;
-  padding-bottom: 20px;
+  margin-bottom: 20px;
 
   & span {
-    color: $color-white-02;
-    margin-left: 32px;
-  }
-}
-
-.report__reason {
-  font-size: 14px;
-  font-weight: 700;
-  color: $color-white-04;
-  padding: 20px 0;
-
-  & span {
+    font-weight: 500;
     color: $color-white-06;
     margin-left: 9px;
   }

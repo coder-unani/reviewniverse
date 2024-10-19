@@ -9,10 +9,10 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
 import Videos from '@/components/ui/Videos';
 
-const Filmography = ({ peopleId, enabled }) => {
+const Filmography = ({ peopleId, enabled, referrer }) => {
   const router = useRouter();
-  const [page, setPage] = useState(2);
   const [videos, setVideos] = useState({});
+  const [page, setPage] = useState(2);
   const {
     data: videosData,
     error: videosError,
@@ -73,7 +73,15 @@ const Filmography = ({ peopleId, enabled }) => {
   // 평가 데이터가 없는 경우
   if (isEmpty(videos)) return null;
 
-  return <Videos videos={videos} handlePage={handlePage} pageSize={PEOPLE_PAGE_SIZE} />;
+  return (
+    <Videos
+      videos={videos}
+      handlePage={handlePage}
+      pageSize={PEOPLE_PAGE_SIZE}
+      referrer={referrer}
+      referrerKey={peopleId}
+    />
+  );
 };
 
 export default Filmography;

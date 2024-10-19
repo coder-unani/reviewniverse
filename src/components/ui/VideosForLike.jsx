@@ -5,7 +5,7 @@ import VideoForLike from '@/components/ui/VideoForLike';
 
 import vvStyles from '@/styles/components/Videos.module.scss';
 
-const VideosForLike = ({ children, videos, handlePage }) => {
+const VideosForLike = ({ children, videos, handlePage, referrer = null, referrerKey = null }) => {
   const hasMore = videos.data && videos.total > videos.data.length;
   const observer = useRef();
 
@@ -36,7 +36,7 @@ const VideosForLike = ({ children, videos, handlePage }) => {
       {children}
       <div className={vvStyles.vertical__videos__wrapper}>
         {videos.data.map((video) => (
-          <VideoForLike video={video} key={video.id} />
+          <VideoForLike video={video} referrer={referrer} referrerKey={referrerKey} key={video.id} />
         ))}
         {hasMore && <article ref={lastItemRef} />}
       </div>

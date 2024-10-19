@@ -67,7 +67,7 @@ const getUpcomingVideos = async () => {
   return [];
 };
 
-// Current Monthly 컨텐츠
+// Current 컨텐츠
 const getCurrentVideos = async () => {
   const options = {
     page: 1,
@@ -75,7 +75,7 @@ const getCurrentVideos = async () => {
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
     terms: VIDEO_TERMS_OPTIONS.CURRENT,
   };
-  // Monthly Videos API 호출
+  // Current Videos API 호출
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
@@ -128,7 +128,7 @@ const getReviews = async () => {
 
 const Home = async () => {
   // 데이터 페칭
-  const [screenVideos, rankingVideos, upcomingVideos, monthlyVideos, videos, genres, reviews] = await Promise.all([
+  const [screenVideos, rankingVideos, upcomingVideos, currentVideos, videos, genres, reviews] = await Promise.all([
     getScreenVideos(),
     getRankingVideos(),
     getUpcomingVideos(),
@@ -138,45 +138,56 @@ const Home = async () => {
     getReviews(),
   ]);
 
+  const referrer = 'home';
+
   const previewData = fExportScreenDataByCode(screenVideos, 'MA01');
   const previewVideos = previewData.content.list || [];
+  const previewReferrerKey = 'MA01';
 
   const screenMA02Data = fExportScreenDataByCode(screenVideos, 'MA02');
   const screenMA02Videos = screenMA02Data?.content.list || [];
+  const screenMA02ReferrerKey = 'MA02';
   const screenMA02Template = screenMA02Data?.content.template || '';
   const screenMA02Title = screenMA02Data?.title || '';
 
   const screenMA03Data = fExportScreenDataByCode(screenVideos, 'MA03');
   const screenMA03Videos = screenMA03Data?.content.list || [];
+  const screenMA03ReferrerKey = 'MA03';
   const screenMA03Template = screenMA03Data?.content.template || '';
   const screenMA03Title = screenMA03Data?.title || '';
 
   const screenMA04Data = fExportScreenDataByCode(screenVideos, 'MA04');
   const screenMA04Videos = screenMA04Data?.content.list || [];
+  const screenMA04ReferrerKey = 'MA04';
   const screenMA04Template = screenMA04Data?.content.template || '';
   const screenMA04Title = screenMA04Data?.title || '';
 
   const screenMA05Data = fExportScreenDataByCode(screenVideos, 'MA05');
   const screenMA05Videos = screenMA05Data?.content.list || [];
+  const screenMA05ReferrerKey = 'MA05';
   const screenMA05Template = screenMA05Data?.content.template || '';
   const screenMA05Title = screenMA05Data?.title || '';
 
   const rankingVideosTemplate = 'rank';
+  const rankingReferrerKey = 'ranking';
   const rankingVideosTitle = '🍿 리뷰니버스 TOP 20';
   const rankingVideosSubtitle = 'REVIEWNIVERSE TOP 20';
 
   const upcomingVideosTemplate = 'upcoming';
+  const upcomingReferrerKey = 'upcoming';
   const upcomingVideosTitle = '💖 두근두근 기대작';
   const upcomingVideosSubtitle = 'COMING SOON';
   const upcomingMoreLink = ENDPOINTS.UPCOMING;
   const upcomingMoreTitle = '더보기';
   const upcomingMoreSubtitle = '공개 예정작 보러가기';
 
-  const monthlyVideosTemplate = 'default';
-  const monthlyVideosTitle = '🌰 따끈~따끈한 신작';
-  const monthlyVideosSubtitle = 'NEW RELEASE';
+  const currentVideosTemplate = 'default';
+  const currentReferrerKey = 'current';
+  const currentVideosTitle = '🌰 따끈~따끈한 신작';
+  const currentVideosSubtitle = 'NEW RELEASE';
 
   // const videosTemplate = 'default';
+  const videosReferrerKey = 'default';
   const videosTitle = '🍟 이건 어때요?';
   const videosSubtitle = 'RECOMMEND';
 
@@ -190,12 +201,17 @@ const Home = async () => {
     <main className={styles.home__main}>
       {/* 콘텐츠 프리뷰 */}
       <section className={styles.home__preview__section}>
-        <VideosSwiperForPreview videos={previewVideos} />
+        <VideosSwiperForPreview videos={previewVideos} referrer={referrer} referrerKey={previewReferrerKey} />
       </section>
 
       <section className={styles.home__main__section}>
         {/* 랭킹 콘텐츠 리스트 */}
-        <VideosSwiper videos={rankingVideos} template={rankingVideosTemplate}>
+        <VideosSwiper
+          videos={rankingVideos}
+          template={rankingVideosTemplate}
+          referrer={referrer}
+          referrerKey={rankingReferrerKey}
+        >
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
               {rankingVideosTitle}
@@ -216,7 +232,12 @@ const Home = async () => {
         </GenresSwiper>
 
         {/* upcoming 콘텐츠 리스트 */}
-        <VideosSwiper videos={upcomingVideos} template={upcomingVideosTemplate}>
+        <VideosSwiper
+          videos={upcomingVideos}
+          template={upcomingVideosTemplate}
+          referrer={referrer}
+          referrerKey={upcomingReferrerKey}
+        >
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
               {upcomingVideosTitle}
@@ -243,19 +264,29 @@ const Home = async () => {
           </div>
         </ReviewsSwiper>
 
-        {/* monthly 콘텐츠 리스트 */}
-        <VideosSwiper videos={monthlyVideos} template={monthlyVideosTemplate}>
+        {/* current 콘텐츠 리스트 */}
+        <VideosSwiper
+          videos={currentVideos}
+          template={currentVideosTemplate}
+          referrer={referrer}
+          referrerKey={currentReferrerKey}
+        >
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
-              {monthlyVideosTitle}
-              <span className={vhStyles.horizontal__subtitle}>| {monthlyVideosSubtitle}</span>
+              {currentVideosTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {currentVideosSubtitle}</span>
             </h2>
           </div>
         </VideosSwiper>
 
         {/* screen 콘텐츠 리스트 */}
         {!isEmpty(screenMA02Videos) && (
-          <VideosSwiper videos={screenMA02Videos} template={screenMA02Template}>
+          <VideosSwiper
+            videos={screenMA02Videos}
+            template={screenMA02Template}
+            referrer={referrer}
+            referrerKey={screenMA02ReferrerKey}
+          >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
                 {screenMA02Title}
@@ -266,7 +297,12 @@ const Home = async () => {
         )}
 
         {!isEmpty(screenMA03Videos) && (
-          <VideosSwiper videos={screenMA03Videos} template={screenMA03Template}>
+          <VideosSwiper
+            videos={screenMA03Videos}
+            template={screenMA03Template}
+            referrer={referrer}
+            referrerKey={screenMA03ReferrerKey}
+          >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
                 {screenMA03Title}
@@ -277,7 +313,12 @@ const Home = async () => {
         )}
 
         {!isEmpty(screenMA04Videos) && (
-          <VideosSwiper videos={screenMA04Videos} template={screenMA04Template}>
+          <VideosSwiper
+            videos={screenMA04Videos}
+            template={screenMA04Template}
+            referrer={referrer}
+            referrerKey={screenMA04ReferrerKey}
+          >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
                 {screenMA04Title}
@@ -288,7 +329,12 @@ const Home = async () => {
         )}
 
         {!isEmpty(screenMA05Videos) && (
-          <VideosSwiper videos={screenMA05Videos} template={screenMA05Template}>
+          <VideosSwiper
+            videos={screenMA05Videos}
+            template={screenMA05Template}
+            referrer={referrer}
+            referrerKey={screenMA05ReferrerKey}
+          >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
                 {screenMA05Title}
@@ -308,7 +354,7 @@ const Home = async () => {
           </div>
           <div className={vvStyles.vertical__videos__wrapper}>
             {videos.map((video) => (
-              <Video key={video.id} video={video} />
+              <Video key={video.id} video={video} referrer={referrer} referrerKey={videosReferrerKey} />
             ))}
           </div>
         </section>

@@ -90,12 +90,12 @@ const VideosSwiperForPreview = () => {
       e.preventDefault();
 
       const target = e.currentTarget;
-      const path = target.getAttribute('href');
+      const pathname = target.getAttribute('href');
       const index = fParseInt(target.dataset.index);
 
       // 스크롤 중이 아니고 활성화된 썸네일 클릭 시 페이지 이동
       if (!isDraggingRef.current && index === activeThumbIndexRef.current) {
-        router.push(path);
+        router.push(pathname);
       }
     };
 

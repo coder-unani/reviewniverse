@@ -14,24 +14,24 @@ import styles from '@/styles/components/VideosSwiper.module.scss';
 const VideosSwiperClient = dynamic(() => import('@/components/ui/Client/VideosSwiper'), { ssr: false });
 
 // 템플릿에 따른 비디오 아이템 렌더링
-const RenderVideoItems = ({ video, template, index }) => {
+const RenderVideoItems = ({ video, template, index, referrer, referrerKey }) => {
   switch (template) {
     case 'rank':
       // 랭킹 비디오 아이템 렌더링
-      return <VideoForRank video={video} index={index} />;
+      return <VideoForRank video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
     case 'upcoming':
       // 커밍순 아이템 렌더링
-      return <VideoForUpcoming video={video} index={index} />;
+      return <VideoForUpcoming video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
     case 'default':
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} index={index} />;
+      return <Video video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
     default:
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} index={index} />;
+      return <Video video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
   }
 };
 
-const VideosSwiper = ({ children, videos, template = 'default' }) => {
+const VideosSwiper = ({ children, videos, template = 'default', referrer = null, referrerKey = null }) => {
   if (isEmpty(videos)) return null;
 
   // 고유 아이디 생성
@@ -49,7 +49,13 @@ const VideosSwiper = ({ children, videos, template = 'default' }) => {
                   className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`}
                   key={video.id}
                 >
-                  <RenderVideoItems video={video} template={template} index={index} />
+                  <RenderVideoItems
+                    video={video}
+                    template={template}
+                    index={index}
+                    referrer={referrer}
+                    referrerKey={referrerKey}
+                  />
                 </div>
               ))}
             </div>

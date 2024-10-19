@@ -108,8 +108,8 @@ export const generateMetadata = async ({ params }) => {
   const title = `${genre.name} 장르 | 리뷰니버스`;
   const description = `${genre.name} 장르의 작품들을 확인해보세요.`;
   const imageUrl = genre.background ? `${SETTINGS.CDN_BASE_URL}/${genre.background}` : DEFAULT_IMAGES.logo;
-  const path = EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId: genre.id });
-  const url = `${SETTINGS.SITE_BASE_URL}${path}`;
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId: genre.id });
+  const url = `${SETTINGS.SITE_BASE_URL}${pathname}`;
   const keywords = `${SITE_KEYWORDS}, ${GENRES_KEYWORDS}, ${genre.name}, ${genre.name} 장르의 작품`;
 
   return {
@@ -151,6 +151,7 @@ const Genres = async ({ params }) => {
 
   const { genre } = videos.metadata;
   const subtitle = '장르';
+  const referrer = 'genres';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > GENRES_PAGE_SIZE;
 
@@ -168,10 +169,10 @@ const Genres = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video video={video} key={video.id} />
+            <Video video={video} key={video.id} referrer={referrer} referrerKey={genreId} />
           ))}
           <Suspense fallback="">
-            <GenresComponent genreId={genreId} enabled={enabled} />
+            <GenresComponent genreId={genreId} enabled={enabled} referrer={referrer} />
           </Suspense>
         </div>
       </section>

@@ -2,12 +2,12 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { useRouter, usePathname, notFound } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 import { DEFAULT_IMAGES } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
-import { fParseInt, fNumberWithCommas } from '@/utils/format';
+import { fNumberWithCommas } from '@/utils/format';
 import { useUser } from '@/hooks/useUser';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { showErrorToast } from '@/components/ui/Toast';
@@ -16,10 +16,9 @@ import ProfileImage from '@/components/ui/Button/Profile/Image';
 import SettingButton from '@/components/ui/Button/Setting';
 import styles from '@/styles/pages/Users.module.scss';
 
-const Users = ({ id }) => {
+const Users = ({ userId }) => {
   const router = useRouter();
   const pathname = usePathname();
-  const userId = fParseInt(id);
   const { user, handleSetUser, handleRemoveUser } = useAuthContext();
   const { mutate: userFetch } = useUser();
   const [isLogin, setIsLogin] = useState(false);
@@ -27,9 +26,6 @@ const Users = ({ id }) => {
   const pathRating = EndpointManager.generateUrl(ENDPOINTS.USER_RATINGS, { userId });
   const pathReview = EndpointManager.generateUrl(ENDPOINTS.USER_REVIEWS, { userId });
   const pathLike = EndpointManager.generateUrl(ENDPOINTS.USER_LIKES, { userId });
-
-  // 숫자가 아닌 경우 404 페이지로 이동
-  if (userId === 0) notFound();
 
   useEffect(() => {
     // 유저 정보 조회

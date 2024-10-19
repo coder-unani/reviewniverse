@@ -1,5 +1,8 @@
 import React, { Suspense } from 'react';
 import dynamic from 'next/dynamic';
+import { notFound } from 'next/navigation';
+
+import { fParseInt } from '@/utils/format';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
@@ -13,10 +16,17 @@ const UsersReviewsComponent = dynamic(() => import('@/components/ui/UsersReviews
 
 const UsersReviews = ({ params }) => {
   const { id } = params;
+  const userId = fParseInt(id);
+
+  // 숫자가 아닌 경우 notFound 페이지로 이동
+  if (userId === 0) notFound();
+
+  const referrer = 'users';
+
   return (
     <main className={styles.reviews__main}>
       <Suspense fallback="">
-        <UsersReviewsComponent id={id} />
+        <UsersReviewsComponent userId={userId} referrer={referrer} />
       </Suspense>
     </main>
   );

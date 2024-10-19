@@ -13,9 +13,9 @@ import styles from '@/styles/components/Video.module.scss';
 
 const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
 
-const Video = ({ video, isClient = false }) => {
+const Video = ({ video, isClient = false, referrer = null, referrerKey = null }) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
-  const path = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
   const videoRelease = fYear(release);
   const videoCountry = fCountry(country);
@@ -23,7 +23,17 @@ const Video = ({ video, isClient = false }) => {
   const ratingText = fRatingText(rating);
 
   return (
-    <Link href={path} className={styles.default__video__item} aria-label={title}>
+    <Link
+      href={{
+        pathname,
+        query: {
+          ...(referrer && { ref: referrer }),
+          ...(referrerKey && { ref_key: referrerKey }),
+        },
+      }}
+      className={styles.default__video__item}
+      aria-label={title}
+    >
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
           {isClient ? (

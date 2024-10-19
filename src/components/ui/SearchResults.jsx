@@ -19,7 +19,7 @@ import styles from '@/styles/pages/Search.module.scss';
  * - videos skeleton ui 추가
  */
 
-const SearchResults = ({ query }) => {
+const SearchResults = ({ query, referrer }) => {
   const router = useRouter();
   // URI 인코딩된 한글 쿼리를 디코딩
   const decodeQuery = decodeURIComponent(query);
@@ -112,7 +112,13 @@ const SearchResults = ({ query }) => {
           <strong className={styles.search__title}>
             &quot;<em>{decodeQuery}</em>&quot;의 검색 결과가 {videos.total} 개 있어요
           </strong>
-          <VideosForSearch videos={videos} handlePage={handlePage} pageSize={SEARCH_PAGE_SIZE} />
+          <VideosForSearch
+            videos={videos}
+            handlePage={handlePage}
+            pageSize={SEARCH_PAGE_SIZE}
+            referrer={referrer}
+            referrerKey={decodeQuery}
+          />
         </>
       )}
     </section>
