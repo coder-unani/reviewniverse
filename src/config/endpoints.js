@@ -16,6 +16,7 @@ export const ENDPOINTS = {
   CONTENTS_REVIEWS: '/contents/:videoId/reviews',
   GENRES: '/genres/:genreId',
   PEOPLE: '/people/:peopleId',
+  COUNTRIES: '/countries/:countryId',
   PRODUCTIONS: '/productions/:productionId',
   SEARCH: '/search',
   UPCOMING: '/upcoming',

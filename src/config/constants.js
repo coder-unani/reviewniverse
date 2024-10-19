@@ -3,23 +3,26 @@ import { SETTINGS } from '@/config/settings';
 export const HOME_REVALIDATE_SEC = 300; // 5분
 export const VIDEO_REVALIDATE_SEC = 600; // 10분
 export const GENRES_REVALIDATE_SEC = 3600; // 1시간
-export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
+export const COUNTRIES_REVALIDATE_SEC = 3600; // 1시간
 export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
+export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
 
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, TV, 작품, 인기, 추천, 검색, 통합검색, OTT, 평점, 정보';
 export const VIDEO_KEYWORDS = '출연진, 등장인물, 공식영상, 보러가기, 후기, 평가';
 export const GENRES_KEYWORDS = '장르, genre';
+export const COUNTRIES_KEYWORDS = '국가, country, countries, 국적, 제작국가';
+export const PRODUCTIONS_KEYWORDS = '제작, 제작사, production, productions, filmes, 참여작품';
 export const PEOPLE_KEYWORDS =
   '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 인물';
-export const PRODUCTIONS_KEYWORDS = '제작, 제작사, production, productions, filmes, 참여작품';
 export const UPCOMING_KEYWORDS =
   '플랫폼, 넷플릭스, 디즈니플러스, 티빙, 웨이브, 쿠팡플레이, 왓챠, 애플TV, 라프텔, 공개예정, 신작, 업데이트, 소식, 캘린더';
 
 export const GENRES_PAGE_SIZE = 20; // 장르 페이지 사이즈
-export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
+export const COUNTRIES_PAGE_SIZE = 20; // 국가 페이지 사이즈
 export const PRODUCTIONS_PAGE_SIZE = 20; // 제작사 페이지 사이즈
+export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
 export const UPCOMING_PAGE_SIZE = 50; // Upcoming 페이지 사이즈
 export const SEARCH_PAGE_SIZE = 20; // 검색 페이지 사이즈
 
@@ -52,11 +55,11 @@ export const VIDEO_BY_OPTIONS = {
   ALL: 'all',
   TITLE: 'title',
   CODE: 'code',
-  PERSON: 'person',
   GENRE: 'genre',
-  PLATFORM: 'platform',
-  PRODUCTION: 'production',
   COUNTRY: 'country',
+  PRODUCTION: 'production',
+  PLATFORM: 'platform',
+  PERSON: 'person',
 };
 
 export const VIDEO_TERMS_OPTIONS = {

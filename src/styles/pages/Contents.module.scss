@@ -269,7 +269,7 @@
   transform: translateY(-50%);
 
   path {
-    stroke: $color-white-06;
+    fill: $color-white-06;
   }
 }
 
@@ -822,6 +822,10 @@
 }
 
 .my__review__button__icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+
   path {
     fill: $color-white-06;
   }
