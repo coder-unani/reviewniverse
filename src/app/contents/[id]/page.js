@@ -27,7 +27,9 @@ import {
   fMakeThumbnailUrl,
 } from '@/utils/formatContent';
 import { fetchVideoDetail } from '@/library/api/videos';
-import VideoLikeButton from '@/components/ui/Button/VideoLike';
+import VideoLikeButton from '@/components/ui/Button/Video/Like';
+// import VideoWathcedButton from '@/components/ui/Button/Video/Watched';
+// import VideoExpectButton from '@/components/ui/Button/Video/Expect';
 import ReviewButton from '@/components/ui/Button/Review';
 import ShareButton from '@/components/ui/Button/Share';
 import ReportButton from '@/components/ui/Button/Report';
@@ -36,8 +38,8 @@ import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
 import PeopleImage from '@/components/ui/Button/People/Image';
 
-import MoreIcon from '@/resources/icons/more.svg';
-import PlayIcon from '@/resources/icons/play.svg';
+import FillMoreIcon from '@/resources/icons/fill-more.svg';
+import FillPlayIcon from '@/resources/icons/fill-play.svg';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
@@ -334,6 +336,8 @@ const Contents = async ({ params, searchParams }) => {
               <article className={styles.detail__control__container}>
                 <article className={styles.detail__control__wrapper}>
                   <VideoLikeButton videoId={videoId} />
+                  {/* <VideoWathcedButton videoId={videoId} />
+                  <VideoExpectButton videoId={videoId} /> */}
                   {/* <CollectionButton /> */}
                   <ReviewButton />
                   <ShareButton title={titleKr} desc={synopsis} image={poster} />
@@ -382,14 +386,19 @@ const Contents = async ({ params, searchParams }) => {
                     {isEmpty(countries) ? (
                       <p className={styles.detail__sub__content}>-</p>
                     ) : (
-                      countries.map((country, index) => (
-                        <p key={index} className={styles.detail__sub__content} data-indx={index + 1}>
+                      countries.map((country) => (
+                        <Link
+                          href={EndpointManager.generateUrl(ENDPOINTS.COUNTRIES, { countryId: country.name_ko })}
+                          className={styles.detail__sub__content}
+                          aria-label={`${country.name_ko} 작품 보러가기`}
+                          key={country.code}
+                        >
                           {country.name_ko}
-                        </p>
+                        </Link>
                       ))
                     )}
                   </div>
-                  {countries.length > 1 && <MoreIcon className={styles.detail__sub__button} />}
+                  {countries.length > 1 && <FillMoreIcon className={styles.detail__sub__button} />}
                 </div>
                 {/* 제작사 */}
                 <div
@@ -413,7 +422,7 @@ const Contents = async ({ params, searchParams }) => {
                       ))
                     )}
                   </div>
-                  {productions.length > 1 && <MoreIcon className={styles.detail__sub__button} />}
+                  {productions.length > 1 && <FillMoreIcon className={styles.detail__sub__button} />}
                 </div>
                 {/* 상영시간/시리즈 */}
                 <div className={`swiper-slide sub-margin-right ${styles.detail__sub__info__item} ${styles.runtime}`}>
@@ -480,7 +489,7 @@ const Contents = async ({ params, searchParams }) => {
                           key={index}
                         >
                           <picture className={styles.detail__photo__wrapper}>
-                            <PlayIcon className={styles.detail__play__icon} width={36} height={36} />
+                            <FillPlayIcon className={styles.detail__play__icon} width={36} height={36} />
                             <Image
                               className={styles.detail__photo}
                               src={video.thumbnail}

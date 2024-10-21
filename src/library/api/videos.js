@@ -11,6 +11,8 @@ const endpoints = {
   videoReviews: `${baseURL}/v1/videos/:videoId/reviews`,
   videoMyInfo: `${baseURL}/v1/videos/:videoId/myinfo`,
   videoLike: `${baseURL}/v1/videos/:videoId/like`,
+  videoWatched: `${baseURL}/v1/videos/:videoId/watched`,
+  videoExpect: `${baseURL}/v1/videos/:videoId/expect`,
   videoRating: `${baseURL}/v1/videos/:videoId/rating`,
 };
 
@@ -121,6 +123,30 @@ export const fetchVideoLike = async ({ videoId }) => {
   try {
     const client = new AxiosClient();
     const res = await client.post(endpoints.videoLike.replace(':videoId', videoId));
+    return res;
+  } catch (error) {
+    cError(error);
+    return null;
+  }
+};
+
+// 콘텐트 봤어요
+export const fetchVideoWatched = async ({ videoId }) => {
+  try {
+    const client = new AxiosClient();
+    const res = await client.post(endpoints.videoWatched.replace(':videoId', videoId));
+    return res;
+  } catch (error) {
+    cError(error);
+    return null;
+  }
+};
+
+// 콘텐츠 기대돼요
+export const fetchVideoExpect = async ({ videoId }) => {
+  try {
+    const client = new AxiosClient();
+    const res = await client.post(endpoints.videoExpect.replace(':videoId', videoId));
     return res;
   } catch (error) {
     cError(error);

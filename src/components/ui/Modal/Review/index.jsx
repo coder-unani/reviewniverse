@@ -16,10 +16,10 @@ import { useReviewCreate } from '@/hooks/useReviewCreate';
 import { useReviewUpdate } from '@/hooks/useReviewUpdate';
 import CloseButton from '@/components/ui/Button/Close';
 
-import SpoilerActivateIcon from '@/resources/icons/spoiler-activate.svg';
-import SpoilerDeactivateIcon from '@/resources/icons/spoiler-deactivate.svg';
-import PrivateActivateIcon from '@/resources/icons/private-activate.svg';
-import PrivateDeactivateIcon from '@/resources/icons/private-deactivate.svg';
+import FillSpoilerIcon from '@/resources/icons/fill-spoiler.svg';
+import OutlineSpoilerIcon from '@/resources/icons/outline-spoiler.svg';
+import FillPrivateIcon from '@/resources/icons/fill-private.svg';
+import OutlinePrivateIcon from '@/resources/icons/outline-private.svg';
 import styles from '@/styles/components/ReviewModal.module.scss';
 
 /**
@@ -39,50 +39,6 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
   const [isSpoiler, setIsSpoiler] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const textareaRef = useRef(null);
-
-  // 리뷰 닫기 전 확인 메시지
-  const reviewCloseMessage = () => (
-    <>
-      작성중인 리뷰가 있어요.
-      <br />
-      정말 닫으시겠어요?
-    </>
-  );
-
-  // 리뷰 닫기 전 확인 모달 띄우는 함수
-  const confirmReviewClose = async () => {
-    if (textareaRef.current.value) {
-      const confirmed = await new Promise((resolve) => {
-        toggleConfirmModal(reviewCloseMessage, resolve);
-      });
-      if (!confirmed) return false;
-    }
-    onClose();
-    return true;
-  };
-
-  // 모달 클릭 이벤트
-  const handleModalClose = (e) => {
-    if (e.target === modalRef.current) {
-      confirmReviewClose();
-    }
-  };
-
-  // 리뷰 모달 닫기
-  const handleClose = () => {
-    confirmReviewClose();
-  };
-
-  // 텍스트 영역에 포커스를 설정하는 함수
-  const handleFocus = (element) => {
-    textareaRef.current = element; // ref에 요소 저장
-    if (element) element.focus(); // 요소에 포커스 설정
-  };
-
-  // 리뷰 붙여넣기 방지
-  const handlePaste = (e) => {
-    e.preventDefault();
-  };
 
   // 리뷰 유효성 검사
   const reviewSchema = Yup.object().shape({
@@ -112,6 +68,51 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
 
   // 리뷰 내용 감시
   const watchedTitle = useWatch({ control, name: 'title', defaultValue: '' });
+
+  // 리뷰 닫기 전 확인 메시지
+  const reviewCloseMessage = () => (
+    <>
+      작성중인 리뷰가 있어요.
+      <br />
+      정말 닫으시겠어요?
+    </>
+  );
+
+  // 리뷰 닫기 전 확인 모달 띄우는 함수
+  const confirmReviewClose = async () => {
+    if (textareaRef.current.value) {
+      const confirmed = await new Promise((resolve) => {
+        toggleConfirmModal(reviewCloseMessage, resolve);
+      });
+      if (!confirmed) return false;
+    }
+    onClose();
+    setValue('title', '');
+    return true;
+  };
+
+  // 모달 클릭 이벤트
+  const handleModalClose = (e) => {
+    if (e.target === modalRef.current) {
+      confirmReviewClose();
+    }
+  };
+
+  // 리뷰 모달 닫기
+  const handleClose = () => {
+    confirmReviewClose();
+  };
+
+  // 텍스트 영역에 포커스를 설정하는 함수
+  const handleFocus = (element) => {
+    textareaRef.current = element; // ref에 요소 저장
+    if (element) element.focus(); // 요소에 포커스 설정
+  };
+
+  // 리뷰 붙여넣기 방지
+  const handlePaste = (e) => {
+    e.preventDefault();
+  };
 
   // 스포일러 버튼 토글
   const toggleSpoiler = () => {
@@ -241,7 +242,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
                     className={styles.review__spoiler__button}
                     onClick={toggleSpoiler}
                   >
-                    {isSpoiler ? <SpoilerActivateIcon /> : <SpoilerDeactivateIcon />}
+                    {isSpoiler ? <FillSpoilerIcon /> : <OutlineSpoilerIcon />}
                   </button>
                   <Tooltip
                     id="reviewModalSpoilerTooltip"
@@ -257,7 +258,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
                     className={styles.review__private__button}
                     onClick={togglePrivate}
                   >
-                    {isPrivate ? <PrivateActivateIcon /> : <PrivateDeactivateIcon />}
+                    {isPrivate ? <FillPrivateIcon /> : <OutlinePrivateIcon />}
                   </button>
                   <Tooltip
                     id="reviewModalPrivateTooltip"

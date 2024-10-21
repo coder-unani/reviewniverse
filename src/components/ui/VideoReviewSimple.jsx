@@ -16,7 +16,7 @@ import ReviewForVideo from '@/components/ui/ReviewForVideo';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
-import FillUpdateIcon from '@/resources/icons/fill-update.svg';
+import FillPenIcon from '@/resources/icons/fill-pen.svg';
 import FillTrashIcon from '@/resources/icons/fill-trash.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
@@ -178,7 +178,7 @@ const VideoReviewSimple = ({ videoId }) => {
               data-tooltip-content="수정"
               onClick={handleReviewUpdate}
             >
-              <FillUpdateIcon className={styles.my__review__button__icon} width={18} height={18} />
+              <FillPenIcon className={styles.my__review__button__icon} width={18} height={18} />
             </button>
             <Tooltip
               id="myReviewUpdateTooltip"

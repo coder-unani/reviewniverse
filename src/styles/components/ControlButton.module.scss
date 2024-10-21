@@ -14,6 +14,24 @@
     }
   }
 
+  &.watched {
+    .detail__control__icon {
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-watched.svg');
+      &.active {
+        background-image: url('#{$cdn-base-url}/assets/images/button/fill-watched.svg');
+      }
+    }
+  }
+
+  &.expect {
+    .detail__control__icon {
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-expect.svg');
+      &.active {
+        background-image: url('#{$cdn-base-url}/assets/images/button/fill-expect.svg');
+      }
+    }
+  }
+
   &.collection {
     .detail__control__icon {
       background-image: url('#{$cdn-base-url}/assets/images/button/outline-folder.svg');

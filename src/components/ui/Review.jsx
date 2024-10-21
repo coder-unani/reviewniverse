@@ -11,7 +11,7 @@ import ProfileImage from '@/components/ui/Button/Profile/Image';
 import RatingScore from '@/components/ui/RatingScore';
 import ReviewLikeButton from '@/components/ui/Button/ReviewLike';
 
-// import MoreIcon from '@/resources/icons/more.svg';
+// import FillMoreIcon from '@/resources/icons/fill-more.svg';
 import styles from '@/styles/components/Review.module.scss';
 
 /**
@@ -63,7 +63,7 @@ const Review = ({ videoId, review }) => {
         </Link>
 
         {/* <button className={styles.review__more__button}>
-          <MoreIcon />
+          <FillMoreIcon />
         </button> */}
       </div>
 

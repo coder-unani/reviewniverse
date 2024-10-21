@@ -211,11 +211,11 @@
 .review__more__wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
 
-  :global(.review__like__button) {
-    margin: 0 0 0 auto;
-  }
+  // :global(.review__like__button) {
+  //   margin: 0 0 0 auto;
+  // }
 }
 
 @media (max-width: 576px) {
