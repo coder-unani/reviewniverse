@@ -92,7 +92,7 @@ export const generateMetadata = async ({ params }) => {
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const isIndex = videos.data.length > 0;
   const { country } = videos.metadata;
-  const title = `${country.name} 국가 | 리뷰니버스`;
+  const title = `${country.name} | 리뷰니버스`;
   const description = `${country.name} 국가의 작품들을 확인해보세요.`;
   const imageUrl = DEFAULT_IMAGES.logo;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.COUNTRIES, { countryId: country.name });
@@ -136,7 +136,7 @@ const Countries = async ({ params }) => {
   const videos = initCountryVideos(result);
 
   const { country } = videos.metadata;
-  const subtitle = '국가';
+  const subtitle = '제작국가';
   const referrer = 'countries';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > COUNTRIES_PAGE_SIZE;
