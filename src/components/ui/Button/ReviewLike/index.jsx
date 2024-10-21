@@ -11,8 +11,6 @@ import { useReviewLike } from '@/hooks/useReviewLike';
 import FillThumbIcon from '@/resources/icons/fill-thumb.svg';
 import OutlineThumbIcon from '@/resources/icons/outline-thumb.svg';
 
-// TODO: 리뷰 좋아요 버튼 스타일은 공통 스타일로 변경
-
 const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
   const { toggleEnjoyModal } = useModalContext();
   const { user } = useAuthContext();

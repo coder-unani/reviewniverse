@@ -30,8 +30,8 @@ const VideoLikeButton = ({ videoId }) => {
       {
         onSuccess: (res) => {
           if (res.status === 200) {
-            const isLike = res.data.data.is_like;
-            if (isLike) {
+            const { result } = res.data.data;
+            if (result) {
               showSuccessToast('좋아요 리스트에 추가되었습니다.');
             } else {
               showSuccessToast('좋아요 리스트에서 제외되었습니다.');

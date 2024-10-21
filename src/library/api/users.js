@@ -14,7 +14,7 @@ const endpoints = {
   userReviews: `${baseURL}/v1/users/:userId/reviews`,
   userReviewLikes: `${baseURL}/v1/users/:userId/reviews/likes`,
   userRatings: `${baseURL}/v1/users/:userId/videos/ratings`,
-  userLikes: `${baseURL}/v1/users/:userId/videos/likes`,
+  userLikes: `${baseURL}/v1/users/:userId/videos/like`,
 };
 
 // 로그인
