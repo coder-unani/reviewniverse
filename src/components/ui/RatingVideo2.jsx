@@ -1,11 +1,9 @@
 'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
-import Image from 'next/image';
 import { isEmpty } from 'lodash';
 
 import { VIDEO_RATING_TEXT } from '@/config/constants';
-import { SETTINGS } from '@/config/settings';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoRating } from '@/hooks/useVideoRating';
@@ -18,13 +16,11 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
   const { user } = useAuthContext();
   const { toggleEnjoyModal } = useModalContext();
   const { mutate: videoRating, isPending: isRatingPending } = useVideoRating();
-  const [imgSrc, setImgSrc] = useState(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/0.png`);
   const [isDragging, setIsDragging] = useState(false); // 평점 드래그 여부
   const [startX, setStartX] = useState(0);
   const [startY, setStartY] = useState(0);
   const emptyRatingRef = useRef(null);
   const fillRatingRef = useRef(null);
-  const ratingImgRef = useRef(null);
   const ratingTextRef = useRef(null);
 
   // 평점 이미지 및 텍스트 설정
@@ -37,8 +33,6 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
       fillRating.style.width = `${rating * 10}%`;
       ratingText.innerText = VIDEO_RATING_TEXT[rating];
     }
-
-    setImgSrc(`${SETTINGS.CDN_BASE_URL}/assets/images/rating/${rating}.png`);
   };
 
   // 평점 너비 설정
@@ -190,17 +184,6 @@ const RatingVideo2 = ({ videoId, myInfo }) => {
 
   return (
     <article className={styles.rating__container}>
-      <div className={styles.rating__image__wrapper}>
-        <Image
-          className={styles.rating__image}
-          src={imgSrc}
-          alt="평점"
-          width={45}
-          height={45}
-          priority
-          ref={ratingImgRef}
-        />
-      </div>
       <div className={styles.rating__range__wrapper}>
         <span id="ratingText" className={styles.rating__text} ref={ratingTextRef}>
           {VIDEO_RATING_TEXT[0]}
