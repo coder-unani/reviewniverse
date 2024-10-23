@@ -9,6 +9,8 @@ import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoWatched } from '@/hooks/useVideoWatched';
 import { showSuccessToast } from '@/components/ui/Toast';
 
+import FillWatchedIcon from '@/resources/icons/fill-watched.svg';
+import OutlineWatchedIcon from '@/resources/icons/outline-watched.svg';
 import styles from '@/styles/components/ControlButton.module.scss';
 
 const VideoWatchedbutton = ({ videoId }) => {
@@ -45,12 +47,17 @@ const VideoWatchedbutton = ({ videoId }) => {
   return (
     <button
       type="button"
-      className={`${styles.detail__control} ${styles.watched}`}
+      className={styles.detail__control}
       aria-label="봤어요"
       onClick={handleWatchedButton}
       disabled={isWatchedPending}
     >
-      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.watched ? styles.active : ''}`} />
+      {myInfo && myInfo.watched ? (
+        <FillWatchedIcon className={`${styles.detail__control__icon} ${styles.active}`} width={30} height={30} />
+      ) : (
+        <OutlineWatchedIcon className={styles.detail__control__icon} width={30} height={30} />
+      )}
+      <span className={styles.detail__control__text}>봤어요</span>
     </button>
   );
 };

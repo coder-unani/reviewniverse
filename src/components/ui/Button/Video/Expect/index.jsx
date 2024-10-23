@@ -9,6 +9,8 @@ import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoExpect } from '@/hooks/useVideoExpect';
 import { showSuccessToast } from '@/components/ui/Toast';
 
+import FillExpectIcon from '@/resources/icons/fill-expect.svg';
+import OutlineExpectIcon from '@/resources/icons/outline-expect.svg';
 import styles from '@/styles/components/ControlButton.module.scss';
 
 const VideoExpectButton = ({ videoId }) => {
@@ -45,12 +47,17 @@ const VideoExpectButton = ({ videoId }) => {
   return (
     <button
       type="button"
-      className={`${styles.detail__control} ${styles.expect}`}
+      className={styles.detail__control}
       aria-label="기대돼요"
       onClick={handleExpectButton}
       disabled={isExpectPending}
     >
-      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.expect ? styles.active : ''}`} />
+      {myInfo && myInfo.expect ? (
+        <FillExpectIcon className={`${styles.detail__control__icon} ${styles.active}`} width={30} height={30} />
+      ) : (
+        <OutlineExpectIcon className={styles.detail__control__icon} width={30} height={30} />
+      )}
+      <span className={styles.detail__control__text}>기대돼요</span>
     </button>
   );
 };

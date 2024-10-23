@@ -9,6 +9,8 @@ import { useModalContext } from '@/contexts/ModalContext';
 import { useVideoLike } from '@/hooks/useVideoLike';
 import { showSuccessToast } from '@/components/ui/Toast';
 
+import FillLikeIcon from '@/resources/icons/fill-like.svg';
+import OutlineLikeIcon from '@/resources/icons/outline-like.svg';
 import styles from '@/styles/components/ControlButton.module.scss';
 
 const VideoLikeButton = ({ videoId }) => {
@@ -45,12 +47,17 @@ const VideoLikeButton = ({ videoId }) => {
   return (
     <button
       type="button"
-      className={`${styles.detail__control} ${styles.like}`}
+      className={styles.detail__control}
       aria-label="좋아요"
       onClick={handleLikeButton}
       disabled={isLikePending}
     >
-      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.like ? styles.active : ''}`} />
+      {myInfo && myInfo.like ? (
+        <FillLikeIcon className={`${styles.detail__control__icon} ${styles.active}`} width={30} height={30} />
+      ) : (
+        <OutlineLikeIcon className={styles.detail__control__icon} width={30} height={30} />
+      )}
+      <span className={styles.detail__control__text}>좋아요</span>
     </button>
   );
 };

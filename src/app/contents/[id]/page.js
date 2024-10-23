@@ -30,7 +30,8 @@ import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/Video/Like';
 import VideoWathcedButton from '@/components/ui/Button/Video/Watched';
 import VideoExpectButton from '@/components/ui/Button/Video/Expect';
-import ReviewButton from '@/components/ui/Button/Review';
+// import VideoCollectionButton from '@/components/ui/Button/Video/Collection';
+import VideoReviewButton from '@/components/ui/Button/Video/Review';
 import ShareButton from '@/components/ui/Button/Share';
 import ReportButton from '@/components/ui/Button/Report';
 import VideoSynopsis from '@/components/ui/VideoSynopsis';
@@ -323,17 +324,6 @@ const Contents = async ({ params }) => {
                     ))}
                 </ul>
               </article>
-              {/* 비디오 관련 버튼 */}
-              <article className={styles.detail__control__container}>
-                <article className={styles.detail__control__wrapper}>
-                  <VideoLikeButton videoId={videoId} />
-                  <VideoWathcedButton videoId={videoId} />
-                  <VideoExpectButton videoId={videoId} />
-                  {/* <CollectionButton /> */}
-                  <ReviewButton />
-                  <ShareButton title={titleKr} desc={synopsis} image={poster} />
-                </article>
-              </article>
             </div>
           </div>
 
@@ -431,9 +421,16 @@ const Contents = async ({ params }) => {
         </section>
 
         <div className={styles.detail__sub__wrapper}>
-          {/* 제보하기 */}
-          <section className={styles.detail__report__section}>
-            <ReportButton id={videoId} title={titleKr} />
+          {/* 비디오 관련 버튼 */}
+          <section className={styles.detail__control__section}>
+            <article className={styles.detail__control__wrapper}>
+              <VideoLikeButton videoId={videoId} />
+              <VideoWathcedButton videoId={videoId} />
+              <VideoExpectButton videoId={videoId} />
+              {/* <VideoCollectionButton /> */}
+              <VideoReviewButton />
+              <ShareButton title={titleKr} desc={synopsis} image={poster} />
+            </article>
           </section>
 
           <section className={styles.detail__sub__section}>
@@ -456,6 +453,11 @@ const Contents = async ({ params }) => {
               {/* 플랫폼 보러가기 */}
               <VideoPlatform platformTitle={platformTitle} platforms={platforms} upcoming={upcoming} />
             </div>
+          </section>
+
+          {/* 제보하기 */}
+          <section className={styles.detail__report__section}>
+            <ReportButton id={videoId} title={titleKr} />
           </section>
 
           {/* 리뷰: 클라이언트 컴포넌트 */}

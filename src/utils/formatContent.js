@@ -124,9 +124,10 @@ export const fBackgroundImage = (images, isThumb = false) => {
   let result = defaultImage;
   if (isEmpty(images)) return result;
   if (Array.isArray(images)) {
-    result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1], defaultImage);
+    let url = images[1] || images[0];
+    result = isThumb ? fMakeThumbnailUrl(url) : fMakeImageUrl(url, defaultImage);
   } else {
-    result = isThumb ? fMakeThumbnailUrl(images[0]) : fMakeImageUrl(images[0], defaultImage);
+    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images, defaultImage);
   }
   return result;
 };
