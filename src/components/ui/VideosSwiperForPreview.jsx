@@ -28,7 +28,6 @@ const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = n
                 <div
                   className={`preview-background-image ${vpStyles.preview__background__image}`}
                   style={{ backgroundImage: `url(${fPreviewThumbnail(video.thumbnail)})` }}
-                  // data-url={video.thumbnail[1]}
                 />
               </picture>
               <section className={vpStyles.preview__info__section}>

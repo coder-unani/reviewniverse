@@ -6,7 +6,6 @@ import SwiperCore from 'swiper';
 import { Thumbs, Autoplay, Parallax, EffectFade } from 'swiper/modules';
 
 import { fParseInt } from '@/utils/format';
-import { fBackgroundImage } from '@/utils/formatContent';
 import { useThemeContext } from '@/contexts/ThemeContext';
 
 // TODO: 스와이퍼 클릭 이동 오류 수정
@@ -43,14 +42,6 @@ const VideosSwiperForPreview = () => {
         isDraggingRef.current = false;
       });
     }
-
-    // 모바일시 배경 이미지 포스터로 변경
-    // const previewBackgroundImage = document.querySelectorAll('.preview-background-image');
-    // previewBackgroundImage.forEach((image) => {
-    //   if (!isMobile) return;
-    //   const imageUrl = image.dataset.url;
-    //   Object.assign(image.style, { backgroundImage: `url(${fBackgroundImage(imageUrl, true)})` }); // 기존 스타일과 새로운 스타일 병합
-    // });
   }, []);
 
   useEffect(() => {
