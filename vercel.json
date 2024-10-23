@@ -14,6 +14,10 @@
       "source": "/(.*)",
       "headers": [
         {
+          "key": "Access-Control-Allow-Origin",
+          "value": "sameorigin"
+        },
+        {
           "key": "X-Content-Type-Options",
           "value": "nosniff"
         },
