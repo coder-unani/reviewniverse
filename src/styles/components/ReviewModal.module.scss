@@ -108,6 +108,7 @@
 .review__spoiler__button,
 .review__private__button {
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 3px;
 
@@ -120,6 +121,13 @@
     color: $color-white-04;
     margin-left: 8px;
   }
+}
+
+.review__spoiler__text,
+.review__private__text {
+  font-size: 12px;
+  color: $color-white-06;
+  margin-top: 6px;
 }
 
 .review__spoiler__tooltip,

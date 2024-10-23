@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller, useWatch } from 'react-hook-form';
-import { Tooltip } from 'react-tooltip';
+// import { Tooltip } from 'react-tooltip';
 import DOMPurify from 'dompurify';
 import { isEmpty } from 'lodash';
 
@@ -31,13 +31,13 @@ import styles from '@/styles/components/ReviewModal.module.scss';
 /* eslint-disable react/jsx-props-no-spreading */
 
 const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
-  const modalRef = useRef();
   const { user } = useAuthContext();
   const { toggleConfirmModal } = useModalContext();
   const { mutate: reviewCreate, isPending: isCreatePending } = useReviewCreate();
   const { mutate: reviewUpdate, isPending: isUpdatePending } = useReviewUpdate();
   const [isSpoiler, setIsSpoiler] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
+  const modalRef = useRef();
   const textareaRef = useRef(null);
 
   // 리뷰 유효성 검사
@@ -87,7 +87,10 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
       if (!confirmed) return false;
     }
     onClose();
+    // 리뷰 모달 닫을 때 리뷰 폼 초기화
     setValue('title', '');
+    setIsSpoiler(false);
+    setIsPrivate(false);
     return true;
   };
 
@@ -103,10 +106,11 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
     confirmReviewClose();
   };
 
-  // 텍스트 영역에 포커스를 설정하는 함수
-  const handleFocus = (element) => {
-    textareaRef.current = element; // ref에 요소 저장
-    if (element) element.focus(); // 요소에 포커스 설정
+  // 모달이 열리고 나서 textarea에 포커스를 설정
+  const handleAfterOpen = () => {
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
   };
 
   // 리뷰 붙여넣기 방지
@@ -204,6 +208,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
   return (
     <Modal
       isOpen={isOpen}
+      onAfterOpen={handleAfterOpen}
       onRequestClose={handleClose}
       bodyOpenClassName="modal__open"
       className={styles.review__modal__wrapper}
@@ -228,7 +233,7 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
                     placeholder="이 작품에 대한 리뷰를 남겨보세요."
                     spellCheck="false"
                     onPaste={handlePaste}
-                    ref={handleFocus}
+                    ref={textareaRef}
                   />
                 )}
               />
@@ -243,14 +248,15 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
                     onClick={toggleSpoiler}
                   >
                     {isSpoiler ? <FillSpoilerIcon /> : <OutlineSpoilerIcon />}
+                    <span className={styles.review__spoiler__text}>스포일러</span>
                   </button>
-                  <Tooltip
+                  {/* <Tooltip
                     id="reviewModalSpoilerTooltip"
                     className={styles.review__spoiler__tooltip}
                     place="bottom"
                     effect="solid"
                     globalEventOff="click"
-                  />
+                  /> */}
                   <button
                     type="button"
                     data-tooltip-id="reviewModalPrivateTooltip"
@@ -259,14 +265,15 @@ const ReviewModal = React.memo(({ content, myReview, isOpen, onClose }) => {
                     onClick={togglePrivate}
                   >
                     {isPrivate ? <FillPrivateIcon /> : <OutlinePrivateIcon />}
+                    <span className={styles.review__private__text}>비공개</span>
                   </button>
-                  <Tooltip
+                  {/* <Tooltip
                     id="reviewModalPrivateTooltip"
                     className={styles.review__private__tooltip}
                     place="bottom"
                     effect="solid"
                     globalEventOff="click"
-                  />
+                  /> */}
                 </div>
                 <div className={styles.review__button__wrapper}>
                   <p className={styles.review__text__count}>
