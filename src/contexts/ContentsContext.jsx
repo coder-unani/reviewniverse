@@ -9,7 +9,7 @@ import { useVideoMyInfo } from '@/hooks/useVideoMyInfo';
 
 const ContentsContext = createContext();
 
-export const ContentsProvider = ({ children, id }) => {
+export const ContentsProvider = ({ children, id, referrer, referrerKey }) => {
   const { user } = useAuthContext();
   const videoId = fParseInt(id);
   // 비디오 내정보 조회
@@ -20,7 +20,8 @@ export const ContentsProvider = ({ children, id }) => {
   } = useVideoMyInfo({
     videoId,
     userId: isEmpty(user) ? null : user.id,
-    enabled: !isEmpty(user) && videoId,
+    referrer,
+    referrerKey,
   });
 
   // 내 정보 에러 발생 시 에러 무시

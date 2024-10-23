@@ -28,8 +28,8 @@ import {
 } from '@/utils/formatContent';
 import { fetchVideoDetail } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/Video/Like';
-// import VideoWathcedButton from '@/components/ui/Button/Video/Watched';
-// import VideoExpectButton from '@/components/ui/Button/Video/Expect';
+import VideoWathcedButton from '@/components/ui/Button/Video/Watched';
+import VideoExpectButton from '@/components/ui/Button/Video/Expect';
 import ReviewButton from '@/components/ui/Button/Review';
 import ShareButton from '@/components/ui/Button/Share';
 import ReportButton from '@/components/ui/Button/Report';
@@ -60,13 +60,9 @@ export const revalidate = VIDEO_REVALIDATE_SEC;
  */
 
 // Content
-const getContent = async ({ videoId, ref = null, refKey = null }) => {
+const getContent = async ({ videoId }) => {
   // 비디오 상세 API 호출
-  const res = await fetchVideoDetail({
-    videoId,
-    ...(ref && { ref }),
-    ...(refKey && { refKey }),
-  });
+  const res = await fetchVideoDetail({ videoId });
   if (res.status === 200) {
     return res.data.data;
   }
@@ -240,19 +236,14 @@ const VideoPeople = ({ title, people, formatCode }) => {
   );
 };
 
-const Contents = async ({ params, searchParams }) => {
+const Contents = async ({ params }) => {
   const { id } = params;
-  const { ref, ref_key: refKey } = searchParams || {};
   const videoId = fParseInt(id);
 
   // 숫자가 아닌 경우 notFound 페이지로 이동
   if (videoId === 0) notFound();
 
-  const content = await getContent({
-    videoId,
-    ...(ref && { ref }),
-    ...(refKey && { refKey }),
-  });
+  const content = await getContent({ videoId });
   // 비디오 정보가 없는 경우 notFound 페이지로 이동
   if (isEmpty(content)) notFound();
 
@@ -336,8 +327,8 @@ const Contents = async ({ params, searchParams }) => {
               <article className={styles.detail__control__container}>
                 <article className={styles.detail__control__wrapper}>
                   <VideoLikeButton videoId={videoId} />
-                  {/* <VideoWathcedButton videoId={videoId} />
-                  <VideoExpectButton videoId={videoId} /> */}
+                  <VideoWathcedButton videoId={videoId} />
+                  <VideoExpectButton videoId={videoId} />
                   {/* <CollectionButton /> */}
                   <ReviewButton />
                   <ShareButton title={titleKr} desc={synopsis} image={poster} />

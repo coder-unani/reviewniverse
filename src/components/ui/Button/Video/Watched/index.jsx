@@ -50,8 +50,7 @@ const VideoWatchedbutton = ({ videoId }) => {
       onClick={handleWatchedButton}
       disabled={isWatchedPending}
     >
-      {/* TODO: is_like -> is_watched 로 변경 */}
-      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.is_like ? styles.active : ''}`} />
+      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.watched ? styles.active : ''}`} />
     </button>
   );
 };

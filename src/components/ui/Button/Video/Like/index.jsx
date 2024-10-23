@@ -50,7 +50,7 @@ const VideoLikeButton = ({ videoId }) => {
       onClick={handleLikeButton}
       disabled={isLikePending}
     >
-      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.is_like ? styles.active : ''}`} />
+      <span className={`${styles.detail__control__icon} ${myInfo && myInfo.like ? styles.active : ''}`} />
     </button>
   );
 };

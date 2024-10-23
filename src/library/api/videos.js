@@ -76,13 +76,10 @@ export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
 };
 
 // 콘텐츠 상세 정보
-export const fetchVideoDetail = async ({ videoId, ref = null, refKey = null }) => {
+export const fetchVideoDetail = async ({ videoId }) => {
   try {
     const client = new FetchClient();
-    const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId), {
-      ...(ref && { ref }),
-      ...(refKey && { ref_key: refKey }),
-    });
+    const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId));
     return res;
   } catch (error) {
     cError(error);
@@ -107,10 +104,13 @@ export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null,
 };
 
 // 콘텐츠 내 정보
-export const fetchVideoMyInfo = async ({ videoId }) => {
+export const fetchVideoMyInfo = async ({ videoId, referrer = null, referrerKey = null }) => {
   try {
     const client = new AxiosClient();
-    const res = await client.post(endpoints.videoMyInfo.replace(':videoId', videoId));
+    const res = await client.get(endpoints.videoMyInfo.replace(':videoId', videoId), {
+      ...(referrer && { ref: referrer }),
+      ...(referrerKey && { ref_key: referrerKey }),
+    });
     return res;
   } catch (error) {
     cError(error);

@@ -16,18 +16,18 @@
 
   &.watched {
     .detail__control__icon {
-      background-image: url('#{$cdn-base-url}/assets/images/button/outline-watched.svg');
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-watched2.svg');
       &.active {
-        background-image: url('#{$cdn-base-url}/assets/images/button/fill-watched.svg');
+        background-image: url('#{$cdn-base-url}/assets/images/button/fill-watched2.svg');
       }
     }
   }
 
   &.expect {
     .detail__control__icon {
-      background-image: url('#{$cdn-base-url}/assets/images/button/outline-expect.svg');
+      background-image: url('#{$cdn-base-url}/assets/images/button/outline-expect4.svg');
       &.active {
-        background-image: url('#{$cdn-base-url}/assets/images/button/fill-expect.svg');
+        background-image: url('#{$cdn-base-url}/assets/images/button/fill-expect4.svg');
       }
     }
   }
