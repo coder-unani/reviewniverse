@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
+import { VIDEO_WATCHED_CODE } from '@/config/codes';
 import { cLog, cError } from '@/utils/test';
 import { fetchVideoWatched } from '@/library/api/videos';
 
@@ -12,11 +13,17 @@ export const useVideoWatched = () => {
       if (res.status === 200) {
         cLog('비디오 봤어요 상태가 변경되었습니다.');
 
-        const { result } = res.data.data;
+        const { status } = res.data.data;
         const { videoId, userId } = variables;
+        // 봤어요 코드인지 확인
+        const isWatched = status === VIDEO_WATCHED_CODE;
 
         // videoMyInfo 쿼리 키의 데이터 업데이트
-        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prev) => ({ ...prev, watched: result }));
+        queryClient.setQueryData(['videoMyInfo', { videoId, userId }], (prev) => ({
+          ...prev,
+          watched: isWatched,
+          expect: isWatched ? false : prev.expect, // 봤어요 상태가 true일 경우 기대돼요 상태는 false로 변경
+        }));
 
         // userLikes 쿼리 키의 데이터 무효화
         // queryClient.invalidateQueries({ queryKey: ['userLikes', userId], exact: false });

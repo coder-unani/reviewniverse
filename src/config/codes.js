@@ -52,6 +52,9 @@ export const SCREEN_MAIN_ID = 'MA01,MA02,MA03,MA04,MA05';
 export const SCREEN_MOVIE_ID = 'MA01,MA02,MA03,MA04,MA05';
 export const SCREEN_SERIES_ID = 'MA01,MA02,MA03,MA04,MA05';
 
+export const VIDEO_WATCHED_CODE = '10';
+export const VIDEO_EXPECT_CODE = '30';
+
 export const VIDEO_CODE = {
   10: '영화',
   11: '시리즈',

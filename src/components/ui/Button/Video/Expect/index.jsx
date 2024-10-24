@@ -3,6 +3,7 @@
 import React from 'react';
 import { isEmpty } from 'lodash';
 
+import { VIDEO_EXPECT_CODE } from '@/config/codes';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useContentsContext } from '@/contexts/ContentsContext';
 import { useModalContext } from '@/contexts/ModalContext';
@@ -32,8 +33,8 @@ const VideoExpectButton = ({ videoId }) => {
       {
         onSuccess: (res) => {
           if (res.status === 200) {
-            const { result } = res.data.data;
-            if (result) {
+            const { status } = res.data.data;
+            if (status === VIDEO_EXPECT_CODE) {
               showSuccessToast('기대돼요 리스트에 추가되었습니다.');
             } else {
               showSuccessToast('기대돼요 리스트에서 제외되었습니다.');
