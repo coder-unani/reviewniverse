@@ -15,7 +15,7 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
   const { toggleEnjoyModal } = useModalContext();
   const { user } = useAuthContext();
   const { mutate: reviewLike, isPending: isLikePending } = useReviewLike();
-  const isLike = !isEmpty(user) && review.my_info ? review.my_info.is_like : false;
+  const isLike = !isEmpty(user) && review.my_info ? review.my_info.like : false;
 
   const handleReviewLike = () => {
     // 유저가 없을 경우 Enjoy 모달 띄우기
@@ -30,12 +30,12 @@ const ReviewLikeButton = ({ videoId, review, setReview = null }) => {
       {
         onSuccess: (res) => {
           if (res.status === 200 && setReview) {
-            const { like_count: resLikeCount, is_like: resIsLike } = res.data.data;
+            const { like_count: resLikeCount, like: resIsLike } = res.data.data;
             setReview((prev) => {
               return {
                 ...prev,
                 like_count: resLikeCount,
-                my_info: { is_like: resIsLike },
+                my_info: { like: resIsLike },
               };
             });
           }
