@@ -83,7 +83,7 @@ const Users = ({ userId }) => {
             </div>
             <div className={styles.user__profile}>
               <ProfileImage image={profile.profile_image} size={100} />
-              <h1 className={styles.user__nickname}>{profile.nickname}</h1>
+              <h2 className={styles.user__nickname}>{profile.nickname}</h2>
               {profile.profile_text && <p className={styles.user__introduction}>{profile.profile_text}</p>}
             </div>
             <div className={styles.user__content}>

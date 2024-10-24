@@ -102,7 +102,7 @@ const Upcoming = async () => {
     <main className={styles.upcoming__main}>
       <section className={styles.upcoming__section}>
         <div className={styles.upcoming__title__wrapper}>
-          <h1 className={styles.upcoming__title}>공개 예정작</h1>
+          <h2 className={styles.upcoming__title}>공개 예정작</h2>
         </div>
       </section>
 

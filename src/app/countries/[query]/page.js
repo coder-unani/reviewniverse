@@ -145,8 +145,8 @@ const Countries = async ({ params }) => {
     <main className={styles.countries__main}>
       <section className={styles.countries__section}>
         <div className={styles.countries__title__wrapper}>
-          <h2 className={styles.countries__subtitle}>{subtitle}</h2>
-          <h1 className={styles.countries__title}>{country.name}</h1>
+          <p className={styles.countries__subtitle}>{subtitle}</p>
+          <h2 className={styles.countries__title}>{country.name}</h2>
         </div>
       </section>
 

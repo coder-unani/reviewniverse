@@ -159,8 +159,8 @@ const Genres = async ({ params }) => {
     <main className={styles.genre__main}>
       <section className={styles.genre__section}>
         <div className={styles.genre__title__wrapper}>
-          <h2 className={styles.genre__subtitle}>{subtitle}</h2>
-          <h1 className={styles.genre__title}>#{genre.name}</h1>
+          <p className={styles.genre__subtitle}>{subtitle}</p>
+          <h2 className={styles.genre__title}>#{genre.name}</h2>
         </div>
       </section>
 

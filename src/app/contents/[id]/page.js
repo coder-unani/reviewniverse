@@ -135,7 +135,7 @@ const VideoPlatform = ({ platformTitle, platforms, upcoming }) => {
 
   return (
     <section className={styles.detail__platform__section}>
-      <h2 className={styles.detail__main__title}>{platformTitle}</h2>
+      <h4 className={styles.detail__main__title}>{platformTitle}</h4>
       <ul className={styles.detail__platform__wrapper}>
         {updatedPlatforms.map((platform, index) => (
           <li
@@ -180,7 +180,7 @@ const VideoPeople = ({ title, people, formatCode }) => {
   return (
     <>
       <section className={styles.detail__people__section}>
-        <h2 className={styles.detail__main__title}>{title}</h2>
+        <h4 className={styles.detail__main__title}>{title}</h4>
         <article className={styles.detail__people__wrapper} data-length={people.length}>
           <div className={`swiper ${styles.detail__people}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper people-template">
@@ -304,9 +304,9 @@ const Contents = async ({ params }) => {
                 {/* 제목 */}
                 <article className={styles.detail__title__wrapper}>
                   <p className={styles.detail__title__og}>{titleOg}</p>
-                  <h1 className={styles.detail__title__kr} data-small={titleKr.length > 20}>
+                  <h2 className={styles.detail__title__kr} data-small={titleKr.length > 20}>
                     {titleKr}
-                  </h1>
+                  </h2>
                 </article>
                 {/* 장르 */}
                 <ul className={styles.detail__genre__wrapper}>
@@ -471,7 +471,7 @@ const Contents = async ({ params }) => {
           {!isEmpty(trailer) && (
             <>
               <section className={styles.detail__gallery__section}>
-                <h2 className={styles.detail__main__title}>{trailerTitle}</h2>
+                <h4 className={styles.detail__main__title}>{trailerTitle}</h4>
                 <article className={styles.detail__gallery__wrapper}>
                   <div className={`swiper ${styles.detail__gallery}`} data-swiper-id={trailerUniqueId}>
                     <div className="swiper-wrapper">
@@ -523,7 +523,7 @@ const Contents = async ({ params }) => {
           {!isEmpty(gallery) && (
             <>
               <section className={styles.detail__gallery__section}>
-                <h2 className={styles.detail__main__title}>{galleryTitle}</h2>
+                <h4 className={styles.detail__main__title}>{galleryTitle}</h4>
                 <article className={styles.detail__gallery__wrapper}>
                   <div className={`swiper ${styles.detail__gallery}`} data-swiper-id={galleryUniqueId}>
                     <div className="swiper-wrapper">

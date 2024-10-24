@@ -176,7 +176,7 @@ const People = async ({ params }) => {
           />
           <div className={styles.people__info__wrapper}>
             <div className={styles.people__name__wrapper}>
-              <h1 className={styles.people__name}>{person.name}</h1>
+              <h2 className={styles.people__name}>{person.name}</h2>
               {person.name_og && <p className={styles.people__name__og}>{person.name_og}</p>}
             </div>
             <div className={styles.people__profile__wrapper}>
@@ -190,7 +190,7 @@ const People = async ({ params }) => {
 
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__title__wrapper}>
-          <h2 className={vStyles.vertical__subtitle}>{subtitle}</h2>
+          <h4 className={vStyles.vertical__subtitle}>{subtitle}</h4>
         </div>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (

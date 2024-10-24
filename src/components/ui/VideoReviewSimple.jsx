@@ -115,10 +115,10 @@ const VideoReviewSimple = ({ videoId }) => {
   return (
     <section className={styles.detail__review__section}>
       <div className={styles.detail__main__title__wrapper}>
-        <h2 className={styles.detail__main__title}>
+        <h4 className={styles.detail__main__title}>
           리뷰
           {reviews.total > 0 && <span className={styles.detail__review__total}>{reviewsTotal}</span>}
-        </h2>
+        </h4>
         {/* 더보기 */}
         {reviews.total > 0 && (
           <Link className={styles.detail__review__more__button} href={reviewsPath}>

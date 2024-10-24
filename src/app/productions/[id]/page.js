@@ -146,8 +146,8 @@ const Productions = async ({ params }) => {
     <main className={styles.production__main}>
       <section className={styles.production__section}>
         <div className={styles.production__title__wrapper}>
-          <h2 className={styles.production__subtitle}>{subtitle}</h2>
-          <h1 className={styles.production__title}>{production.name}</h1>
+          <p className={styles.production__subtitle}>{subtitle}</p>
+          <h2 className={styles.production__title}>{production.name}</h2>
         </div>
       </section>
 
