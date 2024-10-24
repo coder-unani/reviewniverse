@@ -11,7 +11,8 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { SETTINGS } from '@/config/settings';
 import { fParseInt, fYear, fDate, fUpperCase, fStringToArray } from '@/utils/format';
 import {
-  fBackgroundImage,
+  fBackgroundImageForPreview,
+  fBackgroundImageForContent,
   fThumbnail,
   fReleaseText,
   fReleaseDate,
@@ -87,7 +88,7 @@ export const generateMetadata = async ({ params }) => {
   const releaseYear = fYear(content.release);
   const synopsis = content.synopsis || '';
   // const imageUrl = fThumbnail(content.thumbnail);
-  const imageUrl = fBackgroundImage(content.thumbnail);
+  const imageUrl = fBackgroundImageForPreview(content.thumbnail);
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId });
   const url = `${SETTINGS.SITE_BASE_URL}${pathname}`;
   const keywords = `${SITE_KEYWORDS}, ${VIDEO_KEYWORDS}, ${title}${content.tag ? `, ${content.tag}` : ''}`;
@@ -249,7 +250,7 @@ const Contents = async ({ params }) => {
   if (isEmpty(content)) notFound();
 
   const subInfoUniqueId = nanoid();
-  const backgroundImageUrl = fBackgroundImage(content.thumbnail);
+  const backgroundImageUrl = fBackgroundImageForContent(content.thumbnail);
   const titleOg = content.title_og || content.title_en || content.title || '';
   const titleKr = content.title || '';
   const genres = content.genre || [];

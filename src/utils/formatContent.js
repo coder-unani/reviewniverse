@@ -76,9 +76,11 @@ export const fTrailerCode = (code) => {
 
 // 이미지 URL 포맷
 export const fMakeImageUrl = (image, defaultImage = DEFAULT_IMAGES.noImage) => {
-  // image에 http가 포함되어 있으면 그대로 반환
+  // 이미지가 없을 경우 기본 이미지로 반환
   if (isEmpty(image)) return defaultImage;
+  // image에 http가 포함되어 있으면 그대로 반환
   if (image.includes('http')) return image;
+  // image에 http가 포함되어 있지 않으면 CDN URL을 붙여서 반환
   return `${SETTINGS.CDN_BASE_URL}/${image}`;
 };
 
@@ -88,48 +90,45 @@ export const fMakeThumbnailUrl = (image) => {
   return fMakeImageUrl(resizeImage);
 };
 
-// 프리뷰 썸네일 포맷
-export const fPreviewThumbnail = (images, isThumb = false) => {
-  let result = DEFAULT_IMAGES.noImage;
-  if (isEmpty(images)) return result;
-  if (Array.isArray(images)) {
-    if (images[2]) {
-      result = isThumb ? fMakeThumbnailUrl(images[2]) : fMakeImageUrl(images[2]);
-    } else if (images[1]) {
-      result = isThumb ? fMakeThumbnailUrl(images[1]) : fMakeImageUrl(images[1]);
-    } else {
-      result = isThumb ? fMakeThumbnailUrl(images[0]) : fMakeImageUrl(images[0]);
-    }
-  } else {
-    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images);
-  }
-  return result;
-};
-
 // 썸네일 이미지 포맷
 export const fThumbnail = (images, isThumb = true) => {
-  let result = DEFAULT_IMAGES.noImage;
-  if (isEmpty(images)) return result;
-  if (Array.isArray(images)) {
-    result = isThumb ? fMakeThumbnailUrl(images[0]) : fMakeImageUrl(images[0]);
-  } else {
-    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images);
-  }
-  return result;
+  // 이미지가 없을 경우 기본 이미지로 반환
+  if (isEmpty(images)) return DEFAULT_IMAGES.noImage;
+  // 이미지가 배열일 경우 첫 번째 이미지를 사용
+  const [image] = Array.isArray(images) ? images : [images];
+  // 썸네일일 경우 썸네일 URL 포맷, 아닐 경우 이미지 URL 포맷
+  return isThumb ? fMakeThumbnailUrl(image) : fMakeImageUrl(image);
 };
 
-// 배경 이미지 포맷
-export const fBackgroundImage = (images, isThumb = false) => {
+// 프리뷰 썸네일 포맷
+export const fThumbnailForPreview = (images, isThumb = false) => {
+  // 이미지가 없을 경우 기본 이미지로 반환
+  if (isEmpty(images)) return DEFAULT_IMAGES.noImage;
+  // 이미지가 배열일 경우 세 번째 이미지를 사용, 없을 경우 두 번째 이미지를 사용, 없을 경우 첫 번째 이미지를 사용
+  const image = Array.isArray(images) ? images[1] || images[0] : images;
+  // 썸네일일 경우 썸네일 URL 포맷, 아닐 경우 이미지 URL 포맷
+  return isThumb ? fMakeThumbnailUrl(image) : fMakeImageUrl(image);
+};
+
+// 콘텐츠 배경 이미지 포맷
+export const fBackgroundImageForContent = (images) => {
   const defaultImage = DEFAULT_IMAGES.noPreview;
-  let result = defaultImage;
-  if (isEmpty(images)) return result;
-  if (Array.isArray(images)) {
-    const url = images[1] || images[0];
-    result = isThumb ? fMakeThumbnailUrl(url) : fMakeImageUrl(url, defaultImage);
-  } else {
-    result = isThumb ? fMakeThumbnailUrl(images) : fMakeImageUrl(images, defaultImage);
-  }
-  return result;
+  // 이미지가 없을 경우 기본 이미지로 반환
+  if (isEmpty(images)) return defaultImage;
+  // 이미지가 배열일 경우 두 번째 이미지를 사용
+  const image = Array.isArray(images) ? images[1] : images;
+  // 이미지 URL 포맷
+  return fMakeImageUrl(image, defaultImage);
+};
+
+// 프리뷰 배경 이미지 포맷
+export const fBackgroundImageForPreview = (images, isThumb = false) => {
+  // 이미지가 없을 경우 기본 이미지로 반환
+  if (isEmpty(images)) return DEFAULT_IMAGES.noPreview;
+  // 이미지가 배열일 경우 세 번째 이미지를 사용, 없을 경우 두 번째 이미지를 사용, 없을 경우 첫 번째 이미지를 사용
+  const image = Array.isArray(images) ? images[2] || images[1] || images[0] : images;
+  // 썸네일일 경우 썸네일 URL 포맷, 아닐 경우 이미지 URL 포맷
+  return isThumb ? fMakeThumbnailUrl(image) : fMakeImageUrl(image);
 };
 
 // 평점 포맷

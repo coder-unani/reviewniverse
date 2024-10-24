@@ -6,7 +6,13 @@ import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
-import { fPreviewThumbnail, fBackgroundImage, fReleaseText, fRatingColor, fRatingText } from '@/utils/formatContent';
+import {
+  fThumbnailForPreview,
+  fBackgroundImageForPreview,
+  fReleaseText,
+  fRatingColor,
+  fRatingText,
+} from '@/utils/formatContent';
 
 import StarIcon from '@/resources/icons/fill-star.svg';
 import vStyles from '@/styles/components/Video.module.scss';
@@ -27,7 +33,7 @@ const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = n
               <picture className={vpStyles.preview__background__wrapper}>
                 <div
                   className={`preview-background-image ${vpStyles.preview__background__image}`}
-                  style={{ backgroundImage: `url(${fPreviewThumbnail(video.thumbnail)})` }}
+                  style={{ backgroundImage: `url(${fBackgroundImageForPreview(video.thumbnail)})` }}
                 />
               </picture>
               <section className={vpStyles.preview__info__section}>
@@ -87,7 +93,7 @@ const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = n
                     <picture className={vpStyles.preview__thumbnail__wrapper}>
                       <Image
                         className={vpStyles.preview__thumbnail}
-                        src={fBackgroundImage(video.thumbnail, true)}
+                        src={fThumbnailForPreview(video.thumbnail, true)}
                         alt={video.title}
                         width={254}
                         height={382}
