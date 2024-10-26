@@ -10,8 +10,8 @@ import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatC
 
 import StarIcon from '@/resources/icons/fill-star.svg';
 import ReviewIcon from '@/resources/icons/fill-comment.svg';
-import styles from '@/styles/components/VideoForRank.module.scss';
-import defStyles from '@/styles/components/Video.module.scss';
+import styles from '@/styles/components/Video.module.scss';
+import rankStyles from '@/styles/components/VideoForRank.module.scss';
 
 const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
 
@@ -27,7 +27,7 @@ const RankingNumber = ({ number }) => {
   // 배열 반복해서 number/{}.svg 이미지 추가해서 반환
   return numbers.map((num, i) => (
     <Image
-      className={styles.rank__number}
+      className={rankStyles.rank__number}
       data-number={num}
       src={`${SETTINGS.CDN_BASE_URL}/assets/images/number/${num}.svg`}
       alt={num}
@@ -58,16 +58,16 @@ const VideoForRank = ({ video, index, isClient = false, referrer = null, referre
           ...(referrerKey && { ref_key: referrerKey }),
         },
       }}
-      className={defStyles.default__video__item}
+      className={styles.default__video__item}
       aria-label={title}
     >
-      <div className={defStyles.default__thumbnail__container}>
-        <picture className={styles.rank__thumbnail__wrapper}>
+      <div className={styles.default__thumbnail__container}>
+        <picture className={rankStyles.rank__thumbnail__wrapper}>
           {isClient ? (
             <ClientVideoImage thumbnail={videoThumbnail} title={title} />
           ) : (
             <Image
-              className={defStyles.default__thumbnail}
+              className={styles.default__thumbnail}
               src={videoThumbnail}
               alt={title}
               width={254}
@@ -77,17 +77,17 @@ const VideoForRank = ({ video, index, isClient = false, referrer = null, referre
             />
           )}
         </picture>
-        <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{code}</div>
+        <div className={styles.default__code__wrapper}>
+          <div className={styles.default__code}>{code}</div>
         </div>
-        <div className={styles.rank__number__wrapper}>
+        <div className={rankStyles.rank__number__wrapper}>
           <RankingNumber number={index + 1} />
         </div>
       </div>
-      <div className={defStyles.default__info__container}>
-        <p className={defStyles.default__title}>{title}</p>
-        {/* <div className={defStyles.default__subtitle__wrapper}> */}
-        <div className={defStyles.default__subtitle}>
+      <div className={styles.default__info__container}>
+        <p className={styles.default__title}>{title}</p>
+        {/* <div className={styles.default__subtitle__wrapper}> */}
+        <div className={styles.default__subtitle}>
           <span>{videoRelease}</span>
           {videoCountry && (
             <>
@@ -97,15 +97,15 @@ const VideoForRank = ({ video, index, isClient = false, referrer = null, referre
           )}
         </div>
         {/* </div> */}
-        <div className={defStyles.default__more__wrapper}>
-          <div className={defStyles.default__rating__wrapper} data-color={ratingColor}>
-            <StarIcon className={defStyles.default__rating__icon} width={16} height={16} />
-            <span className={defStyles.default__rating}>{ratingText}</span>
+        <div className={styles.default__more__wrapper}>
+          <div className={styles.default__rating__wrapper} data-color={ratingColor}>
+            <StarIcon className={styles.default__rating__icon} width={16} height={16} />
+            <span className={styles.default__rating}>{ratingText}</span>
           </div>
           {reviewCount > 0 && (
-            <div className={defStyles.default__review__wrapper}>
-              <ReviewIcon className={defStyles.default__review__icon} width={14} height={14} />
-              <span className={defStyles.default__review}>{reviewCount}</span>
+            <div className={styles.default__review__wrapper}>
+              <ReviewIcon className={styles.default__review__icon} width={14} height={14} />
+              <span className={styles.default__review}>{reviewCount}</span>
             </div>
           )}
         </div>

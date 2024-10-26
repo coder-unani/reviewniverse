@@ -8,7 +8,7 @@ import { fVideoCode, fThumbnail } from '@/utils/formatContent';
 import RatingScore from '@/components/ui/RatingScore';
 import VideoImage from '@/components/ui/VideoImage';
 
-import defStyles from '@/styles/components/Video.module.scss';
+import styles from '@/styles/components/Video.module.scss';
 
 const VideoForRating = ({ video, referrer = null, referrerKey = null }) => {
   const { id, title, thumbnail, code } = video.video;
@@ -26,21 +26,21 @@ const VideoForRating = ({ video, referrer = null, referrerKey = null }) => {
           ...(referrerKey && { ref_key: referrerKey }),
         },
       }}
-      className={defStyles.default__video__item}
+      className={styles.default__video__item}
       aria-label={title}
     >
-      <div className={defStyles.default__thumbnail__container}>
-        <picture className={defStyles.default__thumbnail__wrapper}>
+      <div className={styles.default__thumbnail__container}>
+        <picture className={styles.default__thumbnail__wrapper}>
           <VideoImage thumbnail={videoThumbnail} title={title} />
         </picture>
-        <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{videoCode}</div>
+        <div className={styles.default__code__wrapper}>
+          <div className={styles.default__code}>{videoCode}</div>
         </div>
       </div>
-      <div className={defStyles.default__info__container}>
-        <p className={defStyles.default__title}>{title}</p>
-        <div className={defStyles.default__subtitle__wrapper}>
-          <div className={defStyles.default__subtitle}>
+      <div className={styles.default__info__container}>
+        <p className={styles.default__title}>{title}</p>
+        <div className={styles.default__subtitle__wrapper}>
+          <div className={styles.default__subtitle}>
             <RatingScore rating={rating} />
           </div>
         </div>

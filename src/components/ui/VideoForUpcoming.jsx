@@ -8,8 +8,8 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
 import { fPlatformNameByCode, fThumbnail } from '@/utils/formatContent';
 
-import styles from '@/styles/components/VideoForUpcoming.module.scss';
-import defStyles from '@/styles/components/Video.module.scss';
+import styles from '@/styles/components/Video.module.scss';
+import upcomingStyles from '@/styles/components/VideoForUpcoming.module.scss';
 
 const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
 
@@ -47,16 +47,16 @@ const VideoForUpcoming = ({ video, isClient = false, referrer = null, referrerKe
           ...(referrerKey && { ref_key: referrerKey }),
         },
       }}
-      className={defStyles.default__video__item}
+      className={styles.default__video__item}
       aria-label={title}
     >
-      <div className={defStyles.default__thumbnail__container}>
-        <picture className={defStyles.default__thumbnail__wrapper}>
+      <div className={styles.default__thumbnail__container}>
+        <picture className={styles.default__thumbnail__wrapper}>
           {isClient ? (
             <ClientVideoImage thumbnail={thumbnail} title={title} />
           ) : (
             <Image
-              className={defStyles.default__thumbnail}
+              className={styles.default__thumbnail}
               src={thumbnail}
               alt={title}
               width={254}
@@ -66,22 +66,22 @@ const VideoForUpcoming = ({ video, isClient = false, referrer = null, referrerKe
             />
           )}
         </picture>
-        <div className={defStyles.default__code__wrapper}>
-          <div className={defStyles.default__code}>{code}</div>
+        <div className={styles.default__code__wrapper}>
+          <div className={styles.default__code}>{code}</div>
         </div>
-        <div className={styles.coming__dday__wrapper}>
-          <p className={styles.coming__dday}>{countdown > 0 ? `D-${countdown}` : '오늘 공개'}</p>
+        <div className={upcomingStyles.coming__dday__wrapper}>
+          <p className={upcomingStyles.coming__dday}>{countdown > 0 ? `D-${countdown}` : '오늘 공개'}</p>
         </div>
       </div>
-      <div className={defStyles.default__info__container}>
-        <p className={defStyles.default__title}>{title}</p>
-        <div className={defStyles.default__subtitle__wrapper}>
-          <div className={defStyles.default__subtitle}>
+      <div className={styles.default__info__container}>
+        <p className={styles.default__title}>{title}</p>
+        <div className={styles.default__subtitle__wrapper}>
+          <div className={styles.default__subtitle}>
             <span>{release}</span>
             {platform && (
               <>
                 <span>|</span>
-                <span className={styles.coming__platform}>{platform}</span>
+                <span className={upcomingStyles.coming__platform}>{platform}</span>
               </>
             )}
           </div>
