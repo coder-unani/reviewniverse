@@ -74,7 +74,7 @@ const GenresSwiper = ({ uniqueId }) => {
 
       const genreSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
       genreSwiperSlide.forEach((slide) => {
-        slide.classList.remove('genre-margin-right');
+        slide.classList.remove('genre-template');
       });
 
       // 이미지에 대한 onError 처리

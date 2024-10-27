@@ -70,7 +70,7 @@ const VideoGallery = ({ uniqueId, gallery, alt }) => {
       const gallerySwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
       gallerySwiperSlide.forEach((slide) => {
         // 서버 컴포넌트 스타일을 위해 추가했던 클래스명 제거
-        slide.classList.remove('gallery-margin-right');
+        slide.classList.remove('gallery-template');
 
         // 포토 모달 이벤트 추가
         slide.addEventListener('click', () => {

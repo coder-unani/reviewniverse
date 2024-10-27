@@ -64,7 +64,7 @@ const VideosSwiper = ({ uniqueId }) => {
 
       const horizontalSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
       horizontalSwiperSlide.forEach((slide) => {
-        slide.classList.remove('horizontal-margin-right');
+        slide.classList.remove('horizontal-template');
       });
     }
   }, [uniqueId]);

@@ -81,7 +81,7 @@ const ReviewsSwiper = ({ uniqueId }) => {
     // 슬라이드 클릭 이벤트 등록
     const reviewSwiperSlide = document.querySelectorAll(`.swiper[data-swiper-id="${uniqueId}"] .swiper-slide`);
     reviewSwiperSlide.forEach((slide) => {
-      slide.classList.remove('review-margin-right');
+      slide.classList.remove('review-template');
       slide.addEventListener('click', handleClick);
     });
 

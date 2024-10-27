@@ -21,13 +21,13 @@ const RenderVideoItems = ({ video, template, index, referrer, referrerKey }) => 
       return <VideoForRank video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
     case 'upcoming':
       // 커밍순 아이템 렌더링
-      return <VideoForUpcoming video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
+      return <VideoForUpcoming video={video} referrer={referrer} referrerKey={referrerKey} />;
     case 'default':
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
+      return <Video video={video} referrer={referrer} referrerKey={referrerKey} />;
     default:
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
+      return <Video video={video} referrer={referrer} referrerKey={referrerKey} />;
   }
 };
 
@@ -45,10 +45,7 @@ const VideosSwiper = ({ children, videos, template = 'default', referrer = null,
           <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {videos.map((video, index) => (
-                <div
-                  className={`swiper-slide horizontal-margin-right ${styles.horizontal__video__item}`}
-                  key={video.id}
-                >
+                <div className={`swiper-slide horizontal-template ${styles.horizontal__video__item}`} key={video.id}>
                   <RenderVideoItems
                     video={video}
                     template={template}
