@@ -149,17 +149,22 @@ header {
   }
 }
 
-.horizontal-margin-right {
+.horizontal-template {
   width: calc((100% - 48px) / 5);
   margin-right: 12px;
 }
 
-.genre-margin-right {
+.horizontal-template--small {
+  width: calc((100% - 60px) / 6);
+  margin-right: 12px;
+}
+
+.genre-template {
   width: calc((100% - 72px) / 7);
   margin-right: 12px;
 }
 
-.review-margin-right {
+.review-template {
   width: calc((100% - 24px) / 3);
   margin-right: 12px;
 }
@@ -170,7 +175,7 @@ header {
   }
 }
 
-.gallery-margin-right {
+.gallery-template {
   width: calc((100% - 36px) / 4);
   margin-right: 12px;
 }
@@ -178,6 +183,10 @@ header {
 .people-template {
   grid-template-rows: repeat(2, 72px);
   grid-template-columns: repeat(4, calc(100% / 4));
+
+  .swiper-slide {
+    height: 72px;
+  }
 }
 
 // 홈 버튼
@@ -291,7 +300,7 @@ header {
     }
   }
 
-  .genre-margin-right {
+  .genre-template {
     width: calc((100% - 60px) / 6);
     margin-right: 12px;
   }
@@ -300,24 +309,29 @@ header {
     grid-template-columns: repeat(3, calc(100% / 3));
   }
 
-  .gallery-margin-right {
+  .gallery-template {
     width: calc((100% - 24px) / 3);
     margin-right: 12px;
   }
 }
 
 @media (max-width: 1024px) {
-  .horizontal-margin-right {
+  .horizontal-template {
     width: calc((100% - 30px) / 4);
     margin-right: 10px;
   }
 
-  .genre-margin-right {
+  .horizontal-template--small {
     width: calc((100% - 40px) / 5);
     margin-right: 10px;
   }
 
-  .review-margin-right {
+  .genre-template {
+    width: calc((100% - 40px) / 5);
+    margin-right: 10px;
+  }
+
+  .review-template {
     width: calc((100% - 10px) / 2);
     margin-right: 10px;
   }
@@ -340,17 +354,22 @@ header {
     }
   }
 
-  .horizontal-margin-right {
+  .horizontal-template {
     width: calc((100% - 16px) / 3);
     margin-right: 8px;
   }
 
-  .genre-margin-right {
+  .horizontal-template--small {
     width: calc((100% - 21px) / 4);
     margin-right: 8px;
   }
 
-  .review-margin-right {
+  .genre-template {
+    width: calc((100% - 21px) / 4);
+    margin-right: 8px;
+  }
+
+  .review-template {
     width: 90%;
     margin-right: 8px;
   }
@@ -361,7 +380,7 @@ header {
     }
   }
 
-  .gallery-margin-right {
+  .gallery-template {
     width: calc((100% - 10px) / 2);
     margin-right: 10px;
   }
@@ -379,7 +398,7 @@ header {
     }
   }
 
-  .genre-margin-right {
+  .genre-template {
     width: calc((100% - 21px) / 3.5);
     margin-right: 8px;
   }
