@@ -27,7 +27,7 @@ import {
   fTrailerCode,
   fMakeThumbnailUrl,
 } from '@/utils/formatContent';
-import { fetchVideoDetail } from '@/library/api/videos';
+import { fetchVideoDetail, fetchRelatedVideos } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/Video/Like';
 import VideoWathcedButton from '@/components/ui/Button/Video/Watched';
 import VideoExpectButton from '@/components/ui/Button/Video/Expect';
@@ -39,12 +39,14 @@ import VideoSynopsis from '@/components/ui/VideoSynopsis';
 import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
 import PeopleImage from '@/components/ui/Button/People/Image';
+import VideosSwiperForContent from '@/components/ui/VideosSwiperForContent';
 
 import FillMoreIcon from '@/resources/icons/fill-more.svg';
 import FillPlayIcon from '@/resources/icons/fill-play.svg';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
+import videoStyles from '@/styles/components/Video.module.scss';
 
 const VideoSubInfoClient = dynamic(() => import('@/components/ui/Client/VideoSubInfo'), { ssr: false });
 const VideoTrailerClient = dynamic(() => import('@/components/ui/Client/VideoTrailer'), { ssr: false });
@@ -65,6 +67,16 @@ export const revalidate = VIDEO_REVALIDATE_SEC;
 const getContent = async ({ videoId }) => {
   // 비디오 상세 API 호출
   const res = await fetchVideoDetail({ videoId });
+  if (res.status === 200) {
+    return res.data.data;
+  }
+  return {};
+};
+
+// Related Content
+const getRelatedContent = async ({ videoId }) => {
+  // 연관 비디오 API 호출
+  const res = await fetchRelatedVideos({ videoId });
   if (res.status === 200) {
     return res.data.data;
   }
@@ -249,6 +261,25 @@ const Contents = async ({ params }) => {
   // 비디오 정보가 없는 경우 notFound 페이지로 이동
   if (isEmpty(content)) notFound();
 
+  const result = await getRelatedContent({ videoId });
+  const relatedContent = {
+    series: {},
+    collections: [],
+    similar: {},
+    actor: {},
+    staff: {},
+  };
+
+  if (!isEmpty(result)) {
+    relatedContent.series = result.series;
+    relatedContent.collections = result.collections;
+    relatedContent.similar = result.similar;
+    relatedContent.actor = result.actor;
+    relatedContent.staff = result.staff;
+  }
+
+  const referrer = 'contents';
+  const contentTemplate = 'content';
   const subInfoUniqueId = nanoid();
   const backgroundImageUrl = fBackgroundImageForContent(content.thumbnail);
   const titleOg = content.title_og || content.title_en || content.title || '';
@@ -290,6 +321,18 @@ const Contents = async ({ params }) => {
   const galleryTitle = '갤러리';
   const gallery = content.thumbnail || [];
   const galleryAlt = `${titleKr} 스틸컷`;
+  const seriesContents = relatedContent.series.data || [];
+  const seriesTitle = '관련 콘텐츠';
+  const similarContents = relatedContent.similar.data || [];
+  const similarTitle = '비슷한 콘텐츠';
+  const actorContents = relatedContent.actor.data || [];
+  const actorId = relatedContent.actor.id || 0;
+  const actorName = relatedContent.actor.name || '';
+  const staffContents = relatedContent.staff.data || [];
+  const staffName = relatedContent.staff.name || '';
+  const staffId = relatedContent.staff.id || 0;
+  const collections = relatedContent.collections || [];
+  const collectionTitle = '컬렉션';
 
   return (
     <>
@@ -478,7 +521,7 @@ const Contents = async ({ params }) => {
                     <div className="swiper-wrapper">
                       {trailer.map((video, index) => (
                         <div
-                          className={`swiper-slide gallery-margin-right ${styles.detail__gallery__item}`}
+                          className={`swiper-slide gallery-template ${styles.detail__gallery__item}`}
                           data-index={index}
                           key={index}
                         >
@@ -530,7 +573,7 @@ const Contents = async ({ params }) => {
                     <div className="swiper-wrapper">
                       {gallery.map((image, index) => (
                         <div
-                          className={`swiper-slide gallery-margin-right ${styles.detail__gallery__item}`}
+                          className={`swiper-slide gallery-template ${styles.detail__gallery__item}`}
                           data-index={index}
                           key={index}
                         >
@@ -569,6 +612,139 @@ const Contents = async ({ params }) => {
               {/* 갤러리 swiper 제어: 클라이언트 컴포넌트  */}
               <VideoGalleryClient uniqueId={galleryUniqueId} gallery={gallery} alt={galleryAlt} />
             </>
+          )}
+
+          {/* 관련 콘텐츠 */}
+          {!isEmpty(seriesContents) && (
+            <VideosSwiperForContent
+              videos={seriesContents}
+              template={contentTemplate}
+              referrer={`${referrer}-series`}
+              referrerKey={videoId}
+            >
+              <div className={styles.detail__main__title__wrapper}>
+                <h4 className={styles.detail__main__title}>{seriesTitle}</h4>
+                {/* 더보기: 추후 예정 */}
+                {/* {seriesContents.length >= 10 && (
+                  <Link href={`/contents/${videoId}/series`} className={styles.detail__more__button}>
+                    <span className={styles.detail__more__text}>더보기</span>
+                    <ArrowRightIcon className={styles.detail__more__icon} width={24} height={24} />
+                  </Link>
+                )} */}
+              </div>
+            </VideosSwiperForContent>
+          )}
+
+          {/* 비슷한 콘텐츠 */}
+          {!isEmpty(similarContents) && (
+            <VideosSwiperForContent
+              videos={similarContents}
+              template={contentTemplate}
+              referrer={`${referrer}-similar`}
+              referrerKey={videoId}
+            >
+              <div className={styles.detail__main__title__wrapper}>
+                <h4 className={styles.detail__main__title}>{similarTitle}</h4>
+                {/* 더보기: 추후 예정 */}
+                {/* {similarContents.length >= 10 && (
+                  <Link href={`/contents/${videoId}/similar`} className={styles.detail__more__button}>
+                    <span className={styles.detail__more__text}>더보기</span>
+                    <ArrowRightIcon className={styles.detail__more__icon} width={24} height={24} />
+                  </Link>
+                )} */}
+              </div>
+            </VideosSwiperForContent>
+          )}
+
+          {/* 배우 출연 작품 */}
+          {!isEmpty(actorContents) && (
+            <VideosSwiperForContent
+              videos={actorContents}
+              template={contentTemplate}
+              referrer={`${referrer}-actor`}
+              referrerKey={videoId}
+            >
+              <div className={styles.detail__main__title__wrapper}>
+                <h4 className={styles.detail__main__title}>{actorName} 출연 작품</h4>
+                {actorContents.length >= 10 && (
+                  <Link
+                    href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: actorId })}
+                    className={styles.detail__more__button}
+                  >
+                    <span className={styles.detail__more__text}>더보기</span>
+                    <ArrowRightIcon className={styles.detail__more__icon} width={24} height={24} />
+                  </Link>
+                )}
+              </div>
+            </VideosSwiperForContent>
+          )}
+
+          {/* 감독 연출 작품 */}
+          {!isEmpty(staffContents) && (
+            <VideosSwiperForContent
+              videos={staffContents}
+              template={contentTemplate}
+              referrer={`${referrer}-staff`}
+              referrerKey={videoId}
+            >
+              <div className={styles.detail__main__title__wrapper}>
+                <h4 className={styles.detail__main__title}>{staffName} 연출 작품</h4>
+                {staffContents.length >= 10 && (
+                  <Link
+                    href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: staffId })}
+                    className={styles.detail__more__button}
+                  >
+                    <span className={styles.detail__more__text}>더보기</span>
+                    <ArrowRightIcon className={styles.detail__more__icon} width={24} height={24} />
+                  </Link>
+                )}
+              </div>
+            </VideosSwiperForContent>
+          )}
+
+          {/* 컬렉션 */}
+          {!isEmpty(collections) && (
+            <section className={styles.detail__collection__section}>
+              <h4 className={styles.detail__main__title}>{collectionTitle}</h4>
+              <article className={styles.detail__collection__wrapper}>
+                {collections.map((collection) => (
+                  <React.Fragment key={collection.id}>
+                    <Link
+                      href={`/collections/${collection.id}`}
+                      className={styles.detail__collection__link}
+                      aria-label={`${collection.title} 컬렉션 보러가기`}
+                    >
+                      <ul className={styles.detail__collection__image__wrapper}>
+                        {collection.thumbnail.map((thumbnail, index) => (
+                          <li
+                            className={`${styles.detail__collection__image__item} ${videoStyles.default__thumbnail__wrapper}`}
+                            key={index}
+                          >
+                            <Image
+                              className={videoStyles.default__thumbnail}
+                              src={fThumbnail(thumbnail)}
+                              alt={collection.title}
+                              width={120}
+                              height={180}
+                              quality={100}
+                              loading="lazy"
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </Link>
+                    <div className={styles.detail__collection__info__wrapper}>
+                      <Link href={`/collections/${collection.id}`} className={styles.detail__collection__link}>
+                        <p className={styles.detail__collection__title}>{collection.title}</p>
+                      </Link>
+                      {collection.description && (
+                        <p className={styles.detail__collection__desc}>{collection.description}</p>
+                      )}
+                    </div>
+                  </React.Fragment>
+                ))}
+              </article>
+            </section>
           )}
         </div>
       </main>

@@ -47,10 +47,9 @@ const VideoSynopsis = React.memo(({ synopsis, tags, title }) => {
         {synopsis}
       </summary>
 
-      {isOverflowing && !isExpanded && (
+      {isOverflowing && (
         <button type="button" onClick={toggleExpand} className={styles.synopsis__more__button}>
-          {/* {isExpanded ? "접기" : "더보기"} */}
-          더보기
+          {isExpanded ? '간략히' : '더보기'}
         </button>
       )}
     </section>

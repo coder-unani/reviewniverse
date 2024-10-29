@@ -114,16 +114,16 @@ const VideoReviewSimple = ({ videoId }) => {
 
   return (
     <section className={styles.detail__review__section}>
-      <div className={styles.detail__main__title__wrapper}>
+      <div className={`${styles.detail__main__title__wrapper} ${styles.review}`}>
         <h4 className={styles.detail__main__title}>
           리뷰
           {reviews.total > 0 && <span className={styles.detail__review__total}>{reviewsTotal}</span>}
         </h4>
         {/* 더보기 */}
         {reviews.total > 0 && (
-          <Link className={styles.detail__review__more__button} href={reviewsPath}>
-            <span className={styles.detail__review__more__text}>더보기</span>
-            <ArrowRightIcon className={styles.detail__review__more__icon} width={24} height={24} />
+          <Link className={styles.detail__more__button} href={reviewsPath}>
+            <span className={styles.detail__more__text}>더보기</span>
+            <ArrowRightIcon className={styles.detail__more__icon} width={24} height={24} />
           </Link>
         )}
       </div>

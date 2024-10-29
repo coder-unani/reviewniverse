@@ -13,7 +13,7 @@ import styles from '@/styles/components/Video.module.scss';
 
 const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
 
-const Video = ({ video, isClient = false, referrer = null, referrerKey = null }) => {
+const Video = ({ video, isClient = false, isContent = false, referrer = null, referrerKey = null }) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
@@ -36,6 +36,7 @@ const Video = ({ video, isClient = false, referrer = null, referrerKey = null })
     >
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
+          {/* isClient 플래그 값에 따라 서버/클라이언트 컴포넌트 이미지 렌더링 */}
           {isClient ? (
             <ClientVideoImage thumbnail={videoThumbnail} title={title} />
           ) : (
@@ -56,7 +57,6 @@ const Video = ({ video, isClient = false, referrer = null, referrerKey = null })
       </div>
       <div className={styles.default__info__container}>
         <p className={styles.default__title}>{title}</p>
-        {/* <div className={styles.default__subtitle__wrapper}> */}
         <div className={styles.default__subtitle}>
           <span>{videoRelease}</span>
           {videoCountry && (
@@ -66,19 +66,21 @@ const Video = ({ video, isClient = false, referrer = null, referrerKey = null })
             </>
           )}
         </div>
-        {/* </div> */}
-        <div className={styles.default__more__wrapper}>
-          <div className={styles.default__rating__wrapper} data-color={ratingColor}>
-            <StarIcon className={styles.default__rating__icon} width={16} height={16} />
-            <span className={styles.default__rating}>{ratingText}</span>
-          </div>
-          {reviewCount > 0 && (
-            <div className={styles.default__review__wrapper}>
-              <ReviewIcon className={styles.default__review__icon} width={14} height={14} />
-              <span className={styles.default__review}>{reviewCount}</span>
+        {/* isContent 플래그 값에 따라 평점 및 리뷰 표시 */}
+        {!isContent && (
+          <div className={styles.default__more__wrapper}>
+            <div className={styles.default__rating__wrapper} data-color={ratingColor}>
+              <StarIcon className={styles.default__rating__icon} width={16} height={16} />
+              <span className={styles.default__rating}>{ratingText}</span>
             </div>
-          )}
-        </div>
+            {reviewCount > 0 && (
+              <div className={styles.default__review__wrapper}>
+                <ReviewIcon className={styles.default__review__icon} width={14} height={14} />
+                <span className={styles.default__review}>{reviewCount}</span>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </Link>
   );

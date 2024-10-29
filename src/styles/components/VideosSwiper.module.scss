@@ -65,6 +65,13 @@
     }
   }
 
+  &.content {
+    .horizontal__prev__button,
+    .horizontal__next__button {
+      top: calc((100% - 51px) * 0.5);
+    }
+  }
+
   &.upcoming {
     .horizontal__prev__button,
     .horizontal__next__button {
