@@ -46,7 +46,6 @@ import FillPlayIcon from '@/resources/icons/fill-play.svg';
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
-import videoStyles from '@/styles/components/Video.module.scss';
 
 const VideoSubInfoClient = dynamic(() => import('@/components/ui/Client/VideoSubInfo'), { ssr: false });
 const VideoTrailerClient = dynamic(() => import('@/components/ui/Client/VideoTrailer'), { ssr: false });
@@ -322,9 +321,9 @@ const Contents = async ({ params }) => {
   const gallery = content.thumbnail || [];
   const galleryAlt = `${titleKr} 스틸컷`;
   const seriesContents = relatedContent.series.data || [];
-  const seriesTitle = '관련 콘텐츠';
+  const seriesTitle = '시리즈';
   const similarContents = relatedContent.similar.data || [];
-  const similarTitle = '비슷한 콘텐츠';
+  const similarTitle = '비슷한 작품';
   const actorContents = relatedContent.actor.data || [];
   const actorId = relatedContent.actor.id || 0;
   const actorName = relatedContent.actor.name || '';
@@ -706,44 +705,47 @@ const Contents = async ({ params }) => {
           {!isEmpty(collections) && (
             <section className={styles.detail__collection__section}>
               <h4 className={styles.detail__main__title}>{collectionTitle}</h4>
-              <article className={styles.detail__collection__wrapper}>
+              <ul className={styles.detail__collection__wrapper}>
                 {collections.map((collection) => (
-                  <React.Fragment key={collection.id}>
+                  <li className={styles.detail__collection} key={collection.id}>
                     <Link
-                      href={`/collections/${collection.id}`}
+                      href={EndpointManager.generateUrl(ENDPOINTS.COLLECTIONS, { collectionId: collection.id })}
                       className={styles.detail__collection__link}
                       aria-label={`${collection.title} 컬렉션 보러가기`}
                     >
                       <ul className={styles.detail__collection__image__wrapper}>
-                        {collection.thumbnail.map((thumbnail, index) => (
-                          <li
-                            className={`${styles.detail__collection__image__item} ${videoStyles.default__thumbnail__wrapper}`}
-                            key={index}
-                          >
-                            <Image
-                              className={videoStyles.default__thumbnail}
-                              src={fThumbnail(thumbnail)}
-                              alt={collection.title}
-                              width={120}
-                              height={180}
-                              quality={100}
-                              loading="lazy"
-                            />
+                        {/* 4개 고정 반복 */}
+                        {Array.from({ length: 4 }).map((_, index) => (
+                          <li className={styles.detail__collection__image} key={index}>
+                            {collection.thumbnail[index] && (
+                              <Image
+                                className={styles.detail__collection__thumbnail}
+                                src={fThumbnail(collection.thumbnail[index])}
+                                alt={collection.title}
+                                width={120}
+                                height={180}
+                                quality={100}
+                                loading="lazy"
+                              />
+                            )}
                           </li>
                         ))}
                       </ul>
                     </Link>
                     <div className={styles.detail__collection__info__wrapper}>
-                      <Link href={`/collections/${collection.id}`} className={styles.detail__collection__link}>
-                        <p className={styles.detail__collection__title}>{collection.title}</p>
+                      <Link
+                        href={EndpointManager.generateUrl(ENDPOINTS.COLLECTIONS, { collectionId: collection.id })}
+                        className={styles.detail__collection__title__link}
+                      >
+                        <span className={styles.detail__collection__title}>{collection.title}</span>
                       </Link>
                       {collection.description && (
                         <p className={styles.detail__collection__desc}>{collection.description}</p>
                       )}
                     </div>
-                  </React.Fragment>
+                  </li>
                 ))}
-              </article>
+              </ul>
             </section>
           )}
         </div>

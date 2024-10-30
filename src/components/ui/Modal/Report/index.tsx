@@ -22,8 +22,8 @@ const ReportModal = React.memo(({ id, title, isOpen, onClose }: IReportModalProp
     add: '정보 추가 요청',
     image: '이미지 오류',
     link: '링크 오류',
-    content: '부적절한 콘텐츠',
-    duplicate: '중복 콘텐츠',
+    content: '부적절한 작품',
+    duplicate: '중복 작품',
     other: '기타',
   };
 

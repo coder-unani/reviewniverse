@@ -852,15 +852,40 @@
   padding: 20px $padding-large;
 }
 
+.detail__collection {
+  display: flex;
+
+  &:not(:last-child) {
+    padding-bottom: 15px;
+  }
+
+  & ~ & {
+    border-top: 1px solid $border-color-01;
+    padding-top: 15px;
+  }
+}
+
+.detail__collection__link {
+  display: block;
+  width: auto;
+  padding-right: 53px;
+  margin-right: 12px;
+}
+
 .detail__collection__image__wrapper {
   display: flex;
 }
 
-.detail__collection__image__item {
-  width: 30%;
-  height: auto;
-  margin-right: -12.5%;
+.detail__collection__image {
+  position: relative;
+  display: flex;
+  width: 150px;
+  aspect-ratio: 2 / 3;
+  border-radius: 14px;
+  // background: url(https://storage.reviewniverse.net/assets/images/default-image.png) no-repeat center / auto 20%;
+  background-color: $color-white-09;
   box-shadow: 2px 0 7px $color-black;
+  margin-right: -53px;
 
   // 1 ~ 5까지 z-index 설정
   @for $i from 0 through 4 {
@@ -868,10 +893,33 @@
       z-index: 5 - $i;
     }
   }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(213, 221, 226, 0.1);
+  }
+}
+
+.detail__collection__thumbnail {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
 }
 
 .detail__collection__info__wrapper {
-  margin-top: 8px;
+  flex: 1;
+}
+
+.detail__collection__title__link {
+  display: inline-block;
 }
 
 .detail__collection__title {
@@ -895,7 +943,7 @@
 
   // 1줄 이상일때 생략
   display: -webkit-box;
-  -webkit-line-clamp: 1;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   -webkit-box-orient: vertical;
 }
@@ -1145,6 +1193,24 @@
   .detail__photo {
     border-radius: 12px;
   }
+
+  .detail__collection {
+    flex-direction: column;
+  }
+
+  .detail__collection__link {
+    width: auto;
+    margin-right: unset;
+  }
+
+  .detail__collection__image {
+    width: 30%;
+    margin-right: -12.5%;
+  }
+
+  .detail__collection__info__wrapper {
+    margin-top: 8px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1361,5 +1427,17 @@
 
   .detail__collection__section {
     padding: 20px $padding-small;
+  }
+
+  .detail__collection__image {
+    border-radius: 8px;
+
+    &::after {
+      border-radius: 8px;
+    }
+  }
+
+  .detail__collection__thumbnail {
+    border-radius: 8px;
   }
 }
