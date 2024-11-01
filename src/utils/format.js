@@ -28,7 +28,7 @@ export const fDateToKorean = (date) => {
   return date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1년 $2월 $3일');
 };
 
-// 날짜 포맷: {}일 전, {}시간 전, {}분 전, 방금 전으로 변경, 하루 이상이면 날짜로 변경
+// 날짜 포맷: {}개월 전, {}일 전, {}시간 전, {}분 전, 방금 전으로 변경, 하루 이상이면 날짜로 변경
 export const fDiffDate = (date) => {
   const now = new Date();
   const target = new Date(date);
@@ -37,12 +37,20 @@ export const fDiffDate = (date) => {
   const min = Math.floor(sec / 60);
   const hour = Math.floor(min / 60);
   const day = Math.floor(hour / 24);
+  const month = Math.floor(day / 30);
+  const year = Math.floor(month / 12);
 
-  if (day >= 1) {
+  if (year >= 1) {
     const targetYear = target.getFullYear();
     const targetMonth = String(target.getMonth() + 1).padStart(2, '0');
     const targetDate = String(target.getDate()).padStart(2, '0');
     return `${targetYear}.${targetMonth}.${targetDate}`;
+  }
+  if (month >= 1) {
+    return `${month}개월 전`;
+  }
+  if (day >= 1) {
+    return `${day}일 전`;
   }
   if (hour > 0) {
     return `${hour}시간 전`;
