@@ -5,6 +5,9 @@ import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
+  screens: `${baseURL}/v1/screens`,
+  collections: `${baseURL}/v1/collections/:collectionId`,
+  collectionLike: `${baseURL}/v1/collections/:collectionId/like`,
   videos: `${baseURL}/v1/videos`,
   videosUpcoming: `${baseURL}/v1/videos/upcoming`,
   videoDetail: `${baseURL}/v1/videos/:videoId`,
@@ -15,6 +18,45 @@ const endpoints = {
   videoWatched: `${baseURL}/v1/videos/:videoId/watched`,
   videoExpect: `${baseURL}/v1/videos/:videoId/expect`,
   videoRating: `${baseURL}/v1/videos/:videoId/rating`,
+};
+
+// Screen 콘텐츠 리스트
+export const fetchScreenVideos = async ({ code, display = null }) => {
+  try {
+    const client = new FetchClient();
+    const res = await client.get(endpoints.screens, {
+      code,
+      ...(display && { dp: display }),
+    });
+    return res;
+  } catch (error) {
+    cError(error);
+    return null;
+  }
+};
+
+// Collection 콘텐츠 리스트
+export const fetchCollectionVideos = async ({ collectionId }) => {
+  try {
+    const client = new FetchClient();
+    const res = await client.get(endpoints.collections.replace(':collectionId', collectionId));
+    return res;
+  } catch (error) {
+    cError(error);
+    return null;
+  }
+};
+
+// Collection 좋아요
+export const fetchCollectionLike = async ({ collectionId }) => {
+  try {
+    const client = new AxiosClient();
+    const res = await client.post(endpoints.collectionLike.replace(':collectionId', collectionId));
+    return res;
+  } catch (error) {
+    cError(error);
+    return null;
+  }
 };
 
 // 기본 콘텐츠 리스트
