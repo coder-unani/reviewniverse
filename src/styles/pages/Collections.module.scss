@@ -1,0 +1,96 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.collection__main {
+  max-width: 1440px;
+  min-height: calc(100vh - $footer-height);
+  padding: $header-height 0 60px;
+  margin: 0 auto;
+}
+
+.collection__section {
+  width: 100%;
+  padding: 0 $padding-large;
+  margin: 24px 0 4px;
+}
+
+.collection__info__wrapper {
+  position: relative;
+  border-bottom: 1px solid $border-color-01;
+  padding-bottom: 24px;
+}
+
+.collection__control__wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -7px;
+  margin-right: -16px;
+}
+
+.collection__profile__link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.collection__profile__nickname {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-03;
+  line-height: 20px;
+
+  // 1줄 이상일 때 생략
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.collection__profile__badge {
+  font-size: 10px;
+  font-weight: 500;
+  color: $color-white-01;
+  line-height: 16px;
+  @include orb-gradient(to right, 0.75);
+  border-radius: 16px;
+  padding: 0 6px;
+}
+
+.collection__more__wrapper {
+  font-size: 12px;
+  color: $color-white-06;
+  margin-bottom: 15px;
+}
+
+.collection__title {
+  font-size: 24px;
+  font-weight: 700;
+  color: $color-white-01;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.collection__subtitle {
+  font-size: 14px;
+  color: $color-white-04;
+  line-height: 18px;
+}
+
+@media (max-width: 1024px) {
+  .collection__section {
+    padding: 0 $padding-medium;
+  }
+}
+
+@media (max-width: 576px) {
+  .collection__section {
+    padding: 0 $padding-small;
+  }
+
+  .collection__title {
+    font-size: 20px;
+  }
+}
