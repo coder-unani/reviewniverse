@@ -323,7 +323,7 @@ const Contents = async ({ params }) => {
   const seriesContents = relatedContent.series.data || [];
   const seriesTitle = '시리즈';
   const similarContents = relatedContent.similar.data || [];
-  const similarTitle = '비슷한 작품';
+  const similarTitle = '이건 어때요?';
   const actorContents = relatedContent.actor.data || [];
   const actorId = relatedContent.actor.id || 0;
   const actorName = relatedContent.actor.name || '';
