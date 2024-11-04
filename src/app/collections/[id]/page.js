@@ -9,7 +9,7 @@ import { fParseInt, fDiffDate } from '@/utils/format';
 import { fetchCollectionVideos } from '@/library/api/videos';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import Video from '@/components/ui/Video';
-import CollectionLikeButton from '@/components/ui/Button/Collection/Like';
+// import CollectionLikeButton from '@/components/ui/Button/Collection/Like';
 
 import styles from '@/styles/pages/Collections.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
@@ -71,9 +71,9 @@ const Collections = async ({ params }) => {
     <main className={styles.collection__main}>
       <section className={styles.collection__section}>
         <div className={styles.collection__info__wrapper}>
-          <div className={styles.collection__control__wrapper}>
+          {/* <div className={styles.collection__control__wrapper}>
             <CollectionLikeButton collectionId={collectionId} />
-          </div>
+          </div> */}
 
           <Link
             href={EndpointManager.generateUrl(ENDPOINTS.USER, { userId: collection.user.id })}
