@@ -324,12 +324,19 @@ const Contents = async ({ params }) => {
   const seriesTitle = '시리즈';
   const similarContents = relatedContent.similar.data || [];
   const similarTitle = '이건 어때요?';
-  const actorContents = relatedContent.actor.data || [];
-  const actorId = relatedContent.actor.id || 0;
-  const actorName = relatedContent.actor.name || '';
-  const staffContents = relatedContent.staff.data || [];
-  const staffName = relatedContent.staff.name || '';
-  const staffId = relatedContent.staff.id || 0;
+
+  // 연관 콘텐츠 배우/감독 중 하나만 표시
+  const combinedContents = ['actor', 'staff']
+    .map((type) => ({
+      type,
+      data: relatedContent[type].data || [],
+      id: relatedContent[type].id || 0,
+      name: relatedContent[type].name || '',
+    }))
+    .filter((cont) => cont.data.length > 0);
+  const randomContent =
+    combinedContents.length > 0 ? combinedContents[Math.floor(Math.random() * combinedContents.length)] : null;
+
   const collections = relatedContent.collections || [];
   const collectionTitle = '컬렉션';
 
@@ -481,7 +488,7 @@ const Contents = async ({ params }) => {
             <VideoSynopsis synopsis={synopsis} tags={tags} title={synopsisTitle} />
 
             {/* 포스터 */}
-            {!isEmpty(poster) && (
+            {!isEmpty(content.thumbnail) && (
               <section className={styles.detail__poster__section}>
                 <picture className={styles.detail__poster__wrapper}>
                   <img className={styles.detail__poster} src={poster} srcSet={poster} alt={posterAlt} />
@@ -655,42 +662,21 @@ const Contents = async ({ params }) => {
             </VideosSwiperForContent>
           )}
 
-          {/* 배우 출연 작품 */}
-          {!isEmpty(actorContents) && (
+          {/* 배우/감독 작품 */}
+          {!isEmpty(randomContent) && (
             <VideosSwiperForContent
-              videos={actorContents}
+              videos={randomContent.data}
               template={contentTemplate}
-              referrer={`${referrer}-actor`}
+              referrer={`${referrer}-${randomContent.type}`}
               referrerKey={videoId}
             >
               <div className={styles.detail__main__title__wrapper}>
-                <h4 className={styles.detail__main__title}>{actorName} 출연 작품</h4>
-                {actorContents.length >= 10 && (
+                <h4 className={styles.detail__main__title}>
+                  {randomContent.name} {randomContent.type === 'actor' ? '출연' : '연출'} 작품
+                </h4>
+                {randomContent.data.length >= 10 && (
                   <Link
-                    href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: actorId })}
-                    className={styles.detail__more__button}
-                  >
-                    <span className={styles.detail__more__text}>더보기</span>
-                    <ArrowRightIcon className={styles.detail__more__icon} width={24} height={24} />
-                  </Link>
-                )}
-              </div>
-            </VideosSwiperForContent>
-          )}
-
-          {/* 감독 연출 작품 */}
-          {!isEmpty(staffContents) && (
-            <VideosSwiperForContent
-              videos={staffContents}
-              template={contentTemplate}
-              referrer={`${referrer}-staff`}
-              referrerKey={videoId}
-            >
-              <div className={styles.detail__main__title__wrapper}>
-                <h4 className={styles.detail__main__title}>{staffName} 연출 작품</h4>
-                {staffContents.length >= 10 && (
-                  <Link
-                    href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: staffId })}
+                    href={EndpointManager.generateUrl(ENDPOINTS.PEOPLE, { peopleId: randomContent.id })}
                     className={styles.detail__more__button}
                   >
                     <span className={styles.detail__more__text}>더보기</span>
