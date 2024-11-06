@@ -7,7 +7,6 @@ export const COUNTRIES_REVALIDATE_SEC = 3600; // 1시간
 export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
 export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
-export const COLLECTIONS_REVALIDATE_SEC = 3600; // 1시간
 
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, TV, 작품, 인기, 추천, 검색, 통합검색, OTT, 평점, 정보';

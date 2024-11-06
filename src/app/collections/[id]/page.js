@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { COLLECTIONS_REVALIDATE_SEC } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fDiffDate } from '@/utils/format';
 import { fetchCollectionVideos } from '@/library/api/videos';
@@ -13,9 +12,6 @@ import Video from '@/components/ui/Video';
 
 import styles from '@/styles/pages/Collections.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
-
-// ISR 재생성 주기 설정
-export const revalidate = COLLECTIONS_REVALIDATE_SEC;
 
 // 데이터 초기화
 const initCollectionVideos = (result) => {
