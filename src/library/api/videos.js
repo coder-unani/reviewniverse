@@ -36,10 +36,10 @@ export const fetchScreenVideos = async ({ code, display = null }) => {
 };
 
 // Collection 콘텐츠 리스트
-export const fetchCollectionVideos = async ({ collectionId }) => {
+export const fetchCollectionVideos = async ({ collectionId, cache }) => {
   try {
     const client = new FetchClient();
-    const res = await client.get(endpoints.collections.replace(':collectionId', collectionId));
+    const res = await client.get(endpoints.collections.replace(':collectionId', collectionId), null, cache);
     return res;
   } catch (error) {
     cError(error);

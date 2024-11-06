@@ -42,14 +42,14 @@ const initCollectionVideos = (result) => {
 
 // Collections API 호출
 const getCollectionVideos = async ({ collectionId }) => {
-  const res = await fetchCollectionVideos({ collectionId });
+  const res = await fetchCollectionVideos({ collectionId, cache: 'no-cache' });
   if (res.status === 200) {
     return res.data.data;
   }
   return {};
 };
 
-// 메타 태그 설정
+// TODO: 메타 태그 설정
 
 const Collections = async ({ params }) => {
   const { id } = params;
