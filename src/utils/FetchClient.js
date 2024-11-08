@@ -25,7 +25,7 @@ class FetchClient {
     }
   }
 
-  async get(url, params = null, cache = null) {
+  async get(url, params = null) {
     try {
       this.setDeviceIdentifierHeader(url);
 
@@ -34,7 +34,6 @@ class FetchClient {
       const options = {
         method: 'GET',
         headers: this.headers,
-        ...(cache && { cache }),
       };
 
       const response = await fetch(`${url}${queryString}`, options);

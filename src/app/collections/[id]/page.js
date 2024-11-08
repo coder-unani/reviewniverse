@@ -5,12 +5,12 @@ import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fDiffDate } from '@/utils/format';
-import { fetchCollectionVideos } from '@/library/api/videos';
+import { fetchCollectionDetail } from '@/library/api/videos';
 import ProfileImage from '@/components/ui/Button/Profile/Image';
 import Video from '@/components/ui/Video';
 // import CollectionLikeButton from '@/components/ui/Button/Collection/Like';
 
-import styles from '@/styles/pages/Collections.module.scss';
+import styles from '@/styles/pages/Collection.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
 
 // 데이터 초기화
@@ -40,9 +40,9 @@ const initCollectionVideos = (result) => {
   return collection;
 };
 
-// Collections API 호출
+// CollectionDetail API 호출
 const getCollectionVideos = async ({ collectionId }) => {
-  const res = await fetchCollectionVideos({ collectionId, cache: 'no-cache' });
+  const res = await fetchCollectionDetail({ collectionId });
   if (res.status === 200) {
     return res.data.data;
   }
@@ -51,7 +51,7 @@ const getCollectionVideos = async ({ collectionId }) => {
 
 // TODO: 메타 태그 설정
 
-const Collections = async ({ params }) => {
+const Collection = async ({ params }) => {
   const { id } = params;
   const collectionId = fParseInt(id);
 
@@ -102,4 +102,4 @@ const Collections = async ({ params }) => {
   );
 };
 
-export default Collections;
+export default Collection;

@@ -6,7 +6,8 @@ import { cError } from '@/utils/test';
 const baseURL = SETTINGS.API_BASE_URL;
 const endpoints = {
   screens: `${baseURL}/v1/screens`,
-  collections: `${baseURL}/v1/collections/:collectionId`,
+  collections: `${baseURL}/v1/collections`,
+  collectionDetail: `${baseURL}/v1/collections/:collectionId`,
   collectionLike: `${baseURL}/v1/collections/:collectionId/like`,
   videos: `${baseURL}/v1/videos`,
   videosUpcoming: `${baseURL}/v1/videos/upcoming`,
@@ -36,10 +37,26 @@ export const fetchScreenVideos = async ({ code, display = null }) => {
 };
 
 // Collection 콘텐츠 리스트
-export const fetchCollectionVideos = async ({ collectionId, cache }) => {
+export const fetchCollectionVideos = async ({ collectionId, page = null, size = null, code = null }) => {
   try {
     const client = new FetchClient();
-    const res = await client.get(endpoints.collections.replace(':collectionId', collectionId), null, cache);
+    const res = await client.get(endpoints.collections.replace(':collectionId', collectionId), {
+      ...(page && { p: page }),
+      ...(size && { ps: size }),
+      ...(code && { cd: code }),
+    });
+    return res;
+  } catch (error) {
+    cError(error);
+    return null;
+  }
+};
+
+// Collection 콘텐츠 상세정보
+export const fetchCollectionDetail = async ({ collectionId }) => {
+  try {
+    const client = new FetchClient();
+    const res = await client.get(endpoints.collectionDetail.replace(':collectionId', collectionId));
     return res;
   } catch (error) {
     cError(error);
