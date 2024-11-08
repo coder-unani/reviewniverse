@@ -10,7 +10,7 @@
 .collections__section {
   width: 100%;
   padding: 0 $padding-large;
-  margin: 24px 0 4px;
+  margin-top: 24px;
 }
 
 .collections__title__wrapper {
@@ -33,7 +33,7 @@
 }
 
 .collections__videos__section {
-  padding: 20px $padding-large;
+  padding: 15px $padding-large;
 }
 
 .collection__item {
@@ -55,7 +55,7 @@
   }
 
   .collections__videos__section {
-    padding: 20px $padding-medium;
+    padding: 15px $padding-medium;
   }
 }
 
@@ -75,6 +75,6 @@
   }
 
   .collections__videos__section {
-    padding: 12px $padding-small;
+    padding: 15px $padding-small;
   }
 }
