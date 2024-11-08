@@ -37,10 +37,10 @@ export const fetchScreenVideos = async ({ code, display = null }) => {
 };
 
 // Collection 콘텐츠 리스트
-export const fetchCollectionVideos = async ({ collectionId, page = null, size = null, code = null }) => {
+export const fetchCollectionVideos = async ({ page = null, size = null, code = null }) => {
   try {
     const client = new FetchClient();
-    const res = await client.get(endpoints.collections.replace(':collectionId', collectionId), {
+    const res = await client.get(endpoints.collections, {
       ...(page && { p: page }),
       ...(size && { ps: size }),
       ...(code && { cd: code }),

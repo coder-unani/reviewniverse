@@ -4,24 +4,20 @@
 .collection__link {
   display: block;
   width: auto;
-  padding-right: 53px;
+  padding-right: 40px;
   margin-right: 12px;
-}
-
-.collection__image__wrapper {
-  display: flex;
 }
 
 .collection__image {
   position: relative;
   display: flex;
-  width: 150px;
+  width: 120px;
   aspect-ratio: 2 / 3;
   border-radius: 14px;
   // background: url(https://storage.reviewniverse.net/assets/images/default-image.png) no-repeat center / auto 20%;
   background-color: $color-white-09;
   box-shadow: 2px 0 7px $color-black;
-  margin-right: -53px;
+  margin-right: -40px;
 
   // 1 ~ 5까지 z-index 설정
   @for $i from 0 through 4 {
@@ -42,20 +38,8 @@
   }
 }
 
-.collection__thumbnail {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 14px;
-}
-
 .collection__info__wrapper {
   flex: 1;
-}
-
-.collection__title__link {
-  display: inline-block;
 }
 
 .collection__title {
@@ -67,19 +51,6 @@
   // 1줄 이상일때 생략
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-}
-
-.collection__desc {
-  font-size: 13px;
-  font-weight: 600;
-  color: $color-white-04;
-  margin-top: 6px;
-
-  // 1줄 이상일때 생략
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
   overflow: hidden;
   -webkit-box-orient: vertical;
 }
@@ -107,9 +78,5 @@
     &::after {
       border-radius: 8px;
     }
-  }
-
-  .collection__thumbnail {
-    border-radius: 8px;
   }
 }

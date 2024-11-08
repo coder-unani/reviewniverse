@@ -4,35 +4,32 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { PRODUCTIONS_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
+import { COLLECTIONS_PAGE_SIZE, COLLECTION_CODE_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { useVideos } from '@/hooks/useVideos';
-import Videos from '@/components/ui/Videos';
+import { useCollections } from '@/hooks/useCollections';
+import VideosForCollection from '@/components/ui/VideosForCollection';
 
-const Productions = ({ productionId, enabled, referrer }) => {
+const Collections = ({ enabled }) => {
   const router = useRouter();
-  const [videos, setVideos] = useState({});
+  const [collections, setCollections] = useState({});
   const [page, setPage] = useState(2);
   const {
-    data: videosData,
-    error: videosError,
-    isLoading: videosIsLoading,
-  } = useVideos({
+    data: collectionsData,
+    error: collectionsError,
+    isLoading: collectionsIsLoading,
+  } = useCollections({
     page,
-    size: PRODUCTIONS_PAGE_SIZE,
-    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
-    mode: VIDEO_MODE_OPTIONS.ID,
-    by: VIDEO_BY_OPTIONS.PRODUCTION,
-    query: productionId,
+    size: COLLECTIONS_PAGE_SIZE,
+    code: COLLECTION_CODE_OPTIONS.COLLECTION,
     enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
 
   useEffect(() => {
-    if (videosIsLoading || !videosData || !enabled) return;
+    if (collectionsIsLoading || !collectionsData || !enabled) return;
 
     // API 호출 결과가 실패인 경우
-    if (!videosData.status) {
-      if (videosData.code === 'C001' && page > 1) {
+    if (!collectionsData.status) {
+      if (collectionsData.code === 'C001' && page > 1) {
         // 429 에러이고, 첫 페이지가 아닌 경우 이전 페이지 번호로 변경
         setPage((prev) => prev - 1);
       } else {
@@ -42,8 +39,8 @@ const Productions = ({ productionId, enabled, referrer }) => {
       return;
     }
 
-    setVideos((prev) => {
-      const newData = videosData.data;
+    setCollections((prev) => {
+      const newData = collectionsData.data;
       // 첫 페이지인 경우
       if (!prev) return { ...newData };
       // 같은 페이지인 경우
@@ -57,7 +54,7 @@ const Productions = ({ productionId, enabled, referrer }) => {
         data: prev.data ? [...prev.data, ...newData.data] : [...newData.data],
       };
     });
-  }, [videosIsLoading, videosData, page, enabled]);
+  }, [collectionsIsLoading, collectionsData, page, enabled]);
 
   // 페이지 변경
   const handlePage = (newPage) => {
@@ -65,23 +62,15 @@ const Productions = ({ productionId, enabled, referrer }) => {
   };
 
   // 에러 발생 시 에러 페이지로 이동
-  if (videosError) {
+  if (collectionsError) {
     router.push(ENDPOINTS.ERROR);
     return null;
   }
 
-  // 제작사 데이터가 없는 경우
-  if (isEmpty(videos)) return null;
+  // 컬렉션 데이터가 없는 경우
+  if (isEmpty(collections)) return null;
 
-  return (
-    <Videos
-      videos={videos}
-      handlePage={handlePage}
-      pageSize={PRODUCTIONS_PAGE_SIZE}
-      referrer={referrer}
-      referrerKey={productionId}
-    />
-  );
+  return <VideosForCollection collections={collections} handlePage={handlePage} pageSize={COLLECTIONS_PAGE_SIZE} />;
 };
 
-export default Productions;
+export default Collections;
