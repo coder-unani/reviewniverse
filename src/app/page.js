@@ -3,16 +3,23 @@ import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
 import { SCREEN_MAIN_ID } from '@/config/codes';
-import { HOME_REVALIDATE_SEC, VIDEO_ORDER_OPTIONS, VIDEO_TERMS_OPTIONS, VIDEO_MODEL_OPTIONS } from '@/config/constants';
+import {
+  HOME_REVALIDATE_SEC,
+  COLLECTION_CODE_OPTIONS,
+  VIDEO_ORDER_OPTIONS,
+  VIDEO_TERMS_OPTIONS,
+  VIDEO_MODEL_OPTIONS,
+} from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { fExportScreenDataByCode } from '@/utils/formatContent';
-import { fetchScreenVideos, fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
+import { fetchScreenVideos, fetchCollectionVideos, fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
 import { fetchReviews } from '@/library/api/reviews';
 import VideosSwiperForPreview from '@/components/ui/VideosSwiperForPreview';
 import VideosSwiper from '@/components/ui/VideosSwiper';
 import GenresSwiper from '@/components/ui/GenresSwiper';
 import ReviewsSwiper from '@/components/ui/ReviewsSwiper';
+import CollectionsSwiper from '@/components/ui/CollectionsSwiper';
 import Video from '@/components/ui/Video';
 
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
@@ -125,17 +132,34 @@ const getReviews = async () => {
   return [];
 };
 
+// Collections
+const getCollections = async () => {
+  const options = {
+    page: 1,
+    size: 10,
+    code: COLLECTION_CODE_OPTIONS.COLLECTION,
+  };
+  // Collections API 호출
+  const res = await fetchCollectionVideos({ ...options });
+  if (res.status === 200) {
+    return res.data.data;
+  }
+  return [];
+};
+
 const Home = async () => {
   // 데이터 페칭
-  const [screenVideos, rankingVideos, upcomingVideos, currentVideos, videos, genres, reviews] = await Promise.all([
-    getScreenVideos(),
-    getRankingVideos(),
-    getUpcomingVideos(),
-    getCurrentVideos(),
-    getDefaultVideos(),
-    getGenres(),
-    getReviews(),
-  ]);
+  const [screenVideos, rankingVideos, upcomingVideos, currentVideos, videos, genres, reviews, collections] =
+    await Promise.all([
+      getScreenVideos(),
+      getRankingVideos(),
+      getUpcomingVideos(),
+      getCurrentVideos(),
+      getDefaultVideos(),
+      getGenres(),
+      getReviews(),
+      getCollections(),
+    ]);
 
   const referrer = 'home';
 
@@ -196,6 +220,12 @@ const Home = async () => {
   const reviewsTitle = '👀 최근 리뷰';
   const reviewsSubtitle = 'NEW REVIEW';
 
+  const collectionsTitle = '🧩 컬렉션';
+  const collectionsSubtitle = 'COLLECTION';
+  const collectionsMoreLink = ENDPOINTS.COLLECTIONS;
+  const collectionsMoreTitle = '더보기';
+  const collectionsMoreSubtitle = '컬렉션 보러가기';
+
   return (
     <main className={styles.home__main}>
       {/* 콘텐츠 프리뷰 */}
@@ -204,6 +234,34 @@ const Home = async () => {
       </section>
 
       <section className={styles.home__main__section}>
+        {/* 리뷰 리스트 */}
+        <ReviewsSwiper reviews={reviews}>
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={vhStyles.horizontal__title}>
+              {reviewsTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {reviewsSubtitle}</span>
+            </h2>
+          </div>
+        </ReviewsSwiper>
+
+        {/* 컬렉션 리스트 */}
+        <CollectionsSwiper collections={collections}>
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={vhStyles.horizontal__title}>
+              {collectionsTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {collectionsSubtitle}</span>
+            </h2>
+            <Link
+              href={collectionsMoreLink}
+              className={vhStyles.horizontal__more__wrapper}
+              aria-label={collectionsMoreSubtitle}
+            >
+              <span className={vhStyles.horizontal__more}>{collectionsMoreTitle}</span>
+              <ArrowRightIcon width={24} height={24} />
+            </Link>
+          </div>
+        </CollectionsSwiper>
+
         {/* 랭킹 콘텐츠 리스트 */}
         <VideosSwiper
           videos={rankingVideos}
@@ -252,16 +310,6 @@ const Home = async () => {
             </Link>
           </div>
         </VideosSwiper>
-
-        {/* 리뷰 리스트 */}
-        <ReviewsSwiper reviews={reviews}>
-          <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>
-              {reviewsTitle}
-              <span className={vhStyles.horizontal__subtitle}>| {reviewsSubtitle}</span>
-            </h2>
-          </div>
-        </ReviewsSwiper>
 
         {/* current 콘텐츠 리스트 */}
         <VideosSwiper

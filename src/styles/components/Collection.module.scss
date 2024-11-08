@@ -1,0 +1,125 @@
+@use '@/styles/variables' as *;
+@use '@/styles/mixins' as *;
+
+.collection__link {
+  display: block;
+  width: auto;
+  padding-right: 53px;
+}
+
+.collection__image__wrapper {
+  display: flex;
+}
+
+.collection__image {
+  position: relative;
+  display: flex;
+  width: 150px;
+  aspect-ratio: 2 / 3;
+  border-radius: 14px;
+  // background: url(https://storage.reviewniverse.net/assets/images/default-image.png) no-repeat center / auto 20%;
+  background-color: $color-white-09;
+  box-shadow: 2px 0 7px $color-black;
+  margin-right: -53px;
+
+  // 1 ~ 5까지 z-index 설정
+  @for $i from 0 through 4 {
+    &:nth-of-type(#{$i + 1}) {
+      z-index: 5 - $i;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(213, 221, 226, 0.1);
+  }
+}
+
+.collection__thumbnail {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.collection__info__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.collection__title__link {
+  display: inline-block;
+}
+
+.collection__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: $color-white-01;
+  line-height: 20px;
+  margin-top: 10px;
+
+  // 1줄 이상일때 생략
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.collection__desc {
+  font-size: 13px;
+  font-weight: 600;
+  color: $color-white-04;
+  margin-top: 6px;
+
+  // 1줄 이상일때 생략
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+.collection__profile__wrapper {
+  display: flex;
+  margin-top: 6px;
+}
+
+.collection__profile__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.collection__profile__nickname {
+  font-size: 14px;
+  font-weight: 600;
+  color: $color-white-03;
+  line-height: 20px;
+
+  // 1줄 이상일 때 생략
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+@media (max-width: 576px) {
+  .collection__image {
+    border-radius: 8px;
+
+    &::after {
+      border-radius: 8px;
+    }
+  }
+
+  .collection__thumbnail {
+    border-radius: 8px;
+  }
+}

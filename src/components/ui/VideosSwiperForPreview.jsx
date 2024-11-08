@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { isEmpty } from 'lodash';
@@ -13,12 +12,11 @@ import {
   fRatingColor,
   fRatingText,
 } from '@/utils/formatContent';
+import VideosSwiperForPreviewClient from '@/components/ui/Client/VideosSwiperForPreview';
 
 import StarIcon from '@/resources/icons/fill-star.svg';
 import vStyles from '@/styles/components/Video.module.scss';
 import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
-
-const PreviewSwiper = dynamic(() => import('@/components/ui/Client/VideosSwiperForPreview'), { ssr: false });
 
 const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = null }) => {
   if (isEmpty(videos)) return null;
@@ -110,9 +108,7 @@ const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = n
       </section>
 
       {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <Suspense fallback="">
-        <PreviewSwiper />
-      </Suspense>
+      <VideosSwiperForPreviewClient />
     </>
   );
 };

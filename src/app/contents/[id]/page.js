@@ -1,6 +1,5 @@
 import React from 'react';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { nanoid } from 'nanoid';
@@ -40,7 +39,12 @@ import VideoMyRating from '@/components/ui/VideoMyRating';
 import VideoReviewSimple from '@/components/ui/VideoReviewSimple';
 import PeopleImage from '@/components/ui/Button/People/Image';
 import VideosSwiperForContent from '@/components/ui/VideosSwiperForContent';
-import Collection from '@/components/ui/Collection';
+import CollectionForList from '@/components/ui/CollectionForList';
+import VideoSubInfoClient from '@/components/ui/Client/VideoSubInfo';
+import VideoTrailerClient from '@/components/ui/Client/VideoTrailer';
+import VideoGalleryClient from '@/components/ui/Client/VideoGallery';
+import VideoPeopleClient from '@/components/ui/Client/VideoPeople';
+import ContentsClient from '@/components/ui/Client/Contents';
 
 import FillMoreIcon from '@/resources/icons/fill-more.svg';
 import FillPlayIcon from '@/resources/icons/fill-play.svg';
@@ -48,20 +52,8 @@ import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
-const VideoSubInfoClient = dynamic(() => import('@/components/ui/Client/VideoSubInfo'), { ssr: false });
-const VideoTrailerClient = dynamic(() => import('@/components/ui/Client/VideoTrailer'), { ssr: false });
-const VideoGalleryClient = dynamic(() => import('@/components/ui/Client/VideoGallery'), { ssr: false });
-const VideoPeopleClient = dynamic(() => import('@/components/ui/Client/VideoPeople'), { ssr: false });
-const ContentsClient = dynamic(() => import('@/components/ui/Client/Contents'), { ssr: false });
-
 // ISR 재생성 주기 설정
 export const revalidate = VIDEO_REVALIDATE_SEC;
-
-/**
- * TODO:
- * - 반응형 레이아웃
- * - react modal 라이브러리 사용하기 (갤러리 등)
- */
 
 // Content
 const getContent = async ({ videoId }) => {
@@ -695,7 +687,7 @@ const Contents = async ({ params }) => {
               <ul className={styles.detail__collection__wrapper}>
                 {collections.map((collection) => (
                   <li className={styles.detail__collection} key={collection.id}>
-                    <Collection collection={collection} />
+                    <CollectionForList collection={collection} />
                   </li>
                 ))}
               </ul>

@@ -1,17 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fDate } from '@/utils/format';
 import { fPlatformNameByCode, fThumbnail } from '@/utils/formatContent';
+import ClientVideoImage from '@/components/ui/VideoImage';
 
 import styles from '@/styles/components/Video.module.scss';
 import upcomingStyles from '@/styles/components/VideoForUpcoming.module.scss';
-
-const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
 
 /**
  * TODO:

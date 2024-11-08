@@ -83,7 +83,6 @@ const RootLayout = ({ children }) => {
       <NaverAnalytics />
       <body>
         <DefaultLayout>{children}</DefaultLayout>
-        <div id="modal" />
       </body>
     </html>
   );

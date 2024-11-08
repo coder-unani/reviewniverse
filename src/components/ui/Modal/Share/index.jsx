@@ -74,7 +74,6 @@ const ShareModal = React.memo(({ title, desc, image, isOpen, onClose }) => {
             </button>
           </div>
         </section>
-        {/* <section className={styles.share__footer}></section> */}
       </div>
     </Modal>
   );

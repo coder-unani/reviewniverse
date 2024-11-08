@@ -1,17 +1,15 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fYear } from '@/utils/format';
 import { fThumbnail, fCountry, fRatingColor, fRatingText } from '@/utils/formatContent';
+import ClientVideoImage from '@/components/ui/VideoImage';
 
 import StarIcon from '@/resources/icons/fill-star.svg';
 import ReviewIcon from '@/resources/icons/fill-comment.svg';
 import styles from '@/styles/components/Video.module.scss';
-
-const ClientVideoImage = dynamic(() => import('@/components/ui/VideoImage'), { ssr: false });
 
 const Video = ({ video, isClient = false, isContent = false, referrer = null, referrerKey = null }) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;

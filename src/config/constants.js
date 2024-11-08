@@ -8,6 +8,7 @@ export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
 export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
 
+// 메타태그 키워드 정보
 export const SITE_KEYWORDS =
   '리뷰니버스, 리뷰, reviewniverse, flqbslqjtm, 커뮤니티, 영화, 드라마, TV, 작품, 인기, 추천, 검색, 통합검색, OTT, 평점, 정보';
 export const VIDEO_KEYWORDS = '출연진, 등장인물, 공식영상, 보러가기, 후기, 평가';
@@ -26,6 +27,14 @@ export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
 export const UPCOMING_PAGE_SIZE = 50; // Upcoming 페이지 사이즈
 export const SEARCH_PAGE_SIZE = 20; // 검색 페이지 사이즈
 
+// 컬렉션 검색 코드 옵션
+export const COLLECTION_CODE_OPTIONS = {
+  SERIES: 10,
+  RELATED: 20,
+  COLLECTION: 30,
+};
+
+// 콘텐츠 정렬 조건 옵션
 export const VIDEO_ORDER_OPTIONS = {
   VIEW_ASC: 'view_asc',
   VIEW_DESC: 'view_desc',
@@ -39,18 +48,21 @@ export const VIDEO_ORDER_OPTIONS = {
   RELEASE_DESC: 'release_desc',
 };
 
+// 콘텐츠 검색 모드 옵션
 export const VIDEO_MODE_OPTIONS = {
   KEYWORD: 'keyword',
   ID: 'id',
   CONDITION: 'condition',
 };
 
+// 콘텐츠 검색 코드 옵션
 export const VIDEO_CODE_OPTIONS = {
   ALL: 'all',
   MOVIES: 'movies',
   SERIES: 'series',
 };
 
+// 콘텐츠 검색 대상 옵션
 export const VIDEO_BY_OPTIONS = {
   ALL: 'all',
   TITLE: 'title',
@@ -62,17 +74,20 @@ export const VIDEO_BY_OPTIONS = {
   PERSON: 'person',
 };
 
+// 콘텐츠 검색 기간 옵션
 export const VIDEO_TERMS_OPTIONS = {
   RELEASED: 'released',
   CURRENT: 'current',
 };
 
+// 콘텐츠 검색 모델 옵션
 export const VIDEO_MODEL_OPTIONS = {
   LIST: 'list',
   DETAIL: 'detail',
 };
 
 // TODO: 문구 정리 필요
+// 콘텐츠 평가 점수 텍스트
 export const VIDEO_RATING_TEXT = [
   '어떠셨나요?',
   '최악이에요!',
@@ -87,10 +102,12 @@ export const VIDEO_RATING_TEXT = [
   '최고에요!',
 ];
 
+// 프로필 이미지 파일 옵션
 export const PROFILE_IMAGE_FILE_SIZE = 30;
 export const PROFILE_IMAGE_FILE_TYPE = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 export const PROFILE_TEXT_MAX_LENGTH = 200;
 
+// 기본 이미지
 export const DEFAULT_IMAGES = {
   logo: `${SETTINGS.CDN_BASE_URL}/assets/images/logo.svg`,
   logoWhite: `${SETTINGS.CDN_BASE_URL}/assets/images/logo-white.svg`,

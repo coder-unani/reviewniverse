@@ -1,5 +1,4 @@
-import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { nanoid } from 'nanoid';
@@ -7,13 +6,12 @@ import { isEmpty } from 'lodash';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fMakeThumbnailUrl } from '@/utils/formatContent';
+import GenresSwiperClient from '@/components/ui/Client/GenresSwiper';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/GenresSwiper.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
-
-const GenresSwiperClient = dynamic(() => import('@/components/ui/Client/GenresSwiper'), { ssr: false });
 
 const GenresSwiper = ({ children, genres }) => {
   if (isEmpty(genres)) return null;
@@ -70,9 +68,7 @@ const GenresSwiper = ({ children, genres }) => {
       </section>
 
       {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <Suspense fallback="">
-        <GenresSwiperClient uniqueId={uniqueId} />
-      </Suspense>
+      <GenresSwiperClient uniqueId={uniqueId} />
     </>
   );
 };

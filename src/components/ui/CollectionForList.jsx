@@ -4,13 +4,11 @@ import Link from 'next/link';
 
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fThumbnail } from '@/utils/formatContent';
-import ProfileImage from '@/components/ui/Button/Profile/Image';
 
-import styles from '@/styles/components/Collection.module.scss';
+import styles from '@/styles/components/CollectionForList.module.scss';
 
-const Collection = ({ collection }) => {
+const CollectionForList = ({ collection }) => {
   const collectionLink = EndpointManager.generateUrl(ENDPOINTS.COLLECTION, { collectionId: collection.id });
-  const profileLink = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: collection.user.id });
 
   return (
     <>
@@ -42,17 +40,10 @@ const Collection = ({ collection }) => {
         <Link href={collectionLink} className={styles.collection__title__link}>
           <span className={styles.collection__title}>{collection.title}</span>
         </Link>
-        {collection.user && (
-          <div className={styles.collection__profile__wrapper}>
-            <Link href={profileLink} className={styles.collection__profile__link}>
-              <ProfileImage image={collection.user.profile_image} size={20} />
-              <span className={styles.collection__profile__nickname}>{collection.user.nickname}</span>
-            </Link>
-          </div>
-        )}
+        {collection.description && <p className={styles.collection__desc}>{collection.description}</p>}
       </div>
     </>
   );
 };
 
-export default Collection;
+export default CollectionForList;

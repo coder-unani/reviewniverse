@@ -169,6 +169,11 @@ header {
   margin-right: 12px;
 }
 
+.collection-template {
+  width: calc((100% - 60px) / 4);
+  margin-right: 20px;
+}
+
 .sub-margin-right {
   &:not(:last-child) {
     margin-right: 12px;
@@ -336,6 +341,11 @@ header {
     margin-right: 10px;
   }
 
+  .collection-template {
+    width: calc((100% - 36px) / 3);
+    margin-right: 18px;
+  }
+
   .sub-margin-right {
     &:not(:last-child) {
       margin-right: 10px;
@@ -372,6 +382,11 @@ header {
   .review-template {
     width: 90%;
     margin-right: 8px;
+  }
+
+  .collection-template {
+    width: calc((100% - 32px) / 2);
+    margin-right: 16px;
   }
 
   .sub-margin-right {

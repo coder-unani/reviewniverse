@@ -1,16 +1,14 @@
-import React, { Suspense } from 'react';
-import dynamic from 'next/dynamic';
+import React from 'react';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
 import ReviewWithVideo from '@/components/ui/ReviewWithVideo';
+import ReviewsSwiperClient from '@/components/ui/Client/ReviewsSwiper';
 
 import ArrowLeftIcon from '@/resources/icons/arrow-left.svg';
 import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 // import styles from '@/styles/components/GenresSwiper.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
-
-const ReviewsSwiperClient = dynamic(() => import('@/components/ui/Client/ReviewsSwiper'), { ssr: false });
 
 const ReviewsSwiper = ({ children, reviews }) => {
   if (isEmpty(reviews)) return null;
@@ -30,6 +28,7 @@ const ReviewsSwiper = ({ children, reviews }) => {
                   data-v-id={review.video.id}
                   key={review.id}
                 >
+                  {/* hydration 에러 때문에 Link를 사용하지 않고 클라이언트 컴포넌트에서 클릭 이벤트를 추가함 */}
                   <ReviewWithVideo user={review.user} review={review} isDate={false} isShort />
                 </div>
               ))}
@@ -54,9 +53,7 @@ const ReviewsSwiper = ({ children, reviews }) => {
       </section>
 
       {/* 클라이언트 컴포넌트에서 Swiper 제어 */}
-      <Suspense fallback="">
-        <ReviewsSwiperClient uniqueId={uniqueId} />
-      </Suspense>
+      <ReviewsSwiperClient uniqueId={uniqueId} />
     </>
   );
 };

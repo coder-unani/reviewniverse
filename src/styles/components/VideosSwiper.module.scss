@@ -85,10 +85,13 @@
       top: calc((100% - 73px) * 0.5);
     }
   }
-}
 
-.horizontal__video__item {
-  cursor: pointer;
+  &.collection {
+    .horizontal__prev__button,
+    .horizontal__next__button {
+      top: calc((100% - 56px) * 0.5);
+    }
+  }
 }
 
 .horizontal__prev__button,
