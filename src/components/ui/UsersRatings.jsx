@@ -4,17 +4,18 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
+import { USER_RATING_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useUserRatings } from '@/hooks/useUserRatings';
-import VideosForRating from '@/components/ui/VideosForRating';
+import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
 import styles from '@/styles/pages/UsersContents.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
 const UsersRatings = ({ userId, referrer }) => {
   const router = useRouter();
   const [videos, setVideos] = useState(null);
   const [page, setPage] = useState(1);
-  const pageSize = 20;
   const {
     data: videosData,
     error: videosError,
@@ -22,10 +23,11 @@ const UsersRatings = ({ userId, referrer }) => {
   } = useUserRatings({
     userId,
     page,
-    pageSize,
+    pageSize: USER_RATING_PAGE_SIZE,
     orderBy: 'rating_desc',
     enabled: userId,
   });
+  const template = 'rating';
 
   // 평가 데이터 처리
   useEffect(() => {
@@ -82,9 +84,20 @@ const UsersRatings = ({ userId, referrer }) => {
         </strong>
       </section>
       <section className={styles.contents__content__section}>
-        {!isEmpty(videos.data) && (
-          <VideosForRating videos={videos} handlePage={handlePage} referrer={referrer} referrerKey={userId} />
-        )}
+        <section className={vvStyles.vertical__videos__section}>
+          <div className={vvStyles.vertical__videos__wrapper}>
+            {!isEmpty(videos.data) && (
+              <InfiniteVideos
+                videos={videos}
+                template={template}
+                pageSize={USER_RATING_PAGE_SIZE}
+                handlePage={handlePage}
+                referrer={referrer}
+                referrerKey={userId}
+              />
+            )}
+          </div>
+        </section>
       </section>
     </>
   );

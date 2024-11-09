@@ -7,7 +7,7 @@ import CollectionForList from '@/components/ui/CollectionForList';
 
 import styles from '@/styles/pages/Collections.module.scss';
 
-const VideosForCollection = ({ collections, handlePage, pageSize }) => {
+const InfiniteCollections = ({ collections, pageSize, handlePage }) => {
   const hasMore = collections.count === pageSize;
   const observer = useRef();
 
@@ -45,4 +45,4 @@ const VideosForCollection = ({ collections, handlePage, pageSize }) => {
   );
 };
 
-export default VideosForCollection;
+export default InfiniteCollections;

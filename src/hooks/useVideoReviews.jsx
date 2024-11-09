@@ -2,21 +2,21 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchVideoReviews } from '@/library/api/videos';
 
-// TODO: queryKey page, pageSize 추가
+// TODO: queryKey page, size 추가
 
-export const useVideoReviews = ({ videoId, page = null, pageSize = null, metadata = null, enabled }) => {
+export const useVideoReviews = ({ videoId, page = null, size = null, metadata = null, enabled }) => {
   return useQuery({
     queryKey: [
       'videoReviews',
       videoId,
       {
         ...(page !== null && { page }),
-        ...(pageSize !== null && { pageSize }),
+        ...(size !== null && { size }),
         ...(metadata !== null && { metadata }),
       },
     ],
     queryFn: async () => {
-      const res = await fetchVideoReviews({ videoId, page, pageSize, metadata });
+      const res = await fetchVideoReviews({ videoId, page, size, metadata });
       if (res.status === 200) {
         return {
           status: true,

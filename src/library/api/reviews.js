@@ -17,8 +17,8 @@ export const fetchReviews = async ({ page = null, size = null }) => {
   try {
     const client = new FetchClient();
     const res = await client.get(endpoints.reviews, {
-      ...(page && { page }),
-      ...(size && { size }),
+      ...(page && { p: page }),
+      ...(size && { ps: size }),
     });
     return res;
   } catch (error) {

@@ -4,10 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { useRouter, notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
+import { VIDEO_REVIEW_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { fParseInt } from '@/utils/format';
 import { useVideoReviews } from '@/hooks/useVideoReviews';
-import ReviewsForVideo from '@/components/ui/ReviewsForVideo';
+import InfiniteReviews from '@/components/ui/InfiniteReviews';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
@@ -18,13 +19,18 @@ const VideoReviews = ({ id }) => {
   const videoId = fParseInt(id);
   const [reviews, setReviews] = useState(null);
   const [page, setPage] = useState(1);
-  const pageSize = 20;
   const metadata = 'video';
   const {
     data: reviewsData,
     error: reviewsError,
     isLoading: reviewsIsLoading,
-  } = useVideoReviews({ videoId, page, pageSize, metadata, enabled: videoId });
+  } = useVideoReviews({
+    videoId,
+    page,
+    pageSize: VIDEO_REVIEW_PAGE_SIZE,
+    metadata,
+    enabled: videoId,
+  });
 
   // 숫자가 아닌 경우 notFound 페이지로 이동
   useEffect(() => {
@@ -93,7 +99,14 @@ const VideoReviews = ({ id }) => {
       </section>
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>
-          {!isEmpty(reviews.data) && <ReviewsForVideo videoId={videoId} reviews={reviews} handlePage={handlePage} />}
+          {!isEmpty(reviews.data) && (
+            <InfiniteReviews
+              videoId={videoId}
+              reviews={reviews}
+              pageSize={VIDEO_REVIEW_PAGE_SIZE}
+              handlePage={handlePage}
+            />
+          )}
         </div>
       </section>
     </>

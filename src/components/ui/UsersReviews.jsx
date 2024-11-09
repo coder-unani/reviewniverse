@@ -4,9 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
+import { USER_REVIEW_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useUserReviews } from '@/hooks/useUserReviews';
-import ReviewsForUser from '@/components/ui/ReviewsForUser';
+import InfiniteReviews from '@/components/ui/InfiniteReviews';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
@@ -14,12 +15,17 @@ const UsersReviews = ({ userId, referrer }) => {
   const router = useRouter();
   const [reviews, setReviews] = useState(null);
   const [page, setPage] = useState(1);
-  const pageSize = 20;
   const {
     data: reviewsData,
     error: reviewsError,
     isLoading: reviewsIsLoading,
-  } = useUserReviews({ userId, page, pageSize, enabled: userId });
+  } = useUserReviews({
+    userId,
+    page,
+    pageSize: USER_REVIEW_PAGE_SIZE,
+    enabled: userId,
+  });
+  const template = 'video';
 
   // 리뷰 데이터 처리
   useEffect(() => {
@@ -79,7 +85,14 @@ const UsersReviews = ({ userId, referrer }) => {
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>
           {!isEmpty(reviews.data) && (
-            <ReviewsForUser reviews={reviews} handlePage={handlePage} referrer={referrer} referrerKey={userId} />
+            <InfiniteReviews
+              reviews={reviews}
+              template={template}
+              pageSize={USER_REVIEW_PAGE_SIZE}
+              handlePage={handlePage}
+              referrer={referrer}
+              referrerKey={userId}
+            />
           )}
         </div>
       </section>

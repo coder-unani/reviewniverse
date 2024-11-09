@@ -17,6 +17,7 @@ const VideoMyRating = ({ videoId, title }) => {
   return (
     <section className={styles.detail__my__rating__section}>
       <h4 className={styles.detail__main__title}>{title}</h4>
+      {/* 평가하기 점수 표시 보류 */}
       {/* <div className={styles.detail__my__rating}>
         <span className={`${styles.my__rating__text} ${styles.number}`} data-color={ratingColor}>
           {ratingText}

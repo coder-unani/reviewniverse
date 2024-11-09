@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { COUNTRIES_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
-import Videos from '@/components/ui/Videos';
+import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
 const Countries = ({ query, enabled, referrer }) => {
   const router = useRouter();
@@ -74,10 +74,10 @@ const Countries = ({ query, enabled, referrer }) => {
   if (isEmpty(videos)) return null;
 
   return (
-    <Videos
+    <InfiniteVideos
       videos={videos}
-      handlePage={handlePage}
       pageSize={COUNTRIES_PAGE_SIZE}
+      handlePage={handlePage}
       referrer={referrer}
       referrerKey={query}
     />

@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
 import { SCREEN_MAIN_ID } from '@/config/codes';
@@ -20,10 +19,10 @@ import VideosSwiper from '@/components/ui/VideosSwiper';
 import GenresSwiper from '@/components/ui/GenresSwiper';
 import ReviewsSwiper from '@/components/ui/ReviewsSwiper';
 import CollectionsSwiper from '@/components/ui/CollectionsSwiper';
+import MoreButton from '@/components/ui/Button/More';
 import Video from '@/components/ui/Video';
 
 import LayoutIcon from '@/resources/icons/outline-layout.svg';
-import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 import vvStyles from '@/styles/components/Videos.module.scss';
@@ -219,6 +218,9 @@ const Home = async () => {
 
   const reviewsTitle = '👀 최근 리뷰';
   const reviewsSubtitle = 'NEW REVIEW';
+  const reviewsMoreLink = ENDPOINTS.RECENTREVIEWS;
+  const reviewsMoreTitle = '더보기';
+  const reviewsMoreSubtitle = '리뷰 보러가기';
 
   const collectionsTitle = '🧩 컬렉션';
   const collectionsSubtitle = 'COLLECTION';
@@ -241,6 +243,7 @@ const Home = async () => {
               {reviewsTitle}
               <span className={vhStyles.horizontal__subtitle}>| {reviewsSubtitle}</span>
             </h2>
+            <MoreButton link={reviewsMoreLink} title={reviewsMoreTitle} subtitle={reviewsMoreSubtitle} />
           </div>
         </ReviewsSwiper>
 
@@ -251,14 +254,7 @@ const Home = async () => {
               {collectionsTitle}
               <span className={vhStyles.horizontal__subtitle}>| {collectionsSubtitle}</span>
             </h2>
-            <Link
-              href={collectionsMoreLink}
-              className={vhStyles.horizontal__more__wrapper}
-              aria-label={collectionsMoreSubtitle}
-            >
-              <span className={vhStyles.horizontal__more}>{collectionsMoreTitle}</span>
-              <ArrowRightIcon width={24} height={24} />
-            </Link>
+            <MoreButton link={collectionsMoreLink} title={collectionsMoreTitle} subtitle={collectionsMoreSubtitle} />
           </div>
         </CollectionsSwiper>
 
@@ -277,17 +273,6 @@ const Home = async () => {
           </div>
         </VideosSwiper>
 
-        {/* 장르 리스트 */}
-        <GenresSwiper genres={genres}>
-          <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={`${vhStyles.horizontal__title} ${vhStyles.genre}`}>
-              <LayoutIcon width={24} height={25} />
-              {genresTitle}
-              <span className={vhStyles.horizontal__subtitle}>| {genresSubtitle}</span>
-            </h2>
-          </div>
-        </GenresSwiper>
-
         {/* upcoming 콘텐츠 리스트 */}
         <VideosSwiper
           videos={upcomingVideos}
@@ -300,16 +285,20 @@ const Home = async () => {
               {upcomingVideosTitle}
               <span className={vhStyles.horizontal__subtitle}>| {upcomingVideosSubtitle}</span>
             </h2>
-            <Link
-              href={upcomingMoreLink}
-              className={vhStyles.horizontal__more__wrapper}
-              aria-label={upcomingMoreSubtitle}
-            >
-              <span className={vhStyles.horizontal__more}>{upcomingMoreTitle}</span>
-              <ArrowRightIcon width={24} height={24} />
-            </Link>
+            <MoreButton link={upcomingMoreLink} title={upcomingMoreTitle} subtitle={upcomingMoreSubtitle} />
           </div>
         </VideosSwiper>
+
+        {/* 장르 리스트 */}
+        <GenresSwiper genres={genres}>
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={`${vhStyles.horizontal__title} ${vhStyles.genre}`}>
+              <LayoutIcon width={24} height={25} />
+              {genresTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {genresSubtitle}</span>
+            </h2>
+          </div>
+        </GenresSwiper>
 
         {/* current 콘텐츠 리스트 */}
         <VideosSwiper
@@ -401,7 +390,7 @@ const Home = async () => {
           </div>
           <div className={vvStyles.vertical__videos__wrapper}>
             {videos.map((video) => (
-              <Video key={video.id} video={video} referrer={referrer} referrerKey={videosReferrerKey} />
+              <Video video={video} referrer={referrer} referrerKey={videosReferrerKey} key={video.id} />
             ))}
           </div>
         </section>

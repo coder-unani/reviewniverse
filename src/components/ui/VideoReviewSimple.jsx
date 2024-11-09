@@ -32,11 +32,11 @@ const VideoReviewSimple = ({ videoId }) => {
   const { myInfo } = useContentsContext();
   const [reviews, setReviews] = useState(null);
   const page = 1;
-  const pageSize = 5;
+  const size = 5;
   const { data: reviewsData, isLoading: reviewsIsLoading } = useVideoReviews({
     videoId,
     page,
-    pageSize,
+    size,
     enabled: videoId,
   });
   const { mutate: reviewDelete, isPending: isDeletePending } = useReviewDelete();

@@ -4,35 +4,32 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { GENRES_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
+import { REVIEWS_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
-import { useVideos } from '@/hooks/useVideos';
-import InfiniteVideos from '@/components/ui/InfiniteVideos';
+import { useReviews } from '@/hooks/useReviews';
+import InfiniteReviews from '@/components/ui/InfiniteReviews';
 
-const Genres = ({ genreId, enabled, referrer }) => {
+const Reviews = ({ enabled, referrer, referrerKey }) => {
   const router = useRouter();
-  const [videos, setVideos] = useState({});
+  const [reviews, setReviews] = useState({});
   const [page, setPage] = useState(2);
   const {
-    data: videosData,
-    error: videosError,
-    isLoading: videosIsLoading,
-  } = useVideos({
+    data: reviewsData,
+    error: reviewsError,
+    isLoading: reviewsIsLoading,
+  } = useReviews({
     page,
-    size: GENRES_PAGE_SIZE,
-    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
-    mode: VIDEO_MODE_OPTIONS.ID,
-    by: VIDEO_BY_OPTIONS.GENRE,
-    query: genreId,
+    size: REVIEWS_PAGE_SIZE,
     enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
+  const template = 'video';
 
   useEffect(() => {
-    if (videosIsLoading || !videosData || !enabled) return;
+    if (reviewsIsLoading || !reviewsData || !enabled) return;
 
     // API 호출 결과가 실패인 경우
-    if (!videosData.status) {
-      if (videosData.code === 'C001' && page > 1) {
+    if (!reviewsData.status) {
+      if (reviewsData.code === 'C001' && page > 1) {
         // 429 에러이고, 첫 페이지가 아닌 경우 이전 페이지 번호로 변경
         setPage((prev) => prev - 1);
       } else {
@@ -42,8 +39,8 @@ const Genres = ({ genreId, enabled, referrer }) => {
       return;
     }
 
-    setVideos((prev) => {
-      const newData = videosData.data;
+    setReviews((prev) => {
+      const newData = reviewsData.data;
       // 첫 페이지인 경우
       if (!prev) return { ...newData };
       // 같은 페이지인 경우
@@ -57,7 +54,7 @@ const Genres = ({ genreId, enabled, referrer }) => {
         data: prev.data ? [...prev.data, ...newData.data] : [...newData.data],
       };
     });
-  }, [videosIsLoading, videosData, page, enabled]);
+  }, [reviewsIsLoading, reviewsData, page, enabled]);
 
   // 페이지 변경
   const handlePage = (newPage) => {
@@ -65,23 +62,24 @@ const Genres = ({ genreId, enabled, referrer }) => {
   };
 
   // 에러 발생 시 에러 페이지로 이동
-  if (videosError) {
+  if (reviewsError) {
     router.push(ENDPOINTS.ERROR);
     return null;
   }
 
-  // 평가 데이터가 없는 경우
-  if (isEmpty(videos)) return null;
+  // 리뷰 데이터가 없는 경우
+  if (isEmpty(reviews)) return null;
 
   return (
-    <InfiniteVideos
-      videos={videos}
-      pageSize={GENRES_PAGE_SIZE}
+    <InfiniteReviews
+      reviews={reviews}
+      template={template}
+      pageSize={REVIEWS_PAGE_SIZE}
       handlePage={handlePage}
       referrer={referrer}
-      referrerKey={genreId}
+      referrerKey={referrerKey}
     />
   );
 };
 
-export default Genres;
+export default Reviews;

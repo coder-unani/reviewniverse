@@ -1,13 +1,14 @@
 import { SETTINGS } from '@/config/settings';
 
 export const HOME_REVALIDATE_SEC = 300; // 5분
-export const VIDEO_REVALIDATE_SEC = 600; // 10분
 export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
 export const GENRES_REVALIDATE_SEC = 3600; // 1시간
 export const COUNTRIES_REVALIDATE_SEC = 3600; // 1시간
 export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
 export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 export const COLLECTIONS_REVALIDATE_SEC = 3600; // 1시간
+export const REVIEWS_REVALIDATE_SEC = 3600; // 1시간
+export const VIDEO_REVALIDATE_SEC = 600; // 10분
 
 // 메타태그 키워드 정보
 export const SITE_KEYWORDS =
@@ -27,7 +28,12 @@ export const COUNTRIES_PAGE_SIZE = 20; // 국가 페이지 사이즈
 export const PRODUCTIONS_PAGE_SIZE = 20; // 제작사 페이지 사이즈
 export const PEOPLE_PAGE_SIZE = 20; // 인물 페이지 사이즈
 export const COLLECTIONS_PAGE_SIZE = 20; // 컬렉션 페이지 사이즈
+export const REVIEWS_PAGE_SIZE = 20; // 리뷰 페이지 사이즈
 export const SEARCH_PAGE_SIZE = 20; // 검색 페이지 사이즈
+export const VIDEO_REVIEW_PAGE_SIZE = 20; // 콘텐츠 리뷰 페이지 사이즈
+export const USER_REVIEW_PAGE_SIZE = 20; // 사용자 리뷰 페이지 사이즈
+export const USER_LIKE_PAGE_SIZE = 20; // 사용자 좋아요 페이지 사이즈
+export const USER_RATING_PAGE_SIZE = 20; // 사용자 평가 페이지 사이즈
 
 // 컬렉션 검색 코드 옵션
 export const COLLECTION_CODE_OPTIONS = {

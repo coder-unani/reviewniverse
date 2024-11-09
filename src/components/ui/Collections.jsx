@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { COLLECTIONS_PAGE_SIZE, COLLECTION_CODE_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useCollections } from '@/hooks/useCollections';
-import VideosForCollection from '@/components/ui/VideosForCollection';
+import InfiniteCollections from '@/components/ui/InfiniteCollections';
 
 const Collections = ({ enabled }) => {
   const router = useRouter();
@@ -70,7 +70,7 @@ const Collections = ({ enabled }) => {
   // 컬렉션 데이터가 없는 경우
   if (isEmpty(collections)) return null;
 
-  return <VideosForCollection collections={collections} handlePage={handlePage} pageSize={COLLECTIONS_PAGE_SIZE} />;
+  return <InfiniteCollections collections={collections} pageSize={COLLECTIONS_PAGE_SIZE} handlePage={handlePage} />;
 };
 
 export default Collections;

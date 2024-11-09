@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { UPCOMING_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useUpcomingVideos } from '@/hooks/useUpcomingVideos';
-import VideosForUpcoming from '@/components/ui/VideosForUpcoming';
+import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
 const Upcoming = ({ enabled, referrer, referrerKey }) => {
   const router = useRouter();
@@ -22,6 +22,7 @@ const Upcoming = ({ enabled, referrer, referrerKey }) => {
     size: UPCOMING_PAGE_SIZE,
     enabled, // enabled가 false인 경우 데이터 호출하지 않음
   });
+  const template = 'upcoming';
 
   useEffect(() => {
     if (videosIsLoading || !videosData || !enabled) return;
@@ -70,10 +71,11 @@ const Upcoming = ({ enabled, referrer, referrerKey }) => {
   if (isEmpty(videos)) return null;
 
   return (
-    <VideosForUpcoming
+    <InfiniteVideos
       videos={videos}
-      handlePage={handlePage}
+      template={template}
       pageSize={UPCOMING_PAGE_SIZE}
+      handlePage={handlePage}
       referrer={referrer}
       referrerKey={referrerKey}
     />

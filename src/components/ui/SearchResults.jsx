@@ -9,9 +9,10 @@ import { SEARCH_PAGE_SIZE, VIDEO_MODE_OPTIONS, DEFAULT_IMAGES } from '@/config/c
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
 import SuggestButton from '@/components/ui/Button/Suggest';
-import VideosForSearch from '@/components/ui/VideosForSearch';
+import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
 import styles from '@/styles/pages/Search.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
 /**
  * TODO:
@@ -112,13 +113,17 @@ const SearchResults = ({ query, referrer }) => {
           <strong className={styles.search__title}>
             &quot;<em>{decodeQuery}</em>&quot;의 검색 결과가 {videos.total} 개 있어요
           </strong>
-          <VideosForSearch
-            videos={videos}
-            handlePage={handlePage}
-            pageSize={SEARCH_PAGE_SIZE}
-            referrer={referrer}
-            referrerKey={decodeQuery}
-          />
+          <section className={vvStyles.vertical__videos__section}>
+            <div className={vvStyles.vertical__videos__wrapper}>
+              <InfiniteVideos
+                videos={videos}
+                pageSize={SEARCH_PAGE_SIZE}
+                handlePage={handlePage}
+                referrer={referrer}
+                referrerKey={decodeQuery}
+              />
+            </div>
+          </section>
         </>
       )}
     </section>

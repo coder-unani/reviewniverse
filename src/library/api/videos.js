@@ -163,12 +163,12 @@ export const fetchVideoMyInfo = async ({ videoId, referrer = null, referrerKey =
 };
 
 // 콘텐츠 리뷰 리스트
-export const fetchVideoReviews = async ({ videoId, page = null, pageSize = null, metadata = null }) => {
+export const fetchVideoReviews = async ({ videoId, page = null, size = null, metadata = null }) => {
   try {
     const client = new AxiosClient();
     const res = await client.get(endpoints.videoReviews.replace(':videoId', videoId), {
       ...(page && { p: page }),
-      ...(pageSize && { ps: pageSize }),
+      ...(size && { ps: size }),
       ...(metadata && { metadata }),
     });
     return res;

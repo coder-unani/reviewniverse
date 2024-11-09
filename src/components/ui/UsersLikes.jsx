@@ -4,17 +4,18 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
+import { USER_LIKE_PAGE_SIZE } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useUserLikes } from '@/hooks/useUserLikes';
-import VideosForLike from '@/components/ui/VideosForLike';
+import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
 import styles from '@/styles/pages/UsersContents.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 
 const UsersLikes = ({ userId, referrer }) => {
   const router = useRouter();
   const [videos, setVideos] = useState(null);
   const [page, setPage] = useState(1);
-  const pageSize = 20;
   const {
     data: videosData,
     error: videosError,
@@ -22,10 +23,11 @@ const UsersLikes = ({ userId, referrer }) => {
   } = useUserLikes({
     userId,
     page,
-    pageSize,
+    pageSize: USER_LIKE_PAGE_SIZE,
     orderBy: 'created_at_desc',
     enabled: userId,
   });
+  const template = 'like';
 
   // 좋아요 데이터 처리
   useEffect(() => {
@@ -83,9 +85,20 @@ const UsersLikes = ({ userId, referrer }) => {
         </strong>
       </section>
       <section className={styles.contents__content__section}>
-        {!isEmpty(videos.data) && (
-          <VideosForLike videos={videos} handlePage={handlePage} referrer={referrer} referrerKey={userId} />
-        )}
+        <section className={vvStyles.vertical__videos__section}>
+          <div className={vvStyles.vertical__videos__wrapper}>
+            {!isEmpty(videos.data) && (
+              <InfiniteVideos
+                videos={videos}
+                template={template}
+                pageSize={USER_LIKE_PAGE_SIZE}
+                handlePage={handlePage}
+                referrer={referrer}
+                referrerKey={userId}
+              />
+            )}
+          </div>
+        </section>
       </section>
     </>
   );

@@ -7,7 +7,7 @@ import { isEmpty } from 'lodash';
 import { PEOPLE_PAGE_SIZE, VIDEO_ORDER_OPTIONS, VIDEO_MODE_OPTIONS, VIDEO_BY_OPTIONS } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
-import Videos from '@/components/ui/Videos';
+import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
 const Filmography = ({ peopleId, enabled, referrer }) => {
   const router = useRouter();
@@ -74,10 +74,10 @@ const Filmography = ({ peopleId, enabled, referrer }) => {
   if (isEmpty(videos)) return null;
 
   return (
-    <Videos
+    <InfiniteVideos
       videos={videos}
-      handlePage={handlePage}
       pageSize={PEOPLE_PAGE_SIZE}
+      handlePage={handlePage}
       referrer={referrer}
       referrerKey={peopleId}
     />
