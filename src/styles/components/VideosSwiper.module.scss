@@ -89,7 +89,8 @@
   &.collection {
     .horizontal__prev__button,
     .horizontal__next__button {
-      top: calc((100% - 56px) * 0.5);
+      // top: calc((100% - 56px) * 0.5);
+      top: calc((100% - 30px) * 0.5);
     }
   }
 }
