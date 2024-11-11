@@ -129,12 +129,15 @@ const VideoPlatform = ({ platformTitle, platforms, upcoming }) => {
   // platforms.code 와 upcoming.code 가 같은 upcoming 데이터를 찾아서 platforms에 upcoming.release 추가
   const updatedPlatforms = platforms.map((platform) => {
     const upcomingPlatform = upcoming.find((uc) => uc.platform === platform.code);
-    if (upcomingPlatform) {
+
+    // upcoming release 설정
+    if (upcomingPlatform && upcomingPlatform.release && new Date(upcomingPlatform.release) > new Date()) {
       return {
         ...platform,
         release: upcomingPlatform.release,
       };
     }
+
     return platform;
   });
 
