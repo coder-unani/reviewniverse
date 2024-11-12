@@ -53,12 +53,16 @@ import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
 // ISR 재생성 주기 설정
-export const revalidate = VIDEO_REVALIDATE_SEC;
+export const revalidate = 0;
 
 // Content
 const getContent = async ({ videoId }) => {
+  const options = {
+    videoId,
+    revalidate: VIDEO_REVALIDATE_SEC,
+  };
   // 비디오 상세 API 호출
-  const res = await fetchVideoDetail({ videoId });
+  const res = await fetchVideoDetail({ ...options });
   if (res.status === 200) {
     return res.data.data;
   }
@@ -67,8 +71,12 @@ const getContent = async ({ videoId }) => {
 
 // Related Content
 const getRelatedContent = async ({ videoId }) => {
+  const options = {
+    videoId,
+    revalidate: VIDEO_REVALIDATE_SEC,
+  };
   // 연관 비디오 API 호출
-  const res = await fetchRelatedVideos({ videoId });
+  const res = await fetchRelatedVideos({ ...options });
   if (res.status === 200) {
     return res.data.data;
   }

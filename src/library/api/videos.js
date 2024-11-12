@@ -1,6 +1,5 @@
 import { SETTINGS } from '@/config/settings';
 import FetchClient from '@/utils/FetchClient';
-import AxiosClient from '@/utils/AxiosClient';
 import { cError } from '@/utils/test';
 
 const baseURL = SETTINGS.API_BASE_URL;
@@ -53,9 +52,12 @@ export const fetchCollectionVideos = async ({ page = null, size = null, code = n
 };
 
 // Collection 콘텐츠 상세정보
-export const fetchCollectionDetail = async ({ collectionId }) => {
+export const fetchCollectionDetail = async ({ collectionId, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.collectionDetail.replace(':collectionId', collectionId));
     return res;
   } catch (error) {
@@ -67,7 +69,7 @@ export const fetchCollectionDetail = async ({ collectionId }) => {
 // Collection 좋아요
 export const fetchCollectionLike = async ({ collectionId }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.post(endpoints.collectionLike.replace(':collectionId', collectionId));
     return res;
   } catch (error) {
@@ -136,9 +138,12 @@ export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
 };
 
 // 콘텐츠 상세 정보
-export const fetchVideoDetail = async ({ videoId }) => {
+export const fetchVideoDetail = async ({ videoId, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.videoDetail.replace(':videoId', videoId));
     return res;
   } catch (error) {
@@ -150,7 +155,7 @@ export const fetchVideoDetail = async ({ videoId }) => {
 // 콘텐츠 내 정보
 export const fetchVideoMyInfo = async ({ videoId, referrer = null, referrerKey = null }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.videoMyInfo.replace(':videoId', videoId), {
       ...(referrer && { ref: referrer }),
       ...(referrerKey && { ref_key: referrerKey }),
@@ -165,7 +170,7 @@ export const fetchVideoMyInfo = async ({ videoId, referrer = null, referrerKey =
 // 콘텐츠 리뷰 리스트
 export const fetchVideoReviews = async ({ videoId, page = null, size = null, metadata = null }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.get(endpoints.videoReviews.replace(':videoId', videoId), {
       ...(page && { p: page }),
       ...(size && { ps: size }),
@@ -179,9 +184,12 @@ export const fetchVideoReviews = async ({ videoId, page = null, size = null, met
 };
 
 // 콘텐츠 연관 리스트
-export const fetchRelatedVideos = async ({ videoId }) => {
+export const fetchRelatedVideos = async ({ videoId, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.videoRelated.replace(':videoId', videoId));
     return res;
   } catch (error) {
@@ -193,7 +201,7 @@ export const fetchRelatedVideos = async ({ videoId }) => {
 // 콘텐츠 좋아요
 export const fetchVideoLike = async ({ videoId }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.post(endpoints.videoLike.replace(':videoId', videoId));
     return res;
   } catch (error) {
@@ -205,7 +213,7 @@ export const fetchVideoLike = async ({ videoId }) => {
 // 콘텐트 봤어요
 export const fetchVideoWatched = async ({ videoId }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.post(endpoints.videoWatched.replace(':videoId', videoId));
     return res;
   } catch (error) {
@@ -217,7 +225,7 @@ export const fetchVideoWatched = async ({ videoId }) => {
 // 콘텐츠 기대돼요
 export const fetchVideoExpect = async ({ videoId }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.post(endpoints.videoExpect.replace(':videoId', videoId));
     return res;
   } catch (error) {
@@ -229,7 +237,7 @@ export const fetchVideoExpect = async ({ videoId }) => {
 // 콘텐츠 평점
 export const fetchVideoRating = async ({ videoId, rating }) => {
   try {
-    const client = new AxiosClient();
+    const client = new FetchClient();
     const res = await client.post(endpoints.videoRating.replace(':videoId', videoId), {}, { rating });
     return res;
   } catch (error) {

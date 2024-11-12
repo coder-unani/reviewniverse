@@ -1,5 +1,6 @@
 import { SETTINGS } from '@/config/settings';
 
+export const DEFAULT_REVALIDATE_SEC = 60; // 1분
 export const HOME_REVALIDATE_SEC = 300; // 5분
 export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
 export const GENRES_REVALIDATE_SEC = 3600; // 1시간
