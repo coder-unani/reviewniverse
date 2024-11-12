@@ -9,6 +9,8 @@ class FetchClient {
       Accept: 'application/json',
       ...(this.token && { Authorization: `Bearer ${this.token}` }),
     };
+    // Next FetchOptions
+    this.nextOptions = {};
   }
 
   setHeader(header) {
@@ -17,6 +19,12 @@ class FetchClient {
 
   unsetHeader(header) {
     delete this.headers[header];
+  }
+
+  setNextOptions(nextOptions) {
+    if (!nextOptions) return;
+
+    this.nextOptions = { ...this.nextOptions, ...nextOptions };
   }
 
   setDeviceIdentifierHeader(url) {
@@ -34,6 +42,7 @@ class FetchClient {
       const options = {
         method: 'GET',
         headers: this.headers,
+        next: this.nextOptions,
       };
 
       const response = await fetch(`${url}${queryString}`, options);
