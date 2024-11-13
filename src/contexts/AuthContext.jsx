@@ -97,7 +97,7 @@ export const AuthContextProvider = ({ children }) => {
         return { status: true, code: 'J001' };
       }
       if (resJoin.status === 400) {
-        if (resJoin.message.detail === 'EMAIL_ALREADY_EXIST') {
+        if (resJoin.data.detail === 'EMAIL_ALREADY_EXIST') {
           return { status: false, code: 'J004' };
         }
         return { status: false, code: 'J002' };
@@ -133,7 +133,7 @@ export const AuthContextProvider = ({ children }) => {
         return { status: false, code: 'L002' };
       }
       if (resLogin.status === 400) {
-        if (resLogin.message.detail === 'USER_NOT_FOUND') {
+        if (resLogin.data.detail === 'USER_NOT_FOUND') {
           return { status: false, code: 'L003' };
         }
         return { status: false, code: 'L002' };
