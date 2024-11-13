@@ -70,6 +70,7 @@ const getCountryVideos = async ({ query }) => {
     mode: VIDEO_MODE_OPTIONS.KEYWORD,
     by: VIDEO_BY_OPTIONS.COUNTRY,
     query,
+    revalidate: COUNTRIES_REVALIDATE_SEC,
   };
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { DEFAULT_REVALIDATE_SEC } from '@/config/constants';
+import { NO_REVALIDATE_SEC, COLLECTION_REVALIDATE_SEC } from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fDiffDate } from '@/utils/format';
 import { fetchCollectionDetail } from '@/library/api/videos';
@@ -15,7 +15,7 @@ import styles from '@/styles/pages/Collection.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
 
 // ISR 재생성 주기 설정
-export const revalidate = 0;
+export const revalidate = NO_REVALIDATE_SEC;
 
 // 데이터 초기화
 const initCollectionVideos = (result) => {
@@ -48,7 +48,7 @@ const initCollectionVideos = (result) => {
 const getCollectionVideos = async ({ collectionId }) => {
   const options = {
     collectionId,
-    revalidate: DEFAULT_REVALIDATE_SEC,
+    revalidate: COLLECTION_REVALIDATE_SEC,
   };
   const res = await fetchCollectionDetail({ ...options });
   if (res.status === 200) {

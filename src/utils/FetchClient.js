@@ -1,3 +1,4 @@
+import { DEFAULT_REVALIDATE_SEC } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
 import { getStorageAccessToken } from '@/utils/formatStorage';
 
@@ -10,7 +11,7 @@ class FetchClient {
       ...(this.token && { Authorization: `Bearer ${this.token}` }),
     };
     // Next FetchOptions
-    this.nextOptions = {};
+    this.nextOptions = { revalidate: DEFAULT_REVALIDATE_SEC };
   }
 
   setHeader(header) {
@@ -23,7 +24,6 @@ class FetchClient {
 
   setNextOptions(nextOptions) {
     if (!nextOptions) return;
-
     this.nextOptions = { ...this.nextOptions, ...nextOptions };
   }
 
@@ -70,14 +70,29 @@ class FetchClient {
     }
   }
 
-  async put(url, data = null) {
+  async put(url, data = null, isMultiPart = false) {
     try {
       this.setDeviceIdentifierHeader(url);
+
+      // fetch에서는 Content-Type을 지정하면 multipart/form-data로 전송되지 않아
+      // multipart/form-data로 전송하려면 Content-Type을 지우고 fetch에 data를 전달해야 함
+      if (isMultiPart) {
+        this.unsetHeader('Content-Type');
+      }
+
+      let body = null;
+      if (data) {
+        if (isMultiPart) {
+          body = data;
+        } else {
+          body = JSON.stringify(data);
+        }
+      }
 
       const response = await fetch(url, {
         method: 'PUT',
         headers: this.headers,
-        body: data ? JSON.stringify(data) : null,
+        body,
       });
 
       return FetchClient.responseHandler(response);
@@ -119,8 +134,19 @@ class FetchClient {
   }
 
   static async responseHandler(response) {
-    const data = await response.json();
-
+    let data = null;
+    try {
+      data = await response.json();
+    } catch (error) {
+      if (response.status !== 204) {
+        return {
+          status: response.status,
+          code: response.headers.get('code'),
+          message: 'An unexpected error occurred.',
+          data: null,
+        };
+      }
+    }
     return {
       status: response.status,
       code: response.headers.get('code'),

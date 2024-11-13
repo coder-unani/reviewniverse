@@ -164,7 +164,7 @@ const AuthNaverCallback = () => {
       const state = searchParams.get('state');
 
       if (code) {
-        const client = new AxiosClient();
+        const client = new FetchClient();
         client.setHeader({
           'X-Naver-Client-Id': SETTINGS.NAVER_CLIENT_ID,
           'X-Naver-Client-Secret': SETTINGS.NAVER_CLIENT_SECRET,

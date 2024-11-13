@@ -21,9 +21,12 @@ const endpoints = {
 };
 
 // Screen 콘텐츠 리스트
-export const fetchScreenVideos = async ({ code, display = null }) => {
+export const fetchScreenVideos = async ({ code, display = null, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.screens, {
       code,
       ...(display && { dp: display }),
@@ -36,9 +39,12 @@ export const fetchScreenVideos = async ({ code, display = null }) => {
 };
 
 // Collection 콘텐츠 리스트
-export const fetchCollectionVideos = async ({ page = null, size = null, code = null }) => {
+export const fetchCollectionVideos = async ({ page = null, size = null, code = null, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.collections, {
       ...(page && { p: page }),
       ...(size && { ps: size }),
@@ -101,9 +107,13 @@ export const fetchVideos = async ({
   terms = null,
   model = null,
   query = null,
+  revalidate = null,
 }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.videos, {
       ...(page && { p: page }),
       ...(size && { ps: size }),
@@ -123,9 +133,12 @@ export const fetchVideos = async ({
 };
 
 // Upcoming 콘텐츠 리스트
-export const fetchUpcomingVideos = async ({ page = null, size = null }) => {
+export const fetchUpcomingVideos = async ({ page = null, size = null, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.videosUpcoming, {
       ...(page && { p: page }),
       ...(size && { ps: size }),

@@ -1,15 +1,18 @@
 import { SETTINGS } from '@/config/settings';
 
+export const NO_REVALIDATE_SEC = 0; // 캐시 사용 안함
 export const DEFAULT_REVALIDATE_SEC = 60; // 1분
-export const HOME_REVALIDATE_SEC = 300; // 5분
+export const HOME_REVALIDATE_SEC = 600; // 10분
 export const UPCOMING_REVALIDATE_SEC = 3600; // 1시간
 export const GENRES_REVALIDATE_SEC = 3600; // 1시간
 export const COUNTRIES_REVALIDATE_SEC = 3600; // 1시간
 export const PRODUCTIONS_REVALIDATE_SEC = 3600; // 1시간
 export const PEOPLE_REVALIDATE_SEC = 3600; // 1시간
 export const COLLECTIONS_REVALIDATE_SEC = 3600; // 1시간
-export const REVIEWS_REVALIDATE_SEC = 3600; // 1시간
+export const COLLECTION_REVALIDATE_SEC = 3600; // 1시간
+export const REVIEWS_REVALIDATE_SEC = 600; // 10분
 export const VIDEO_REVALIDATE_SEC = 600; // 10분
+export const VIDEO_RELATED_REVALIDATE_SEC = 3600; // 1시간
 
 // 메타태그 키워드 정보
 export const SITE_KEYWORDS =

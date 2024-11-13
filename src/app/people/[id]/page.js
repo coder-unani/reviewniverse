@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
 import {
+  NO_REVALIDATE_SEC,
   PEOPLE_REVALIDATE_SEC,
   SITE_KEYWORDS,
   PEOPLE_KEYWORDS,
@@ -27,7 +28,7 @@ import vStyles from '@/styles/components/Videos.module.scss';
 const Filmography = dynamic(() => import('@/components/ui/Filmography'), { ssr: false });
 
 // ISR 재생성 주기 설정
-export const revalidate = PEOPLE_REVALIDATE_SEC;
+export const revalidate = NO_REVALIDATE_SEC;
 
 // 데이터 초기화
 const initPeopleVideos = (result) => {
@@ -85,6 +86,7 @@ const getPeopleVideos = async ({ peopleId }) => {
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PERSON,
     query: peopleId,
+    revalidate: PEOPLE_REVALIDATE_SEC,
   };
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {

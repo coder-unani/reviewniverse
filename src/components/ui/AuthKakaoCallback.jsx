@@ -8,7 +8,7 @@ import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { MESSAGES } from '@/config/messages';
 import { SETTINGS } from '@/config/settings';
 import { fProviderCode } from '@/utils/formatContent';
-import AxiosClient from '@/utils/AxiosClient';
+import FetchClient from '@/utils/FetchClient';
 import { useAuthContext } from '@/contexts/AuthContext';
 import { useThemeContext } from '@/contexts/ThemeContext';
 import { showSuccessToast, showErrorToast } from '@/components/ui/Toast';
@@ -31,7 +31,7 @@ const AuthKakaoCallback = () => {
     try {
       const code = searchParams.get('code');
       if (code) {
-        const client = new AxiosClient();
+        const client = new FetchClient();
         const resToken = await client.post(`https://kauth.kakao.com/oauth/token`, null, {
           grant_type: 'authorization_code',
           client_id: SETTINGS.KAKAO_API_KEY,

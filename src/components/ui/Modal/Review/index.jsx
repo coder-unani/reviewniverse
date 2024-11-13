@@ -22,11 +22,6 @@ import FillPrivateIcon from '@/resources/icons/fill-private.svg';
 import OutlinePrivateIcon from '@/resources/icons/outline-private.svg';
 import styles from '@/styles/components/ReviewModal.module.scss';
 
-/**
- * TODO:
- * - 아이콘 넓이, 높이 명시적으로 지정
- */
-
 // 이 파일에서만 아래 속성들의 eslint-disable를 적용
 /* eslint-disable react/jsx-props-no-spreading */
 

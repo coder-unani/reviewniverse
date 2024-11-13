@@ -5,7 +5,14 @@ import { notFound } from 'next/navigation';
 import { nanoid } from 'nanoid';
 import { isEmpty } from 'lodash';
 
-import { DEFAULT_IMAGES, VIDEO_REVALIDATE_SEC, SITE_KEYWORDS, VIDEO_KEYWORDS } from '@/config/constants';
+import {
+  NO_REVALIDATE_SEC,
+  VIDEO_REVALIDATE_SEC,
+  VIDEO_RELATED_REVALIDATE_SEC,
+  SITE_KEYWORDS,
+  VIDEO_KEYWORDS,
+  DEFAULT_IMAGES,
+} from '@/config/constants';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { SETTINGS } from '@/config/settings';
 import { fParseInt, fYear, fDate, fUpperCase, fStringToArray } from '@/utils/format';
@@ -53,7 +60,7 @@ import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/pages/Contents.module.scss';
 
 // ISR 재생성 주기 설정
-export const revalidate = 0;
+export const revalidate = NO_REVALIDATE_SEC;
 
 // Content
 const getContent = async ({ videoId }) => {
@@ -73,7 +80,7 @@ const getContent = async ({ videoId }) => {
 const getRelatedContent = async ({ videoId }) => {
   const options = {
     videoId,
-    revalidate: VIDEO_REVALIDATE_SEC,
+    revalidate: VIDEO_RELATED_REVALIDATE_SEC,
   };
   // 연관 비디오 API 호출
   const res = await fetchRelatedVideos({ ...options });

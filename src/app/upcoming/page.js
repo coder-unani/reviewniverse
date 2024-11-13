@@ -47,7 +47,11 @@ const initUpcomingVideos = (result) => {
 
 // UpComing 컨텐츠
 const getUpcomingVideos = async () => {
-  const options = { page: 1, size: UPCOMING_PAGE_SIZE };
+  const options = {
+    page: 1,
+    size: UPCOMING_PAGE_SIZE,
+    revalidate: UPCOMING_REVALIDATE_SEC,
+  };
   // Coming Videos API 호출
   const res = await fetchUpcomingVideos({ ...options });
   if (res.status === 200) {
@@ -56,7 +60,7 @@ const getUpcomingVideos = async () => {
   return [];
 };
 
-// TODO: 메타 태그 설정
+// 메타 태그 설정
 export const generateMetadata = async () => {
   // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
   const title = `공개 예정작 | 리뷰니버스`;

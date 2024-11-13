@@ -71,6 +71,7 @@ const getProductionVideos = async ({ productionId }) => {
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.PRODUCTION,
     query: productionId,
+    revalidate: PRODUCTIONS_REVALIDATE_SEC,
   };
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {

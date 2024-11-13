@@ -39,6 +39,7 @@ const getCollectionVideos = async () => {
     page: 1,
     size: COLLECTIONS_PAGE_SIZE,
     code: COLLECTION_CODE_OPTIONS.COLLECTION,
+    revalidate: COLLECTIONS_REVALIDATE_SEC,
   };
 
   const res = await fetchCollectionVideos({ ...options });

@@ -116,17 +116,20 @@ const UsersProfile = () => {
       }
     }
 
-    const updateData = {};
+    const updateData = new FormData();
     const fieldsCheck = ['profile_image', 'nickname', 'profile_text', 'is_marketing_agree'];
-
+    // 변경된 필드만 FormData에 추가
     fieldsCheck.forEach((field) => {
       if (data[field] !== profile[field]) {
         if (field === 'profile_image' && data[field] === DEFAULT_IMAGES.noActor) return;
         if (field === 'profile_text' && !data[field] && profile[field] === null) return;
-        updateData[field] = data[field];
+        updateData.append(field, data[field]);
       }
     });
-    if (isEmpty(updateData)) {
+    // FormData가 비어 있는지 확인
+    const isFormDataEmpty = (formData) => !Array.from(formData.keys()).length;
+
+    if (isFormDataEmpty(updateData)) {
       const pathname = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: profile.id });
       router.push(pathname);
       showSuccessToast('프로필이 수정되었습니다.');

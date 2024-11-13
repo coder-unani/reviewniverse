@@ -66,8 +66,11 @@ const initGenreVideos = (result) => {
 
 // Ranking Genres API 호출
 const getRankingGenres = async () => {
-  const count = 50;
-  const res = await fetchRankingGenres({ count });
+  const options = {
+    count: 50,
+    revalidate: GENRES_REVALIDATE_SEC,
+  };
+  const res = await fetchRankingGenres({ ...options });
   if (res.status === 200) {
     return res.data.data;
   }
@@ -83,6 +86,7 @@ const getGenreVideos = async ({ genreId }) => {
     mode: VIDEO_MODE_OPTIONS.ID,
     by: VIDEO_BY_OPTIONS.GENRE,
     query: genreId,
+    revalidate: GENRES_REVALIDATE_SEC,
   };
   const res = await fetchVideos({ ...options });
   if (res.status === 200) {

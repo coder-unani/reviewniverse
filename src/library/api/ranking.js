@@ -9,9 +9,12 @@ const endpoints = {
 };
 
 // 랭킹 콘텐츠 리스트
-export const fetchRankingVideos = async ({ code, count }) => {
+export const fetchRankingVideos = async ({ code, count, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.rankingVideos, { code, count });
     return res;
   } catch (error) {
@@ -21,9 +24,12 @@ export const fetchRankingVideos = async ({ code, count }) => {
 };
 
 // 랭킹 장르 리스트
-export const fetchRankingGenres = async ({ count }) => {
+export const fetchRankingGenres = async ({ count, revalidate = null }) => {
   try {
     const client = new FetchClient();
+    if (revalidate) {
+      client.setNextOptions({ revalidate });
+    }
     const res = await client.get(endpoints.rankingGenres, { count });
     return res;
   } catch (error) {

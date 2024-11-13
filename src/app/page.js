@@ -4,6 +4,8 @@ import { isEmpty } from 'lodash';
 import { SCREEN_MAIN_ID } from '@/config/codes';
 import {
   HOME_REVALIDATE_SEC,
+  GENRES_REVALIDATE_SEC,
+  REVIEWS_REVALIDATE_SEC,
   COLLECTION_CODE_OPTIONS,
   VIDEO_ORDER_OPTIONS,
   VIDEO_TERMS_OPTIONS,
@@ -35,6 +37,7 @@ const getScreenVideos = async () => {
   const options = {
     code: SCREEN_MAIN_ID,
     display: VIDEO_MODEL_OPTIONS.DETAIL,
+    revalidate: HOME_REVALIDATE_SEC,
   };
   // Screen Videos API 호출
   const res = await fetchScreenVideos({ ...options });
@@ -49,6 +52,7 @@ const getRankingVideos = async () => {
   const options = {
     code: new Date().toISOString().slice(0, 10).replace(/-/g, ''),
     count: 20,
+    revalidate: HOME_REVALIDATE_SEC,
   };
   // Ranking Videos API 호출
   const res = await fetchRankingVideos({ ...options });
@@ -63,6 +67,7 @@ const getUpcomingVideos = async () => {
   const options = {
     page: 1,
     size: 20,
+    revalidate: HOME_REVALIDATE_SEC,
   };
   // Coming Videos API 호출
   const res = await fetchUpcomingVideos({ ...options });
@@ -79,6 +84,7 @@ const getCurrentVideos = async () => {
     size: 20,
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
     terms: VIDEO_TERMS_OPTIONS.CURRENT,
+    revalidate: HOME_REVALIDATE_SEC,
   };
   // Current Videos API 호출
   const res = await fetchVideos({ ...options });
@@ -95,6 +101,7 @@ const getDefaultVideos = async () => {
     size: 100,
     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
     terms: VIDEO_TERMS_OPTIONS.RELEASED,
+    revalidate: HOME_REVALIDATE_SEC,
   };
   // Videos API 호출
   const res = await fetchVideos({ ...options });
@@ -108,6 +115,7 @@ const getDefaultVideos = async () => {
 const getGenres = async () => {
   const options = {
     count: 50,
+    revalidate: GENRES_REVALIDATE_SEC,
   };
   // Ranking Genres API 호출
   const res = await fetchRankingGenres({ ...options });
@@ -122,6 +130,7 @@ const getReviews = async () => {
   const options = {
     page: 1,
     size: 20,
+    revalidate: REVIEWS_REVALIDATE_SEC,
   };
   // Reviews API 호출
   const res = await fetchReviews({ ...options });
@@ -137,6 +146,7 @@ const getCollections = async () => {
     page: 1,
     size: 10,
     code: COLLECTION_CODE_OPTIONS.COLLECTION,
+    revalidate: HOME_REVALIDATE_SEC,
   };
   // Collections API 호출
   const res = await fetchCollectionVideos({ ...options });
