@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
@@ -17,25 +17,20 @@ import styles from '@/styles/components/ReviewForVideo.module.scss';
 
 /**
  * TODO:
- * 1. 리뷰 스포일러 기능
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
 const ReviewForVideo = ({ videoId, review }) => {
-  const [active, setActive] = useState(review.is_spoiler);
+  const [isSpoiler, setIsSpoiler] = useState(review.is_spoiler);
   const profilePath = review.user ? EndpointManager.generateUrl(ENDPOINTS.USER, { userId: review.user.id }) : '';
   const profileImage = review.user ? review.user.profile_image : DEFAULT_IMAGES.noActor;
   const profileNickname = review.user ? review.user.nickname : '탈퇴한 회원 입니다.';
   const profileWatchtype = review.user ? review.user.watch_type : null;
 
-  useEffect(() => {
-    setActive(review.is_spoiler);
-  }, [review]);
-
   // 스포일러 리뷰 클릭 시 스포일러 내용 보이기/숨기기
   const handleSpoiler = () => {
-    if (!active) return;
-    setActive((prev) => !prev);
+    if (!isSpoiler) return;
+    setIsSpoiler((prev) => !prev);
   };
 
   return (
@@ -70,18 +65,16 @@ const ReviewForVideo = ({ videoId, review }) => {
           )}
         </div>
 
-        <div className={styles.detail__review__body} data-spoiler={review.is_spoiler}>
-          {review.is_spoiler ? (
-            <button
-              type="button"
-              className={defStyles.review__comment__spoiler}
-              data-active={active}
-              onClick={handleSpoiler}
-            >
-              <p className={styles.detail__review__content}>{review.title}</p>
-            </button>
+        <div className={styles.detail__review__body}>
+          {isSpoiler ? (
+            <p className={defStyles.review__comment__spoiler}>
+              스포일러가 포함되어 있어요!
+              <button type="button" className={defStyles.review__spoiler__button} onClick={handleSpoiler}>
+                보기
+              </button>
+            </p>
           ) : (
-            <p className={styles.detail__review__content}>{review.title}</p>
+            <p className={styles.detail__review__comment}>{review.title}</p>
           )}
         </div>
 

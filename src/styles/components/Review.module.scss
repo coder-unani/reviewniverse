@@ -151,45 +151,19 @@
 
 .review__comment__wrapper {
   display: flex;
-
-  &[data-short='true'] {
-    .review__comment {
-      // 3줄 이상일때 생략
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      text-overflow: ellipsis;
-      overflow: hidden;
-    }
-  }
 }
 
 .review__comment__spoiler {
   position: relative;
+  font-size: 15px;
+  color: $color-white-04;
+  line-height: 20px;
   text-align: left;
-  cursor: text;
+}
 
-  &[data-active='true'] {
-    cursor: pointer;
-
-    &:hover {
-      &::before {
-        background-color: $color-white-08;
-      }
-    }
-
-    &::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 6px;
-      background-color: $color-white-09;
-      z-index: 999;
-    }
-  }
+.review__spoiler__button {
+  color: $color-red;
+  margin-left: 6px;
 }
 
 .review__comment {
@@ -207,6 +181,15 @@
   text-overflow: ellipsis;
   overflow: hidden;
   */
+
+  &[data-short='true'] {
+    // 3줄 이상일때 생략
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
 }
 
 .review__more__wrapper {

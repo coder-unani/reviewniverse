@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { isEmpty } from 'lodash';
 
@@ -22,17 +22,13 @@ import styles from '@/styles/components/Review.module.scss';
 
 const Review = ({ videoId, review }) => {
   const [data, setData] = useState(review);
-  const [active, setActive] = useState(review.is_spoiler);
+  const [isSpoiler, setIsSpoiler] = useState(review.is_spoiler);
   const userPath = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: data.user.id });
 
-  useEffect(() => {
-    setData(review);
-    setActive(review.is_spoiler);
-  }, [review]);
-
+  // 스포일러 리뷰 클릭 시 스포일러 내용 보이기/숨기기
   const handleSpoiler = () => {
-    if (!active) return;
-    setActive((prev) => !prev);
+    if (!isSpoiler) return;
+    setIsSpoiler((prev) => !prev);
   };
 
   return (
@@ -70,16 +66,14 @@ const Review = ({ videoId, review }) => {
       <div className={styles.review__video__wrapper}>
         <div className={styles.review__wrapper}>
           <div className={styles.review__content__wrapper}>
-            <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler}>
-              {data.is_spoiler ? (
-                <button
-                  type="button"
-                  className={styles.review__comment__spoiler}
-                  data-active={active}
-                  onClick={handleSpoiler}
-                >
-                  <p className={styles.review__comment}>{data.title}</p>
-                </button>
+            <div className={styles.review__comment__wrapper}>
+              {isSpoiler ? (
+                <p className={styles.review__comment__spoiler}>
+                  스포일러가 포함되어 있어요!
+                  <button type="button" className={styles.review__spoiler__button} onClick={handleSpoiler}>
+                    보기
+                  </button>
+                </p>
               ) : (
                 <p className={styles.review__comment}>{data.title}</p>
               )}

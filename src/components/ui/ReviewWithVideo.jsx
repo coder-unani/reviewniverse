@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
@@ -22,21 +22,15 @@ import styles from '@/styles/components/Review.module.scss';
 
 const ReviewWithVideo = ({ user, review, isDate = true, isShort = false, referrer = null, referrerKey = null }) => {
   const [data, setData] = useState(review);
-  const [active, setActive] = useState(review.is_spoiler);
+  const [isSpoiler, setIsSpoiler] = useState(review.is_spoiler);
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
   const videoPath = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: review.video.id });
   const userPath = EndpointManager.generateUrl(ENDPOINTS.USER, { userId: user.id });
 
-  // 리뷰 데이터 state 설정
-  useEffect(() => {
-    setData(review);
-    setActive(review.is_spoiler);
-  }, [review]);
-
   // 스포일러 처리
   const handleSpoiler = () => {
-    if (!active) return;
-    setActive((prev) => !prev);
+    if (!isSpoiler) return;
+    setIsSpoiler((prev) => !prev);
   };
 
   return (
@@ -87,18 +81,18 @@ const ReviewWithVideo = ({ user, review, isDate = true, isShort = false, referre
                 <span>{fYear(data.video.release)}</span>
               </span>
             </div>
-            <div className={styles.review__comment__wrapper} data-spoiler={data.is_spoiler} data-short={isShort}>
-              {data.is_spoiler ? (
-                <button
-                  type="button"
-                  className={styles.review__comment__spoiler}
-                  data-active={active}
-                  onClick={handleSpoiler}
-                >
-                  <p className={styles.review__comment}>{data.title}</p>
-                </button>
+            <div className={styles.review__comment__wrapper}>
+              {isSpoiler ? (
+                <p className={styles.review__comment__spoiler}>
+                  스포일러가 포함되어 있어요!
+                  <button type="button" className={styles.review__spoiler__button} onClick={handleSpoiler}>
+                    보기
+                  </button>
+                </p>
               ) : (
-                <p className={styles.review__comment}>{data.title}</p>
+                <p className={styles.review__comment} data-short={isShort}>
+                  {data.title}
+                </p>
               )}
             </div>
           </div>
