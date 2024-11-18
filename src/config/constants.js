@@ -25,6 +25,7 @@ export const COUNTRIES_KEYWORDS = '제작국가';
 export const PRODUCTIONS_KEYWORDS = '제작, 제작사, production, productions, filmes, 참여작품';
 export const PEOPLE_KEYWORDS =
   '필모그래피, filmography, 프로필, profile, 작품활동, 참여작품, 출연, 프로그램, 참여, 인물';
+export const COLLECTION_KEYWORDS = '컬렉션, collection';
 
 export const UPCOMING_PAGE_SIZE = 50; // Upcoming 페이지 사이즈
 export const GENRES_PAGE_SIZE = 20; // 장르 페이지 사이즈

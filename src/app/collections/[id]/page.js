@@ -3,7 +3,14 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { isEmpty } from 'lodash';
 
-import { NO_REVALIDATE_SEC, COLLECTION_REVALIDATE_SEC } from '@/config/constants';
+import {
+  NO_REVALIDATE_SEC,
+  COLLECTION_REVALIDATE_SEC,
+  SITE_KEYWORDS,
+  COLLECTION_KEYWORDS,
+  DEFAULT_IMAGES,
+} from '@/config/constants';
+import { SETTINGS } from '@/config/settings';
 import { EndpointManager, ENDPOINTS } from '@/config/endpoints';
 import { fParseInt, fDiffDate } from '@/utils/format';
 import { fetchCollectionDetail } from '@/library/api/videos';
@@ -58,6 +65,50 @@ const getCollectionVideos = async ({ collectionId }) => {
 };
 
 // TODO: 메타 태그 설정
+export const generateMetadata = async ({ params }) => {
+  const { id } = params;
+  const collectionId = fParseInt(id);
+
+  // 숫자가 아닌 경우 notFound 페이지로 이동
+  if (collectionId === 0) notFound();
+
+  const result = await getCollectionVideos({ collectionId });
+  const collection = initCollectionVideos(result);
+
+  // TODO: 트위터, 페이스북, 카카오, 네이버 메타태그 설정
+  const isIndex = collection.data.length > 0;
+  const title = `${collection.title} 컬렉션 | 리뷰니버스`;
+  const { description } = collection;
+  const imageUrl = isEmpty(collection.thumbnail) ? DEFAULT_IMAGES.logo : collection.thumbnail[0];
+  const pathname = EndpointManager.generateUrl(ENDPOINTS.COLLECTION, { collectionId: collection.id });
+  const url = `${SETTINGS.SITE_BASE_URL}${pathname}`;
+  const keywords = `${SITE_KEYWORDS}, ${COLLECTION_KEYWORDS}`;
+
+  return {
+    robots: {
+      index: isIndex,
+    },
+    alternates: {
+      canonical: url,
+    },
+    title,
+    description,
+    keywords,
+    openGraph: {
+      url,
+      title,
+      description,
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+    },
+  };
+};
 
 const Collection = async ({ params }) => {
   const { id } = params;
