@@ -213,12 +213,12 @@ const Home = async () => {
   const rankingVideosTemplate = 'rank';
   const rankingReferrerKey = 'ranking';
   const rankingVideosTitle = '🍿 오늘의 인기순위';
-  const rankingVideosSubtitle = `TODAY'S POPULAR RANKING`;
+  const rankingVideosSubtitle = 'POPULAR ON REVIEWNIVERSE';
 
   const upcomingVideosTemplate = 'upcoming';
   const upcomingReferrerKey = 'upcoming';
   const upcomingVideosTitle = '💖 두근두근 기대작';
-  const upcomingVideosSubtitle = 'NEW & UPCOMING RELEASES';
+  const upcomingVideosSubtitle = 'NEW ON REVIEWNIVERSE';
   const upcomingMoreLink = ENDPOINTS.UPCOMING;
   const upcomingMoreTitle = '더보기';
   const upcomingMoreSubtitle = '공개 예정작 보러가기';
@@ -237,13 +237,13 @@ const Home = async () => {
   const genresSubtitle = 'WORKS BY GENRE';
 
   const reviewsTitle = '👀 최근 작품 감상평';
-  const reviewsSubtitle = 'RECENTLY REVIEW';
+  const reviewsSubtitle = 'RECENTLY REVIEWS';
   const reviewsMoreLink = ENDPOINTS.RECENTREVIEWS;
   const reviewsMoreTitle = '더보기';
   const reviewsMoreSubtitle = '리뷰 보러가기';
 
   const collectionsTitle = '🧩 리뷰니버스가 추천하는 작품 모음';
-  const collectionsSubtitle = 'RECOMMEND COLLECTIONS';
+  const collectionsSubtitle = 'RECOMMEND ON REVIEWNIVERSE';
   const collectionsMoreLink = ENDPOINTS.COLLECTIONS;
   const collectionsMoreTitle = '더보기';
   const collectionsMoreSubtitle = '컬렉션 보러가기';
