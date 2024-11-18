@@ -15,8 +15,10 @@
 .home__main__section {
   width: 100%;
   max-width: 1440px;
-  padding-top: 36px;
-  margin: calc(175px / 2) auto 0;
+  // padding-top: 36px;
+  padding-top: 76px;
+  // margin: calc(175px / 2) auto 0;
+  margin: 0 auto;
 }
 
 @media (max-width: 768px) {

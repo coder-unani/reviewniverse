@@ -21,12 +21,9 @@ const CollectionsSwiper = ({ children, collections }) => {
         {children}
         <div className={`${styles.horizontal__videos__wrapper} ${styles.collection}`}>
           <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
-            <div className="swiper-wrapper">
+            <div className="swiper-wrapper collection-template">
               {collections.map((collection) => (
-                <div
-                  className={`swiper-slide collection-template ${styles.horizontal__video__item}`}
-                  key={collection.id}
-                >
+                <div className={`swiper-slide ${styles.horizontal__video__item}`} key={collection.id}>
                   <Collection collection={collection} />
                 </div>
               ))}

@@ -20,26 +20,26 @@ const VideosSwiper = ({ uniqueId }) => {
         modules: [Navigation],
         spaceBetween: 8,
         slidesPerView: 3,
-        slidesPerGroup: 3,
+        slidesPerGroup: 2,
         speed: 1000,
         allowTouchMove: true, // 모바일시 터치 이동 허용
         breakpoints: {
           577: {
             spaceBetween: 8,
             slidesPerView: 3,
-            slidesPerGroup: 3,
+            slidesPerGroup: 2,
             allowTouchMove: false,
           },
           769: {
             spaceBetween: 10,
-            slidesPerView: 4,
-            slidesPerGroup: 4,
+            slidesPerView: 5,
+            slidesPerGroup: 5,
             allowTouchMove: false,
           },
           1025: {
             spaceBetween: 12,
-            slidesPerView: 5,
-            slidesPerGroup: 5,
+            slidesPerView: 6,
+            slidesPerGroup: 6,
             allowTouchMove: false,
           },
         },

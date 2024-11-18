@@ -30,23 +30,18 @@ const GenresSwiper = ({ uniqueId }) => {
         allowTouchMove: true,
         breakpoints: {
           577: {
+            spaceBetween: 8,
             slidesPerView: 4,
             slidesPerGroup: 4,
             allowTouchMove: false,
           },
           769: {
             spaceBetween: 10,
-            slidesPerView: 5,
-            slidesPerGroup: 5,
-            allowTouchMove: false,
-          },
-          1025: {
-            spaceBetween: 12,
             slidesPerView: 6,
             slidesPerGroup: 6,
             allowTouchMove: false,
           },
-          1281: {
+          1025: {
             spaceBetween: 12,
             slidesPerView: 7,
             slidesPerGroup: 7,

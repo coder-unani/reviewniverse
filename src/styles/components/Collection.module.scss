@@ -77,9 +77,10 @@
   font-weight: 600;
   color: $color-white-04;
   line-height: 20px;
+  white-space: pre-wrap;
   margin-top: 6px;
 
-  // 1줄 이상일때 생략
+  // 3줄 이상일때 생략
   display: -webkit-box;
   -webkit-line-clamp: 3;
   overflow: hidden;

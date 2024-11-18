@@ -31,7 +31,7 @@ import {
   fStaffCode,
   fMakeImageUrl,
   fTrailerCode,
-  fMakeThumbnailUrl,
+  // fMakeThumbnailUrl,
 } from '@/utils/formatContent';
 import { fetchVideoDetail, fetchRelatedVideos } from '@/library/api/videos';
 import VideoLikeButton from '@/components/ui/Button/Video/Like';
@@ -49,7 +49,7 @@ import VideosSwiperForContent from '@/components/ui/VideosSwiperForContent';
 import CollectionForList from '@/components/ui/CollectionForList';
 import VideoSubInfoClient from '@/components/ui/Client/VideoSubInfo';
 import VideoTrailerClient from '@/components/ui/Client/VideoTrailer';
-import VideoGalleryClient from '@/components/ui/Client/VideoGallery';
+// import VideoGalleryClient from '@/components/ui/Client/VideoGallery';
 import VideoPeopleClient from '@/components/ui/Client/VideoPeople';
 import ContentsClient from '@/components/ui/Client/Contents';
 
@@ -327,10 +327,10 @@ const Contents = async ({ params }) => {
   const trailerUniqueId = nanoid();
   const trailerTitle = '관련 영상';
   const trailer = content.trailer || [];
-  const galleryUniqueId = nanoid();
-  const galleryTitle = '갤러리';
-  const gallery = content.thumbnail || [];
-  const galleryAlt = `${titleKr} 스틸컷`;
+  // const galleryUniqueId = nanoid();
+  // const galleryTitle = '갤러리';
+  // const gallery = content.thumbnail || [];
+  // const galleryAlt = `${titleKr} 스틸컷`;
   const seriesContents = relatedContent.series.data || [];
   const seriesTitle = '시리즈';
   const similarContents = relatedContent.similar.data || [];
@@ -580,8 +580,8 @@ const Contents = async ({ params }) => {
             </>
           )}
 
-          {/* 갤러리 */}
-          {!isEmpty(gallery) && (
+          {/* 갤러리: 애드센스를 위해 보류 */}
+          {/* {!isEmpty(gallery) && (
             <>
               <section className={styles.detail__gallery__section}>
                 <h4 className={styles.detail__main__title}>{galleryTitle}</h4>
@@ -626,10 +626,9 @@ const Contents = async ({ params }) => {
                 </article>
               </section>
 
-              {/* 갤러리 swiper 제어: 클라이언트 컴포넌트  */}
               <VideoGalleryClient uniqueId={galleryUniqueId} gallery={gallery} alt={galleryAlt} />
             </>
-          )}
+          )} */}
 
           {/* 관련 콘텐츠 */}
           {!isEmpty(seriesContents) && (
