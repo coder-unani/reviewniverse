@@ -26,7 +26,7 @@ const GenresSwiper = ({ children, genres }) => {
           <div className={`swiper ${vhStyles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {genres.map((genre) => (
-                <div className={`swiper-slide genre-template ${vhStyles.horizontal__video__item}`} key={genre.id}>
+                <div className="swiper-slide genre-template" key={genre.id}>
                   <Link
                     href={EndpointManager.generateUrl(ENDPOINTS.GENRES, { genreId: genre.id })}
                     className={styles.genre__video__link}

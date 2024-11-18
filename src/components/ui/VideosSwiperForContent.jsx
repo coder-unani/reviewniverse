@@ -24,10 +24,7 @@ const VideosSwiperForContent = ({ children, videos, template = 'default', referr
           <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {videos.map((video) => (
-                <div
-                  className={`swiper-slide horizontal-template--small ${styles.horizontal__video__item}`}
-                  key={video.id}
-                >
+                <div className="swiper-slide horizontal-template--small" key={video.id}>
                   <Video video={video} isContent referrer={referrer} referrerKey={referrerKey} />
                 </div>
               ))}

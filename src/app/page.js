@@ -21,13 +21,15 @@ import { fetchReviews } from '@/library/api/reviews';
 import VideosSwiper from '@/components/ui/VideosSwiper';
 import GenresSwiper from '@/components/ui/GenresSwiper';
 import ReviewsSwiper from '@/components/ui/ReviewsSwiper';
-import CollectionsSwiper from '@/components/ui/CollectionsSwiper';
+// import CollectionsSwiper from '@/components/ui/CollectionsSwiper';
+import Collection from '@/components/ui/Collection';
 import MoreButton from '@/components/ui/Button/More';
 // import Video from '@/components/ui/Video';
 
 import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 // import vvStyles from '@/styles/components/Videos.module.scss';
+import cvStyles from '@/styles/components/Collections.module.scss';
 
 // ISR 재생성 주기 설정
 export const revalidate = HOME_REVALIDATE_SEC;
@@ -266,7 +268,7 @@ const Home = async () => {
         </ReviewsSwiper>
 
         {/* 컬렉션 리스트 */}
-        <CollectionsSwiper collections={collections}>
+        {/* <CollectionsSwiper collections={collections}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
               {collectionsTitle}
@@ -274,7 +276,23 @@ const Home = async () => {
             </h2>
             <MoreButton link={collectionsMoreLink} title={collectionsMoreTitle} subtitle={collectionsMoreSubtitle} />
           </div>
-        </CollectionsSwiper>
+        </CollectionsSwiper> */}
+        <section className={cvStyles.vertical__collections__section}>
+          <div className={cvStyles.vertical__title__wrapper}>
+            <h2 className={cvStyles.vertical__title}>
+              {collectionsTitle}
+              <span className={cvStyles.vertical__subtitle}>| {collectionsSubtitle}</span>
+            </h2>
+            <MoreButton link={collectionsMoreLink} title={collectionsMoreTitle} subtitle={collectionsMoreSubtitle} />
+          </div>
+          <ul className={cvStyles.vertical__collections__wrapper}>
+            {collections.map((collection) => (
+              <li className={cvStyles.vertical__collections__item} key={collection.id}>
+                <Collection collection={collection} />
+              </li>
+            ))}
+          </ul>
+        </section>
 
         {/* 랭킹 콘텐츠 리스트 */}
         <VideosSwiper

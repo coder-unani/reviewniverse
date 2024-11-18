@@ -68,6 +68,7 @@ const Collection = async ({ params }) => {
 
   const result = await getCollectionVideos({ collectionId });
   const collection = initCollectionVideos(result);
+  const isAdmin = collection.user.id === 10000;
 
   const referrer = 'collections';
 
@@ -85,7 +86,7 @@ const Collection = async ({ params }) => {
           >
             <ProfileImage image={collection.user.profile_image} size={20} />
             <span className={styles.collection__profile__nickname}>{collection.user.nickname}</span>
-            {collection.user.id === 0 && <span className={styles.collection__profile__badge}>운영자</span>}
+            {isAdmin && <span className={styles.collection__profile__badge}>운영자</span>}
           </Link>
 
           <p className={styles.collection__more__wrapper}>

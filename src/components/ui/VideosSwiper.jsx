@@ -43,7 +43,7 @@ const VideosSwiper = ({ children, videos, template = 'default', referrer = null,
           <div className={`swiper ${styles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {videos.map((video, index) => (
-                <div className={`swiper-slide horizontal-template ${styles.horizontal__video__item}`} key={video.id}>
+                <div className="swiper-slide horizontal-template" key={video.id}>
                   <RenderVideoItems
                     video={video}
                     template={template}

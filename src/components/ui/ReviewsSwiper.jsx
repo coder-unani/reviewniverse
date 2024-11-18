@@ -23,11 +23,7 @@ const ReviewsSwiper = ({ children, reviews }) => {
           <div className={`swiper ${vhStyles.horizontal__videos}`} data-swiper-id={uniqueId}>
             <div className="swiper-wrapper">
               {reviews.map((review) => (
-                <div
-                  className={`swiper-slide review-template ${vhStyles.horizontal__video__item}`}
-                  data-v-id={review.video.id}
-                  key={review.id}
-                >
+                <div className="swiper-slide review-template" data-v-id={review.video.id} key={review.id}>
                   {/* hydration 에러 때문에 Link를 사용하지 않고 클라이언트 컴포넌트에서 클릭 이벤트를 추가함 */}
                   <ReviewWithVideo user={review.user} review={review} isDate={false} isShort />
                 </div>
