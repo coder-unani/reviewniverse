@@ -25,7 +25,6 @@ import CollectionsSwiper from '@/components/ui/CollectionsSwiper';
 import MoreButton from '@/components/ui/Button/More';
 // import Video from '@/components/ui/Video';
 
-import LayoutIcon from '@/resources/icons/outline-layout.svg';
 import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
 // import vvStyles from '@/styles/components/Videos.module.scss';
@@ -232,17 +231,17 @@ const Home = async () => {
   // const videosTitle = '🍟 이건 어때요?';
   // const videosSubtitle = 'RECOMMEND';
 
-  const genresTitle = '장르';
-  const genresSubtitle = 'GENRES';
+  const genresTitle = '🔫 장르별 작품들';
+  const genresSubtitle = 'WORKS BY GENRE';
 
   const reviewsTitle = '👀 최근 작품 감상평';
-  const reviewsSubtitle = 'NEW CONTENTS REVIEW';
+  const reviewsSubtitle = 'RECENTLY REVIEW';
   const reviewsMoreLink = ENDPOINTS.RECENTREVIEWS;
   const reviewsMoreTitle = '더보기';
   const reviewsMoreSubtitle = '리뷰 보러가기';
 
-  const collectionsTitle = '🧩 컬렉션';
-  const collectionsSubtitle = 'COLLECTION';
+  const collectionsTitle = '🧩 리뷰니버스가 추천하는 작품 모음';
+  const collectionsSubtitle = 'RECOMMEND COLLECTIONS';
   const collectionsMoreLink = ENDPOINTS.COLLECTIONS;
   const collectionsMoreTitle = '더보기';
   const collectionsMoreSubtitle = '컬렉션 보러가기';
@@ -295,8 +294,7 @@ const Home = async () => {
         {/* 장르 리스트 */}
         <GenresSwiper genres={genres}>
           <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={`${vhStyles.horizontal__title} ${vhStyles.genre}`}>
-              <LayoutIcon width={24} height={25} />
+            <h2 className={vhStyles.horizontal__title}>
               {genresTitle}
               <span className={vhStyles.horizontal__subtitle}>| {genresSubtitle}</span>
             </h2>

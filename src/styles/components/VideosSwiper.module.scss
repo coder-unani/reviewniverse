@@ -7,36 +7,32 @@
 
 .horizontal__title__wrapper {
   display: flex;
+  gap: 24px;
   align-items: baseline;
   justify-content: space-between;
   margin-bottom: 14px;
 }
 
 .horizontal__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
   font-size: 20px;
   font-weight: 800;
   color: $color-white-01;
   line-height: 24px;
-
-  &.genre {
-    display: flex;
-    align-items: center;
-
-    svg {
-      margin-right: 4px;
-    }
-  }
 }
 
 .horizontal__subtitle {
   font-size: 13px;
   font-weight: 700;
   color: $color-white-06;
-  margin-left: 8px;
 }
 
 .horizontal__more__wrapper {
   display: flex;
+  flex-shrink: 0;
   align-items: center;
   margin-right: -9px;
 
@@ -158,6 +154,8 @@
   }
 
   .horizontal__title {
+    flex-direction: column;
+    align-items: flex-start;
     font-size: 17px;
 
     &.genre {
