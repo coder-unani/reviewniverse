@@ -30,7 +30,9 @@ const Header = () => {
     // TODO: 고도화 필요, 홈 페이지일 때만 헤더 스타일 변경
     const header = document.querySelector('header');
     const isContentIdPath = /^\/contents\/\d+$/.test(pathname);
-    if (pathname !== ENDPOINTS.HOME && !isContentIdPath) {
+    // 메인화면 프리뷰 섹션을 없애면서 HOME 페이지 헤더 스타일 변경 삭제
+    // if (pathname !== ENDPOINTS.HOME && !isContentIdPath) {
+    if (!isContentIdPath) {
       header.classList.remove('transparent');
       return undefined;
     }
