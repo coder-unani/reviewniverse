@@ -256,6 +256,21 @@ const Home = async () => {
       </section> */}
 
       <section className={styles.home__main__section}>
+        {/* 랭킹 콘텐츠 리스트 */}
+        <VideosSwiper
+          videos={rankingVideos}
+          template={rankingVideosTemplate}
+          referrer={referrer}
+          referrerKey={rankingReferrerKey}
+        >
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={vhStyles.horizontal__title}>
+              {rankingVideosTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {rankingVideosSubtitle}</span>
+            </h2>
+          </div>
+        </VideosSwiper>
+
         {/* 리뷰 리스트 */}
         <ReviewsSwiper reviews={reviews}>
           <div className={vhStyles.horizontal__title__wrapper}>
@@ -293,21 +308,6 @@ const Home = async () => {
             ))}
           </ul>
         </section>
-
-        {/* 랭킹 콘텐츠 리스트 */}
-        <VideosSwiper
-          videos={rankingVideos}
-          template={rankingVideosTemplate}
-          referrer={referrer}
-          referrerKey={rankingReferrerKey}
-        >
-          <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>
-              {rankingVideosTitle}
-              <span className={vhStyles.horizontal__subtitle}>| {rankingVideosSubtitle}</span>
-            </h2>
-          </div>
-        </VideosSwiper>
 
         {/* 장르 리스트 */}
         <GenresSwiper genres={genres}>

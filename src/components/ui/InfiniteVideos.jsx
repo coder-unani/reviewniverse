@@ -37,9 +37,7 @@ const InfiniteVideos = ({
   referrer = null,
   referrerKey = null,
 }) => {
-  // const hasMore = videos.count === pageSize;
   const hasMore = videos.total > pageSize * videos.page;
-  console.log(hasMore);
   const observer = useRef();
 
   const lastItemRef = useCallback(
