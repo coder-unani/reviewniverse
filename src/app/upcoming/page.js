@@ -11,15 +11,11 @@ import {
 } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 import { SETTINGS } from '@/config/settings';
-// import { fDateToKorean } from '@/utils/format';
-// import { fGroupDataByRelease } from '@/utils/formatContent';
 import { fetchUpcomingVideos } from '@/library/api/videos';
 import VideoForUpcoming from '@/components/ui/VideoForUpcoming';
-// import VideosSwiper from '@/components/ui/VideosSwiper';
 
 import styles from '@/styles/pages/Upcoming.module.scss';
 import vStyles from '@/styles/components/Videos.module.scss';
-// import vsStyles from '@/styles/components/VideosSwiper.module.scss';
 
 const UpcomingComponent = dynamic(() => import('@/components/ui/Upcoming'), { ssr: false });
 
@@ -96,7 +92,6 @@ export const generateMetadata = async () => {
 const Upcoming = async () => {
   const result = await getUpcomingVideos();
   const videos = initUpcomingVideos(result);
-  // const releaseVideos = fGroupDataByRelease(videos.data);
   const referrer = 'upcoming';
   const referrerKey = 'default';
   // page 1의 데이터가 size(50)보다 작으면 enabled를 false로 설정
@@ -109,14 +104,6 @@ const Upcoming = async () => {
           <h2 className={styles.upcoming__title}>공개 예정작</h2>
         </div>
       </section>
-
-      {/* {Object.entries(releaseVideos).map(([release, videos]) => (
-        <VideosSwiper videos={videos} template={'upcoming'} key={release}>
-          <div className={vsStyles.horizontal__title__wrapper}>
-            <h2 className={vsStyles.horizontal__title}>{fDateToKorean(release)}</h2>
-          </div>
-        </VideosSwiper>
-      ))} */}
 
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
