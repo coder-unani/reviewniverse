@@ -18,7 +18,7 @@ import { SETTINGS } from '@/config/settings';
 import { fParseInt, fYear, fDate, fUpperCase, fStringToArray } from '@/utils/format';
 import {
   fBackgroundImageForPreview,
-  fBackgroundImageForContent,
+  // fBackgroundImageForContent,
   fThumbnail,
   fReleaseText,
   fReleaseDate,
@@ -291,7 +291,7 @@ const Contents = async ({ params }) => {
   const referrer = 'contents';
   const contentTemplate = 'content';
   const subInfoUniqueId = nanoid();
-  const backgroundImageUrl = fBackgroundImageForContent(content.thumbnail);
+  // const backgroundImageUrl = fBackgroundImageForContent(content.thumbnail);
   const titleOg = content.title_og || content.title_en || content.title || '';
   const titleKr = content.title || '';
   const genres = content.genre || [];
@@ -356,9 +356,9 @@ const Contents = async ({ params }) => {
       <main className={styles.detail__main}>
         <section className={styles.detail__main__section}>
           {/* 배경 이미지 */}
-          <picture className={styles.detail__background__wrapper}>
+          {/* <picture className={styles.detail__background__wrapper}>
             <div className={styles.detail__background} style={{ backgroundImage: `url(${backgroundImageUrl})` }} />
-          </picture>
+          </picture> */}
           <div className={styles.detail__main__info__container}>
             <div className={styles.detail__main__info__wrapper}>
               <article className={styles.detail__title__container}>

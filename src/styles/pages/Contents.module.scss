@@ -10,7 +10,8 @@
 .detail__main__section {
   position: relative;
   width: 100vw;
-  height: 600px;
+  // height: 600px;
+  padding-top: 100px;
 }
 
 .detail__background__wrapper {
@@ -46,11 +47,11 @@
 }
 
 .detail__main__info__container {
-  position: absolute;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
   width: 100%;
   padding-bottom: 20px;
-  margin-bottom: calc(120px / 2);
+  // margin-bottom: calc(120px / 2);
 }
 
 .detail__main__info__wrapper {
@@ -119,9 +120,9 @@
 }
 
 .detail__sub__info__container {
-  position: absolute;
-  bottom: 0;
-  transform: translateY(50%);
+  // position: absolute;
+  // bottom: 0;
+  // transform: translateY(50%);
   width: 100%;
   cursor: grab;
 }
@@ -266,7 +267,8 @@
 .detail__sub__wrapper {
   width: 100%;
   max-width: 1440px;
-  padding-top: calc((120px / 2) + 20px);
+  // padding-top: calc((120px / 2) + 20px);
+  padding-top: 20px;
   margin: 0 auto;
 }
 
