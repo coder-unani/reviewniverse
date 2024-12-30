@@ -7,14 +7,14 @@ import {
   GENRES_REVALIDATE_SEC,
   REVIEWS_REVALIDATE_SEC,
   COLLECTION_CODE_OPTIONS,
-  // VIDEO_ORDER_OPTIONS,
-  // VIDEO_TERMS_OPTIONS,
+  VIDEO_ORDER_OPTIONS,
+  VIDEO_TERMS_OPTIONS,
   // VIDEO_MODEL_OPTIONS,
 } from '@/config/constants';
 import { ENDPOINTS } from '@/config/endpoints';
 // import { fExportScreenDataByCode } from '@/utils/formatContent';
 // import { fetchScreenVideos, fetchCollectionVideos, fetchVideos, fetchUpcomingVideos } from '@/library/api/videos';
-import { fetchCollectionVideos, fetchUpcomingVideos } from '@/library/api/videos';
+import { fetchCollectionVideos, fetchUpcomingVideos, fetchVideos } from '@/library/api/videos';
 import { fetchRankingVideos, fetchRankingGenres } from '@/library/api/ranking';
 import { fetchReviews } from '@/library/api/reviews';
 // import VideosSwiperForPreview from '@/components/ui/VideosSwiperForPreview';
@@ -24,11 +24,11 @@ import ReviewsSwiper from '@/components/ui/ReviewsSwiper';
 // import CollectionsSwiper from '@/components/ui/CollectionsSwiper';
 import Collection from '@/components/ui/Collection';
 import MoreButton from '@/components/ui/Button/More';
-// import Video from '@/components/ui/Video';
+import Video from '@/components/ui/Video';
 
 import styles from '@/styles/pages/Home.module.scss';
 import vhStyles from '@/styles/components/VideosSwiper.module.scss';
-// import vvStyles from '@/styles/components/Videos.module.scss';
+import vvStyles from '@/styles/components/Videos.module.scss';
 import cvStyles from '@/styles/components/Collections.module.scss';
 
 // ISR 재생성 주기 설정
@@ -80,38 +80,38 @@ const getUpcomingVideos = async () => {
 };
 
 // Current 컨텐츠
-// const getCurrentVideos = async () => {
-//   const options = {
-//     page: 1,
-//     size: 20,
-//     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
-//     terms: VIDEO_TERMS_OPTIONS.CURRENT,
-//     revalidate: HOME_REVALIDATE_SEC,
-//   };
-//   // Current Videos API 호출
-//   const res = await fetchVideos({ ...options });
-//   if (res.status === 200) {
-//     return res.data.data;
-//   }
-//   return [];
-// };
+const getCurrentVideos = async () => {
+  const options = {
+    page: 1,
+    size: 20,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_ASC,
+    terms: VIDEO_TERMS_OPTIONS.CURRENT,
+    revalidate: HOME_REVALIDATE_SEC,
+  };
+  // Current Videos API 호출
+  const res = await fetchVideos({ ...options });
+  if (res.status === 200) {
+    return res.data.data;
+  }
+  return [];
+};
 
 // 기본 컨텐츠
-// const getDefaultVideos = async () => {
-//   const options = {
-//     page: 1,
-//     size: 100,
-//     orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
-//     terms: VIDEO_TERMS_OPTIONS.RELEASED,
-//     revalidate: HOME_REVALIDATE_SEC,
-//   };
-//   // Videos API 호출
-//   const res = await fetchVideos({ ...options });
-//   if (res.status === 200) {
-//     return res.data.data;
-//   }
-//   return [];
-// };
+const getDefaultVideos = async () => {
+  const options = {
+    page: 1,
+    size: 30,
+    orderBy: VIDEO_ORDER_OPTIONS.RELEASE_DESC,
+    terms: VIDEO_TERMS_OPTIONS.RELEASED,
+    revalidate: HOME_REVALIDATE_SEC,
+  };
+  // Videos API 호출
+  const res = await fetchVideos({ ...options });
+  if (res.status === 200) {
+    return res.data.data;
+  }
+  return [];
+};
 
 // Genres
 const getGenres = async () => {
@@ -164,8 +164,8 @@ const Home = async () => {
     // screenVideos,
     rankingVideos,
     upcomingVideos,
-    // currentVideos,
-    // videos,
+    currentVideos,
+    videos,
     genres,
     reviews,
     collections,
@@ -173,8 +173,8 @@ const Home = async () => {
     // getScreenVideos(),
     getRankingVideos(),
     getUpcomingVideos(),
-    // getCurrentVideos(),
-    // getDefaultVideos(),
+    getCurrentVideos(),
+    getDefaultVideos(),
     getGenres(),
     getReviews(),
     getCollections(),
@@ -223,15 +223,15 @@ const Home = async () => {
   const upcomingMoreTitle = '더보기';
   const upcomingMoreSubtitle = '공개 예정작 보러가기';
 
-  // const currentVideosTemplate = 'default';
-  // const currentReferrerKey = 'current';
-  // const currentVideosTitle = '🌰 따끈~따끈한 신작';
-  // const currentVideosSubtitle = 'NEW RELEASE';
+  const currentVideosTemplate = 'default';
+  const currentReferrerKey = 'current';
+  const currentVideosTitle = '🌰 따끈~따끈한 신작';
+  const currentVideosSubtitle = 'NEW RELEASE';
 
   // const videosTemplate = 'default';
-  // const videosReferrerKey = 'default';
-  // const videosTitle = '🍟 이건 어때요?';
-  // const videosSubtitle = 'RECOMMEND';
+  const videosReferrerKey = 'default';
+  const videosTitle = '🍟 이건 어때요?';
+  const videosSubtitle = 'RECOMMEND';
 
   const genresTitle = '🔫 장르별 작품들';
   const genresSubtitle = 'WORKS BY GENRE';
@@ -271,17 +271,6 @@ const Home = async () => {
           </div>
         </VideosSwiper>
 
-        {/* 리뷰 리스트 */}
-        <ReviewsSwiper reviews={reviews}>
-          <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>
-              {reviewsTitle}
-              <span className={vhStyles.horizontal__subtitle}>| {reviewsSubtitle}</span>
-            </h2>
-            <MoreButton link={reviewsMoreLink} title={reviewsMoreTitle} subtitle={reviewsMoreSubtitle} />
-          </div>
-        </ReviewsSwiper>
-
         {/* 컬렉션 리스트 */}
         {/* <CollectionsSwiper collections={collections}>
           <div className={vhStyles.horizontal__title__wrapper}>
@@ -309,16 +298,6 @@ const Home = async () => {
           </ul>
         </section>
 
-        {/* 장르 리스트 */}
-        <GenresSwiper genres={genres}>
-          <div className={vhStyles.horizontal__title__wrapper}>
-            <h2 className={vhStyles.horizontal__title}>
-              {genresTitle}
-              <span className={vhStyles.horizontal__subtitle}>| {genresSubtitle}</span>
-            </h2>
-          </div>
-        </GenresSwiper>
-
         {/* upcoming 콘텐츠 리스트 */}
         <VideosSwiper
           videos={upcomingVideos}
@@ -335,8 +314,18 @@ const Home = async () => {
           </div>
         </VideosSwiper>
 
+        {/* 장르 리스트 */}
+        <GenresSwiper genres={genres}>
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={vhStyles.horizontal__title}>
+              {genresTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {genresSubtitle}</span>
+            </h2>
+          </div>
+        </GenresSwiper>
+
         {/* current 콘텐츠 리스트: 애드센스를 위해 보류 */}
-        {/* <VideosSwiper
+        <VideosSwiper
           videos={currentVideos}
           template={currentVideosTemplate}
           referrer={referrer}
@@ -348,7 +337,18 @@ const Home = async () => {
               <span className={vhStyles.horizontal__subtitle}>| {currentVideosSubtitle}</span>
             </h2>
           </div>
-        </VideosSwiper> */}
+        </VideosSwiper>
+
+        {/* 리뷰 리스트 */}
+        <ReviewsSwiper reviews={reviews}>
+          <div className={vhStyles.horizontal__title__wrapper}>
+            <h2 className={vhStyles.horizontal__title}>
+              {reviewsTitle}
+              <span className={vhStyles.horizontal__subtitle}>| {reviewsSubtitle}</span>
+            </h2>
+            <MoreButton link={reviewsMoreLink} title={reviewsMoreTitle} subtitle={reviewsMoreSubtitle} />
+          </div>
+        </ReviewsSwiper>
 
         {/* screen 콘텐츠 리스트: 애드센스를 위해 보류 */}
         {/* {!isEmpty(screenMA02Videos) && (
@@ -416,7 +416,7 @@ const Home = async () => {
         )} */}
 
         {/* 기본 콘텐츠 리스트: 애드센스를 위해 보류 */}
-        {/* <section className={vvStyles.vertical__videos__section}>
+        <section className={vvStyles.vertical__videos__section}>
           <div className={vvStyles.vertical__title__wrapper}>
             <h2 className={vvStyles.vertical__title}>
               {videosTitle}
@@ -428,7 +428,7 @@ const Home = async () => {
               <Video video={video} referrer={referrer} referrerKey={videosReferrerKey} key={video.id} />
             ))}
           </div>
-        </section> */}
+        </section>
       </section>
     </main>
   );
