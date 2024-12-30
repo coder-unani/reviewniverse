@@ -12,6 +12,10 @@
 }
 
 .vertical__title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 8px;
   font-size: 20px;
   font-weight: 800;
   color: $color-white-01;
@@ -64,6 +68,8 @@
   }
 
   .vertical__title {
+    flex-direction: column;
+    align-items: flex-start;
     font-size: 17px;
   }
 
