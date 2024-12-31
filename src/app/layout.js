@@ -78,7 +78,6 @@ const RootLayout = ({ children }) => {
         <link rel="search" href="/opensearch.xml" title="리뷰니버스" type="application/opensearchdescription+xml" />
         <meta name="google-adsense-account" content="ca-pub-7044402203491694" />
       </head>
-      <GoogleTagManager gtmId="GTM-K6WX4N4H" />
       <GoogleAnalytics gaId="G-14KE5C52P1" />
       <NaverAnalytics />
       <body>
