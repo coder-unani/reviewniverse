@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import { GoogleTagManager, GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
 
 import { DEFAULT_IMAGES, SITE_KEYWORDS } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
