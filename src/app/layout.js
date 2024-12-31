@@ -1,5 +1,5 @@
 import Script from 'next/script';
-import { GoogleAnalytics } from '@next/third-parties/google';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 import { DEFAULT_IMAGES, SITE_KEYWORDS } from '@/config/constants';
 import { SETTINGS } from '@/config/settings';
@@ -78,7 +78,7 @@ const RootLayout = ({ children }) => {
         <link rel="search" href="/opensearch.xml" title="리뷰니버스" type="application/opensearchdescription+xml" />
         <meta name="google-adsense-account" content="ca-pub-7044402203491694" />
       </head>
-      <GoogleAnalytics gaId="G-14KE5C52P1" />
+      <GoogleTagManager gtmId="GTM-WZDCNCZW" />
       <NaverAnalytics />
       <body>
         <DefaultLayout>{children}</DefaultLayout>
