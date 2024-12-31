@@ -1,32 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/sitemap.xml",
-      "destination": "https://storage.reviewniverse.net/sitemap/sitemap.xml"
-    },
-    {
-      "source": "/sitemap/contents-1.xml",
-      "destination": "https://storage.reviewniverse.net/sitemap/contents-1.xml"
-    },
-    {
-      "source": "/sitemap/collections-1.xml",
-      "destination": "https://storage.reviewniverse.net/sitemap/collections-1.xml"
-    },
-    {
-      "source": "/sitemap/genres-1.xml",
-      "destination": "https://storage.reviewniverse.net/sitemap/genres-1.xml"
-    },
-    {
-      "source": "/sitemap/people-1.xml",
-      "destination": "https://storage.reviewniverse.net/sitemap/people-1.xml"
-    },
-    {
-      "source": "/sitemap/productions-1.xml",
-      "destination": "https://storage.reviewniverse.net/sitemap/productions-1.xml"
-    },
-    {
-      "source": "/__/auth/:path*",
-      "destination": "https://reviewniverse-899d2.firebaseapp.com/__/auth/:path*"
+      "source": "/sitemap/:path*",
+      "destination": "https://storage.reviewniverse.net/sitemap/:path*"
     }
   ],
   "headers": [
