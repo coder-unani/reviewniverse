@@ -10,7 +10,11 @@ import VideoImage from '@/components/ui/VideoImage';
 
 import styles from '@/styles/components/Video.module.scss';
 
-const VideoForRating = ({ video, referrer = null, referrerKey = null }) => {
+const VideoForRating = ({
+  video,
+  // referrer = null,
+  // referrerKey = null
+}) => {
   const { id, title, thumbnail, code } = video.video;
   const { rating } = video;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
@@ -21,10 +25,10 @@ const VideoForRating = ({ video, referrer = null, referrerKey = null }) => {
     <Link
       href={{
         pathname,
-        query: {
-          ...(referrer && { ref: referrer }),
-          ...(referrerKey && { ref_key: referrerKey }),
-        },
+        // query: {
+        //   ...(referrer && { ref: referrer }),
+        //   ...(referrerKey && { ref_key: referrerKey }),
+        // },
       }}
       className={styles.default__video__item}
       aria-label={title}

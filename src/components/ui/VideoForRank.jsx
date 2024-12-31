@@ -38,7 +38,13 @@ const RankingNumber = ({ number }) => {
   ));
 };
 
-const VideoForRank = ({ video, index, isClient = false, referrer = null, referrerKey = null }) => {
+const VideoForRank = ({
+  video,
+  index,
+  isClient = false,
+  // referrer = null,
+  // referrerKey = null
+}) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
@@ -51,10 +57,10 @@ const VideoForRank = ({ video, index, isClient = false, referrer = null, referre
     <Link
       href={{
         pathname,
-        query: {
-          ...(referrer && { ref: referrer }),
-          ...(referrerKey && { ref_key: referrerKey }),
-        },
+        // query: {
+        //   ...(referrer && { ref: referrer }),
+        //   ...(referrerKey && { ref_key: referrerKey }),
+        // },
       }}
       className={styles.default__video__item}
       aria-label={title}

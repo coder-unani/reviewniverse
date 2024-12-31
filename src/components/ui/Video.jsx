@@ -11,7 +11,13 @@ import StarIcon from '@/resources/icons/fill-star.svg';
 import ReviewIcon from '@/resources/icons/fill-comment.svg';
 import styles from '@/styles/components/Video.module.scss';
 
-const Video = ({ video, isClient = false, isContent = false, referrer = null, referrerKey = null }) => {
+const Video = ({
+  video,
+  isClient = false,
+  isContent = false,
+  // referrer = null,
+  // referrerKey = null
+}) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
@@ -24,10 +30,10 @@ const Video = ({ video, isClient = false, isContent = false, referrer = null, re
     <Link
       href={{
         pathname,
-        query: {
-          ...(referrer && { ref: referrer }),
-          ...(referrerKey && { ref_key: referrerKey }),
-        },
+        // query: {
+        //   ...(referrer && { ref: referrer }),
+        //   ...(referrerKey && { ref_key: referrerKey }),
+        // },
       }}
       className={styles.default__video__item}
       aria-label={title}
