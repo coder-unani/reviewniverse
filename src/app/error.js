@@ -22,11 +22,11 @@ const Error = () => {
             height={240}
             priority
           />
-          <p className={styles.error__title}>서비스에 접속할 수 없습니다.</p>
+          <p className={styles.error__title}>잠시 후 다시 확인해주세요!</p>
           <p className={styles.error__subtitle}>
-            죄송합니다. 기술적인 문제로 일시적으로 접속되지 않습니다.
+            지금 이 서비스와 연결할 수 없습니다.
             <br />
-            잠시 후 다시 이용 부탁드립니다.
+            잠시 후 다시 확인해주세요.
           </p>
           <HomeButton />
         </div>
