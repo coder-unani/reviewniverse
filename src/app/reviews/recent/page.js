@@ -51,8 +51,6 @@ const RecentReviews = async () => {
   const result = await getReviews();
   const reviews = initReviews(result);
   const subtitle = '최근 리뷰';
-  const referrer = 'reviews';
-  const referrerKey = 'recent';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = reviews.total > REVIEWS_PAGE_SIZE;
 
@@ -68,16 +66,10 @@ const RecentReviews = async () => {
       <section className={styles.reviews__content__section}>
         <div className={styles.reviews__content}>
           {reviews.data.map((review) => (
-            <ReviewWithVideo
-              user={review.user}
-              review={review}
-              referrer={referrer}
-              referrerKey={referrerKey}
-              key={review.id}
-            />
+            <ReviewWithVideo user={review.user} review={review} key={review.id} />
           ))}
           <Suspense fallback="">
-            <ReviewsComponent enabled={enabled} referrer={referrer} referrerKey={referrerKey} />
+            <ReviewsComponent enabled={enabled} />
           </Suspense>
         </div>
       </section>

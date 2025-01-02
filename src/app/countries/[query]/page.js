@@ -138,7 +138,6 @@ const Countries = async ({ params }) => {
 
   const { country } = videos.metadata;
   const subtitle = '제작국가';
-  const referrer = 'countries';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > COUNTRIES_PAGE_SIZE;
 
@@ -154,10 +153,10 @@ const Countries = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video video={video} referrer={referrer} referrerKey={decodeQuery} key={video.id} />
+            <Video video={video} key={video.id} />
           ))}
           <Suspense fallback="">
-            <CountriesComponent query={decodeQuery} enabled={enabled} referrer={referrer} />
+            <CountriesComponent query={decodeQuery} enabled={enabled} />
           </Suspense>
         </div>
       </section>

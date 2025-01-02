@@ -121,8 +121,6 @@ const Collection = async ({ params }) => {
   const collection = initCollectionVideos(result);
   const isAdmin = collection.user.id === 10000;
 
-  const referrer = 'collections';
-
   return (
     <main className={styles.collection__main}>
       <section className={styles.collection__section}>
@@ -154,7 +152,7 @@ const Collection = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {collection.data.map((video) => (
-            <Video video={video} referrer={referrer} referrerKey={collectionId} key={video.id} />
+            <Video video={video} key={video.id} />
           ))}
         </div>
       </section>

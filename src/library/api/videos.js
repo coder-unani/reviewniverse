@@ -166,13 +166,10 @@ export const fetchVideoDetail = async ({ videoId, revalidate = null }) => {
 };
 
 // 콘텐츠 내 정보
-export const fetchVideoMyInfo = async ({ videoId, referrer = null, referrerKey = null }) => {
+export const fetchVideoMyInfo = async ({ videoId }) => {
   try {
     const client = new FetchClient();
-    const res = await client.get(endpoints.videoMyInfo.replace(':videoId', videoId), {
-      ...(referrer && { ref: referrer }),
-      ...(referrerKey && { ref_key: referrerKey }),
-    });
+    const res = await client.get(endpoints.videoMyInfo.replace(':videoId', videoId));
     return res;
   } catch (error) {
     cError(error);

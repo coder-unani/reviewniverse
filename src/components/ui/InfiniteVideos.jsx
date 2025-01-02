@@ -9,34 +9,27 @@ import VideoForRating from '@/components/ui/VideoForRating';
 import VideoForUpcoming from '@/components/ui/VideoForUpcoming';
 
 // 템플릿에 따른 비디오 아이템 렌더링
-const RenderVideoItems = ({ video, template, referrer, referrerKey }) => {
+const RenderVideoItems = ({ video, template }) => {
   switch (template) {
     case 'like':
       // 좋아요 비디오 아이템 렌더링
-      return <VideoForLike video={video} referrer={referrer} referrerKey={referrerKey} />;
+      return <VideoForLike video={video} />;
     case 'rating':
       // 평가 비디오 아이템 렌더링
-      return <VideoForRating video={video} referrer={referrer} referrerKey={referrerKey} />;
+      return <VideoForRating video={video} />;
     case 'upcoming':
       // 커밍순 아이템 렌더링
-      return <VideoForUpcoming video={video} isClient referrer={referrer} referrerKey={referrerKey} />;
+      return <VideoForUpcoming video={video} isClient />;
     case 'default':
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} isClient referrer={referrer} referrerKey={referrerKey} />;
+      return <Video video={video} isClient />;
     default:
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} isClient referrer={referrer} referrerKey={referrerKey} />;
+      return <Video video={video} isClient />;
   }
 };
 
-const InfiniteVideos = ({
-  videos,
-  template = 'default',
-  pageSize,
-  handlePage,
-  referrer = null,
-  referrerKey = null,
-}) => {
+const InfiniteVideos = ({ videos, template = 'default', pageSize, handlePage }) => {
   const hasMore = videos.total > pageSize * videos.page;
   const observer = useRef();
 
@@ -65,13 +58,7 @@ const InfiniteVideos = ({
   return (
     <>
       {videos.data.map((video) => (
-        <RenderVideoItems
-          video={video}
-          template={template}
-          referrer={referrer}
-          referrerKey={referrerKey}
-          key={video.id}
-        />
+        <RenderVideoItems video={video} template={template} key={video.id} />
       ))}
       {hasMore && <article ref={lastItemRef} />}
     </>

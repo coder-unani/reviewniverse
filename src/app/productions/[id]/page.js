@@ -139,7 +139,6 @@ const Productions = async ({ params }) => {
 
   const { production } = videos.metadata;
   const subtitle = '제작사';
-  const referrer = 'productions';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > PRODUCTIONS_PAGE_SIZE;
 
@@ -155,10 +154,10 @@ const Productions = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video video={video} referrer={referrer} referrerKey={productionId} key={video.id} />
+            <Video video={video} key={video.id} />
           ))}
           <Suspense fallback="">
-            <ProductionsComponent productionId={productionId} enabled={enabled} referrer={referrer} />
+            <ProductionsComponent productionId={productionId} enabled={enabled} />
           </Suspense>
         </div>
       </section>

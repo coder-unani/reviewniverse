@@ -155,7 +155,6 @@ const Genres = async ({ params }) => {
 
   const { genre } = videos.metadata;
   const subtitle = '장르';
-  const referrer = 'genres';
   // page 1의 데이터가 size(20)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > GENRES_PAGE_SIZE;
 
@@ -173,10 +172,10 @@ const Genres = async ({ params }) => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <Video video={video} key={video.id} referrer={referrer} referrerKey={genreId} />
+            <Video video={video} key={video.id} />
           ))}
           <Suspense fallback="">
-            <GenresComponent genreId={genreId} enabled={enabled} referrer={referrer} />
+            <GenresComponent genreId={genreId} enabled={enabled} />
           </Suspense>
         </div>
       </section>

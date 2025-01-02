@@ -180,8 +180,6 @@ const Home = async () => {
     getCollections(),
   ]);
 
-  const referrer = 'home';
-
   // const previewData = fExportScreenDataByCode(screenVideos, 'MA01');
   // const previewVideos = previewData.content.list || [];
   // const previewReferrerKey = 'MA01';
@@ -211,12 +209,10 @@ const Home = async () => {
   // const screenMA05Title = screenMA05Data?.title || '';
 
   const rankingVideosTemplate = 'rank';
-  const rankingReferrerKey = 'ranking';
   const rankingVideosTitle = '🍿 오늘의 인기순위';
   const rankingVideosSubtitle = 'POPULAR ON REVIEWNIVERSE';
 
   const upcomingVideosTemplate = 'upcoming';
-  const upcomingReferrerKey = 'upcoming';
   const upcomingVideosTitle = '💖 두근두근 기대작';
   const upcomingVideosSubtitle = 'NEW ON REVIEWNIVERSE';
   const upcomingMoreLink = ENDPOINTS.UPCOMING;
@@ -224,12 +220,10 @@ const Home = async () => {
   const upcomingMoreSubtitle = '공개 예정작 보러가기';
 
   const currentVideosTemplate = 'default';
-  const currentReferrerKey = 'current';
   const currentVideosTitle = '🌰 따끈~따끈한 신작';
   const currentVideosSubtitle = 'NEW RELEASE';
 
   // const videosTemplate = 'default';
-  const videosReferrerKey = 'default';
   const videosTitle = '🍟 이건 어때요?';
   const videosSubtitle = 'RECOMMEND';
 
@@ -252,17 +246,12 @@ const Home = async () => {
     <main className={styles.home__main}>
       {/* 콘텐츠 프리뷰: 애드센스를 위해 보류 */}
       {/* <section className={styles.home__preview__section}>
-        <VideosSwiperForPreview videos={previewVideos} referrer={referrer} referrerKey={previewReferrerKey} />
+        <VideosSwiperForPreview videos={previewVideos} />
       </section> */}
 
       <section className={styles.home__main__section}>
         {/* 랭킹 콘텐츠 리스트 */}
-        <VideosSwiper
-          videos={rankingVideos}
-          template={rankingVideosTemplate}
-          referrer={referrer}
-          referrerKey={rankingReferrerKey}
-        >
+        <VideosSwiper videos={rankingVideos} template={rankingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
               {rankingVideosTitle}
@@ -299,12 +288,7 @@ const Home = async () => {
         </section>
 
         {/* upcoming 콘텐츠 리스트 */}
-        <VideosSwiper
-          videos={upcomingVideos}
-          template={upcomingVideosTemplate}
-          referrer={referrer}
-          referrerKey={upcomingReferrerKey}
-        >
+        <VideosSwiper videos={upcomingVideos} template={upcomingVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
               {upcomingVideosTitle}
@@ -325,12 +309,7 @@ const Home = async () => {
         </GenresSwiper>
 
         {/* current 콘텐츠 리스트: 애드센스를 위해 보류 */}
-        <VideosSwiper
-          videos={currentVideos}
-          template={currentVideosTemplate}
-          referrer={referrer}
-          referrerKey={currentReferrerKey}
-        >
+        <VideosSwiper videos={currentVideos} template={currentVideosTemplate}>
           <div className={vhStyles.horizontal__title__wrapper}>
             <h2 className={vhStyles.horizontal__title}>
               {currentVideosTitle}
@@ -355,8 +334,6 @@ const Home = async () => {
           <VideosSwiper
             videos={screenMA02Videos}
             template={screenMA02Template}
-            referrer={referrer}
-            referrerKey={screenMA02ReferrerKey}
           >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
@@ -371,8 +348,6 @@ const Home = async () => {
           <VideosSwiper
             videos={screenMA03Videos}
             template={screenMA03Template}
-            referrer={referrer}
-            referrerKey={screenMA03ReferrerKey}
           >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
@@ -387,8 +362,6 @@ const Home = async () => {
           <VideosSwiper
             videos={screenMA04Videos}
             template={screenMA04Template}
-            referrer={referrer}
-            referrerKey={screenMA04ReferrerKey}
           >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
@@ -403,8 +376,6 @@ const Home = async () => {
           <VideosSwiper
             videos={screenMA05Videos}
             template={screenMA05Template}
-            referrer={referrer}
-            referrerKey={screenMA05ReferrerKey}
           >
             <div className={vhStyles.horizontal__title__wrapper}>
               <h2 className={vhStyles.horizontal__title}>
@@ -425,7 +396,7 @@ const Home = async () => {
           </div>
           <div className={vvStyles.vertical__videos__wrapper}>
             {videos.map((video) => (
-              <Video video={video} referrer={referrer} referrerKey={videosReferrerKey} key={video.id} />
+              <Video video={video} key={video.id} />
             ))}
           </div>
         </section>

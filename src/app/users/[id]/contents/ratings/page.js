@@ -21,12 +21,10 @@ const UsersRatings = ({ params }) => {
   // 숫자가 아닌 경우 notFound 페이지로 이동
   if (userId === 0) notFound();
 
-  const referrer = 'users';
-
   return (
     <main className={styles.contents__main}>
       <Suspense fallback="">
-        <UsersRatingsComponent userId={userId} referrer={referrer} />
+        <UsersRatingsComponent userId={userId} />
       </Suspense>
     </main>
   );

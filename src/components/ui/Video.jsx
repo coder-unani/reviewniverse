@@ -11,13 +11,7 @@ import StarIcon from '@/resources/icons/fill-star.svg';
 import ReviewIcon from '@/resources/icons/fill-comment.svg';
 import styles from '@/styles/components/Video.module.scss';
 
-const Video = ({
-  video,
-  isClient = false,
-  isContent = false,
-  // referrer = null,
-  // referrerKey = null
-}) => {
+const Video = ({ video, isClient = false, isContent = false }) => {
   const { id, title, release, thumbnail, code_string: code, country, rating, review_count: reviewCount } = video;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
@@ -27,17 +21,7 @@ const Video = ({
   const ratingText = fRatingText(rating);
 
   return (
-    <Link
-      href={{
-        pathname,
-        // query: {
-        //   ...(referrer && { ref: referrer }),
-        //   ...(referrerKey && { ref_key: referrerKey }),
-        // },
-      }}
-      className={styles.default__video__item}
-      aria-label={title}
-    >
+    <Link href={pathname} className={styles.default__video__item} aria-label={title}>
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
           {/* isClient 플래그 값에 따라 서버/클라이언트 컴포넌트 이미지 렌더링 */}

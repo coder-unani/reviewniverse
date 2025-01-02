@@ -12,7 +12,7 @@ import InfiniteVideos from '@/components/ui/InfiniteVideos';
 import styles from '@/styles/pages/UsersContents.module.scss';
 import vvStyles from '@/styles/components/Videos.module.scss';
 
-const UsersLikes = ({ userId, referrer }) => {
+const UsersLikes = ({ userId }) => {
   const router = useRouter();
   const [videos, setVideos] = useState(null);
   const [page, setPage] = useState(1);
@@ -93,8 +93,6 @@ const UsersLikes = ({ userId, referrer }) => {
                 template={template}
                 pageSize={USER_LIKE_PAGE_SIZE}
                 handlePage={handlePage}
-                referrer={referrer}
-                referrerKey={userId}
               />
             )}
           </div>

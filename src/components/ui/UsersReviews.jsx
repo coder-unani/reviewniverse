@@ -11,7 +11,7 @@ import InfiniteReviews from '@/components/ui/InfiniteReviews';
 
 import styles from '@/styles/pages/UsersReviews.module.scss';
 
-const UsersReviews = ({ userId, referrer }) => {
+const UsersReviews = ({ userId }) => {
   const router = useRouter();
   const [reviews, setReviews] = useState(null);
   const [page, setPage] = useState(1);
@@ -90,8 +90,6 @@ const UsersReviews = ({ userId, referrer }) => {
               template={template}
               pageSize={USER_REVIEW_PAGE_SIZE}
               handlePage={handlePage}
-              referrer={referrer}
-              referrerKey={userId}
             />
           )}
         </div>

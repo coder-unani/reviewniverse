@@ -16,12 +16,7 @@ import upcomingStyles from '@/styles/components/VideoForUpcoming.module.scss';
  * - 정적 이미지 생성
  */
 
-const VideoForUpcoming = ({
-  video,
-  isClient = false,
-  // referrer = null,
-  // referrerKey = null
-}) => {
+const VideoForUpcoming = ({ video, isClient = false }) => {
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id });
   const { title } = video;
   const thumbnail = fThumbnail(video.thumbnail);
@@ -42,17 +37,7 @@ const VideoForUpcoming = ({
   const platform = fPlatformNameByCode(upcoming.platform) || '공개 예정';
 
   return (
-    <Link
-      href={{
-        pathname,
-        // query: {
-        //   ...(referrer && { ref: referrer }),
-        //   ...(referrerKey && { ref_key: referrerKey }),
-        // },
-      }}
-      className={styles.default__video__item}
-      aria-label={title}
-    >
+    <Link href={pathname} className={styles.default__video__item} aria-label={title}>
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
           {isClient ? (

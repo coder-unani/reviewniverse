@@ -20,14 +20,7 @@ import styles from '@/styles/components/Review.module.scss';
  * 2. 리뷰 클릭시 리뷰 모달 열기
  */
 
-const ReviewWithVideo = ({
-  user,
-  review,
-  isDate = true,
-  isShort = false,
-  // referrer = null,
-  // referrerKey = null
-}) => {
+const ReviewWithVideo = ({ user, review, isDate = true, isShort = false }) => {
   const [data, setData] = useState(review);
   const [isSpoiler, setIsSpoiler] = useState(review.is_spoiler);
   // TODO: data.video.id로 videoId를 받아오는 방법 찾기
@@ -58,16 +51,7 @@ const ReviewWithVideo = ({
         </button> */}
       </div>
       <div className={styles.review__video__wrapper}>
-        <Link
-          href={{
-            pathname: videoPath,
-            // query: {
-            //   ...(referrer && { ref: referrer }),
-            //   ...(referrerKey && { ref_key: referrerKey }),
-            // },
-          }}
-          className={styles.review__video__link}
-        >
+        <Link href={videoPath} className={styles.review__video__link}>
           <picture className={styles.review__thumbnail__wrapper}>
             <LazyLoadImage
               className={styles.review__thumbnail}

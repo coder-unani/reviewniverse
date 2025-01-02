@@ -9,7 +9,7 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { useVideos } from '@/hooks/useVideos';
 import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
-const Productions = ({ productionId, enabled, referrer }) => {
+const Productions = ({ productionId, enabled }) => {
   const router = useRouter();
   const [videos, setVideos] = useState({});
   const [page, setPage] = useState(2);
@@ -73,15 +73,7 @@ const Productions = ({ productionId, enabled, referrer }) => {
   // 제작사 데이터가 없는 경우
   if (isEmpty(videos)) return null;
 
-  return (
-    <InfiniteVideos
-      videos={videos}
-      pageSize={PRODUCTIONS_PAGE_SIZE}
-      handlePage={handlePage}
-      referrer={referrer}
-      referrerKey={productionId}
-    />
-  );
+  return <InfiniteVideos videos={videos} pageSize={PRODUCTIONS_PAGE_SIZE} handlePage={handlePage} />;
 };
 
 export default Productions;

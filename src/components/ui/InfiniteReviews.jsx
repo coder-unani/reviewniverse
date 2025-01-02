@@ -5,29 +5,21 @@ import Review from '@/components/ui/Review';
 import ReviewWithVideo from '@/components/ui/ReviewWithVideo';
 
 // 템플릿에 따른 리뷰 아이템 렌더링
-const RenderReviewItems = ({ videoId, user, review, template, referrer, referrerKey }) => {
+const RenderReviewItems = ({ videoId, user, review, template }) => {
   switch (template) {
     case 'video':
       // 커밍순 아이템 렌더링
-      return <ReviewWithVideo user={user} review={review} referrer={referrer} referrerKey={referrerKey} />;
+      return <ReviewWithVideo user={user} review={review} />;
     case 'default':
       // 기본 리뷰 아이템 렌더링
-      return <Review videoId={videoId} review={review} referrer={referrer} referrerKey={referrerKey} />;
+      return <Review videoId={videoId} review={review} />;
     default:
       // 기본 리뷰 아이템 렌더링
-      return <Review videoId={videoId} review={review} referrer={referrer} referrerKey={referrerKey} />;
+      return <Review videoId={videoId} review={review} />;
   }
 };
 
-const InfiniteReviews = ({
-  videoId = null,
-  reviews,
-  template = 'default',
-  pageSize,
-  handlePage,
-  referrer = null,
-  referrerKey = null,
-}) => {
+const InfiniteReviews = ({ videoId = null, reviews, template = 'default', pageSize, handlePage }) => {
   const hasMore = reviews.count === pageSize;
   const observer = useRef();
 
@@ -62,8 +54,6 @@ const InfiniteReviews = ({
           user={review.user || reviews.user}
           review={review}
           template={template}
-          referrer={referrer}
-          referrerKey={referrerKey}
           key={review.id}
         />
       ))}

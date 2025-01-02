@@ -9,7 +9,7 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { useReviews } from '@/hooks/useReviews';
 import InfiniteReviews from '@/components/ui/InfiniteReviews';
 
-const Reviews = ({ enabled, referrer, referrerKey }) => {
+const Reviews = ({ enabled }) => {
   const router = useRouter();
   const [reviews, setReviews] = useState({});
   const [page, setPage] = useState(2);
@@ -70,16 +70,7 @@ const Reviews = ({ enabled, referrer, referrerKey }) => {
   // 리뷰 데이터가 없는 경우
   if (isEmpty(reviews)) return null;
 
-  return (
-    <InfiniteReviews
-      reviews={reviews}
-      template={template}
-      pageSize={REVIEWS_PAGE_SIZE}
-      handlePage={handlePage}
-      referrer={referrer}
-      referrerKey={referrerKey}
-    />
-  );
+  return <InfiniteReviews reviews={reviews} template={template} pageSize={REVIEWS_PAGE_SIZE} handlePage={handlePage} />;
 };
 
 export default Reviews;

@@ -64,7 +64,13 @@ const RenderSearchDropdown = ({
         <ul className={styles.search__list}>
           {recentKeywords.map((keyword, index) => (
             <li className={styles.search__item} key={index}>
-              <Link href={`${ENDPOINTS.SEARCH}/${keyword}`} className={styles.search__link}>
+              <Link
+                href={{
+                  pathname: ENDPOINTS.SEARCH,
+                  query: { query: keyword },
+                }}
+                className={styles.search__link}
+              >
                 <SearchIcon className={styles.search__icon} width={24} height={24} />
                 <p className={styles.search__keyword}>{keyword}</p>
               </Link>
@@ -172,8 +178,7 @@ const SearchForm = () => {
     if (!inputValue || !inputValue.trim()) return;
     handleSearchDropdownClose();
     saveRecentKeywords(inputValue);
-    const path = `${ENDPOINTS.SEARCH}/${encodeURIComponent(inputValue)}`;
-    router.push(path);
+    router.push(`${ENDPOINTS.SEARCH}?query=${encodeURIComponent(inputValue)}`);
   };
 
   useEffect(() => {

@@ -288,7 +288,6 @@ const Contents = async ({ params }) => {
     relatedContent.staff = result.staff;
   }
 
-  const referrer = 'contents';
   const contentTemplate = 'content';
   const subInfoUniqueId = nanoid();
   // const backgroundImageUrl = fBackgroundImageForContent(content.thumbnail);
@@ -632,12 +631,7 @@ const Contents = async ({ params }) => {
 
           {/* 관련 콘텐츠 */}
           {!isEmpty(seriesContents) && (
-            <VideosSwiperForContent
-              videos={seriesContents}
-              template={contentTemplate}
-              referrer={`${referrer}-series`}
-              referrerKey={videoId}
-            >
+            <VideosSwiperForContent videos={seriesContents} template={contentTemplate}>
               <div className={styles.detail__main__title__wrapper}>
                 <h4 className={styles.detail__main__title}>{seriesTitle}</h4>
                 {/* 더보기: 추후 예정 */}
@@ -653,12 +647,7 @@ const Contents = async ({ params }) => {
 
           {/* 비슷한 콘텐츠 */}
           {!isEmpty(similarContents) && (
-            <VideosSwiperForContent
-              videos={similarContents}
-              template={contentTemplate}
-              referrer={`${referrer}-similar`}
-              referrerKey={videoId}
-            >
+            <VideosSwiperForContent videos={similarContents} template={contentTemplate}>
               <div className={styles.detail__main__title__wrapper}>
                 <h4 className={styles.detail__main__title}>{similarTitle}</h4>
                 {/* 더보기: 추후 예정 */}
@@ -674,12 +663,7 @@ const Contents = async ({ params }) => {
 
           {/* 배우/감독 작품 */}
           {!isEmpty(randomContent) && (
-            <VideosSwiperForContent
-              videos={randomContent.data}
-              template={contentTemplate}
-              referrer={`${referrer}-${randomContent.type}`}
-              referrerKey={videoId}
-            >
+            <VideosSwiperForContent videos={randomContent.data} template={contentTemplate}>
               <div className={styles.detail__main__title__wrapper}>
                 <h4 className={styles.detail__main__title}>
                   {randomContent.name} {randomContent.type === 'actor' ? '출연' : '연출'} 작품

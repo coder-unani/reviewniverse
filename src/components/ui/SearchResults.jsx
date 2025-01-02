@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { isEmpty } from 'lodash';
 
@@ -20,8 +20,11 @@ import vvStyles from '@/styles/components/Videos.module.scss';
  * - videos skeleton ui 추가
  */
 
-const SearchResults = ({ query, referrer }) => {
+const SearchResults = () => {
   const router = useRouter();
+  // 검색 쿼리 파라미터 가져오기
+  const param = useSearchParams();
+  const query = param.get('query') || null;
   // URI 인코딩된 한글 쿼리를 디코딩
   const decodeQuery = decodeURIComponent(query);
   const [page, setPage] = useState(1);
@@ -39,13 +42,13 @@ const SearchResults = ({ query, referrer }) => {
   });
 
   useEffect(() => {
-    if (!decodeQuery) return;
+    if (!query || !decodeQuery) return;
     setPage(1);
     setVideos(null);
-  }, [decodeQuery]);
+  }, [query, decodeQuery]);
 
   useEffect(() => {
-    if (videosIsLoading || !videosData) return;
+    if (!query || videosIsLoading || !videosData) return;
 
     // API 호출 결과가 실패인 경우
     if (!videosData.status) {
@@ -74,7 +77,7 @@ const SearchResults = ({ query, referrer }) => {
         data: prev.data ? [...prev.data, ...newData.data] : [...newData.data],
       };
     });
-  }, [videosIsLoading, videosData, page]);
+  }, [query, videosIsLoading, videosData, page]);
 
   // 페이지 변경
   const handlePage = (newPage) => {
@@ -87,8 +90,25 @@ const SearchResults = ({ query, referrer }) => {
     return null;
   }
 
-  // 평가 데이터가 없는 경우
-  if (isEmpty(videos)) return null;
+  // 검색어 및 비디오 데이터가 없는 경우
+  if (!query || isEmpty(videos)) {
+    return query ? null : (
+      <section className={styles.search__section}>
+        <div className={styles.no__search__content}>
+          <Image
+            className={styles.no__search__image}
+            src={DEFAULT_IMAGES.searchNotFound}
+            alt="검색 결과 없음"
+            width={240}
+            height={240}
+            priority
+          />
+          <p className={styles.no__search__title}>어떤 작품을 찾으세요? 👀</p>
+          <p className={styles.no__search__subtitle}>찾고싶은 영화나 시리즈를 검색해보세요!</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.search__section}>
@@ -105,7 +125,7 @@ const SearchResults = ({ query, referrer }) => {
           <p className={styles.no__search__title}>
             &quot;<em>{decodeQuery}</em>&quot;에 대한 검색 결과가 없어요.
           </p>
-          <p className={styles.no__search__subtitle}>입력한 검색어를 다시 한번 확인해주세요.</p>
+          <p className={styles.no__search__subtitle}>찾고싶은 영화나 시리즈를 검색해보세요!</p>
           <SuggestButton query={query} total={videos.total} />
         </div>
       ) : (
@@ -115,13 +135,7 @@ const SearchResults = ({ query, referrer }) => {
           </strong>
           <section className={vvStyles.vertical__videos__section}>
             <div className={vvStyles.vertical__videos__wrapper}>
-              <InfiniteVideos
-                videos={videos}
-                pageSize={SEARCH_PAGE_SIZE}
-                handlePage={handlePage}
-                referrer={referrer}
-                referrerKey={decodeQuery}
-              />
+              <InfiniteVideos videos={videos} pageSize={SEARCH_PAGE_SIZE} handlePage={handlePage} />
             </div>
           </section>
         </>

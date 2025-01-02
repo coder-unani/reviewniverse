@@ -2,15 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchVideoMyInfo } from '@/library/api/videos';
 
-export const useVideoMyInfo = ({ videoId, userId, referrer = null, referrerKey = null }) => {
+export const useVideoMyInfo = ({ videoId, userId }) => {
   return useQuery({
     queryKey: ['videoMyInfo', { videoId, userId }],
     queryFn: async () => {
-      const res = await fetchVideoMyInfo({
-        videoId,
-        ...(referrer !== null && { referrer }),
-        ...(referrerKey !== null && { referrerKey }),
-      });
+      const res = await fetchVideoMyInfo({ videoId });
       return res.status === 200 ? res.data.data : null;
       // TODO: res.status === 400 && res.data.detail === "ACCESS_TOKEN_NOT_FOUND" 에러 처리
     },

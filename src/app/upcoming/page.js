@@ -92,8 +92,6 @@ export const generateMetadata = async () => {
 const Upcoming = async () => {
   const result = await getUpcomingVideos();
   const videos = initUpcomingVideos(result);
-  const referrer = 'upcoming';
-  const referrerKey = 'default';
   // page 1의 데이터가 size(50)보다 작으면 enabled를 false로 설정
   const enabled = videos.total > UPCOMING_PAGE_SIZE;
 
@@ -108,10 +106,10 @@ const Upcoming = async () => {
       <section className={vStyles.vertical__videos__section}>
         <div className={vStyles.vertical__videos__wrapper}>
           {videos.data.map((video) => (
-            <VideoForUpcoming video={video} referrer={referrer} referrerKey={referrerKey} key={video.id} />
+            <VideoForUpcoming video={video} key={video.id} />
           ))}
           <Suspense fallback="">
-            <UpcomingComponent enabled={enabled} referrer={referrer} referrerKey={referrerKey} />
+            <UpcomingComponent enabled={enabled} />
           </Suspense>
         </div>
       </section>

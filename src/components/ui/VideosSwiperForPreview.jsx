@@ -18,7 +18,7 @@ import StarIcon from '@/resources/icons/fill-star.svg';
 import vStyles from '@/styles/components/Video.module.scss';
 import vpStyles from '@/styles/components/VideosSwiperForPreview.module.scss';
 
-const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = null }) => {
+const VideosSwiperForPreview = async ({ videos }) => {
   if (isEmpty(videos)) return null;
 
   return (
@@ -77,13 +77,7 @@ const VideosSwiperForPreview = async ({ videos, referrer = null, referrerKey = n
                   key={video.id}
                 >
                   <Link
-                    href={{
-                      pathname: EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id }),
-                      query: {
-                        ...(referrer && { ref: referrer }),
-                        ...(referrerKey && { ref_key: referrerKey }),
-                      },
-                    }}
+                    href={EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: video.id })}
                     className={vpStyles.preview__thumbnail__link}
                     aria-label={video.title}
                     data-index={index}

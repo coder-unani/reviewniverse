@@ -10,11 +10,7 @@ import VideoImage from '@/components/ui/VideoImage';
 
 import styles from '@/styles/components/Video.module.scss';
 
-const VideoForLike = ({
-  video,
-  // referrer = null,
-  // referrerKey = null
-}) => {
+const VideoForLike = ({ video }) => {
   const { id, title, thumbnail, code, release } = video.video;
   const pathname = EndpointManager.generateUrl(ENDPOINTS.CONTENTS, { videoId: id });
   const videoThumbnail = fThumbnail(thumbnail);
@@ -22,17 +18,7 @@ const VideoForLike = ({
   const videoRelease = fYear(release);
 
   return (
-    <Link
-      href={{
-        pathname,
-        // query: {
-        //   ...(referrer && { ref: referrer }),
-        //   ...(referrerKey && { ref_key: referrerKey }),
-        // },
-      }}
-      className={styles.default__video__item}
-      aria-label={title}
-    >
+    <Link href={pathname} className={styles.default__video__item} aria-label={title}>
       <div className={styles.default__thumbnail__container}>
         <picture className={styles.default__thumbnail__wrapper}>
           <VideoImage thumbnail={videoThumbnail} title={title} />

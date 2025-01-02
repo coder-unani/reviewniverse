@@ -10,7 +10,7 @@ import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/VideosSwiper.module.scss';
 import contentStyles from '@/styles/pages/Contents.module.scss';
 
-const VideosSwiperForContent = ({ children, videos, template = 'default', referrer = null, referrerKey = null }) => {
+const VideosSwiperForContent = ({ children, videos, template = 'default' }) => {
   if (isEmpty(videos)) return null;
 
   // 고유 아이디 생성
@@ -25,7 +25,7 @@ const VideosSwiperForContent = ({ children, videos, template = 'default', referr
             <div className="swiper-wrapper">
               {videos.map((video) => (
                 <div className="swiper-slide horizontal-template--small" key={video.id}>
-                  <Video video={video} isContent referrer={referrer} referrerKey={referrerKey} />
+                  <Video video={video} isContent />
                 </div>
               ))}
             </div>

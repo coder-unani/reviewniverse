@@ -9,7 +9,7 @@ import { ENDPOINTS } from '@/config/endpoints';
 import { useUpcomingVideos } from '@/hooks/useUpcomingVideos';
 import InfiniteVideos from '@/components/ui/InfiniteVideos';
 
-const Upcoming = ({ enabled, referrer, referrerKey }) => {
+const Upcoming = ({ enabled }) => {
   const router = useRouter();
   const [videos, setVideos] = useState({});
   const [page, setPage] = useState(2);
@@ -70,16 +70,7 @@ const Upcoming = ({ enabled, referrer, referrerKey }) => {
   // 평가 데이터가 없는 경우
   if (isEmpty(videos)) return null;
 
-  return (
-    <InfiniteVideos
-      videos={videos}
-      template={template}
-      pageSize={UPCOMING_PAGE_SIZE}
-      handlePage={handlePage}
-      referrer={referrer}
-      referrerKey={referrerKey}
-    />
-  );
+  return <InfiniteVideos videos={videos} template={template} pageSize={UPCOMING_PAGE_SIZE} handlePage={handlePage} />;
 };
 
 export default Upcoming;

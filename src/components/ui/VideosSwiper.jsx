@@ -12,24 +12,24 @@ import ArrowRightIcon from '@/resources/icons/arrow-right.svg';
 import styles from '@/styles/components/VideosSwiper.module.scss';
 
 // 템플릿에 따른 비디오 아이템 렌더링
-const RenderVideoItems = ({ video, template, index, referrer, referrerKey }) => {
+const RenderVideoItems = ({ video, template, index }) => {
   switch (template) {
     case 'rank':
       // 랭킹 비디오 아이템 렌더링
-      return <VideoForRank video={video} index={index} referrer={referrer} referrerKey={referrerKey} />;
+      return <VideoForRank video={video} index={index} />;
     case 'upcoming':
       // 커밍순 아이템 렌더링
-      return <VideoForUpcoming video={video} referrer={referrer} referrerKey={referrerKey} />;
+      return <VideoForUpcoming video={video} />;
     case 'default':
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} referrer={referrer} referrerKey={referrerKey} />;
+      return <Video video={video} />;
     default:
       // 기본 비디오 아이템 렌더링
-      return <Video video={video} referrer={referrer} referrerKey={referrerKey} />;
+      return <Video video={video} />;
   }
 };
 
-const VideosSwiper = ({ children, videos, template = 'default', referrer = null, referrerKey = null }) => {
+const VideosSwiper = ({ children, videos, template = 'default' }) => {
   if (isEmpty(videos)) return null;
 
   // 고유 아이디 생성
@@ -44,13 +44,7 @@ const VideosSwiper = ({ children, videos, template = 'default', referrer = null,
             <div className="swiper-wrapper">
               {videos.map((video, index) => (
                 <div className="swiper-slide horizontal-template" key={video.id}>
-                  <RenderVideoItems
-                    video={video}
-                    template={template}
-                    index={index}
-                    referrer={referrer}
-                    referrerKey={referrerKey}
-                  />
+                  <RenderVideoItems video={video} template={template} index={index} />
                 </div>
               ))}
             </div>
