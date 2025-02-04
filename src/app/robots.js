@@ -37,7 +37,6 @@ export default function robots() {
           'kakaotalk-scrap',
           'LinkedInBot',
           'Slackbot',
-          'Pinterestbot',
           'Discordbot',
           'DuckDuckBot',
         ],
