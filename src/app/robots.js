@@ -1,22 +1,8 @@
-/**
- * User-agent: *
-Disallow: /
-
-User-agent: Googlebot
-User-agent: Googlebot-Image
-User-agent: bingbot
-User-agent: Yeti
-User-agent: facebookexternalhit
-User-agent: kakaotalk-scrap
-User-agent: Daumoa
-Allow: /
-Disallow: /users
-
-Sitemap: https://www.reviewniverse.net/sitemap/sitemap.xml
- */
 export default function robots() {
   return {
-    headers: `#DaumWebMasterTool:351ed90f31e4297438403e9d5f122f8b252dd42af87e9cb17f870c79cc1d8113:kwy3jAYGmcb5p9Ypj8ZuLQ==`,
+    headers: {
+      'Content-Type': 'text/plain',
+    },
     rules: [
       {
         userAgent: '*',
@@ -26,11 +12,33 @@ export default function robots() {
         userAgent: [
           'Googlebot',
           'Googlebot-Image',
+          'Googlebot-News',
+          'Googlebot-Video',
+          'AdsBot-Google',
+          'GoogleOther',
           'bingbot',
+          'Adidxbot',
+          'Naverbot',
           'Yeti',
+          'Daumoa',
+          'Y!J-WSC',
+          'YJ-WSC',
+          'Baiduspider',
+          'Baiduspider-mobile',
+          'Baiduspider-video',
+          'Baiduspider-image',
+          'YandexBot',
+          'YandexMobileBot',
+          'YandexVideo',
+          'YandexWebmaster',
+          'Applebot',
+          'Twitterbot',
           'facebookexternalhit',
           'kakaotalk-scrap',
-          'Daumoa',
+          'LinkedInBot',
+          'Slackbot',
+          'Pinterestbot',
+          'Discordbot',
           'DuckDuckBot',
         ],
         allow: '/',
