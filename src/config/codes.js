@@ -62,6 +62,7 @@ export const VIDEO_CODE = {
 
 export const VIDEO_PLATFORM_CODE = {
   '01': '극장',
+  '02': '극장 재개봉',
   10: '넷플릭스',
   11: '디즈니+',
   12: '티빙',
